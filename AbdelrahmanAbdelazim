@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W6RVMK3D');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&B Rénovation | Entreprise de Rénovation Île-de-France</title>
+    <meta name="description" content="Artisan de confiance en Île-de-France. Plomberie, électricité, carrelage, placo et peinture. Devis gratuit et intervention rapide.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mb-renovation.fr/">
+    <meta property="og:title" content="M&B Rénovation | Qualité & Prix Compétitifs">
+    <meta property="og:description" content="Découvrez notre expertise pour tous vos travaux d'intérieur. Un seul interlocuteur, devis gratuit sous 48h.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80">
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "M&B Rénovation",
+        "telephone": "+33753306559",
+        "priceRange": "€€",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "addressRegion": "Île-de-France",
+          "addressCountry": "FR"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Le devis et la visite technique sont-ils gratuits ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, nous nous déplaçons gratuitement sur toute l'Île-de-France pour évaluer votre projet et vous fournir un devis détaillé sans engagement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Vos travaux sont-ils couverts par une garantie ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolument. L'ensemble de nos réalisations est couvert par notre Assurance Décennale (ENTORIA) pour vous garantir une tranquillité d'esprit totale."
+            }
+          }
+        ]
+      }
+    ]
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        :root {
+            --accent-gold: #bfa276; 
+            --pure-black: #111111;
+            --soft-grey: #f9f9f9;
+            --text-body: #4a4a4a;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--white); color: var(--text-body);
+            font-family: 'Montserrat', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--pure-black); font-weight: 400; }
+        
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 8%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition);
+        }
+        nav.scrolled {
+            padding: 15px 8%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.4rem; letter-spacing: 1px; color: var(--white); text-decoration: none; font-family: 'Playfair Display', serif; font-style: italic; transition: var(--transition); }
+        nav.scrolled .logo { color: var(--pure-black); }
+        
+        .btn-luxe {
+            display: inline-block; padding: 12px 25px; background: var(--pure-black); color: var(--white);
+            text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.65rem;
+            transition: var(--transition); border: 1px solid var(--pure-black); cursor: pointer; font-weight: 600;
+        }
+        .btn-luxe:hover { background: var(--accent-gold); border-color: var(--accent-gold); transform: translateY(-3px); }
+
+        /* Side Social (Desktop) */
+        .side-social {
+            position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 1500;
+        }
+        .side-social a {
+            width: 42px; height: 42px; background: var(--white); border: 1px solid #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--pure-black); text-decoration: none; transition: var(--transition); box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 1.1rem;
+        }
+        .side-social a:hover { background: var(--accent-gold); color: var(--white); border-color: var(--accent-gold); transform: scale(1.1); }
+
+        /* Hero */
+        .hero {
+            height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        .hero-content { position: relative; z-index: 2; width: 100%; text-align: center; color: var(--white); padding: 0 8%; }
+        .hero h1 { font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1.1; margin-bottom: 25px; color: var(--white); }
+        .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); margin-bottom: 40px; color: rgba(255,255,255,0.9); max-width: 800px; margin-inline: auto; font-weight: 400;}
+
+        /* Features */
+        .commitment-section { padding: 100px 8%; background: var(--white); }
+        .sub-heading { display: block; font-size: 0.7rem; letter-spacing: 5px; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 20px; font-weight: 600; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .feature-card { padding: 30px; background: var(--white); border: 1px solid #eee; transition: var(--transition); text-align: center; }
+        .feature-card:hover { border-color: var(--accent-gold); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .feature-card i { font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 20px; }
+
+        /* Gallery */
+        .services-section { padding: 100px 8%; background: var(--soft-grey); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .gallery-item { position: relative; overflow: hidden; height: 400px; background: var(--pure-black); }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; opacity: 0.75; }
+        .gallery-item:hover .gallery-img { transform: scale(1.1); opacity: 0.85; }
+        .gallery-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
+        .gallery-overlay h3 { color: var(--white); font-size: 1.4rem; margin-bottom: 5px; }
+        .gallery-overlay p { color: var(--accent-gold); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* FAQ Section */
+        .faq-section { padding: 80px 8% 100px; background: var(--pure-black); color: var(--white); text-align: center; }
+        .faq-container { max-width: 800px; margin: 40px auto 0; text-align: left; }
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .faq-item h4 { color: var(--accent-gold); font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin-bottom: 10px; font-weight: 500; }
+        .faq-item p { color: #ccc; font-size: 0.95rem; }
+
+        /* Footer */
+        footer { background: var(--white); color: var(--pure-black); padding: 80px 8% 40px; border-top: 1px solid #eee; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; margin-bottom: 50px; }
+        .f-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic; margin-bottom: 20px; display: block; color: var(--pure-black); text-decoration: none;}
+        .footer-social { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
+        .footer-social a { 
+            color: var(--pure-black); font-size: 1.1rem; transition: var(--transition); 
+            border: 1px solid #ddd; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 5px; text-decoration: none;
+        }
+        .footer-social a:hover { color: var(--white); background: var(--accent-gold); border-color: var(--accent-gold); }
+        .footer-links h4 { color: var(--accent-gold); margin-bottom: 25px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; }
+        .footer-links p { color: #666; font-size: 0.85rem; margin-bottom: 12px; }
+        .footer-bottom { border-top: 1px solid #eee; padding-top: 30px; display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Floating Button */
+        .floating-quote-btn {
+            position: fixed; bottom: 30px; right: 30px; background: var(--accent-gold); color: var(--pure-black);
+            padding: 15px 25px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(191, 162, 118, 0.4); z-index: 2000; text-transform: uppercase; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 10px; transition: var(--transition); animation: pulse-gold 2s infinite;
+        }
+        .floating-quote-btn:hover { background: var(--pure-black); color: var(--white); transform: translateY(-5px); animation: none; }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(191, 162, 118, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0); }
+        }
+
+        /* Modal & Form Styles */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content { background: var(--white); padding: 40px; width: 90%; max-width: 450px; text-align: center; position: relative; animation: modalIn 0.4s ease; border-radius: 8px;}
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: var(--pure-black); }
+        
+        .contact-options-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .contact-link-sm { flex: 1; min-width: 120px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid #eee; border-radius: 5px; text-decoration: none; color: var(--pure-black); font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
+        .contact-link-sm:hover { background: var(--soft-grey); border-color: var(--accent-gold); }
+        
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
+        .divider::before { margin-right: .5em; }
+        .divider::after { margin-left: .5em; }
+
+        .quote-form { display: flex; flex-direction: column; gap: 15px; text-align: left; }
+        .quote-form input, .quote-form textarea { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; transition: var(--transition); }
+        .quote-form input:focus, .quote-form textarea:focus { border-color: var(--accent-gold); outline: none; box-shadow: 0 0 5px rgba(191, 162, 118, 0.3); }
+
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; background: rgba(255, 255, 255, 0.98); }
+            .logo { color: var(--pure-black); font-size: 1.2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .side-social { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .floating-quote-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.8rem; }
+            .modal-content { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6RVMK3D"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="side-social">
+        <a href="https://www.facebook.com/share/1BsGqHwAq9/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://maps.app.goo.gl/WdF1X1EtS4USxvwE6?g_st=ic" target="_blank" title="Google Avis"><i class="fab fa-google"></i></a>
+        <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Houzz"><i class="fab fa-houzz"></i></a>
+        <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+    </div>
+
+    <div class="floating-quote-btn" onclick="openModal()">
+        <i class="fas fa-file-invoice"></i> Devis Gratuit
+    </div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">M&B Rénovation</a>
+        <div class="nav-actions">
+            </div>
+    </nav>
+
+    <div class="modal-overlay" id="contactModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h3 style="font-size: 1.6rem;">Demandez votre devis</h3>
+            <p style="margin-top:5px; font-size: 0.85rem; color: #666;">Réponse rapide en Île-de-France.</p>
+            
+            <div class="contact-options-row">
+                <a href="https://wa.me/33753306559" target="_blank" class="contact-link-sm" style="color:#25D366; border-color: rgba(37, 211, 102, 0.3);">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp
+                </a>
+                <a href="tel:+33753306559" class="contact-link-sm">
+                    <i class="fas fa-phone" style="color: var(--accent-gold);"></i> Appeler
+                </a>
+                <a href="mailto:abd0_77@yahoo.com" class="contact-link-sm">
+                    <i class="fas fa-envelope" style="color: var(--pure-black);"></i> E-mail
+                </a>
+            </div>
+
+            <div class="divider">Ou laissez vos coordonnées</div>
+
+            <form id="leadForm" class="quote-form" onsubmit="sendFormToWhatsApp(event)">
+                <input type="text" id="form-nom" placeholder="Votre Nom complet" required>
+                <input type="tel" id="form-tel" placeholder="Votre Numéro de téléphone" required>
+                <textarea id="form-projet" placeholder="Décrivez brièvement votre projet..." rows="3" required></textarea>
+                <button type="submit" class="btn-luxe" style="width: 100%; border-radius: 5px; padding: 14px;">Envoyer ma demande</button>
+            </form>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="sub-heading">Artisan de Confiance • Île-de-France</span>
+            <h1 data-aos="fade-up">Rénovation d'Excellence <br>au Juste Prix.</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Plomberie, électricité, menuiserie, carrelage et peinture. Transformez vos espaces avec une rigueur absolue et sans frais cachés.</p>
+            <div data-aos="fade-up" data-aos-delay="400">
+                <a href="javascript:void(0)" onclick="openModal()" class="btn-luxe">Obtenir mon devis gratuit</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="commitment-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <span class="sub-heading">Pourquoi M&B Rénovation ?</span>
+            <h2>Votre sérénité, notre priorité</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <i class="fas fa-check-circle"></i>
+                <h4>Tous Corps d'État</h4>
+                <p>Un seul interlocuteur pour gérer l'intégralité de votre chantier de A à Z.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-tags"></i>
+                <h4>Prix Compétitifs</h4>
+                <p>Des tarifs clairs, détaillés et très compétitifs sur le marché parisien.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Garantie Décennale</h4>
+                <p>Tous nos travaux sont protégés par notre assurance ENTORIA.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <span class="sub-heading">Savoir-Faire</span>
+            <h2>Nos Domaines d'Intervention</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Plomberie">
+                <div class="gallery-overlay"><p>Plomberie</p><h3>Salles de bains</h3></div>
+            </div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Carrelage">
+                <div class="gallery-overlay"><p>Revêtements</p><h3>Carrelage & Parquets</h3></div>
+            </div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Électricité">
+                <div class="gallery-overlay"><p>Normes</p><h3>Électricité & VMC</h3></div>
+            </div>
+            <div class="gallery-item" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Peinture">
+                <div class="gallery-overlay"><p>Finitions</p><h3>Peinture & Placo</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <span class="sub-heading">Vos questions</span>
+        <h2 style="color: var(--white);">Foire Aux Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item" data-aos="fade-up">
+                <h4>Le devis et la visite technique sont-ils gratuits ?</h4>
+                <p>Oui, nous nous déplaçons gratuitement sur toute l'Île-de-France pour évaluer votre projet et vous fournir un devis détaillé sans aucun engagement de votre part.</p>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <h4>Vos travaux sont-ils couverts par une garantie ?</h4>
+                <p>Absolument. L'ensemble de nos réalisations est couvert par notre Assurance Décennale (ENTORIA) pour vous garantir une tranquillité d'esprit totale pendant 10 ans.</p>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <h4>Faites-vous tous les types de travaux ?</h4>
+                <p>Oui, nous sommes une entreprise "tous corps d'état". Cela signifie que nous gérons la plomberie, l'électricité, la menuiserie, le carrelage, la peinture, etc. Vous n'aurez qu'un seul interlocuteur.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <a href="#" class="f-logo">M&B Rénovation.</a>
+                <p style="color: #666; font-size: 0.9rem; line-height: 1.6; max-width: 300px;">Artisan de confiance pour tous vos travaux d'aménagement et de rénovation en Île-de-France.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/share/1BsGqHwAq9/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://maps.app.goo.gl/WdF1X1EtS4USxvwE6?g_st=ic" target="_blank" title="Google Avis"><i class="fab fa-google"></i></a>
+                    <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Houzz"><i class="fab fa-houzz"></i></a>
+                    <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Informations Légales</h4>
+                <p>SIRET : 923 102 412 00015</p>
+                <p>Assurance Décennale ENTORIA</p>
+                <p>Secteur : Paris & Île-de-France</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 M&B Rénovation.</p>
+            <div><span>Haute Qualité</span> • <span>Prix Compétitifs</span></div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => { 
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Modal functions
+        function openModal() { document.getElementById('contactModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('contactModal').style.display = 'none'; }
+
+        // Form Submit to WhatsApp Function
+        function sendFormToWhatsApp(event) {
+            event.preventDefault(); 
+            
+            const nom = document.getElementById('form-nom').value;
+            const tel = document.getElementById('form-tel').value;
+            const projet = document.getElementById('form-projet').value;
+            
+            const message = `Bonjour M&B Rénovation,%0A%0AJe souhaite demander un devis.%0A%0A*Nom :* ${nom}%0A*Téléphone :* ${tel}%0A*Détails du projet :* ${projet}`;
+            
+            const whatsappUrl = `https://wa.me/33753306559?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            closeModal();
+            document.getElementById('leadForm').reset();
+        }
+    </script>
+</body>
+</html>
