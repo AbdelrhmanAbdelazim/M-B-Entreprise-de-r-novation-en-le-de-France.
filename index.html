@@ -11,59 +11,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>M&B Rénovation | Entreprise de Rénovation en Île-de-France | Toute la région</title>
-    <meta name="description" content="Artisan de confiance intervenant dans toute l'Île-de-France. Plomberie, électricité, carrelage et peinture. Garantie décennale ENTORIA, devis gratuit تحت 48h.">
+    <title>M&B Rénovation | Entreprise de Rénovation Complète en Île-de-France</title>
+    <meta name="description" content="Expert en rénovation complète en Île-de-France : plomberie, électricité, VMC, menuiserie (fenêtres, portes), carrelage, peinture et Placo. Garantie décennale ENTORIA.">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.maison-mb.fr/">
-    <meta property="og:title" content="M&B Rénovation | Travaux de Rénovation Île-de-France">
-    <meta property="og:description" content="Découvrez notre expertise pour la rénovation de votre appartement ou maison partout en Île-de-France. Un seul interlocuteur.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:title" content="M&B Rénovation | Rénovation Complète Île-de-France">
+    <meta property="og:description" content="Spécialiste de la rénovation intérieure tous corps d'état en Île-de-France. Un seul interlocuteur pour des travaux soignés et garantis.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6191da95b0?auto=format&fit=crop&w=1200&q=80">
 
     <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
-        "name": "M&B Rénovation",
-        "telephone": "+33753306559",
-        "priceRange": "€€",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "6 place Henri Frenay",
-          "addressLocality": "Paris",
-          "postalCode": "75012",
-          "addressRegion": "Île-de-France",
-          "addressCountry": "FR"
-        },
-        "areaServed": {
-          "@type": "AdministrativeArea",
-          "name": "Île-de-France"
-        }
+    {
+      "@context": "https://schema.org",
+      "@type": "GeneralContractor",
+      "name": "M&B Rénovation",
+      "telephone": "+33753306559",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6 place Henri Frenay",
+        "addressLocality": "Paris",
+        "postalCode": "75012",
+        "addressRegion": "Île-de-France",
+        "addressCountry": "FR"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Intervenez-vous dans toute l'Île-de-France ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Oui, nous nous déplaçons gratuitement dans toute la région pour évaluer votre projet."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Vos travaux sont-ils couverts par une garantie ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolument. L'ensemble de nos réalisations est couvert par notre Assurance Décennale (ENTORIA)."
-            }
-          }
-        ]
+      "areaServed": { "@type": "AdministrativeArea", "name": "Île-de-France" },
+      "openingHours": "Mo-Sa 08:00-18:00",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "25"
       }
-    ]
+    }
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +71,6 @@
 
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--pure-black); font-weight: 400; }
         
-        /* Navigation */
         nav {
             position: fixed; top: 0; width: 100%; padding: 25px 8%;
             display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition);
@@ -110,7 +88,6 @@
         }
         .btn-luxe:hover { background: var(--accent-gold); border-color: var(--accent-gold); transform: translateY(-3px); }
 
-        /* Side Social (Desktop) */
         .side-social {
             position: fixed; left: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 1500;
         }
@@ -120,16 +97,15 @@
         }
         .side-social a:hover { background: var(--accent-gold); color: var(--white); border-color: var(--accent-gold); transform: scale(1.1); }
 
-        /* Hero */
         .hero {
             height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600585154340-be6191da95b0?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
         }
         .hero-content { position: relative; z-index: 2; width: 100%; text-align: center; color: var(--white); padding: 0 8%; }
-        .hero h1 { font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1.1; margin-bottom: 25px; color: var(--white); }
-        .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); margin-bottom: 40px; color: rgba(255,255,255,0.9); max-width: 800px; margin-inline: auto; font-weight: 400;}
+        /* تعديل بسيط هنا لزيادة المسافة تحت العنوان بعد حذف النص */
+        .hero h1 { font-size: clamp(2rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 40px; color: var(--white); }
+        .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); margin-bottom: 40px; color: rgba(255,255,255,0.9); max-width: 850px; margin-inline: auto; font-weight: 400;}
 
-        /* Features */
         .commitment-section { padding: 100px 8%; background: var(--white); }
         .sub-heading { display: block; font-size: 0.7rem; letter-spacing: 5px; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 20px; font-weight: 600; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
@@ -137,24 +113,21 @@
         .feature-card:hover { border-color: var(--accent-gold); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
         .feature-card i { font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 20px; }
 
-        /* Gallery */
         .services-section { padding: 100px 8%; background: var(--soft-grey); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .gallery-item { position: relative; overflow: hidden; height: 400px; background: var(--pure-black); }
-        .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; opacity: 0.75; }
-        .gallery-item:hover .gallery-img { transform: scale(1.1); opacity: 0.85; }
-        .gallery-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
-        .gallery-overlay h3 { color: var(--white); font-size: 1.4rem; margin-bottom: 5px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .gallery-item { position: relative; overflow: hidden; height: 380px; background: var(--pure-black); }
+        .gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; opacity: 0.8; }
+        .gallery-item:hover .gallery-img { transform: scale(1.1); opacity: 0.9; }
+        .gallery-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); }
+        .gallery-overlay h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 5px; }
         .gallery-overlay p { color: var(--accent-gold); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* FAQ Section */
         .faq-section { padding: 80px 8% 100px; background: var(--pure-black); color: var(--white); text-align: center; }
         .faq-container { max-width: 800px; margin: 40px auto 0; text-align: left; }
         .faq-item { margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
         .faq-item h4 { color: var(--accent-gold); font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin-bottom: 10px; font-weight: 500; }
         .faq-item p { color: #ccc; font-size: 0.95rem; }
 
-        /* Footer */
         footer { background: var(--white); color: var(--pure-black); padding: 80px 8% 40px; border-top: 1px solid #eee; }
         .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; margin-bottom: 50px; }
         .f-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic; margin-bottom: 20px; display: block; color: var(--pure-black); text-decoration: none;}
@@ -168,7 +141,6 @@
         .footer-links p { color: #666; font-size: 0.85rem; margin-bottom: 12px; }
         .footer-bottom { border-top: 1px solid #eee; padding-top: 30px; display: flex; justify-content: space-between; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Floating Button */
         .floating-quote-btn {
             position: fixed; bottom: 30px; right: 30px; background: var(--accent-gold); color: var(--pure-black);
             padding: 15px 25px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
@@ -176,13 +148,8 @@
             display: flex; align-items: center; gap: 10px; transition: var(--transition); animation: pulse-gold 2s infinite;
         }
         .floating-quote-btn:hover { background: var(--pure-black); color: var(--white); transform: translateY(-5px); animation: none; }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(191, 162, 118, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0); }
-        }
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(191, 162, 118, 0); } 100% { box-shadow: 0 0 0 0 rgba(191, 162, 118, 0); } }
 
-        /* Modal & Form Styles */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background: var(--white); padding: 40px; width: 90%; max-width: 450px; text-align: center; position: relative; animation: modalIn 0.4s ease; border-radius: 8px;}
         @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -209,6 +176,7 @@
             .hero h1 { font-size: 2.2rem; }
             .floating-quote-btn { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.8rem; }
             .modal-content { padding: 30px 20px; }
+            .gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -220,9 +188,7 @@
         <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        
-        <a href="https://www.google.com/search?q=M%26B+Rénovation+6+place+Henri+Frenay+75012+Paris" target="_blank" title="Notre page Google"><i class="fab fa-google"></i></a>
-        
+        <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" title="Laissez-nous un avis"><i class="fab fa-google"></i></a>
         <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Houzz"><i class="fab fa-houzz"></i></a>
         <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
     </div>
@@ -268,9 +234,7 @@
     <section class="hero">
         <div class="hero-content">
             <span class="sub-heading">Artisan de Confiance • Toute l'Île-de-France</span>
-            
-            <h1 data-aos="fade-up">Rénovation d'Excellence <br>au Juste Prix.</h1>
-            <p data-aos="fade-up" data-aos-delay="200">Spécialiste de la rénovation intérieure dans toute la région. Plomberie, électricité, menuiserية، carrelage et peinture. Interventions rapides avec rigueur absolue et garantie décennale.</p>
+            <h1 data-aos="fade-up">Rénovation Complète <br>en Île-de-France.</h1>
             
             <div data-aos="fade-up" data-aos-delay="400">
                 <a href="javascript:void(0)" onclick="openModal()" class="btn-luxe">Obtenir mon devis gratuit</a>
@@ -309,20 +273,24 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item" data-aos="fade-up">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Rénovation salle de bain Île-de-France">
-                <div class="gallery-overlay"><p>Plomberie</p><h3>Salles de bains</h3></div>
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Salle de bain moderne">
+                <div class="gallery-overlay"><p>Plomberie</p><h3>Salles de bains Modernes</h3></div>
             </div>
             <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Pose carrelage et revêtements région parisienne">
-                <div class="gallery-overlay"><p>Revêtements</p><h3>Carrelage & Parquets</h3></div>
+                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Électricité et VMC">
+                <div class="gallery-overlay"><p>Normes & Air</p><h3>Électricité & VMC</h3></div>
             </div>
             <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Installation électrique et contrôle VMC">
-                <div class="gallery-overlay"><p>Normes</p><h3>Électricité & VMC</h3></div>
+                <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Menuiserie fenêtres et portes">
+                <div class="gallery-overlay"><p>Fenêtres & Portes</p><h3>Menuiserie PVC & Bois</h3></div>
             </div>
             <div class="gallery-item" data-aos="fade-up">
-                <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Peinture et Placo en Île-de-France">
-                <div class="gallery-overlay"><p>Finitions</p><h3>Peinture & Placo</h3></div>
+                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Carrelage et revêtements">
+                <div class="gallery-overlay"><p>Sols & Murs</p><h3>Carrelage & Parquets</h3></div>
+            </div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80" loading="lazy" class="gallery-img" alt="Travaux de peinture et placo finition">
+                <div class="gallery-overlay"><p>Finitions & Isolation</p><h3>Peinture & Placo</h3></div>
             </div>
         </div>
     </section>
@@ -333,15 +301,15 @@
         <div class="faq-container">
             <div class="faq-item" data-aos="fade-up">
                 <h4>Le devis et la visite technique sont-ils gratuits ?</h4>
-                <p>Oui, nous nous déplaçons gratuitement sur toute l'Île-de-France pour évaluer votre projet et vous fournir un devis détaillé بدون التزام.</p>
+                <p>Oui, nous nous déplaçons gratuitement sur toute l'Île-de-France pour évaluer votre projet et vous fournir un devis détaillé sans aucun engagement.</p>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
                 <h4>Vos travaux sont-ils couverts par une garantie ?</h4>
-                <p>Absolument. L'ensemble de nos réalisations est couvert par notre Assurance Décennale (ENTORIA) pour ضمان راحة البال الكاملة.</p>
+                <p>Absolument. L'ensemble de nos réalisations est couvert par notre Assurance Décennale (ENTORIA) pour une tranquillité d'esprit totale.</p>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
                 <h4>Où intervenez-vous exactement ?</h4>
-                <p>Nous couvrons l'intégralité de la région Île-de-France (75, 77, 78, 91, 92, 93, 94, 95) لكافة أعمال التجديد.</p>
+                <p>Nous couvrons l'intégralité de la région Île-de-France (75, 77, 78, 91, 92, 93, 94, 95) pour tous vos projets de rénovation.</p>
             </div>
         </div>
     </section>
@@ -355,9 +323,7 @@
                     <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    
-                    <a href="https://www.google.com/search?q=M%26B+Rénovation+6+place+Henri+Frenay+75012+Paris" target="_blank" title="Notre page Google"><i class="fab fa-google"></i></a>
-                    
+                    <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" title="Laissez-nous un avis"><i class="fab fa-google"></i></a>
                     <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Houzz"><i class="fab fa-houzz"></i></a>
                     <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
                 </div>
