@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-W6RVMK3D');</script>
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#0F1720">
     
     <title>M&B Rénovation | Entreprise de Rénovation Complète en Île-de-France</title>
@@ -46,6 +40,13 @@
     }
     </script>
 
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W6RVMK3D');</script>
+
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -71,6 +72,8 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { background-color: var(--ivory); color: var(--text-dark); font-family: 'Inter', sans-serif; font-weight: 400; line-height: 1.65; overflow-x: hidden; min-height: 100vh; }
+        
+        img { max-width: 100%; height: auto; display: block; }
         
         h1, h2, h3, h4, h5, h6 { font-family: 'Cormorant Garamond', serif; color: var(--noir); font-weight: 500; line-height: 1.2; letter-spacing: -0.5px; }
         h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); }
@@ -223,6 +226,21 @@
         .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 40px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #6B6460; text-transform: uppercase; letter-spacing: 1px; max-width: 1300px; margin-left: auto; margin-right: auto; gap: 20px; }
         .footer-bottom p { color: #6B6460; margin: 0; }
 
+        .form-error { color: #d32f2f; font-size: 0.85rem; margin-top: 5px; display: none; }
+        .form-error.show { display: block; }
+
+        input.error, textarea.error { border-color: #d32f2f !important; background-color: #ffebee !important; }
+        input:focus.error, textarea:focus.error { box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1) !important; }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+
         @media (max-width: 1024px) {
             section { padding: 100px 5%; }
             .service-block { grid-template-columns: 1fr; gap: 40px; }
@@ -266,15 +284,31 @@
     </style>
 </head>
 <body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6RVMK3D" height="0" width="0" style="display:none;visibility:hidden" aria-hidden="true"></iframe></noscript>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W6RVMK3D" 
+                height="0" width="0" style="display:none;visibility:hidden" 
+                aria-hidden="true" role="presentation"></iframe>
+    </noscript>
 
     <div class="side-social" role="navigation" aria-label="Réseaux sociaux">
-        <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" title="Suivez-nous sur Facebook" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-        <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Suivez-nous sur Instagram" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="Connectez-vous sur LinkedIn" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-        <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" title="Laissez-nous un avis Google" rel="noopener noreferrer" aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i></a>
-        <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Consultez-nous sur Houzz" rel="noopener noreferrer" aria-label="Houzz"><i class="fab fa-houzz" aria-hidden="true"></i></a>
-        <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Découvrez nos projets sur Pinterest" rel="noopener noreferrer" aria-label="Pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+        <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" 
+           title="Suivez-nous sur Facebook" rel="noopener noreferrer" 
+           aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/abdelrhman.08" target="_blank" 
+           title="Suivez-nous sur Instagram" rel="noopener noreferrer" 
+           aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" 
+           title="Connectez-vous sur LinkedIn" rel="noopener noreferrer" 
+           aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" 
+           title="Laissez-nous un avis Google" rel="noopener noreferrer" 
+           aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i></a>
+        <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" 
+           title="Consultez-nous sur Houzz" rel="noopener noreferrer" 
+           aria-label="Houzz"><i class="fab fa-houzz" aria-hidden="true"></i></a>
+        <a href="https://pin.it/6WHDNJlqj" target="_blank" 
+           title="Découvrez nos projets sur Pinterest" rel="noopener noreferrer" 
+           aria-label="Pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
     </div>
 
     <button class="floating-quote-btn" onclick="openModal()" aria-label="Demander un devis gratuit">
@@ -290,14 +324,16 @@
         </div>
     </nav>
 
-    <div class="modal-overlay" id="contactModal" onclick="closeModal(event)" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal-overlay" id="contactModal" onclick="closeModal(event)" 
+         role="dialog" aria-labelledby="modalTitle" aria-modal="true">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()" aria-label="Fermer la fenêtre">×</button>
             <h3 id="modalTitle">Demandez votre devis</h3>
             <p>Réponse rapide en Île-de-France.</p>
 
             <div class="contact-options-row">
-                <a href="https://wa.me/33753306559" target="_blank" class="contact-link-sm" rel="noopener noreferrer" aria-label="Nous contacter via WhatsApp">
+                <a href="https://wa.me/33753306559" target="_blank" class="contact-link-sm" 
+                   rel="noopener noreferrer" aria-label="Nous contacter via WhatsApp">
                     <i class="fab fa-whatsapp" style="color: #25D366;" aria-hidden="true"></i> WhatsApp
                 </a>
                 <a href="tel:+33753306559" class="contact-link-sm" aria-label="Nous appeler">
@@ -310,17 +346,36 @@
 
             <div class="divider" aria-hidden="true">Ou laissez vos coordonnées</div>
 
-            <form id="leadForm" class="quote-form" onsubmit="sendFormToWhatsApp(event)" novalidate>
-                <input type="text" id="form-nom" placeholder="Votre Nom complet" required aria-label="Votre nom complet">
-                <input type="tel" id="form-tel" placeholder="Votre Numéro de téléphone" required aria-label="Votre numéro de téléphone">
-                <textarea id="form-projet" placeholder="Décrivez brièvement votre projet..." rows="3" required aria-label="Description de votre projet"></textarea>
+            <form id="leadForm" class="quote-form" onsubmit="handleFormSubmit(event)" novalidate>
+                <div>
+                    <input type="text" id="form-nom" placeholder="Votre Nom complet" 
+                           required aria-label="Votre nom complet" aria-describedby="nom-error">
+                    <div class="form-error" id="nom-error">Le nom est requis</div>
+                </div>
+                
+                <div>
+                    <input type="tel" id="form-tel" placeholder="Votre Numéro de téléphone" 
+                           required aria-label="Votre numéro de téléphone" aria-describedby="tel-error">
+                    <div class="form-error" id="tel-error">Le numéro de téléphone est invalide</div>
+                </div>
+                
+                <div>
+                    <textarea id="form-projet" placeholder="Décrivez brièvement votre projet..." 
+                              rows="3" required aria-label="Description de votre projet" 
+                              aria-describedby="projet-error"></textarea>
+                    <div class="form-error" id="projet-error">La description du projet est requise</div>
+                </div>
+                
                 <button type="submit">Envoyer ma demande</button>
             </form>
         </div>
     </div>
 
     <section class="hero" role="region" aria-label="Bannière d'accueil">
-        <video class="hero-video" autoplay muted loop playsinline disablePictureInPicture poster="https://images.unsplash.com/photo-1600585154340-be6191da95b0?auto=format&fit=crop&w=1920&q=80" aria-hidden="true">
+        <video class="hero-video" autoplay muted loop playsinline 
+               preload="none" disablePictureInPicture 
+               poster="https://images.unsplash.com/photo-1600585154340-be6191da95b0?auto=format&fit=crop&w=1920&q=80" 
+               aria-hidden="true">
             <source src="https://cdn.coverr.co/videos/coverr-interior-design-office-space-3686/1080p.mp4" type="video/mp4">
         </video>
         <div class="hero-fallback" aria-hidden="true"></div>
@@ -337,7 +392,8 @@
             </div>
         </div>
 
-        <div class="scroll-indicator" onclick="scrollToNextSection()" role="button" tabindex="0" aria-label="Faire défiler vers le bas">
+        <div class="scroll-indicator" onclick="scrollToNextSection()" 
+             role="button" tabindex="0" aria-label="Faire défiler vers le bas">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path d="M12 2v20M19 15l-7 7-7-7"/>
             </svg>
@@ -380,7 +436,8 @@
         <div class="services-grid">
             <div class="service-block" data-aos="fade-up">
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&h=600&q=80" loading="lazy" alt="Plomberie - Salles de bains modernes">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&h=600&q=80" 
+                         loading="lazy" alt="Plomberie - Salles de bains modernes" decoding="async">
                 </div>
                 <div class="service-content">
                     <span class="service-tag">Plomberie</span>
@@ -391,7 +448,8 @@
 
             <div class="service-block" data-aos="fade-up" data-aos-delay="100">
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=800&h=600&q=80" loading="lazy" alt="Électricité et VMC">
+                    <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=800&h=600&q=80" 
+                         loading="lazy" alt="Électricité et VMC" decoding="async">
                 </div>
                 <div class="service-content">
                     <span class="service-tag">Normes & Air</span>
@@ -402,7 +460,8 @@
 
             <div class="service-block" data-aos="fade-up" data-aos-delay="200">
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1533905917307-b53d3c46b1b4?auto=format&fit=crop&w=800&h=600&q=80" loading="lazy" alt="Menuiserie fenêtres et portes">
+                    <img src="https://images.unsplash.com/photo-1533905917307-b53d3c46b1b4?auto=format&fit=crop&w=800&h=600&q=80" 
+                         loading="lazy" alt="Menuiserie fenêtres et portes" decoding="async">
                 </div>
                 <div class="service-content">
                     <span class="service-tag">Fenêtres & Portes</span>
@@ -413,7 +472,8 @@
 
             <div class="service-block" data-aos="fade-up" data-aos-delay="300">
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1585715033777-c8de058bb4ee?auto=format&fit=crop&w=800&h=600&q=80" loading="lazy" alt="Carrelage et parquets">
+                    <img src="https://images.unsplash.com/photo-1585715033777-c8de058bb4ee?auto=format&fit=crop&w=800&h=600&q=80" 
+                         loading="lazy" alt="Carrelage et parquets" decoding="async">
                 </div>
                 <div class="service-content">
                     <span class="service-tag">Sols & Murs</span>
@@ -424,7 +484,8 @@
 
             <div class="service-block" data-aos="fade-up" data-aos-delay="400">
                 <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?auto=format&fit=crop&w=800&h=600&q=80" loading="lazy" alt="Peinture et isolation placo">
+                    <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?auto=format&fit=crop&w=800&h=600&q=80" 
+                         loading="lazy" alt="Peinture et isolation placo" decoding="async">
                 </div>
                 <div class="service-content">
                     <span class="service-tag">Finitions & Isolation</span>
@@ -529,7 +590,8 @@
         </div>
 
         <div class="faq-container">
-            <div class="faq-item" data-aos="fade-up" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            <div class="faq-item" data-aos="fade-up" onclick="toggleFAQ(this)" 
+                 role="button" tabindex="0" aria-expanded="false">
                 <div class="faq-header">
                     <h4>Le devis et la visite technique sont-ils gratuits ?</h4>
                     <div class="faq-toggle" aria-hidden="true">+</div>
@@ -539,7 +601,8 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="100" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100" onclick="toggleFAQ(this)" 
+                 role="button" tabindex="0" aria-expanded="false">
                 <div class="faq-header">
                     <h4>Vos travaux sont-ils couverts par une garantie ?</h4>
                     <div class="faq-toggle" aria-hidden="true">+</div>
@@ -549,7 +612,8 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="200" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200" onclick="toggleFAQ(this)" 
+                 role="button" tabindex="0" aria-expanded="false">
                 <div class="faq-header">
                     <h4>Où intervenez-vous exactement ?</h4>
                     <div class="faq-toggle" aria-hidden="true">+</div>
@@ -567,12 +631,30 @@
                 <a href="https://www.maison-mb.fr/" class="f-logo">M&B Rénovation</a>
                 <p class="footer-description">Artisan de confiance pour tous vos travaux d'aménagement partout en Île-de-France. Qualité exceptionnelle, prix compétitifs, garantie décennale.</p>
                 <div class="footer-social">
-                    <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" title="Suivez-nous sur Facebook" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/abdelrhman.08" target="_blank" title="Suivez-nous sur Instagram" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" title="Connectez-vous sur LinkedIn" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                    <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" title="Laissez-nous un avis Google" rel="noopener noreferrer" aria-label="Google"><i class="fab fa-google" aria-hidden="true"></i></a>
-                    <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" title="Consultez-nous sur Houzz" rel="noopener noreferrer" aria-label="Houzz"><i class="fab fa-houzz" aria-hidden="true"></i></a>
-                    <a href="https://pin.it/6WHDNJlqj" target="_blank" title="Découvrez nos projets sur Pinterest" rel="noopener noreferrer" aria-label="Pinterest"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/share/1BsGqHwAq9/" target="_blank" 
+                       title="Suivez-nous sur Facebook" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/abdelrhman.08" target="_blank" 
+                       title="Suivez-nous sur Instagram" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abdelrahman-abdelazim-56b3a7249" target="_blank" 
+                       title="Connectez-vous sur LinkedIn" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" 
+                       title="Laissez-nous un avis Google" rel="noopener noreferrer" aria-label="Google">
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.houzz.fr/pro/bamf-batimnet/metb" target="_blank" 
+                       title="Consultez-nous sur Houzz" rel="noopener noreferrer" aria-label="Houzz">
+                        <i class="fab fa-houzz" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://pin.it/6WHDNJlqj" target="_blank" 
+                       title="Découvrez nos projets sur Pinterest" rel="noopener noreferrer" aria-label="Pinterest">
+                        <i class="fab fa-pinterest-p" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
 
@@ -597,11 +679,18 @@
         'use strict';
 
         const config = { scrollThreshold: 50, animationDuration: 900 };
+        const formFields = {
+            nom: { pattern: /^[a-zA-Zàâäæçéèêëìîïðñòôöœùûüýÿ\s\-]{2,50}$/, message: 'Le nom doit contenir 2-50 caractères' },
+            tel: { pattern: /^[\d\s\-\+\(\)]{10,20}$/, message: 'Le numéro doit contenir 10-20 caractères valides' },
+            projet: { pattern: /^.{10,500}$/, message: 'La description doit contenir 10-500 caractères' }
+        };
 
         document.addEventListener('DOMContentLoaded', initializeApp);
 
         function initializeApp() {
-            if (window.AOS) { AOS.init({ duration: config.animationDuration, once: true, offset: 100, easing: 'ease-out-cubic' }); }
+            if (window.AOS) { 
+                AOS.init({ duration: config.animationDuration, once: true, offset: 100, easing: 'ease-out-cubic' }); 
+            }
             setupNavigation();
             setupModal();
             setupFAQ();
@@ -619,8 +708,11 @@
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
                         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        if (scrollTop > config.scrollThreshold) { navbar.classList.add('scrolled'); } 
-                        else { navbar.classList.remove('scrolled'); }
+                        if (scrollTop > config.scrollThreshold) { 
+                            navbar.classList.add('scrolled'); 
+                        } else { 
+                            navbar.classList.remove('scrolled'); 
+                        }
                         ticking = false;
                     });
                     ticking = true;
@@ -640,6 +732,7 @@
             if (!modal) return;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            document.getElementById('form-nom').focus();
         }
 
         window.closeModal = function(event) {
@@ -649,7 +742,10 @@
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
             const form = document.getElementById('leadForm');
-            if (form) form.reset();
+            if (form) {
+                form.reset();
+                clearFormErrors();
+            }
         }
 
         window.toggleFAQ = function(element) {
@@ -668,7 +764,10 @@
         function setupFAQ() {
             document.querySelectorAll('.faq-item').forEach((item) => {
                 item.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFAQ(item); }
+                    if (e.key === 'Enter' || e.key === ' ') { 
+                        e.preventDefault(); 
+                        window.toggleFAQ(item); 
+                    }
                 });
             });
         }
@@ -683,8 +782,11 @@
                         const scrollPosition = window.scrollY;
                         const viewportHeight = window.innerHeight;
                         const documentHeight = document.documentElement.scrollHeight;
-                        if (scrollPosition + viewportHeight > documentHeight - 300) { floatingBtn.classList.add('hidden'); } 
-                        else { floatingBtn.classList.remove('hidden'); }
+                        if (scrollPosition + viewportHeight > documentHeight - 300) { 
+                            floatingBtn.classList.add('hidden'); 
+                        } else { 
+                            floatingBtn.classList.remove('hidden'); 
+                        }
                         ticking = false;
                     });
                     ticking = true;
@@ -696,8 +798,12 @@
             const heroVideo = document.querySelector('.hero-video');
             const hero = document.querySelector('.hero');
             if (!heroVideo || !hero) return;
-            heroVideo.addEventListener('error', () => { hero.classList.add('video-error'); });
-            if (!heroVideo.canPlayType('video/mp4')) { hero.classList.add('video-error'); }
+            heroVideo.addEventListener('error', () => { 
+                hero.classList.add('video-error'); 
+            });
+            if (!heroVideo.canPlayType('video/mp4')) { 
+                hero.classList.add('video-error'); 
+            }
         }
 
         function setupScrollEffects() {
@@ -719,37 +825,150 @@
         function setupFormValidation() {
             const form = document.getElementById('leadForm');
             if (!form) return;
-            form.addEventListener('submit', validateAndSubmitForm);
+            form.addEventListener('submit', handleFormSubmit);
+            
+            form.querySelectorAll('input, textarea').forEach(field => {
+                field.addEventListener('blur', validateField);
+                field.addEventListener('input', () => {
+                    if (field.classList.contains('error')) {
+                        validateField.call(field);
+                    }
+                });
+            });
         }
 
-        function validateAndSubmitForm(event) {
-            event.preventDefault();
-            const nom = document.getElementById('form-nom').value.trim();
-            const tel = document.getElementById('form-tel').value.trim();
-            const projet = document.getElementById('form-projet').value.trim();
-            let isValid = true;
+        function validateField() {
+            const field = this;
+            const fieldId = field.id.replace('form-', '');
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            const value = field.value.trim();
+            const rules = formFields[fieldId];
 
-            if (!nom || !tel || !projet) {
-                alert('Veuillez remplir tous les champs du formulaire.');
-                isValid = false;
-            } else if (tel && !/^[\d\s\-\+\(\)]+$/.test(tel)) {
-                alert('Veuillez entrer un numéro de téléphone valide.');
-                isValid = false;
+            if (!value) {
+                showFieldError(field, errorElement, 'Le champ est requis');
+                return false;
             }
 
-            if (isValid) sendFormToWhatsApp(event);
+            if (rules && !rules.pattern.test(value)) {
+                showFieldError(field, errorElement, rules.message);
+                return false;
+            }
+
+            clearFieldError(field, errorElement);
+            return true;
+        }
+
+        function showFieldError(field, errorElement, message) {
+            field.classList.add('error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+            }
+        }
+
+        function clearFieldError(field, errorElement) {
+            field.classList.remove('error');
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
+        }
+
+        function clearFormErrors() {
+            document.querySelectorAll('.form-error').forEach(error => {
+                error.classList.remove('show');
+            });
+            document.querySelectorAll('.quote-form input, .quote-form textarea').forEach(field => {
+                field.classList.remove('error');
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            clearFormErrors();
+
+            const nomField = document.getElementById('form-nom');
+            const telField = document.getElementById('form-tel');
+            const projetField = document.getElementById('form-projet');
+
+            const nomValid = validateField.call(nomField);
+            const telValid = validateField.call(telField);
+            const projetValid = validateField.call(projetField);
+
+            if (nomValid && telValid && projetValid) {
+                sendFormToWhatsApp(event);
+            }
         }
 
         window.sendFormToWhatsApp = function(event) {
             event.preventDefault();
-            const nom = document.getElementById('form-nom').value;
-            const tel = document.getElementById('form-tel').value;
-            const projet = document.getElementById('form-projet').value;
-            const message = `Bonjour M&B Rénovation,%0A%0AJe souhaite demander un devis.%0A%0A*Nom :* ${encodeURIComponent(nom)}%0A*Téléphone :* ${encodeURIComponent(tel)}%0A*Détails du projet :* ${encodeURIComponent(projet)}`;
-            const whatsappUrl = `https://wa.me/33753306559?text=${message}`;
-            window.open(whatsappUrl, '_blank');
-            closeModal();
+            
+            const nom = document.getElementById('form-nom').value.trim();
+            const tel = document.getElementById('form-tel').value.trim();
+            const projet = document.getElementById('form-projet').value.trim();
+
+            const messageText = `Bonjour M&B Rénovation,
+
+Je souhaite demander un devis pour mon projet de rénovation.
+
+*Informations Client:*
+Nom: ${nom}
+Téléphone: ${tel}
+
+*Détails du projet:*
+${projet}
+
+Merci de me contacter rapidement.`;
+
+            const encodedMessage = encodeURIComponent(messageText);
+            const whatsappUrl = `https://wa.me/33753306559?text=${encodedMessage}`;
+            
+            try {
+                window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+                closeModal();
+                showSuccessMessage();
+            } catch (error) {
+                console.error('Erreur lors de l\'ouverture de WhatsApp:', error);
+                alert('Veuillez réessayer ou nous contacter directement');
+            }
         }
+
+        function showSuccessMessage() {
+            const successDiv = document.createElement('div');
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4CAF50;
+                color: white;
+                padding: 20px 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 4000;
+                animation: slideIn 0.3s ease;
+                font-weight: 600;
+                max-width: 300px;
+                font-family: 'Inter', sans-serif;
+            `;
+            successDiv.textContent = '✓ Demande envoyée avec succès! Vous allez être redirigé vers WhatsApp.';
+            
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => successDiv.remove(), 300);
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.getElementById('form-projet');
+            if (textarea) {
+                textarea.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        document.getElementById('leadForm').dispatchEvent(new Event('submit'));
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
