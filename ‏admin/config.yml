@@ -1,8 +1,6 @@
 backend:
-  name: github
-  # REMPLACEZ VOTRE_COMPTE_GITHUB ET VOTRE_DEPOT PAR VOS INFORMATIONS RÉELLES
-  repo: VOTRE_COMPTE_GITHUB/VOTRE_DEPOT 
-  branch: main
+  name: git-gateway
+  branch: main # Assurez-vous que votre branche est bien 'main'
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -23,4 +21,3 @@ collections:
       - {label: "Image de couverture", name: "image", widget: "image", required: false}
       - {label: "Description SEO (Meta)", name: "description", widget: "text", hint: "Texte court pour Google (max 160 caractères)"}
       - {label: "Contenu", name: "body", widget: "markdown"}
-
