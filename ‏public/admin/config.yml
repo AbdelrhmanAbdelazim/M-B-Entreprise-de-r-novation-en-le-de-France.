@@ -14,7 +14,7 @@ collections:
   - name: "blog"
     label: "Articles de Blog (SEO)"
     label_singular: "Article"
-    folder: "src/content/blog"
+    folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
