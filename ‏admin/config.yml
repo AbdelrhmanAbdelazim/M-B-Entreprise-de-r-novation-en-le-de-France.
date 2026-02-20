@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
   site_domain: lambent-tulumba-942bbf.netlify.app
-  auth_type: implicit
+  gateway_url: https://lambent-tulumba-942bbf.netlify.app/.netlify/git/gateway
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
