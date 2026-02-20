@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>M&B Rénovation - Administration SEO</title>
-    
-    <style>
-      [data-slate-editor] { font-family: 'Jost', sans-serif; }
-    </style>
-  </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </body>
-</html>
+---
+layout: default
+---
+
+<h1>M&B Rénovation - Nos Articles</h1>
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <p>{{ post.date | date: "%B %d, %Y" }}</p>
+    </li>
+  {% endfor %}
+</ul>
