@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: abdelrhmanelshreef/M-B-Entreprise-de-r-novation-en-le-de-France
+  repo: AbdelrhmanAbdelazim/M-B-Entreprise-de-r-novation-en-le-de-France
   branch: main
   base_url: https://api.netlify.com
   auth_endpoint: /auth
