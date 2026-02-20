@@ -2,13 +2,16 @@
 layout: default
 ---
 
-<h1>M&B Rénovation - Nos Articles</h1>
+<h1>M&B Rénovation</h1>
+<p>Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, design intérieur. Une signature unique pour votre habitat.</p>
 
+<hr>
+
+<h3>Nos Articles (Blog SEO) :</h3>
 <ul>
   {% for post in site.posts %}
     <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      <p>{{ post.date | date: "%B %d, %Y" }}</p>
+      <strong><a href="{{ post.url }}">{{ post.title }}</a></strong>
     </li>
   {% endfor %}
 </ul>
