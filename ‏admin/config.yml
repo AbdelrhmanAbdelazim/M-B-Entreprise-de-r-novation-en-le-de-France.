@@ -1,1 +1,26 @@
+backend:
+  name: github
+  # REMPLACEZ VOTRE_COMPTE_GITHUB ET VOTRE_DEPOT PAR VOS INFORMATIONS RÉELLES
+  repo: VOTRE_COMPTE_GITHUB/VOTRE_DEPOT 
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: https://www.maison-mb.fr
+display_url: https://www.maison-mb.fr
+
+collections:
+  - name: "blog"
+    label: "Articles de Blog (SEO)"
+    label_singular: "Article"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Titre de l'article", name: "title", widget: "string"}
+      - {label: "Date de publication", name: "date", widget: "datetime"}
+      - {label: "Image de couverture", name: "image", widget: "image", required: false}
+      - {label: "Description SEO (Meta)", name: "description", widget: "text", hint: "Texte court pour Google (max 160 caractères)"}
+      - {label: "Contenu", name: "body", widget: "markdown"}
 
