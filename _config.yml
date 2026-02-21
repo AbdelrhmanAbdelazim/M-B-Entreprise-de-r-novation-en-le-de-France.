@@ -1,20 +1,8 @@
-backend:
-  name: git-gateway
-  branch: main
+title: M&B Rénovation
+description: L'Excellence de la Rénovation à Paris
+baseurl: ""
+url: "https://maison-mb.fr"
 
-media_folder: "assets/images"
-public_folder: "/assets/images"
-
-collections:
-  - name: "blog"
-    label: "Actualités"
-    folder: "_posts"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Titre de l'article", name: "title", widget: "string"}
-      - {label: "Date de publication", name: "date", widget: "datetime"}
-      - {label: "Description (SEO)", name: "description", widget: "string"}
-      - {label: "Contenu de l'article", name: "body", widget: "markdown"}
-
- 
+# Build Settings
+markdown: kramdown
+include: [admin]
