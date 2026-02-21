@@ -8,7 +8,10 @@
     <meta name="robots" content="index, follow">
 
     <title>M&B Rénovation | L'Excellence de la Rénovation à Paris & Île-de-France</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     <meta name="description" content="M&B Rénovation transforme vos intérieurs avec une exigence de luxe. Expert tous corps d'état : plomberie, électricité, design. Garantie décennale ENTORIA.">
+
 
     <meta property="og:site_name" content="M&B Rénovation">
     <meta property="og:type" content="website">
@@ -1400,6 +1403,23 @@
             <p>&copy; 2026 M&B Rénovation. Tous droits réservés.</p>
             <p><span>«</span> L'excellence n'est pas un acte, c'est une habitude. <span>»</span></p>
         </div>
+   <section id="blog-news" style="padding: 100px 0; background-color: #080B12; border-top: 1px solid rgba(201, 168, 76, 0.1);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center;">
+        <h2 style="font-family: serif; color: #C9A84C; font-size: 3rem; margin-bottom: 50px; letter-spacing: 2px;">Nos Actualités</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+            {% for post in site.posts %}
+                <div style="background: #0E1220; border: 1px solid rgba(201, 168, 76, 0.2); width: 380px; padding: 40px; text-align: left;">
+                    <h3 style="color: #FFFFFF; font-family: serif; font-size: 1.5rem; margin-bottom: 20px;">{{ post.title }}</h3>
+                    <p style="color: #B8C4D4; font-size: 1rem; line-height: 1.8; margin-bottom: 25px;">{{ post.description }}</p>
+                    <a href="{{ post.url }}" style="color: #C9A84C; text-decoration: none; font-weight: 600; border-bottom: 1px solid #C9A84C;">Lire la suite →</a>
+                </div>
+            {% else %}
+                <p style="color: #5A6478;">Nos derniers projets et conseils arrivent bientôt...</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
     </footer>
 
     <script>
@@ -1548,6 +1568,19 @@
             }
         });
     });
-    </script>
+   
+</script>
+    <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
