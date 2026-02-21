@@ -1,8 +1,9 @@
 title: Maison MB Rénovation
-description: L'Excellence de la Rénovation à Paris
+description: L'excellence de la rénovation à Paris
 url: "https://maison-mb.fr"
 baseurl: ""
 
-# Paramètres de construction
+# Configuration du moteur
 markdown: kramdown
 include: [admin, assets]
+permalink: /:title/
