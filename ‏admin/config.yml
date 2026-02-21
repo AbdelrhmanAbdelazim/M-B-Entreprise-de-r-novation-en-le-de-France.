@@ -10,10 +10,10 @@ public_folder: "/uploads"
 
 collections:
   - name: "blog"
-    label: "Articles de Blog (SEO)"
+    label: "Blog"
     folder: "_posts"
     create: true
     fields:
-      - {label: "Titre", name: "title", widget: "string"}
+      - {label: "Title", name: "title", widget: "string"}
       - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Contenu", name: "body", widget: "markdown"}
+      - {label: "Body", name: "body", widget: "markdown"}
