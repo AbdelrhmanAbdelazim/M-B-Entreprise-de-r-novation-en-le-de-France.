@@ -1,5 +1,4 @@
 ---
-permalink: /admin/
 ---
 <!doctype html>
 <html lang="fr">
@@ -11,5 +10,11 @@ permalink: /admin/
 </head>
 <body>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <script>
+    // Force le chargement de la configuration depuis le bon chemin
+    window.CMS_CONFIG = {
+      config_url: "/admin/config.yml"
+    };
+  </script>
 </body>
 </html>
