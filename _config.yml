@@ -3,6 +3,6 @@ description: L'Excellence de la Rénovation à Paris
 url: "https://maison-mb.fr"
 baseurl: ""
 
-# Build Settings
+# Paramètres de construction
 markdown: kramdown
 include: [admin, assets]
