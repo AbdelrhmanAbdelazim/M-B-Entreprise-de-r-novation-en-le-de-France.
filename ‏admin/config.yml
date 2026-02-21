@@ -14,5 +14,5 @@ collections:
     fields:
       - {label: "Titre de l'article", name: "title", widget: "string"}
       - {label: "Date de publication", name: "date", widget: "datetime"}
-      - {label: "Résumé SEO", name: "description", widget: "string"}
+      - {label: "Résumé (SEO)", name: "description", widget: "string"}
       - {label: "Contenu de l'article", name: "body", widget: "markdown"}
