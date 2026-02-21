@@ -1,8 +1,8 @@
-title: M&B Rénovation
+title: Maison MB Rénovation
 description: L'Excellence de la Rénovation à Paris
-baseurl: ""
 url: "https://maison-mb.fr"
+baseurl: ""
 
 # Build Settings
 markdown: kramdown
-include: [admin]
+include: [admin, assets]
