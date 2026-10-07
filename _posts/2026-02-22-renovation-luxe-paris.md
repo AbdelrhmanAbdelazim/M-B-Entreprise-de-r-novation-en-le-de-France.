@@ -3,7 +3,6 @@ layout: post
 title: "Nouvelle Réalisation : Appartement de Luxe à Paris"
 date: 2026-02-22
 description: "Projet de rénovation haut de gamme livré en février 2026."
-image: "/assets/images/projet-2026.jpg"
 ---
 
 # Excellence en Rénovation - Février 2026
