@@ -1,0 +1,8 @@
+---
+layout: null
+---
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://www.maison-mb.fr/sitemap.xml
