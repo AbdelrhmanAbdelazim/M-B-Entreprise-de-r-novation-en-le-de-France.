@@ -1059,10 +1059,10 @@
                 <button class="modal-close" onclick="closeModal()">✕</button>
                 <div class="eyebrow modal-eyebrow">Consultation Privée</div>
                 <h3>Étude de Projet</h3>
-                <p class="modal-sub">Expertise gratuite. Réponse sous 24h. Aucun engagement.</p>
+                <p class="modal-sub">Expertise gratuite. Réponse écrite sous 24h (WhatsApp ou e-mail). Aucun engagement.</p>
             </div>
             <div class="modal-body">
-                <form id="leadForm" onsubmit="handleFormSubmit(event)">
+                <form id="leadForm">
                     <div class="form-group">
                         <label class="form-label">Nom & Prénom</label>
                         <input type="text" id="nom" class="form-control" placeholder="Jean Dupont" required>
@@ -1070,6 +1070,10 @@
                     <div class="form-group">
                         <label class="form-label">Téléphone</label>
                         <input type="tel" id="tel" class="form-control" placeholder="06 00 00 00 00" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="jean.dupont@email.fr">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Votre Projet</label>
@@ -1089,7 +1093,7 @@
 
     <header class="hero">
         <div class="hero-media" id="heroImage">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Intérieur luxe M&B Rénovation">
+            <img src="chantier-10.jpg" alt="Intérieur luxe M&B Rénovation">
         </div>
         <div class="hero-grain"></div>
         <div class="hero-vignette"></div>
@@ -1117,8 +1121,8 @@
             <span class="stat-label">Ans de Garantie Décennale</span>
         </div>
         <div class="stat-cell" data-reveal data-reveal-delay="1">
-            <span class="stat-number">4.8</span>
-            <span class="stat-label">Excellence Client Google</span>
+            <span class="stat-number">24h</span>
+            <span class="stat-label">Réponse à Votre Demande</span>
         </div>
         <div class="stat-cell" data-reveal data-reveal-delay="2">
             <span class="stat-number">100%</span>
@@ -1190,21 +1194,21 @@
 
         <div class="gallery-layout">
             <div class="gallery-item main" data-reveal>
-                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Salon luxe M&B Rénovation" loading="lazy">
+                <img src="chantier-7.jpg" alt="Salon luxe M&B Rénovation" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Espaces de Vie</h4>
                     <span>Rénovation Complète</span>
                 </div>
             </div>
             <div class="gallery-item sub" data-reveal data-reveal-delay="1">
-                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Finitions luxe" loading="lazy">
+                <img src="chantier-13.jpg" alt="Finitions luxe" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Finitions</h4>
                     <span>Détail & Précision</span>
                 </div>
             </div>
             <div class="gallery-item sub" data-reveal data-reveal-delay="2">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salle de bain de luxe" loading="lazy">
+                <img src="chantier-6.jpg" alt="Salle de bain de luxe" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Salles de Bains</h4>
                     <span>Design & Bien-être</span>
@@ -1223,7 +1227,7 @@
 
         <div class="chantiers-grid">
             <div class="chantier-item" data-reveal>
-                <img src="png.1.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-1.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Isolation & Structure</h4>
                     <span>Confort Thermique</span>
@@ -1231,7 +1235,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="1">
-                <img src="png.2.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-2.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Placo Hydrofuge</h4>
                     <span>Protection Anti-Humidité</span>
@@ -1239,7 +1243,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="2">
-                <img src="png.3.JPG" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-3.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Pose de Sols</h4>
                     <span>Nivellement & Précision</span>
@@ -1247,7 +1251,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="3">
-                <img src="png.4.JPG" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-4.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Lissage des Murs</h4>
                     <span>Préparation Peinture</span>
@@ -1255,7 +1259,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="4">
-                <img src="png.6.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-6.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Restauration</h4>
                     <span>Charme & Authenticité</span>
@@ -1263,7 +1267,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="5">
-                <img src="png.7.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-7.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Assainissement</h4>
                     <span>Traitement Anti-Humidité</span>
@@ -1271,7 +1275,7 @@
             </div>
             
             <div class="chantier-item" data-reveal data-reveal-delay="0">
-                <img src="png.8.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-8.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Restauration de l'Ancien</h4>
                     <span>Respect du Patrimoine</span>
@@ -1279,7 +1283,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="1">
-                <img src="png.10.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-10.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Équipements Premium</h4>
                     <span>Design & Confort</span>
@@ -1287,7 +1291,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="2">
-                <img src="png.12.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-12.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Ratissage & Ponçage</h4>
                     <span>Préparation Zéro Défaut</span>
@@ -1295,7 +1299,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="3">
-                <img src="png.13.HEIC" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-13.jpg" alt="Chantier Paris M&B" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Plomberie & Bains</h4>
                     <span>Étanchéité Parfaite</span>
@@ -1552,8 +1556,9 @@
         e.preventDefault();
         const nom = document.getElementById('nom').value;
         const tel = document.getElementById('tel').value;
+        const email = document.getElementById('email').value;
         const projet = document.getElementById('projet').value;
-        const msg = `*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ${encodeURIComponent(nom)}%0A📞 *Tél:* ${encodeURIComponent(tel)}%0A📝 *Projet:* ${encodeURIComponent(projet)}`;
+        const msg = `*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ${encodeURIComponent(nom)}%0A📞 *Tél:* ${encodeURIComponent(tel)}%0A✉️ *E-mail:* ${encodeURIComponent(email || '-')}%0A📝 *Projet:* ${encodeURIComponent(projet)}`;
         window.open(`https://wa.me/33753306559?text=${msg}`, '_blank');
         closeModal();
         this.reset();
