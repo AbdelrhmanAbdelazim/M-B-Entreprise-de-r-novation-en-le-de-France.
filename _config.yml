@@ -1,9 +1,15 @@
 title: Maison MB Rénovation
 description: L'Excellence de la Rénovation en Île-de-France
-url: "https://maison-mb.fr"
+url: "https://www.maison-mb.fr"
 baseurl: ""
 
 # Configuration pour GitHub Pages
 markdown: kramdown
 permalink: /:title/
 encoding: "utf-8"
+lang: fr_FR
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

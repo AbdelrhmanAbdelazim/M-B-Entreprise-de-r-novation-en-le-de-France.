@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>{{ page.title }} | M&B Rénovation</title>
-    <meta name="description" content="{{ page.description }}">
+    <meta name="description" content="{{ page.description | default: site.description }}">
     <meta name="theme-color" content="#080B12">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.maison-mb.fr{{ page.url }}">
@@ -40,7 +40,7 @@
         .nav-back { color: var(--silver); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
         .nav-back:hover { color: var(--gold); }
 
-        /* Conteneur de l'article */
+        /* Conteneur de la page */
         .article-container { max-width: 800px; margin: 150px auto 100px; padding: 0 5%; }
         .article-header { margin-bottom: 50px; text-align: center; }
         .article-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; color: var(--white); margin-bottom: 15px; line-height: 1.1; }
@@ -72,7 +72,6 @@
     <main class="article-container">
         <header class="article-header">
             <h1 class="article-title">{{ page.title }}</h1>
-            <div class="article-meta">Publié le {{ page.date | date: "%d/%m/%Y" }}</div>
         </header>
 
         <article class="article-content">
