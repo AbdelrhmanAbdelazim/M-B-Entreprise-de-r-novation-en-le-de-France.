@@ -38,9 +38,7 @@
     <meta property="og:image" content="{{ seo_image }}">
 
     {%- assign same_as = "" | split: "" -%}
-    {%- assign same_as = same_as | push: site.social.facebook | push: site.social.instagram | push: c.annuaire_url -%}
-    {%- if site.social.google_business != "" %}{% assign same_as = same_as | push: site.social.google_business %}{% endif %}
-    <!-- TODO Google Business : renseigner social.google_business dans _config.yml pour l'ajouter à sameAs -->
+    {%- assign same_as = same_as | push: site.social.facebook | push: site.social.instagram | push: c.annuaire_url | push: site.social.google_business %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

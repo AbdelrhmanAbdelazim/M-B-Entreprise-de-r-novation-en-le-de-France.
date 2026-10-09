@@ -17,7 +17,6 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
-  - "png.*"
 
 # ---------------------------------------------------------------
 # Identité de l'entreprise : source unique, utilisée par le footer,
@@ -56,8 +55,7 @@ company:
 social:
   facebook: "https://www.facebook.com/1028887100297504"
   instagram: "https://www.instagram.com/abdelrhman.08/"
-  # TODO : lien de la fiche Google Business Profile (ajouté au JSON-LD une fois rempli)
-  google_business: ""
+  google_business: "https://www.google.com/search?kgmid=/g/11xw8dr7dl"
 
 # TODO : code Google Search Console (méthode « balise HTML »),
 # uniquement la valeur de content="..."

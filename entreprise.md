@@ -40,6 +40,8 @@ Notre méthode : une visite technique offerte, un devis détaillé et transparen
 
 Ces informations sont vérifiables sur la fiche officielle de l'entreprise : [Annuaire des Entreprises (data.gouv.fr)]({{ c.annuaire_url }}).
 
+[Voir notre fiche Google]({{ site.social.google_business }}){:target="_blank" rel="noopener"}
+
 ## Nos garanties
 
 - **Assurance {{ c.insurance }}** auprès de {{ c.insurer }}, contrat n° {{ c.insurance_contract }}, couverture {{ c.insurance_coverage }}.
