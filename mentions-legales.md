@@ -30,8 +30,9 @@ Le site est hébergé par **GitHub Inc.** (service GitHub Pages), 88 Colin P Kel
 
 {{ c.brand }} est assurée en **{{ c.insurance }}** auprès de **{{ c.insurer }}**, contrat n° **{{ c.insurance_contract }}**, couverture géographique : {{ c.insurance_coverage }}.
 
-<!-- TODO médiateur de la consommation : à confirmer, puis ajouter ici une section
-     « Médiation de la consommation » (nom, adresse et site du médiateur). -->
+## Médiateur de la consommation
+
+Conformément aux articles L.611-1 et suivants du Code de la consommation, en cas de litige non résolu avec {{ c.brand }}, le client consommateur peut recourir gratuitement au médiateur suivant : **{{ c.mediator }}**, {{ c.mediator_address }} – [{{ c.mediator_url }}]({{ c.mediator_url }}). Le client doit d'abord avoir adressé une réclamation écrite à {{ c.brand }} ([{{ c.email }}](mailto:{{ c.email }})).
 
 ## Propriété intellectuelle
 

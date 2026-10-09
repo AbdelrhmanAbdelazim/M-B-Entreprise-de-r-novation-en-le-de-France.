@@ -49,13 +49,24 @@ company:
   area: "Paris et Île-de-France"
   hours: "7j/7, 24h/24 (demandes via WhatsApp et e-mail)"
   annuaire_url: "https://annuaire-entreprises.data.gouv.fr/entreprise/923102412"
-  # TODO médiateur de la consommation : à confirmer (rien n'est affiché tant que vide)
-  mediator: ""
+  mediator: "CM2C – Centre de la Médiation de la Consommation de Conciliateurs de justice"
+  mediator_short: "CM2C"
+  mediator_address: "49 rue de Ponthieu, 75008 Paris"
+  mediator_url: "https://www.cm2c.net"
+  mediator_valid_until: "09/08/2029"
 
 social:
   facebook: "https://www.facebook.com/1028887100297504"
   instagram: "https://www.instagram.com/abdelrhman.08/"
   google_business: "https://www.google.com/search?kgmid=/g/11xw8dr7dl"
+
+# Mesure d'audience et publicité : chargées uniquement après « Accepter »
+# (bandeau cookies, _includes/consent-head.html)
+tracking:
+  google_ads_id: "AW-17790052421"
+  google_ads_conversion: "AW-17790052421/glzaCMLkl5cdEMXQ-qJC"
+  gtm_id: "GTM-W6RVMK3D"
+  meta_pixel_id: "2581562265688064"
 
 # TODO : code Google Search Console (méthode « balise HTML »),
 # uniquement la valeur de content="..."
