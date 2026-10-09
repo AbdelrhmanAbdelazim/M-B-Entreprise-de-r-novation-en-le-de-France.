@@ -1,4 +1,6 @@
 ---
+seo_title: "M&B Rénovation | Rénovation tous corps d'état à Paris et en Île-de-France"
+description: "M&B Rénovation rénove vos intérieurs à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Devis gratuit, garantie décennale."
 ---
 
 <!DOCTYPE html>
@@ -9,42 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#080B12">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.maison-mb.fr/">
+{% include seo.html %}
 
-    <title>M&B Rénovation | L'Excellence de la Rénovation à Paris & Île-de-France</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <meta name="description" content="M&B Rénovation transforme vos intérieurs avec une exigence de luxe. Expert tous corps d'état : plomberie, électricité, design. Garantie décennale ENTORIA.">
-
-
-    <meta property="og:site_name" content="M&B Rénovation">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.maison-mb.fr/">
-    <meta property="og:title" content="M&B Rénovation | Architecture & Design Intérieur">
-    <meta property="og:description" content="Rénovation haute couture en Île-de-France. Découvrez l'alliance parfaite entre technique et esthétisme.">
-    <meta property="og:image" content="https://www.maison-mb.fr/chantier-10.jpg">
-    <meta property="og:locale" content="fr_FR">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "GeneralContractor",
-      "name": "M&B Rénovation",
-      "telephone": "+33753306559",
-      "email": "abdel@maison-mb.fr",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "6 place Henri Frenay",
-        "addressLocality": "Paris",
-        "postalCode": "75012",
-        "addressCountry": "FR"
-      },
-      "priceRange": "€€€",
-      "areaServed": "Île-de-France",
-      "url": "https://www.maison-mb.fr"
-    }
-    </script>
 
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -1045,7 +1014,7 @@
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="/services/" onclick="closeMobileMenu()">Services</a>
         <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
         <a href="#chantiers" onclick="closeMobileMenu()">L'Envers du Décor</a>
         <a href="#processus" onclick="closeMobileMenu()">Processus</a>
@@ -1084,6 +1053,7 @@
                         <textarea id="projet" class="form-control" placeholder="Décrivez brièvement vos envies et le type de travaux envisagés..." required></textarea>
                     </div>
                     <button type="submit" class="form-submit">Envoyer la Demande</button>
+                    <p style="margin-top:14px;font-size:0.72rem;line-height:1.6;color:var(--muted);">Vos informations servent uniquement à répondre à votre demande de devis. <a href="/confidentialite/" style="color:var(--silver);">Politique de confidentialité</a></p>
                 </form>
                 <div class="modal-alt">
                     <a href="https://wa.me/33753306559" target="_blank">
@@ -1097,7 +1067,7 @@
 
     <header class="hero">
         <div class="hero-media" id="heroImage">
-            <img src="chantier-10.jpg" alt="Intérieur luxe M&B Rénovation">
+            <img src="chantier-10.jpg" alt="Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure">
         </div>
         <div class="hero-grain"></div>
         <div class="hero-vignette"></div>
@@ -1187,6 +1157,10 @@
                 </ul>
             </div>
         </div>
+        <p class="section-intro" style="text-align:center;margin:50px auto 0;max-width:900px;font-size:0.9rem;">
+            Découvrir nos services en détail :
+            {% for s in site.services %}<a href="{{ s.url }}" style="color:var(--gold);text-decoration:none;white-space:nowrap;">{{ s.title }}</a>{% unless forloop.last %} &nbsp;·&nbsp; {% endunless %}{% endfor %}
+        </p>
     </section>
 
     <section class="section section--dark" id="portfolio">
@@ -1198,21 +1172,21 @@
 
         <div class="gallery-layout">
             <div class="gallery-item main" data-reveal>
-                <img src="chantier-7.jpg" alt="Salon luxe M&B Rénovation" loading="lazy">
+                <img src="chantier-7.jpg" alt="Pièce de vie entièrement rénovée à Paris : parquet, peinture et placard intégré" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Espaces de Vie</h4>
                     <span>Rénovation Complète</span>
                 </div>
             </div>
             <div class="gallery-item sub" data-reveal data-reveal-delay="1">
-                <img src="chantier-13.jpg" alt="Finitions luxe" loading="lazy">
+                <img src="chantier-13.jpg" alt="Finitions soignées : parquet et plinthes posés dans une chambre rénovée" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Finitions</h4>
                     <span>Détail & Précision</span>
                 </div>
             </div>
             <div class="gallery-item sub" data-reveal data-reveal-delay="2">
-                <img src="chantier-6.jpg" alt="Salle de bain de luxe" loading="lazy">
+                <img src="chantier-6.jpg" alt="Salle de bains rénovée avec baignoire encastrée et paroi vitrée" loading="lazy">
                 <div class="gallery-caption">
                     <h4>Salles de Bains</h4>
                     <span>Design & Bien-être</span>
@@ -1231,7 +1205,7 @@
 
         <div class="chantiers-grid">
             <div class="chantier-item" data-reveal>
-                <img src="chantier-1.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-1.jpg" alt="Salle de bains en cours de rénovation : murs préparés et sol ragréé avant carrelage" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Isolation & Structure</h4>
                     <span>Confort Thermique</span>
@@ -1239,7 +1213,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="1">
-                <img src="chantier-2.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-2.jpg" alt="Receveur de douche et carreaux de ciment à motifs posés sur plaques hydrofuges" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Placo Hydrofuge</h4>
                     <span>Protection Anti-Humidité</span>
@@ -1247,7 +1221,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="2">
-                <img src="chantier-3.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-3.jpg" alt="Préparation du sol et des murs avant pose du revêtement, radiateur électrique déposé" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Pose de Sols</h4>
                     <span>Nivellement & Précision</span>
@@ -1255,7 +1229,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="3">
-                <img src="chantier-4.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-4.jpg" alt="Pièce en rénovation : plafond en plaques de plâtre et gaines électriques en attente" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Lissage des Murs</h4>
                     <span>Préparation Peinture</span>
@@ -1263,7 +1237,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="4">
-                <img src="chantier-6.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-6.jpg" alt="Salle de bains terminée avec baignoire, paroi vitrée et carrelage gris" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Restauration</h4>
                     <span>Charme & Authenticité</span>
@@ -1271,7 +1245,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="5">
-                <img src="chantier-7.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-7.jpg" alt="Appartement rénové avec parquet neuf, murs repeints et placard sur mesure" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Assainissement</h4>
                     <span>Traitement Anti-Humidité</span>
@@ -1279,7 +1253,7 @@
             </div>
             
             <div class="chantier-item" data-reveal data-reveal-delay="0">
-                <img src="chantier-8.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-8.jpg" alt="Plafond et moulures d'un appartement ancien en cours de restauration" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Restauration de l'Ancien</h4>
                     <span>Respect du Patrimoine</span>
@@ -1287,7 +1261,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="1">
-                <img src="chantier-10.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-10.jpg" alt="Chambre rénovée avec placard coulissant sur mesure et parquet" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Équipements Premium</h4>
                     <span>Design & Confort</span>
@@ -1295,7 +1269,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="2">
-                <img src="chantier-12.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-12.jpg" alt="Murs ratissés et poncés avant peinture, sols protégés" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Ratissage & Ponçage</h4>
                     <span>Préparation Zéro Défaut</span>
@@ -1303,7 +1277,7 @@
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="3">
-                <img src="chantier-13.jpg" alt="Chantier Paris M&B" loading="lazy">
+                <img src="chantier-13.jpg" alt="Pièce rénovée à Paris : parquet posé et finitions des murs" loading="lazy">
                 <div class="chantier-caption">
                     <h4>Plomberie & Bains</h4>
                     <span>Étanchéité Parfaite</span>
@@ -1338,7 +1312,7 @@
             <div class="process-step" data-reveal data-reveal-delay="3">
                 <span class="process-num">04</span>
                 <h3>Garantie</h3>
-                <p>Livraison avec remise de l'attestation décennale ENTORIA. 10 ans de tranquillité d'esprit.</p>
+                <p>Livraison avec remise de l'attestation décennale Entoria / Fidelidade. 10 ans de tranquillité d'esprit.</p>
             </div>
         </div>
     </section>
@@ -1374,7 +1348,7 @@
                 <h5>Navigation</h5>
                 <ul class="footer-nav">
                     <li><a href="#">Accueil</a></li>
-                    <li><a href="#services">Nos Services</a></li>
+                    <li><a href="/services/">Nos Services</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#chantiers">L'Envers du Décor</a></li>
                     <li><a href="#processus">Notre Processus</a></li>
@@ -1404,7 +1378,7 @@
                     </li>
                     <li>
                         <i class="fa-solid fa-shield-halved"></i>
-                        <span>Assurance : ENTORIA</span>
+                        <span>Assurance : Entoria / Fidelidade</span>
                     </li>
                 </ul>
             </div>
@@ -1431,6 +1405,7 @@
     </div>
 </section>
 
+{% include legal-footer.html %}
     </footer>
 
     <script>

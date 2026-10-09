@@ -1,0 +1,19 @@
+---
+layout: page
+---
+{%- assign c = site.company -%}
+<img src="{{ page.image }}" alt="{{ page.image_alt }}" width="1200" height="1600" decoding="async" style="width:100%;max-height:520px;object-fit:cover;">
+
+{{ content }}
+
+<h2>Demandez votre devis</h2>
+<p>Visite technique et devis détaillé offerts. Écrivez-nous sur WhatsApp, 7j/7 : nous revenons vers vous rapidement.</p>
+<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ 'Bonjour M&B Rénovation, je souhaite un devis gratuit pour : ' | append: page.service_name | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
+<p>Ou par téléphone au <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a>, ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>.</p>
+
+<h3>Nos autres services</h3>
+<ul>
+{%- for s in site.services %}{% if s.url != page.url %}
+    <li><a href="{{ s.url }}">{{ s.title }}</a></li>
+{%- endif %}{% endfor %}
+</ul>

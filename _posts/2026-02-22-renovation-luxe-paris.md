@@ -5,9 +5,9 @@ date: 2026-02-22
 description: "Projet de rénovation haut de gamme livré en février 2026."
 ---
 
-# Excellence en Rénovation - Février 2026
+## Excellence en rénovation – février 2026
 
-Nous sommes fiers de vous présenter notre tout dernier projet achevé ce mois-ci. **Maison MB** continue d'offrir l'excellence à ses clients parisiens.
+Nous sommes fiers de vous présenter notre tout dernier projet achevé ce mois-ci. **M&B Rénovation** continue d'offrir l'excellence à ses clients parisiens.
 
 ### Détails techniques :
 * **Modernisation** : Installation de systèmes domotiques avancés.
