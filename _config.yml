@@ -63,7 +63,6 @@ social:
 # Mesure d'audience et publicité : chargées uniquement après « Accepter »
 # (bandeau cookies, _includes/consent-head.html)
 tracking:
-  ga4_id: "G-T2F6TS6KBS"
   google_ads_id: "AW-17790052421"
   google_ads_conversion: "AW-17790052421/glzaCMLkl5cdEMXQ-qJC"
   gtm_id: "GTM-W6RVMK3D"
