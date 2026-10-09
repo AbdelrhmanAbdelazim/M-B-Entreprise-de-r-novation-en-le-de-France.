@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "Laissez-nous un avis"
+description: "Vous avez confié vos travaux à M&B Rénovation ? Partagez votre expérience en laissant un avis sur notre fiche Google."
 permalink: /avis/
 ---
 

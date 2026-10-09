@@ -1,0 +1,18 @@
+{%- assign c = site.company -%}
+<style>
+    .mb-legal { border-top: 1px solid rgba(255,255,255,0.06); padding: 26px 0 30px; text-align: center; font-family: var(--font-sans, 'Jost', sans-serif); }
+    .mb-legal p { color: var(--muted, #5A6478); font-size: 0.75rem; line-height: 1.9; letter-spacing: 0.03em; margin: 0; }
+    .mb-legal a { color: var(--silver, #B8C4D4); text-decoration: none; transition: color 0.3s; }
+    .mb-legal a[href^="tel:"] { white-space: nowrap; }
+    .mb-legal a:hover { color: var(--gold, #C9A84C); }
+    .mb-legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; margin-top: 12px; font-size: 0.75rem; letter-spacing: 0.05em; }
+</style>
+<div class="mb-legal">
+    <p>{{ c.brand }} – {{ c.legal_name }} (EI) – SIRET {{ c.siret }} – {{ c.street }}, {{ c.postal_code }} {{ c.city }} – <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a></p>
+    <div class="mb-legal-links">
+        <a href="/mentions-legales/">Mentions légales</a>
+        <a href="/confidentialite/">Confidentialité</a>
+        <a href="/entreprise/">Entreprise</a>
+        <a href="{{ site.social.google_business }}" target="_blank" rel="noopener">Voir notre fiche Google</a>
+    </div>
+</div>

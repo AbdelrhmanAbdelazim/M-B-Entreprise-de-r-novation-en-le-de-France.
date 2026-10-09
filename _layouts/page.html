@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="facebook-domain-verification" content="3yy041zr8m4aqm2idj7aye6gj6h4t2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>{{ page.title }} | M&B Rénovation</title>
-    <meta name="description" content="{{ page.description | default: site.description }}">
     <meta name="theme-color" content="#080B12">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.maison-mb.fr{{ page.url }}">
+{% include seo.html %}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +52,18 @@
         .article-content img { max-width: 100%; height: auto; border-radius: 4px; margin: 30px 0; border: var(--border); }
         .article-content a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s; }
         .article-content a:hover { border-bottom-color: var(--gold); }
+        .article-content ul, .article-content ol { margin: 0 0 20px 1.4em; }
+        .article-content li { margin-bottom: 6px; }
+        .article-content strong { color: var(--white); font-weight: 500; }
+        .article-content table { width: 100%; border-collapse: collapse; margin: 0 0 30px; font-size: 1rem; }
+        .article-content td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: var(--border); }
+        .article-content td:first-child { color: var(--white); font-weight: 500; width: 40%; }
+        .article-content .btn-cta, .article-content .btn-cta:hover { display: inline-block; margin: 10px 0 20px; padding: 14px 30px; background: var(--gold-grad); color: var(--bg-void); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; border: 0; }
+        @media (max-width: 600px) {
+            .article-content { font-size: 1rem; }
+            .article-content td { display: block; width: 100%; padding: 4px 0; }
+            .article-content td:first-child { border-bottom: 0; padding-top: 14px; }
+        }
 
         /* Footer simplifié */
         footer { background: #050810; border-top: var(--border); padding: 60px 5%; text-align: center; }
@@ -72,7 +81,10 @@
 
     <main class="article-container">
         <header class="article-header">
-            <h1 class="article-title">{{ page.title }}</h1>
+            <h1 class="article-title">{{ page.heading | default: page.title }}</h1>
+            {%- if page.date %}
+            <div class="article-meta">Publié le {{ page.date | date: "%d/%m/%Y" }}</div>
+            {%- endif %}
         </header>
 
         <article class="article-content">
@@ -83,6 +95,7 @@
     <footer>
         <a href="/" class="footer-logo">M&B <em>Rénovation</em></a>
         <p class="footer-bottom">&copy; 2026 M&B Rénovation. L'excellence n'est pas un acte, c'est une habitude.</p>
+{% include legal-footer.html %}
     </footer>
 
 </body>

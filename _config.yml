@@ -1,5 +1,5 @@
-title: Maison MB Rénovation
-description: L'Excellence de la Rénovation en Île-de-France
+title: "M&B Rénovation"
+description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Garantie décennale."
 url: "https://www.maison-mb.fr"
 baseurl: ""
 
@@ -9,7 +9,73 @@ permalink: /:title/
 encoding: "utf-8"
 lang: fr_FR
 
+plugins:
+  - jekyll-sitemap
+  - jekyll-redirect-from
+
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+
+# ---------------------------------------------------------------
+# Identité de l'entreprise : source unique, utilisée par le footer,
+# les mentions légales, la page /entreprise/ et le JSON-LD.
+# ---------------------------------------------------------------
+company:
+  brand: "M&B Rénovation"
+  legal_name: "MOHAMED ABDELRAHMAN"
+  legal_form: "Entrepreneur individuel (EI)"
+  publication_director: "ABDELAZIM Abdelrahman"
+  siret: "923 102 412 00015"
+  siret_raw: "92310241200015"
+  registry: "Immatriculé au RNE (CMA Île-de-France)"
+  ape: "4399C"
+  vat: "FR25923102412"
+  street: "6 place Henri Frenay"
+  postal_code: "75012"
+  city: "Paris"
+  region: "Île-de-France"
+  country: "FR"
+  phone: "+33 7 53 30 65 59"
+  phone_raw: "+33753306559"
+  email: "abdel@maison-mb.fr"
+  insurance: "RC Pro et décennale"
+  insurer: "Entoria / Fidelidade"
+  insurance_contract: "CRCD01-043750"
+  insurance_coverage: "France"
+  founding_date: "2023-02-20"
+  founding_date_fr: "20/02/2023"
+  area: "Paris et Île-de-France"
+  hours: "7j/7, 24h/24 (demandes via WhatsApp et e-mail)"
+  annuaire_url: "https://annuaire-entreprises.data.gouv.fr/entreprise/923102412"
+  # TODO médiateur de la consommation : à confirmer (rien n'est affiché tant que vide)
+  mediator: ""
+
+social:
+  facebook: "https://www.facebook.com/1028887100297504"
+  instagram: "https://www.instagram.com/abdelrhman.08/"
+  google_business: "https://www.google.com/search?kgmid=/g/11xw8dr7dl"
+
+# TODO : code Google Search Console (méthode « balise HTML »),
+# uniquement la valeur de content="..."
+google_site_verification: ""
+
+# Pages de services (ordre d'affichage)
+services:
+  - title: "Électricité"
+    url: /services/electricite/
+  - title: "Plomberie"
+    url: /services/plomberie/
+  - title: "Plâtrerie"
+    url: /services/platrerie/
+  - title: "Carrelage"
+    url: /services/carrelage/
+  - title: "Sols"
+    url: /services/sols/
+  - title: "Peinture"
+    url: /services/peinture/
+  - title: "Menuiserie"
+    url: /services/menuiserie/
+  - title: "Rénovation complète"
+    url: /services/renovation-complete/
