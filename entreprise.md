@@ -47,3 +47,4 @@ Ces informations sont vérifiables sur la fiche officielle de l'entreprise : [An
 - **Assurance {{ c.insurance }}** auprès de {{ c.insurer }}, contrat n° {{ c.insurance_contract }}, couverture {{ c.insurance_coverage }}.
 - **Garantie décennale** : les ouvrages réalisés sont couverts pendant 10 ans après réception des travaux. L'attestation est remise avec le devis et à la livraison.
 - **Devis gratuit et détaillé**, sans engagement.
+- **Médiateur de la consommation** : {{ c.mediator_short }} (adhésion valable jusqu'au {{ c.mediator_valid_until }}).

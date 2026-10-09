@@ -30,6 +30,20 @@ Vos données sont utilisées uniquement pour répondre à vos demandes de devis 
 
 Vos données sont conservées **3 ans après le dernier contact**, puis supprimées.
 
+## Cookies et mesure d'audience
+
+Avec votre accord, ce site utilise des cookies et traceurs des services suivants :
+
+- **Google Analytics** (Google) : mesure d'audience, pour comprendre comment le site est consulté ;
+- **Google Ads** (Google) : mesure des demandes de contact issues de nos annonces et publicité ;
+- **Meta Pixel** (Meta) : mesure des contacts issus de nos publicités sur Facebook et Instagram, et publicité.
+
+**Finalité** : mesure d'audience et publicité.
+**Base légale** : votre consentement. Aucun de ces traceurs n'est chargé tant que vous n'avez pas cliqué sur « Accepter » dans le bandeau cookies ; si vous refusez, le site reste entièrement utilisable.
+**Durée** : ces cookies sont conservés 13 mois maximum. Votre choix (accepter ou refuser) est mémorisé 6 mois dans votre navigateur, puis le bandeau vous est de nouveau proposé.
+
+**Retirer votre consentement** : à tout moment, cliquez sur le lien [Gérer les cookies](#){: data-cookie-manage=""} en bas de chaque page, puis sur « Refuser ».
+
 ## Vos droits
 
 Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, écrivez-nous à [{{ c.email }}](mailto:{{ c.email }}).

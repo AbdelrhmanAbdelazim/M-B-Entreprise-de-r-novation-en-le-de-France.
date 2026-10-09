@@ -1,0 +1,143 @@
+{%- comment -%}
+  Consentement cookies (CNIL) + Google Consent Mode v2.
+  À inclure dans <head>, AVANT tout autre tag Google ou Meta.
+  Aucun script Google (gtag.js, GTM) ni Meta Pixel n'est chargé tant que
+  le visiteur n'a pas cliqué sur « Accepter ».
+{%- endcomment -%}
+{%- assign t = site.tracking -%}
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+
+    (function () {
+      var KEY = 'mb_cookie_consent';
+      var MAX_AGE = 1000 * 60 * 60 * 24 * 182; // 6 mois
+      var GA_ID = {{ t.ga4_id | jsonify }};
+      var ADS_ID = {{ t.google_ads_id | jsonify }};
+      var ADS_CONVERSION = {{ t.google_ads_conversion | jsonify }};
+      var GTM_ID = {{ t.gtm_id | jsonify }};
+      var PIXEL_ID = {{ t.meta_pixel_id | jsonify }};
+      var loaded = false;
+      var lastTrack = { kind: '', time: 0 };
+
+      function readChoice() {
+        try {
+          var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+          if (c && (c.value === 'accepted' || c.value === 'refused') && Date.now() - c.time < MAX_AGE) return c.value;
+        } catch (e) {}
+        return null;
+      }
+
+      function saveChoice(value) {
+        try { localStorage.setItem(KEY, JSON.stringify({ value: value, time: Date.now() })); } catch (e) {}
+      }
+
+      function addScript(src) {
+        var s = document.createElement('script');
+        s.async = true; s.src = src;
+        document.head.appendChild(s);
+      }
+
+      function loadTrackers() {
+        if (loaded) return;
+        loaded = true;
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
+        });
+
+        // Tag Google (Analytics + Ads)
+        addScript('https://www.googletagmanager.com/gtag/js?id=' + GA_ID);
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+        gtag('config', ADS_ID);
+
+        // Google Tag Manager existant
+        if (GTM_ID) {
+          dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          addScript('https://www.googletagmanager.com/gtm.js?id=' + GTM_ID);
+        }
+
+        // Meta Pixel (code standard)
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+
+      function clearTrackerCookies() {
+        var host = location.hostname.replace(/^www\./, '');
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^(_ga|_gid|_gat|_gcl|_fbp|_fbc)/.test(name)) {
+            ['', '; domain=' + location.hostname, '; domain=.' + host].forEach(function (d) {
+              document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+            });
+          }
+        });
+      }
+
+      // Une seule conversion par action (anti-doublon sur 1,5 s).
+      function track(kind) {
+        if (!loaded) return;
+        var now = Date.now();
+        if (now - lastTrack.time < 1500) return;
+        lastTrack = { kind: kind, time: now };
+        gtag('event', 'conversion', {
+          'send_to': ADS_CONVERSION,
+          'value': 1.0,
+          'currency': 'EUR'
+        });
+        if (window.fbq) fbq('track', kind === 'lead' ? 'Lead' : 'Contact');
+      }
+
+      window.mbConsent = {
+        get: readChoice,
+        accept: function () { saveChoice('accepted'); loadTrackers(); },
+        refuse: function () {
+          var wasLoaded = loaded;
+          saveChoice('refused');
+          gtag('consent', 'update', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied'
+          });
+          if (window.fbq) fbq('consent', 'revoke');
+          clearTrackerCookies();
+          // Retrait du consentement : on recharge pour décharger les traceurs.
+          if (wasLoaded) location.reload();
+        },
+        track: track
+      };
+
+      if (readChoice() === 'accepted') loadTrackers();
+
+      // Contacts : WhatsApp, téléphone, e-mail.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (/^(tel:|mailto:)/i.test(href) || /\/\/(wa\.me|api\.whatsapp\.com)\//i.test(href)) track('contact');
+      }, true);
+
+      // Formulaire de devis (il ouvre WhatsApp par script, pas par un lien) : 1 seul événement.
+      document.addEventListener('submit', function (e) {
+        if (e.target && e.target.id === 'leadForm') track('lead');
+      }, true);
+    })();
+    </script>

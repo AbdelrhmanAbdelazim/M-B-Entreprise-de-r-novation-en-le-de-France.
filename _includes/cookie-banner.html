@@ -1,0 +1,48 @@
+<style>
+    .mb-cookie { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9500; display: none; background: rgba(14, 18, 32, 0.98); border-top: 1px solid rgba(201, 168, 76, 0.3); box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4); font-family: var(--font-sans, 'Jost', sans-serif); }
+    .mb-cookie.is-open { display: block; }
+    .mb-cookie-inner { max-width: 1100px; margin: 0 auto; padding: 22px 5%; display: flex; align-items: center; gap: 28px; }
+    .mb-cookie-text { flex: 1; color: var(--silver, #B8C4D4); font-size: 0.85rem; line-height: 1.7; font-weight: 300; margin: 0; }
+    .mb-cookie-text strong { color: var(--white, #FFFFFF); font-weight: 500; }
+    .mb-cookie-text a { color: var(--gold, #C9A84C); text-decoration: underline; text-underline-offset: 3px; }
+    .mb-cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+    .mb-cookie-btn { width: 140px; padding: 12px 0; background: transparent; border: 1px solid var(--gold, #C9A84C); color: var(--white, #FFFFFF); font-family: inherit; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s; }
+    .mb-cookie-btn:hover, .mb-cookie-btn:focus-visible { background: var(--gold, #C9A84C); color: var(--bg-void, #080B12); outline: none; }
+    @media (max-width: 760px) {
+        .mb-cookie-inner { flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); }
+        .mb-cookie-text { font-size: 0.8rem; }
+        .mb-cookie-actions { gap: 10px; }
+        .mb-cookie-btn { width: auto; flex: 1; }
+    }
+</style>
+<div class="mb-cookie" id="mbCookie" role="dialog" aria-live="polite" aria-label="Gestion des cookies">
+    <div class="mb-cookie-inner">
+        <p class="mb-cookie-text"><strong>Cookies.</strong> Avec votre accord, nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics, Google Ads, Meta Pixel). Vous pouvez accepter ou refuser, et changer d'avis à tout moment via « Gérer les cookies » en bas de page. <a href="/confidentialite/">En savoir plus</a></p>
+        <div class="mb-cookie-actions">
+            <button type="button" class="mb-cookie-btn" data-cookie-choice="refuse">Refuser</button>
+            <button type="button" class="mb-cookie-btn" data-cookie-choice="accept">Accepter</button>
+        </div>
+    </div>
+</div>
+<script>
+(function () {
+    var banner = document.getElementById('mbCookie');
+    if (!banner || !window.mbConsent) return;
+    function open() { banner.classList.add('is-open'); }
+    function close() { banner.classList.remove('is-open'); }
+    if (!window.mbConsent.get()) open();
+    banner.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-cookie-choice]');
+        if (!btn) return;
+        close();
+        if (btn.getAttribute('data-cookie-choice') === 'accept') window.mbConsent.accept();
+        else window.mbConsent.refuse();
+    });
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest && e.target.closest('[data-cookie-manage]');
+        if (!link) return;
+        e.preventDefault();
+        open();
+    });
+})();
+</script>
