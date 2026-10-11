@@ -606,6 +606,20 @@ description: "M&B Rénovation rénove vos intérieurs à Paris et en Île-de-Fra
         }
 
         /* =============================================
+           NOS RÉALISATIONS (aperçu de /realisations/)
+        ============================================= */
+        .realisations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .realisations-grid a { display: block; overflow: hidden; background: var(--bg-raised); }
+        .realisations-grid img {
+            display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+            transition: transform 1s var(--ease);
+        }
+        .realisations-grid a:hover img { transform: scale(1.04); }
+        .realisations-cta { text-align: center; margin-top: 60px; }
+        @media (max-width: 900px) { .realisations-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .realisations-grid { grid-template-columns: 1fr; } }
+
+        /* =============================================
            CHANTIERS (WORK IN PROGRESS)
         ============================================= */
         .chantiers-grid {
@@ -1276,6 +1290,40 @@ description: "M&B Rénovation rénove vos intérieurs à Paris et en Île-de-Fra
                     <span>Étanchéité Parfaite</span>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="section section--dark" id="realisations">
+        <div class="section-header center" data-reveal>
+            <div class="eyebrow">Avant / Après</div>
+            <h2 style="margin-top:20px">Nos réalisations</h2>
+            <p class="section-intro">Avant / après, réalisations terminées et coulisses de nos chantiers à Paris et en Île-de-France.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="realisations-grid">
+            <a href="/realisations/" data-reveal>
+                <img src="/images/realisations/avant-apres-tableau-electrique.jpg" alt="Avant / après remplacement d'un tableau électrique à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+            <a href="/realisations/" data-reveal data-reveal-delay="1">
+                <img src="/images/realisations/realisation-bibliotheques-sur-mesure.jpg" alt="Bibliothèques sur mesure avec éclairage intégré à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+            <a href="/realisations/" data-reveal data-reveal-delay="2">
+                <img src="/images/realisations/avant-apres-douche.jpg" alt="Avant / après rénovation d'une douche à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+            <a href="/realisations/" data-reveal>
+                <img src="/images/realisations/avant-apres-plafond-salle-de-bain.jpg" alt="Avant / après rénovation du plafond d'une salle de bain à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+            <a href="/realisations/" data-reveal data-reveal-delay="1">
+                <img src="/images/realisations/chantier-moulures-cache-radiateurs.jpg" alt="Chantier de moulures et cache-radiateurs à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+            <a href="/realisations/" data-reveal data-reveal-delay="2">
+                <img src="/images/realisations/equipe-sur-le-chantier.jpg" alt="L'équipe M&amp;B Rénovation sur un chantier à Paris" width="1080" height="1350" loading="lazy" decoding="async">
+            </a>
+        </div>
+
+        <div class="realisations-cta" data-reveal>
+            <a href="/realisations/" class="btn-primary">Voir toutes nos réalisations</a>
         </div>
     </section>
 
