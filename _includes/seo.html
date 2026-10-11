@@ -60,7 +60,12 @@
         "addressRegion": {{ c.region | jsonify }},
         "addressCountry": {{ c.country | jsonify }}
       },
-      "areaServed": { "@type": "AdministrativeArea", "name": "Île-de-France" },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Île-de-France" }
+        {%- for v in site.villes %},
+        { "@type": "City", "name": {{ v.ville | jsonify }} }
+        {%- endfor %}
+      ],
       "foundingDate": {{ c.founding_date | jsonify }},
       "vatID": {{ c.vat | jsonify }},
       "identifier": {
