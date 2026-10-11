@@ -9,6 +9,18 @@ permalink: /:title/
 encoding: "utf-8"
 lang: fr_FR
 
+collections:
+  villes:
+    output: true
+    permalink: /renovation/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: villes
+    values:
+      layout: ville
+
 plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
