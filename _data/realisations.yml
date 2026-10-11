@@ -1,0 +1,62 @@
+# Photos de /realisations/ (fichiers dans images/realisations/).
+# Section et texte alternatif de chaque photo.
+- title: "Avant / Après"
+  photos:
+    - file: avant-apres-carrelage-salle-de-bain.jpg
+      alt: "Avant / après rénovation du carrelage d'une salle de bain à Paris – M&B Rénovation"
+    - file: avant-apres-chambre.jpg
+      alt: "Avant / après rénovation d'une chambre à Paris – M&B Rénovation"
+    - file: avant-apres-douche.jpg
+      alt: "Avant / après rénovation d'une douche à Paris – M&B Rénovation"
+    - file: avant-apres-plafond-salle-de-bain.jpg
+      alt: "Avant / après rénovation du plafond d'une salle de bain à Paris – M&B Rénovation"
+    - file: avant-apres-salle-de-bain.jpg
+      alt: "Avant / après rénovation d'une salle de bain à Paris – M&B Rénovation"
+    - file: avant-apres-sejour.jpg
+      alt: "Avant / après rénovation d'un séjour à Paris – M&B Rénovation"
+    - file: avant-apres-tableau-electrique.jpg
+      alt: "Avant / après remplacement d'un tableau électrique à Paris – M&B Rénovation"
+    - file: avant-pendant-piece-pierre.jpg
+      alt: "Avant / pendant la rénovation d'une pièce en pierre apparente à Paris – M&B Rénovation"
+- title: "Réalisations"
+  photos:
+    - file: realisation-amenagement-showroom.jpg
+      alt: "Aménagement et peinture d'un showroom à Paris – M&B Rénovation"
+    - file: realisation-bibliotheques-sur-mesure.jpg
+      alt: "Bibliothèques sur mesure avec éclairage intégré à Paris – M&B Rénovation"
+    - file: realisation-peinture-parquet.jpg
+      alt: "Peinture et parquet neufs dans un appartement à Paris – M&B Rénovation"
+    - file: realisation-sejour-parquet.jpg
+      alt: "Séjour rénové avec parquet neuf à Paris – M&B Rénovation"
+- title: "Sur le chantier"
+  photos:
+    - file: chantier-agencement-sur-mesure.jpg
+      alt: "Chantier d'agencement sur mesure à Paris – M&B Rénovation"
+    - file: chantier-couloir-parquet.jpg
+      alt: "Chantier de couloir repeint et parquet posé à Paris – M&B Rénovation"
+    - file: chantier-credence-bleue.jpg
+      alt: "Chantier de crédence en faïence bleue à Paris – M&B Rénovation"
+    - file: chantier-cuisine-ouverte.jpg
+      alt: "Chantier de cuisine ouverte en cours de finition à Paris – M&B Rénovation"
+    - file: chantier-cuisine-sur-mesure.jpg
+      alt: "Chantier de pose d'une cuisine sur mesure à Paris – M&B Rénovation"
+    - file: chantier-cuisine.jpg
+      alt: "Chantier de rénovation d'une cuisine à Paris – M&B Rénovation"
+    - file: chantier-electricite.jpg
+      alt: "Chantier de reprise de l'électricité à Paris – M&B Rénovation"
+    - file: chantier-moulures-cache-radiateurs.jpg
+      alt: "Chantier de moulures et cache-radiateurs à Paris – M&B Rénovation"
+    - file: chantier-niche-arche.jpg
+      alt: "Chantier de niche en arche à Paris – M&B Rénovation"
+    - file: chantier-placard-sur-mesure.jpg
+      alt: "Chantier de placard sur mesure à Paris – M&B Rénovation"
+    - file: chantier-placard-vert.jpg
+      alt: "Chantier de placard sur mesure peint en vert à Paris – M&B Rénovation"
+    - file: chantier-plafond-fissures.jpg
+      alt: "Chantier de reprise des fissures d'un plafond à Paris – M&B Rénovation"
+    - file: chantier-plafonds-electricite.jpg
+      alt: "Chantier de plafonds et d'électricité à Paris – M&B Rénovation"
+    - file: chantier-tete-de-lit.jpg
+      alt: "Chantier de tête de lit sur mesure à Paris – M&B Rénovation"
+    - file: equipe-sur-le-chantier.jpg
+      alt: "L'équipe M&B Rénovation sur un chantier à Paris"

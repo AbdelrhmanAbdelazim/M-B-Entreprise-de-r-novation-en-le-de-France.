@@ -38,6 +38,13 @@
         .nav-logo em { color: var(--gold); font-style: italic; }
         .nav-back { color: var(--silver); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
         .nav-back:hover { color: var(--gold); }
+        .nav-links { display: flex; align-items: center; gap: 26px; }
+        .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        @media (max-width: 760px) {
+            .nav-links { gap: 16px; }
+            .nav-links .nav-secondary, .nav-back-label { display: none; }
+        }
 
         /* Conteneur de la page */
         .article-container { max-width: 800px; margin: 150px auto 100px; padding: 0 5%; }
@@ -77,7 +84,12 @@
 
     <nav>
         <a href="/" class="nav-logo">M&B <em>Rénovation</em></a>
-        <a href="/" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Retour au site</a>
+        <div class="nav-links">
+            <a href="/services/" class="nav-secondary">Services</a>
+            <a href="/realisations/">Réalisations</a>
+            <a href="/blog/" class="nav-secondary">Blog</a>
+            <a href="/" class="nav-back" aria-label="Retour au site"><i class="fa-solid fa-arrow-left"></i><span class="nav-back-label"> Retour au site</span></a>
+        </div>
     </nav>
 
     <main class="article-container">
