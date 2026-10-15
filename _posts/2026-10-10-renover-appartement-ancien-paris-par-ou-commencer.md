@@ -38,7 +38,7 @@ Dans l'ancien, ce qu'on ne voit pas compte autant que ce qu'on voit :
 
 L'ordre des étapes conditionne la qualité du résultat :
 
-1. Dépose et démolition
+1. Dépose des anciens revêtements et équipements
 2. Électricité et plomberie
 3. Plâtrerie, cloisons, reprise des murs et plafonds
 4. Carrelage et sols

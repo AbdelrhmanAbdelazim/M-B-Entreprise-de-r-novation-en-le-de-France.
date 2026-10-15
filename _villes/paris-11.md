@@ -21,7 +21,7 @@ faq:
   - q: "Comment rénover un ancien atelier en logement ?"
     a: "Un atelier demande en général une reprise de l'isolation, de l'électricité et de la plomberie, puis la création de cloisons pour distribuer les pièces. Selon le changement d'usage et la copropriété, des démarches administratives peuvent être nécessaires : nous vous conseillons de les vérifier avant de lancer les travaux."
   - q: "Comment limiter la gêne pour les voisins pendant les travaux ?"
-    a: "Nous respectons les horaires fixés par le règlement de copropriété, protégeons les parties communes et regroupons les travaux bruyants (démolition, saignées) sur des périodes courtes. Le chantier est nettoyé chaque jour."
+    a: "Nous respectons les horaires fixés par le règlement de copropriété, protégeons les parties communes et regroupons les travaux bruyants (dépose, saignées) sur des périodes courtes. Le chantier est nettoyé chaque jour."
 voisins: [paris-12, montreuil, vincennes]
 ---
 ## Les logements du 11e arrondissement
