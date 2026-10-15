@@ -5,7 +5,8 @@
     .mb-legal a { color: var(--silver, #B8C4D4); text-decoration: none; transition: color 0.3s; }
     .mb-legal a[href^="tel:"] { white-space: nowrap; }
     .mb-legal a:hover { color: var(--gold, #C9A84C); }
-    .mb-legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; margin-top: 12px; font-size: 0.75rem; letter-spacing: 0.05em; }
+    .mb-legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 10px; margin-top: 6px; font-size: 0.75rem; letter-spacing: 0.05em; }
+    .mb-legal-links a { display: inline-block; padding: 6px; min-height: 24px; }
 </style>
 <div class="mb-legal">
     <p>{{ c.brand }} – {{ c.legal_name }} (EI) – SIRET {{ c.siret }} – {{ c.street }}, {{ c.postal_code }} {{ c.city }} – <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a></p>

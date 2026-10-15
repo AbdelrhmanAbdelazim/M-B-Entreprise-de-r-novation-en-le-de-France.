@@ -7,7 +7,7 @@ description: "Copropriété, électricité, plomberie, ordre des travaux : le gu
 image: /chantier-10.jpg
 ---
 
-![Appartement ancien rénové à Paris, parquet et murs repris](/chantier-10.jpg)
+![Appartement ancien rénové à Paris, parquet et murs repris](/chantier-10.jpg){: width="1200" height="1600"}
 
 Parquet d'origine, moulures, hauteur sous plafond… Les appartements anciens parisiens ont un charme unique. Mais leur rénovation demande de la méthode. Voici par où commencer pour éviter les mauvaises surprises.
 

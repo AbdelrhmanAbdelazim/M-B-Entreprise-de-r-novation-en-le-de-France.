@@ -51,7 +51,7 @@ image: /images/realisations/avant-apres-salle-de-bain.jpg
 <div class="mb-lightbox" id="mbLightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
     <button type="button" class="mb-lightbox-btn mb-lightbox-close" aria-label="Fermer">&#10005;</button>
     <button type="button" class="mb-lightbox-btn mb-lightbox-prev" aria-label="Photo précédente">&#8249;</button>
-    <img src="" alt="">
+    <img alt="">
     <button type="button" class="mb-lightbox-btn mb-lightbox-next" aria-label="Photo suivante">&#8250;</button>
 </div>
 
@@ -68,7 +68,7 @@ image: /images/realisations/avant-apres-salle-de-bain.jpg
         big.alt = img.alt;
     }
     function open(i) { opener = items[i]; show(i); box.classList.add('is-open'); document.body.style.overflow = 'hidden'; box.querySelector('.mb-lightbox-close').focus(); }
-    function close() { box.classList.remove('is-open'); document.body.style.overflow = ''; big.src = ''; if (opener) opener.focus(); }
+    function close() { box.classList.remove('is-open'); document.body.style.overflow = ''; big.removeAttribute('src'); if (opener) opener.focus(); }
     items.forEach(function (btn, i) { btn.addEventListener('click', function () { open(i); }); });
     box.querySelector('.mb-lightbox-close').addEventListener('click', close);
     box.querySelector('.mb-lightbox-prev').addEventListener('click', function (e) { e.stopPropagation(); show(index - 1); });

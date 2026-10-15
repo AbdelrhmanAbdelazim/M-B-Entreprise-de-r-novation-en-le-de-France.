@@ -7,7 +7,7 @@ description: "Mentions obligatoires, détail des postes, TVA, assurance décenna
 image: /chantier-4.jpg
 ---
 
-![Préparation des murs et plafonds sur un chantier de rénovation](/chantier-4.jpg)
+![Préparation des murs et plafonds sur un chantier de rénovation](/chantier-4.jpg){: width="1600" height="1200"}
 
 Vous avez demandé plusieurs devis pour vos travaux et les montants ne se ressemblent pas ? C'est normal : deux devis ne décrivent pas toujours les mêmes travaux. Voici comment les lire et les comparer sereinement.
 
