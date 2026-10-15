@@ -1,4 +1,10 @@
 ---
 layout: page
 ---
+{%- assign c = site.company -%}
 {{ content }}
+
+<h2>Un projet de rénovation ?</h2>
+<p>Visite technique et devis détaillé offerts. Écrivez-nous sur WhatsApp, 7j/7 : réponse sous 24 h.</p>
+<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ 'Bonjour M&B Rénovation, j’ai lu votre article « ' | append: page.title | append: ' » et je souhaite un devis gratuit pour : ' | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
+<p>Ou par téléphone au <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a>, ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>. Voir aussi <a href="/realisations/">nos réalisations en photos</a>.</p>

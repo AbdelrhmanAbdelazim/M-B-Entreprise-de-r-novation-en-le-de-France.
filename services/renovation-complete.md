@@ -13,7 +13,7 @@ Rénover entièrement un appartement ou une maison implique de nombreux métiers
 
 ## Tous les corps d'état réunis
 
-- Démolition, évacuation des gravats et protection des parties communes
+- Dépose des anciens revêtements et équipements, évacuation des gravats et protection des parties communes
 - [Électricité](/services/electricite/) et [plomberie](/services/plomberie/)
 - [Plâtrerie](/services/platrerie/), isolation et faux plafonds
 - [Carrelage](/services/carrelage/) et [sols](/services/sols/)

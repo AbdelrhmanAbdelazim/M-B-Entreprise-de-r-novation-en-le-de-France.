@@ -7,7 +7,7 @@ description: "Copropriété, électricité, plomberie, ordre des travaux : le gu
 image: /chantier-10.jpg
 ---
 
-![Appartement ancien rénové à Paris, parquet et murs repris](/chantier-10.jpg)
+![Appartement ancien rénové à Paris, parquet et murs repris](/chantier-10.jpg){: width="1200" height="1600"}
 
 Parquet d'origine, moulures, hauteur sous plafond… Les appartements anciens parisiens ont un charme unique. Mais leur rénovation demande de la méthode. Voici par où commencer pour éviter les mauvaises surprises.
 
@@ -38,7 +38,7 @@ Dans l'ancien, ce qu'on ne voit pas compte autant que ce qu'on voit :
 
 L'ordre des étapes conditionne la qualité du résultat :
 
-1. Dépose et démolition
+1. Dépose des anciens revêtements et équipements
 2. Électricité et plomberie
 3. Plâtrerie, cloisons, reprise des murs et plafonds
 4. Carrelage et sols

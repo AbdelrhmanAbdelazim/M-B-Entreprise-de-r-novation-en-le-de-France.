@@ -3,7 +3,7 @@ layout: post
 title: "M&B Rénovation : Votre Expert en Île-de-France"
 seo_title: "Bienvenue chez M&B Rénovation, votre expert en Île-de-France"
 date: 2026-02-21
-description: "Découvrez nos services d'experts en rénovation d'intérieur à Paris."
+description: "Découvrez nos services de rénovation d'intérieur à Paris et en Île-de-France."
 ---
 
 ## Bienvenue chez M&B Rénovation

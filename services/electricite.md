@@ -23,7 +23,7 @@ Dans un logement ancien, l'installation électrique est souvent le premier poste
 
 ## Une électricité pensée avec le reste du chantier
 
-L'électricité se prépare avant les cloisons, les sols et la peinture. Lors de la visite technique, nous relevons l'existant et nous définissons avec vous l'emplacement de chaque prise et de chaque luminaire, en fonction de l'aménagement prévu. Les gaines sont posées pendant la phase de gros œuvre, ce qui évite les reprises et les goulottes apparentes une fois les murs terminés.
+L'électricité se prépare avant les cloisons, les sols et la peinture. Lors de la visite technique, nous relevons l'existant et nous définissons avec vous l'emplacement de chaque prise et de chaque luminaire, en fonction de l'aménagement prévu. Les gaines sont posées avant les travaux de plâtrerie, ce qui évite les reprises et les goulottes apparentes une fois les murs terminés.
 
 Dans un appartement occupé, nous pouvons organiser les travaux pièce par pièce pour limiter les coupures de courant.
 

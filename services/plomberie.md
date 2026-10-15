@@ -27,6 +27,6 @@ Dans une pièce d'eau, ce qui se trouve derrière le carrelage compte autant que
 
 ## Une salle de bains coordonnée
 
-Une salle de bains réunit plusieurs métiers : plomberie, électricité, plâtrerie, carrelage et peinture. Avec M&B Rénovation, ces étapes sont enchaînées par la même équipe, ce qui simplifie l'organisation et évite les délais d'attente entre intervenants.
+Une salle de bains réunit plusieurs métiers : plomberie, électricité, plâtrerie, carrelage et peinture. Avec M&B Rénovation, ces étapes sont coordonnées par un seul interlocuteur, ce qui simplifie l'organisation et évite les délais d'attente entre intervenants.
 
 Nous vous aidons aussi à choisir les équipements adaptés à la taille de la pièce et à vos usages, puis nous les posons et les raccordons. À la livraison, chaque arrivée et chaque évacuation est testée.

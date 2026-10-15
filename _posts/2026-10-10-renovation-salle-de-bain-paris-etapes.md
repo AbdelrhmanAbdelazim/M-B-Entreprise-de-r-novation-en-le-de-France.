@@ -7,7 +7,7 @@ description: "Plomberie, étanchéité, carrelage, ventilation : les étapes d'u
 image: /chantier-6.jpg
 ---
 
-![Salle de bain en cours de rénovation à Paris par M&B Rénovation](/chantier-6.jpg)
+![Salle de bain en cours de rénovation à Paris par M&B Rénovation](/chantier-6.jpg){: width="828" height="1488"}
 
 Rénover une salle de bain est l'un des projets les plus demandés à Paris. C'est aussi l'un des plus techniques : dans quelques mètres carrés, on concentre de la plomberie, de l'électricité, de l'étanchéité et des finitions. Voici les étapes d'un chantier bien mené, et les erreurs que nous voyons le plus souvent.
 
@@ -48,6 +48,6 @@ La baignoire reste appréciée des familles. La douche à l'italienne gagne de l
 
 ## Un seul interlocuteur pour tout le chantier
 
-Chez M&B Rénovation, la même équipe gère la plomberie, l'électricité, l'étanchéité, le carrelage et les finitions. Vous avez un seul contact, un devis clair et un chantier suivi du début à la fin, avec la garantie décennale.
+Chez M&B Rénovation, vous avez un seul interlocuteur pour la plomberie, l'électricité, l'étanchéité, le carrelage et les finitions, un devis clair et un chantier suivi du début à la fin, avec la garantie décennale.
 
 **Un projet de salle de bain à Paris ou en Île-de-France ?** Envoyez-nous quelques photos sur WhatsApp au 07 53 30 65 59 : nous vous répondons par écrit sous 24 h.
