@@ -10,8 +10,7 @@ description: "Projet de rénovation haut de gamme livré en février 2026."
 Nous sommes fiers de vous présenter notre tout dernier projet achevé ce mois-ci. **M&B Rénovation** continue d'offrir l'excellence à ses clients parisiens.
 
 ### Détails techniques :
-* **Modernisation** : Installation de systèmes domotiques avancés.
 * **Matériaux** : Utilisation de matériaux nobles et durables.
-* **Expertise** : Une équipe d'artisans qualifiés à votre service.
+* **Suivi** : un seul interlocuteur, du devis à la livraison.
 
 La satisfaction de nos clients est notre priorité absolue en ce début d'année 2026.

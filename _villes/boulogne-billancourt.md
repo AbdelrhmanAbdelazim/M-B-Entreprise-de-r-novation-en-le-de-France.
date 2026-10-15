@@ -21,7 +21,7 @@ faq:
   - q: "Les travaux dans une résidence récente sont-ils plus simples ?"
     a: "Souvent, car les réseaux sont plus récents et les accès plus faciles (ascenseur, parking). Le règlement de copropriété reste à respecter, notamment pour les sols : une sous-couche acoustique adaptée est souvent exigée."
   - q: "Qui s'occupe de coordonner les différents corps de métier ?"
-    a: "Nous. Plâtrerie, électricité, plomberie, carrelage, sols et peinture sont réalisés par la même équipe, avec un seul interlocuteur et un planning suivi du début à la fin."
+    a: "Nous. Plâtrerie, électricité, plomberie, carrelage, sols et peinture sont coordonnés par un seul interlocuteur, avec un planning suivi du début à la fin."
 voisins: [issy-les-moulineaux, neuilly-sur-seine, levallois-perret]
 ---
 ## Les logements à Boulogne-Billancourt

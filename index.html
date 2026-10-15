@@ -1,6 +1,6 @@
 ---
 seo_title: "Entreprise de rénovation et artisan à Paris | Sous-traitance – M&B Rénovation"
-description: "Travaux de rénovation intérieure à Paris et en Île-de-France pour particuliers et entreprises. Sous-traitance professionnelle, devis gratuit et garantie décennale."
+description: "Rénovation intérieure à Paris et en Île-de-France pour particuliers et professionnels : sous-traitance, devis gratuit et garantie décennale."
 ---
 
 
@@ -88,9 +88,9 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
         /* =============================================
            TYPOGRAPHY
         ============================================= */
-        h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
+        h1, h2, h3, .hero-title { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
 
-        h1 {
+        h1, .hero-title {
             font-size: clamp(3.5rem, 9vw, 7.5rem);
             line-height: 0.95;
             font-weight: 300;
@@ -308,6 +308,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
         }
 
         .hero-eyebrow {
+            margin: 0; line-height: normal; font-style: normal;
             opacity: 0;
             animation: fadeSlideUp 1s var(--ease) 1.8s forwards;
         }
@@ -1083,9 +1084,9 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
         <div class="hero-bottom-fade"></div>
 
         <div class="hero-content">
-            <div class="eyebrow hero-eyebrow">Artisanat de Luxe &nbsp;·&nbsp; Paris & Île-de-France</div>
-            <h1 class="hero-title">L'Art de Sublimer<br>Votre Intérieur</h1>
-            <p class="hero-subtitle">Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, design intérieur. Une signature unique pour votre habitat.</p>
+            <h1 class="eyebrow hero-eyebrow">Entreprise de rénovation &nbsp;·&nbsp; Paris & Île-de-France</h1>
+            <p class="hero-title">L'Art de Sublimer<br>Votre Intérieur</p>
+            <p class="hero-subtitle">Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, plâtrerie, carrelage, sols et peinture. Une signature unique pour votre habitat.</p>
             <div class="hero-actions">
                 <button class="btn-primary" onclick="openModal()">Demander un devis</button>
                 <a href="#portfolio" class="btn-ghost">Voir nos réalisations</a>
@@ -1139,7 +1140,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
                 <h3>Lumière & Tech</h3>
                 <ul class="svc-items">
                     <li>Électricité NF C 15-100</li>
-                    <li>Domotique intégrée</li>
+                    <li>Tableau électrique & éclairage</li>
                     <li>Ventilation (VMC)</li>
                 </ul>
             </div>
@@ -1162,7 +1163,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
                 <ul class="svc-items">
                     <li>Parquets massifs & pose</li>
                     <li>Carrelages grands formats</li>
-                    <li>Menuiserie sur mesure</li>
+                    <li>Pose de menuiseries</li>
                 </ul>
             </div>
         </div>
@@ -1175,7 +1176,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
     <section class="section section--dark" id="portfolio">
         <div class="section-header" data-reveal>
             <div class="eyebrow">Portfolio</div>
-            <h2 style="margin-top:20px">Nos Réalisations</h2>
+            <h2 style="margin-top:20px">Pièces Rénovées</h2>
             <div class="section-line"></div>
         </div>
 
@@ -1208,7 +1209,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
         <div class="section-header center" data-reveal>
             <div class="eyebrow">L'Envers du Décor</div>
             <h2 style="margin-top:20px">La Rigueur de la Préparation</h2>
-            <p class="section-intro">La véritable qualité d'une rénovation de luxe se cache derrière les murs. Découvrez nos chantiers en cours : isolation, traitement, et préparation millimétrée.</p>
+            <p class="section-intro">La véritable qualité d'une rénovation de luxe se cache derrière les murs. Découvrez nos chantiers : préparation des supports, plâtrerie, réseaux et finitions.</p>
             <div class="section-line"></div>
         </div>
 
@@ -1216,8 +1217,8 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
             <div class="chantier-item" data-reveal>
                 <img src="chantier-1.jpg" alt="Salle de bains en cours de rénovation : murs préparés et sol ragréé avant carrelage" loading="lazy" width="1200" height="1600">
                 <div class="chantier-caption">
-                    <h4>Isolation & Structure</h4>
-                    <span>Confort Thermique</span>
+                    <h4>Préparation des Supports</h4>
+                    <span>Murs & Sol avant Carrelage</span>
                 </div>
             </div>
 
@@ -1225,7 +1226,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
                 <img src="chantier-2.jpg" alt="Receveur de douche et carreaux de ciment à motifs posés sur plaques hydrofuges" loading="lazy" width="1200" height="1600">
                 <div class="chantier-caption">
                     <h4>Placo Hydrofuge</h4>
-                    <span>Protection Anti-Humidité</span>
+                    <span>Douche & Carreaux de Ciment</span>
                 </div>
             </div>
 
@@ -1240,24 +1241,24 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
             <div class="chantier-item" data-reveal data-reveal-delay="3">
                 <img src="chantier-4.jpg" alt="Pièce en rénovation : plafond en plaques de plâtre et gaines électriques en attente" loading="lazy" width="1600" height="1200">
                 <div class="chantier-caption">
-                    <h4>Lissage des Murs</h4>
-                    <span>Préparation Peinture</span>
+                    <h4>Plâtrerie & Électricité</h4>
+                    <span>Plafond & Gaines en Attente</span>
                 </div>
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="4">
                 <img src="chantier-6.jpg" alt="Salle de bains terminée avec baignoire, paroi vitrée et carrelage gris" loading="lazy" width="828" height="1488">
                 <div class="chantier-caption">
-                    <h4>Restauration</h4>
-                    <span>Charme & Authenticité</span>
+                    <h4>Salle de Bains</h4>
+                    <span>Baignoire & Paroi Vitrée</span>
                 </div>
             </div>
 
             <div class="chantier-item" data-reveal data-reveal-delay="5">
                 <img src="chantier-7.jpg" alt="Appartement rénové avec parquet neuf, murs repeints et placard sur mesure" loading="lazy" width="1200" height="1600">
                 <div class="chantier-caption">
-                    <h4>Assainissement</h4>
-                    <span>Traitement Anti-Humidité</span>
+                    <h4>Rénovation Complète</h4>
+                    <span>Parquet & Peinture</span>
                 </div>
             </div>
             
@@ -1272,8 +1273,8 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
             <div class="chantier-item" data-reveal data-reveal-delay="1">
                 <img src="chantier-10.jpg" alt="Chambre rénovée avec placard coulissant sur mesure et parquet" loading="lazy" width="1200" height="1600">
                 <div class="chantier-caption">
-                    <h4>Équipements Premium</h4>
-                    <span>Design & Confort</span>
+                    <h4>Chambre Rénovée</h4>
+                    <span>Placard & Parquet</span>
                 </div>
             </div>
 
@@ -1288,8 +1289,8 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
             <div class="chantier-item" data-reveal data-reveal-delay="3">
                 <img src="chantier-13.jpg" alt="Pièce rénovée à Paris : parquet posé et finitions des murs" loading="lazy" width="1200" height="1600">
                 <div class="chantier-caption">
-                    <h4>Plomberie & Bains</h4>
-                    <span>Étanchéité Parfaite</span>
+                    <h4>Finitions</h4>
+                    <span>Parquet & Murs</span>
                 </div>
             </div>
         </div>
@@ -1320,7 +1321,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
                 <img src="/images/realisations/chantier-moulures-cache-radiateurs.jpg" alt="Chantier de moulures et cache-radiateurs à Paris – M&amp;B Rénovation" width="1080" height="1350" loading="lazy" decoding="async">
             </a>
             <a href="/realisations/" data-reveal data-reveal-delay="2">
-                <img src="/images/realisations/equipe-sur-le-chantier.jpg" alt="L'équipe M&amp;B Rénovation sur un chantier à Paris" width="1080" height="1350" loading="lazy" decoding="async">
+                <img src="/images/realisations/equipe-sur-le-chantier.jpg" alt="L'artisan M&amp;B Rénovation sur un chantier à Paris, pièce protégée avant travaux" width="1080" height="1350" loading="lazy" decoding="async">
             </a>
         </div>
 
@@ -1350,7 +1351,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
             <div class="process-step" data-reveal data-reveal-delay="2">
                 <span class="process-num">03</span>
                 <h3>Réalisation</h3>
-                <p>Exécution par nos experts avec protection complète et propreté irréprochable chaque jour.</p>
+                <p>Exécution soignée, avec protection complète du logement et propreté irréprochable chaque jour.</p>
             </div>
             <div class="process-step" data-reveal data-reveal-delay="3">
                 <span class="process-num">04</span>
@@ -1363,7 +1364,7 @@ description: "Travaux de rénovation intérieure à Paris et en Île-de-France p
     <div class="cta-band" data-reveal>
         <div class="eyebrow" style="justify-content:center;margin-bottom:20px;">Commençons Ensemble</div>
         <h2>Votre Projet Mérite<br>L'Excellence</h2>
-        <p>Bénéficiez d'une consultation gratuite par nos experts. Résultat garanti, transparence totale.</p>
+        <p>Bénéficiez d'une étude de projet gratuite, avec un seul interlocuteur et une transparence totale.</p>
         <div class="cta-actions">
             <button class="btn-primary" onclick="openModal()">Étude de Projet Offerte</button>
             <a href="https://wa.me/33753306559" target="_blank" class="whatsapp-btn">

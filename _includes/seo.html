@@ -77,11 +77,13 @@
         "propertyID": "SIRET",
         "value": {{ c.siret_raw | jsonify }}
       },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "00:00",
-        "closes": "23:59"
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": {{ c.phone_raw | jsonify }},
+        "email": {{ c.email | jsonify }},
+        "availableLanguage": "French",
+        "description": {{ c.hours | jsonify }}
       },
       "sameAs": {{ same_as | jsonify }}
     }
