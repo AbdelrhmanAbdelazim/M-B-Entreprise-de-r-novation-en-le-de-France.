@@ -13,6 +13,9 @@ collections:
   villes:
     output: true
     permalink: /renovation/:name/
+  departements:
+    output: true
+    permalink: /renovation/departement/:name/
 
 defaults:
   - scope:
@@ -20,6 +23,11 @@ defaults:
       type: villes
     values:
       layout: ville
+  - scope:
+      path: ""
+      type: departements
+    values:
+      layout: departement
 
 plugins:
   - jekyll-sitemap

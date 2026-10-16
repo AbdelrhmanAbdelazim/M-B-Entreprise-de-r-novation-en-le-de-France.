@@ -1,0 +1,50 @@
+---
+layout: page
+---
+{%- assign c = site.company -%}
+<p><strong>{{ page.intro }}</strong></p>
+
+{{ content }}
+
+{%- assign villes = site.villes | where: "departement", page.departement | sort: "ville" %}
+<h2>Nos pages villes {{ page.dans }}</h2>
+{%- if villes.size > 0 %}
+<ul>
+    {%- for v in villes %}
+    <li><a href="{{ v.url }}">Rénovation à {{ v.ville }} ({{ v.code_postal }})</a></li>
+    {%- endfor %}
+</ul>
+{%- endif %}
+<p>Votre commune n'a pas encore de page ? Nous intervenons partout {{ page.dans }} : décrivez-nous votre projet.</p>
+
+<h2>Nos métiers</h2>
+<ul>
+    <li><a href="/services/platrerie/">Plâtrerie, cloisons et faux plafonds</a></li>
+    <li><a href="/services/electricite/">Électricité</a></li>
+    <li><a href="/services/plomberie/">Plomberie et sanitaires</a></li>
+    <li><a href="/services/carrelage/">Carrelage et faïence</a></li>
+    <li><a href="/services/peinture/">Peinture</a></li>
+    <li><a href="/services/sols/">Parquet et sols souples</a></li>
+    <li><a href="/services/menuiserie/">Pose de placards</a></li>
+    <li><a href="/services/renovation-complete/">Rénovation complète : salle de bain, cuisine, appartement, maison</a></li>
+</ul>
+
+<h2>Notre méthode</h2>
+<ol>
+    <li><strong>Visite technique</strong> sur place pour comprendre le projet et ses contraintes.</li>
+    <li><strong>Devis détaillé et gratuit</strong>, poste par poste, sans engagement.</li>
+    <li><strong>Un seul interlocuteur</strong> qui coordonne tous les corps de métier.</li>
+    <li><strong>Chantier protégé et rendu propre</strong>, nettoyé chaque jour.</li>
+</ol>
+
+<h2>Questions fréquentes {{ page.dans }}</h2>
+{%- for f in page.faq %}
+<h3>{{ f.q }}</h3>
+<p>{{ f.a }}</p>
+{%- endfor %}
+
+<h2>Un projet {{ page.dans }} ?</h2>
+<p>Envoyez-nous quelques photos et une description de votre projet : nous vous répondons rapidement pour organiser une visite. Nos clients nous notent 5/5 sur Google.</p>
+{%- capture wa_msg -%}Bonjour M&B Rénovation, j'ai un projet de rénovation {{ page.dans }}{%- endcapture -%}
+<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ wa_msg | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
+<p>Ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>. Voir aussi <a href="/realisations/">nos réalisations</a> et <a href="/zones-intervention/">toutes nos zones d'intervention</a>.</p>
