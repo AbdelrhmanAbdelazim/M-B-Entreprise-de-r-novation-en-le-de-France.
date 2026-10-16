@@ -29,6 +29,8 @@ Nous n'acceptons pas de chantiers de **maçonnerie**, de **démolition lourde** 
 
 - **Un seul interlocuteur** pour le chiffrage, le planning et le suivi du chantier.
 - **Réponse sous 24 h** et **devis détaillé par lot sous 48 h**.
+- **Compte rendu avec photos avant/après envoyé après chaque intervention.**
+- **Intervention rapide entre deux locataires.**
 - **Assurance {{ c.insurance }}** auprès de {{ c.insurer }}, contrat n° {{ c.insurance_contract }}.
 - **Documents administratifs et attestations transmis sur demande.**
 - **Entreprise** : {{ c.brand }} – {{ c.legal_name }} ({{ c.legal_form }}), SIRET {{ c.siret }}. Voir la page [entreprise](/entreprise/).
