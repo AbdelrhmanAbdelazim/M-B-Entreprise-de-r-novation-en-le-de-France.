@@ -21,10 +21,6 @@ permalink: /sous-traitance-renovation/
 - **Ou rénovation complète** du bien : voir [rénovation complète](/services/renovation-complete/).
 - **Zone d'intervention** : {{ c.area }} (voir nos [zones d'intervention](/zones-intervention/)).
 
-## Travaux que nous ne réalisons pas
-
-Nous n'acceptons pas de chantiers de **maçonnerie**, de **démolition lourde** ni de **fabrication de menuiserie** : ces activités ne sont pas couvertes par notre assurance.
-
 ## Notre fonctionnement
 
 - **Un seul interlocuteur** pour le chiffrage, le planning et le suivi du chantier.

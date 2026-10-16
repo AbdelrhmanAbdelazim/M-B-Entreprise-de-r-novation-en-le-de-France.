@@ -17,7 +17,7 @@ photos:
     alt: "Plafond de salle de bain refait avant / après, exemple de réalisation M&B Rénovation"
 faq:
   - q: "Peut-on ouvrir une cuisine sur le séjour dans un appartement en résidence ?"
-    a: "C'est souvent possible si la cloison n'est pas porteuse. Nous vérifions la nature du mur lors de la visite ; si un mur porteur est concerné, une étude par un bureau d'études et l'accord de la copropriété sont nécessaires, et ces travaux de maçonnerie relèvent d'une entreprise spécialisée : nous ne les réalisons pas."
+    a: "C'est souvent possible si la cloison n'est pas porteuse. Nous vérifions la nature du mur lors de la visite ; si un mur porteur est concerné, une étude par un bureau d'études et l'accord de la copropriété sont nécessaires."
   - q: "Quelles contraintes pour changer le revêtement de sol ?"
     a: "En copropriété, le règlement impose souvent une isolation phonique minimale pour les sols. Nous choisissons des sous-couches adaptées et préparons le support pour une pose durable."
   - q: "Rénovez-vous aussi les appartements anciens ?"
