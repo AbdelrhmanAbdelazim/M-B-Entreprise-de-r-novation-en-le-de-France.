@@ -31,7 +31,7 @@
 
     <meta property="og:site_name" content="{{ c.brand }}">
     <meta property="og:locale" content="fr_FR">
-    <meta property="og:type" content="{% if page.date %}article{% else %}website{% endif %}">
+    <meta property="og:type" content="{% if page.collection == "posts" %}article{% else %}website{% endif %}">
     <meta property="og:url" content="{{ seo_url }}">
     <meta property="og:title" content="{{ seo_title }}">
     <meta property="og:description" content="{{ seo_description }}">
@@ -66,8 +66,8 @@
       },
       "areaServed": [
         { "@type": "AdministrativeArea", "name": "Île-de-France" }
-        {%- for v in site.villes %},
-        { "@type": "City", "name": {{ v.ville | jsonify }} }
+        {%- for v in site.villes %}{% if v.ville %},
+        { "@type": "City", "name": {{ v.ville | jsonify }} }{% endif %}
         {%- endfor %}
       ],
       "foundingDate": {{ c.founding_date | jsonify }},

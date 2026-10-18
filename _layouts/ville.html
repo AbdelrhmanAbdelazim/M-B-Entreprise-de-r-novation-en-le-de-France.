@@ -19,6 +19,7 @@ layout: page
     <li><a href="/services/renovation-complete/">Rénovation complète</a> : salle de bain, cuisine ou appartement entier, avec un seul interlocuteur.</li>
 </ul>
 
+{%- if page.photos %}
 <h2>Quelques réalisations</h2>
 <p>Ces photos sont des exemples de chantiers M&amp;B Rénovation en Île-de-France. Retrouvez-les toutes sur la page <a href="/realisations/">Nos réalisations</a>.</p>
 <div class="ville-photos">
@@ -26,6 +27,7 @@ layout: page
     <img src="/images/realisations/{{ p.file }}" alt="{{ p.alt | escape }}" width="1080" height="1350" loading="lazy" decoding="async">
     {%- endfor %}
 </div>
+{%- endif %}
 
 <h2>Notre méthode</h2>
 <ol>
@@ -35,11 +37,13 @@ layout: page
     <li><strong>Chantier protégé et rendu propre</strong> : sols, parties communes et mobilier sont protégés, le chantier est nettoyé chaque jour.</li>
 </ol>
 
+{%- if page.faq %}
 <h2>Questions fréquentes à {{ page.ville }}</h2>
 {%- for f in page.faq %}
 <h3>{{ f.q }}</h3>
 <p>{{ f.a }}</p>
 {%- endfor %}
+{%- endif %}
 
 <h2>Un projet à {{ page.ville }} ?</h2>
 <p>Envoyez-nous quelques photos et une description de votre projet : nous vous répondons rapidement pour organiser une visite. Nos clients nous notent 5/5 sur Google.</p>
