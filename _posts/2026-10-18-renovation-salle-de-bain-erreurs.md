@@ -7,8 +7,6 @@ date: 2026-10-18 00:00:00 +0100
 published: true
 ---
 
-# Rénovation de salle de bain en Île-de-France : 3 erreurs à éviter absolument
-
 La rénovation d'une salle de bain est l'un des projets les plus complexes dans un appartement ou une maison. Entre la plomberie, l'étanchéité et l'électricité, une petite erreur de conception peut coûter cher à la fois en argent et en délais.
 
 En tant qu'artisan spécialisé dans le second œuvre et la rénovation globale en **Île-de-France**, **M&B Rénovation** vous partage les 3 pièges les plus fréquents à éviter.

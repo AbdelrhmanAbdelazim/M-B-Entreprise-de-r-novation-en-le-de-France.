@@ -7,8 +7,6 @@ date: 2026-10-18 00:00:00 +0100
 published: true
 ---
 
-# Rénovation d'appartement en Île-de-France : Guide complet pour vos travaux
-
 Rénover un appartement en région parisienne, qu'il s'agisse d'un Haussmannien à Paris ou d'un bien récent en petite et grande couronne, demande de l'organisation, des compétences techniques variées et un suivi rigoureux.
 
 En tant qu'artisan gérant de **M&B Rénovation**, j'interviens dans toute **l'Île-de-France** pour donner vie à vos projets de A à Z.
@@ -19,7 +17,7 @@ En tant qu'artisan gérant de **M&B Rénovation**, j'interviens dans toute **l'�
 
 Une rénovation réussie ne s'improvise pas. Elle suit un ordre technique précis pour éviter les malfaçons :
 
-* **Le gros œuvre et les réseaux :** Reprise de la plomberie, électricité aux normes (NF C 15-100) et installation des systèmes de ventilation (VMC).
+* **Les réseaux :** Reprise de la plomberie, électricité aux normes (NF C 15-100) et installation des systèmes de ventilation (VMC).
 * **L'isolation et la plâtrerie :** Pose des cloisons, doublages, faux plafonds et traitement des bandes (Placo BA13, MAP, enduits de finition).
 * **Les finitions (Second œuvre) :** Pose des sols (parquet PVC ou stratifié, carrelage), application des peintures professionnelles (Tollens, Seigneurie) et ajustement des portes et plinthes.
 

@@ -7,8 +7,6 @@ date: 2026-10-18 00:00:00 +0100
 published: true
 ---
 
-# Électricité et Plomberie en Île-de-France : Les normes et la sécurité
-
 Derrière la beauté des finitions se cache l'infrastructure technique d'un logement. En Île-de-France, de nombreux appartements anciens souffrent d'installations électriques vétustes ou de réseaux de plomberie sous-dimensionnés. Pourtant, ces éléments sont essentiels à la sécurité, au confort et à la longévité de votre intérieur.
 
 Chez **M&B Rénovation**, nous intervenons pour sécuriser et moderniser vos réseaux dans le respect total des règles de l'art.
