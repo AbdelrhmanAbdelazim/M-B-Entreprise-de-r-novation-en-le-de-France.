@@ -1,5 +1,9 @@
 # Continue M&B Growth Engine from Codex Cloud / phone
 
+## Latest OAuth MCP server release — account connection pending
+
+Read `automation/n8n/mcp-release.json` and `mcp-connect.json` first. The native HTTPS MCP server is deployed at `/mcp/mb-codex` with only submit/status tools and an independent narrowly scoped bridge credential; existing original twelve workflows are unchanged, ingress updated additively, and every production graph is active. OAuth discovery and scoped-key denial/legacy-access checks passed. **Ordinary ChatGPT registration/consent and ChatGPT-origin task execution have NOT occurred**, and this session cannot inspect account eligibility or create the app. Preserve this BLOCKED state until a real connected ChatGPT tool invocation returns a completed result. Do not rerun older Agent connectivity tests or claim existing executions385/388 prove this new client connection. Preserve the new MCP revision chain and never export or request the encrypted bridge secret. Existing hosted Agent tools/vaults remain ungranted.
+
 ## Latest authenticated ChatGPT ingress
 
 Read `automation/n8n/ingress-release.json`, `ingress-openapi.json` and the newest STATUS entry first. The production command/status webhooks are deployed in a separate protected ingress workflow; all original twelve remain active. This Codex conversation can submit/poll with `python automation/n8n/ingress.py`, using existing N8N bindings. Preserve request IDs on retry. No new credentials or UI steps are needed. Runtime ingress385/Manager388 proved exact final output and concurrent dedup; test-only Queue rows were cleaned. All old revision chains plus the ingress successor are strictly verified. Never infer native ChatGPT Action/MCP registration or external Agent tool permissions from this HTTP proof; neither was granted. Do not replay the successful test.

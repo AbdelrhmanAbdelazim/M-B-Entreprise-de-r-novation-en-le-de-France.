@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T16:05:58.989317+00:00",
+  "recorded_at_utc": "2026-10-19T16:30:02.520080+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -104,6 +104,14 @@
       "test_queue_rows_removed": 2,
       "isolated_js_checks": 20,
       "affected_python_checks": 15
+    },
+    "mcp": {
+      "report": "mcp-release.json",
+      "actual_chatgpt_test": "not_run_account_registration_and_consent_unavailable",
+      "native_oauth_challenge": 401,
+      "limited_key_admin_rejection": 401,
+      "limited_key_legacy_namespace_rejection": 403,
+      "original_12_versions_unchanged": true
     }
   },
   "existing_table_roles": {
@@ -269,5 +277,9 @@
   "ingress_revision": {
     "path": "revisions/ingress-20261019/verification.json",
     "sha256": "15cc45607e578842c478fb08cde754f19d6969c074313f8e281e63bb781f0f67"
+  },
+  "mcp_revision": {
+    "path": "revisions/mcp-20261019/verification.json",
+    "sha256": "ee16f26b55b9f2ebd840d3399faa84476561966cc755847eee3092f801cd5674"
   }
 }

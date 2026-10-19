@@ -6,15 +6,16 @@ from cloud_handoff import collect
 import ingress
 class IngressHandoffTests(unittest.TestCase):
  def test_published_ingress_chain_preserves_original_engine(self):
-  verify(ROOT,json.loads((ROOT/'continuation.json').read_text())['ingress_revision']);self.assertEqual(collect(ROOT)['pending_patch_count'],0)
+  verify(ROOT,json.loads((ROOT/'continuation.json').read_text())['ingress_revision'],'revisions/mcp-20261019/ChatGPT ingress.before.json' if (ROOT/'revisions/mcp-20261019').exists() else 'ChatGPT ingress.json');self.assertEqual(collect(ROOT)['pending_patch_count'],0)
  def test_changed_ingress_or_archived_input_is_rejected(self):
   entry=json.loads((ROOT/'continuation.json').read_text())['ingress_revision']
-  for target in ['ChatGPT ingress.json','My workflow.json','revisions/ingress-20261019/My workflow.draft-before.json']:
+  front='revisions/mcp-20261019/ChatGPT ingress.before.json' if (ROOT/'revisions/mcp-20261019').exists() else 'ChatGPT ingress.json'
+  for target in [front,'My workflow.json','revisions/ingress-20261019/My workflow.draft-before.json']:
    with self.subTest(target=target),tempfile.TemporaryDirectory() as directory:
-    r=pathlib.Path(directory);shutil.copytree(ROOT/'revisions/ingress-20261019',r/'revisions/ingress-20261019')
+    r=pathlib.Path(directory);shutil.copytree(ROOT/'revisions',r/'revisions')
     for name in ['ChatGPT ingress.json','My workflow.json']:shutil.copyfile(ROOT/name,r/name)
-    verify(r,entry);p=r/target;p.write_text(p.read_text()+' ')
-    with self.assertRaises(AssertionError):verify(r,entry)
+    verify(r,entry,front);p=r/target;p.write_text(p.read_text()+' ')
+    with self.assertRaises(AssertionError):verify(r,entry,front)
  def test_uncertain_submit_exposes_only_safe_correlation_for_resume(self):
   with patch.object(ingress,'call',side_effect=RuntimeError('transport unavailable')):
    with self.assertRaisesRegex(RuntimeError,'request_id=request-fixture-001'):ingress.submit('safe task','request-fixture-001','technical')

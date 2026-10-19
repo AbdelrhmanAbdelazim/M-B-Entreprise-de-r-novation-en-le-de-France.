@@ -3,7 +3,7 @@ function ingressHash(s){let a=2166136261,b=5381;for(const c of String(s)){a=Math
 function ingressError(code,error){return {code,response:{error}};}
 function ingressParse(raw,mode){
  const h=raw.headers||{},b=mode==='status'?raw.query:raw.body;
- if(typeof h['x-n8n-api-key']!=='string'||!h['x-n8n-api-key'].trim())return ingressError(401,'authentication_required');
+ if(![h['x-n8n-api-key'],h['x-mb-mcp-key']].some(v=>typeof v==='string'&&v.trim()))return ingressError(401,'authentication_required');
  if(!b||typeof b!=='object'||Array.isArray(b))return ingressError(400,'json_object_required');
  const input={mode};
  if(mode==='command'){
@@ -19,7 +19,7 @@ function ingressParse(raw,mode){
  }
  const supplied=b.request_id??h['idempotency-key'];
  if(b.request_id&&h['idempotency-key']&&b.request_id!==h['idempotency-key'])return ingressError(400,'conflicting_idempotency_keys');
- const key=supplied??(mode==='command'?'auto-'+ingressHash('chatgpt|'+input.route+'|'+input.task):'');
+ const key=supplied??(mode==='command'?(h['x-mb-mcp-key']?'mcp-auto-':'auto-')+ingressHash('chatgpt|'+input.route+'|'+input.task):'');
  if(typeof key!=='string'||! /^[A-Za-z0-9][A-Za-z0-9._:-]{7,119}$/.test(key))return ingressError(400,'invalid_request_id');
  return {...input,request_id:key,task_key:'chatgpt:'+key};
 }
@@ -42,3 +42,12 @@ function ingressManagerContext(row){
  return r;
 }
 function ingressManagerPending(queue){return queue.filter(r=>r.type==='manager_request'&&r.source==='chatgpt'&&r.status==='ready').sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at))).slice(0,1);}
+
+function ingressBridgeAuthorize(request,actualHash,expectedHash){
+ const a=String(actualHash||'').toLowerCase(),b=String(expectedHash||'').toLowerCase();let diff=a.length^b.length;
+ for(let i=0;i<64;i++)diff|=(a.charCodeAt(i)||0)^(b.charCodeAt(i)||0);
+ if(diff!==0||!/^[0-9a-f]{64}$/.test(a))return ingressError(401,'authentication_failed');
+ if(!String(request.request_id||'').startsWith('mcp-'))return ingressError(403,'mcp_request_namespace_required');
+ if(request.mode==='command'&&request.route!=='technical')return ingressError(403,'mcp_key_technical_scope_only');
+ return {limited_bridge_authenticated:true};
+}

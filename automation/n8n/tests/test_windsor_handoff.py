@@ -10,7 +10,7 @@ from cloud_handoff import collect
 from stage_patch import stage
 class WindsorHandoffTests(unittest.TestCase):
  def copy_bundle(self,target):
-  for name in ['ChatGPT ingress.json', 'manifest.json','continuation.json','activation.json','data-tables.json','My workflow.json']+[f'W{i}.json' for i in range(11)]:shutil.copyfile(ROOT/name,target/name)
+  for name in ['Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json','continuation.json','activation.json','data-tables.json','My workflow.json']+[f'W{i}.json' for i in range(11)]:shutil.copyfile(ROOT/name,target/name)
   for name in ['pending','revisions']:shutil.copytree(ROOT/name,target/name)
  def test_all_three_published_consumers_have_strict_before_patch_after_provenance(self):
   report=collect(ROOT);self.assertEqual(report['additional_verified_production_revisions'],3);self.assertEqual(report['pending_patch_count'],0)

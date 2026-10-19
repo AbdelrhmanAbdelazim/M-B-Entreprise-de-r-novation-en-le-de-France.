@@ -31,10 +31,14 @@ def collect(root=ROOT):
     followups = continuation.get('followup_revisions', [])
     if followups and (len(followups) != 3 or {r['workflow'] for r in followups} != {'My workflow','W5','W10'}):
         raise ValueError('Metricool follow-up revision inventory is incomplete or unexpected')
+    mcp = continuation.get('mcp_revision')
+    if mcp:
+        from mcp_verify import verify as verify_mcp
+        verify_mcp(root, mcp)
     ingress = continuation.get('ingress_revision')
     if ingress:
         from ingress_verify import verify as verify_ingress
-        verify_ingress(root, ingress)
+        verify_ingress(root, ingress, 'revisions/mcp-20261019/ChatGPT ingress.before.json' if mcp else 'ChatGPT ingress.json')
     agents = continuation.get('agents_revision')
     if agents:
         from agents_verify import verify
@@ -147,19 +151,26 @@ def collect(root=ROOT):
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
     activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
-    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json'} and len(additional) != 3:
+    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json'} and len(additional) != 3:
         raise ValueError('Windsor publication evidence requires all three additional revisions')
-    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json'} and len(followups) != 3:
+    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json'} and len(followups) != 3:
         raise ValueError('Metricool publication evidence requires all three follow-up revisions')
-    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json'} and not agents:
+    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json','mcp-release.json'} and not agents:
         raise ValueError('Agents release provenance is required')
-    if activation and activation.get('latest_release') == 'ingress-release.json':
+    if activation and activation.get('latest_release') in {'ingress-release.json','mcp-release.json'}:
         if not ingress:
             raise ValueError('Ingress release provenance is required')
         actual = load(root / 'ChatGPT ingress.json')
         recorded = activation.get('additional_ingress', {})
         if not recorded.get('active') or not recorded.get('published') or recorded.get('id') != actual['id'] or recorded.get('version_id') != actual['versionId'] or recorded.get('active_version_id') != actual['versionId']:
             raise ValueError('Ingress publication evidence differs from its export')
+    if activation and activation.get('latest_release') == 'mcp-release.json':
+        if not mcp:
+            raise ValueError('MCP publication provenance is required')
+        actual = load(root / 'Codex MCP.json')
+        recorded = activation.get('additional_mcp', {})
+        if not recorded.get('active') or not recorded.get('published') or recorded.get('id') != actual['id'] or recorded.get('version_id') != actual['versionId'] or recorded.get('active_version_id') != actual['versionId']:
+            raise ValueError('MCP publication evidence differs from its export')
     published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
     if published:
         for entry in reports:
@@ -176,6 +187,7 @@ def collect(root=ROOT):
             'additional_verified_production_revisions': len(additional),
             'metricool_verified_followup_revisions': len(followups),
             'additional_ingress_verified': bool(ingress),
+            'additional_mcp_published_verified': bool(mcp),
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,

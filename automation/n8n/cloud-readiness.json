@@ -9,6 +9,7 @@
   "additional_verified_production_revisions": 3,
   "metricool_verified_followup_revisions": 3,
   "additional_ingress_verified": true,
+  "additional_mcp_published_verified": true,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,

@@ -1,0 +1,104 @@
+{
+  "captured_at_utc": "2026-10-19T16:30:02.520080+00:00",
+  "result": "BLOCKED",
+  "server_state": "HOSTED_HTTPS_PUBLISHED_ACTIVE_OAUTH_PROTECTED",
+  "chatgpt_registration": "not_performed_no_account_configuration_tool_or_authenticated_browser_available",
+  "chatgpt_plan_developer_mode_workspace_eligibility": "not_observable_from_current_tools",
+  "chatgpt_origin_task_test": "NOT_RUN",
+  "no_connected_claim": true,
+  "mcp_url": "https://navajowhite-cormorant-668337.hostingersite.com/mcp/mb-codex",
+  "transport": "Native n8n MCP Server Trigger v2.1, Streamable HTTP (GET/POST/DELETE), not a local tunnel or Codex-only service.",
+  "workflow_id": "CedAfsMxGSnrlG0y",
+  "published_version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+  "tool_names": [
+    "submit_codex_task",
+    "get_codex_task_status"
+  ],
+  "authentication": {
+    "chatgpt_to_mcp": "Native n8n OAuth2 authorization-code with PKCE S256, discovery and DCR; user consent required, token audience is this resource, no requested global admin API scopes.",
+    "mcp_to_existing_production_webhooks": "New independent high-entropy X-MB-MCP-KEY credential stored encrypted in n8n. SHA256-only verifier, mcp- request namespace, technical route only; cannot read legacy requests, dispatch Manager, or access admin API.",
+    "secret_values_in_git_or_chat": false,
+    "temporary_local_secret_removed": true,
+    "existing_n8n_admin_key_shared_with_chatgpt": false,
+    "existing_credentials_rotated_or_modified": false
+  },
+  "endpoints_preserved": [
+    "POST /webhook/mb-chatgpt/v1/commands",
+    "GET /webhook/mb-chatgpt/v1/status"
+  ],
+  "read_only_runtime_verification": {
+    "limited_status": {
+      "http_status": 404,
+      "expected": 404
+    },
+    "limited_denies_legacy": {
+      "http_status": 403,
+      "expected": 403
+    },
+    "invalid_limited_key": {
+      "http_status": 401,
+      "expected": 401
+    },
+    "limited_denies_manager": {
+      "http_status": 403,
+      "expected": 403
+    },
+    "legacy_admin_retained": {
+      "http_status": 404,
+      "expected": 404
+    },
+    "oauth_mcp_unauthenticated": {
+      "http_status": 401,
+      "expected": 401
+    },
+    "oauth_mcp_no_admin_bypass": {
+      "http_status": 401,
+      "expected": 401
+    },
+    "resource_metadata": {
+      "http_status": 200,
+      "resource": "https://navajowhite-cormorant-668337.hostingersite.com/mcp/mb-codex",
+      "authorization_servers": [
+        "https://navajowhite-cormorant-668337.hostingersite.com"
+      ]
+    },
+    "oauth_discovery": {
+      "http_status": 200,
+      "pkce_s256": true,
+      "dynamic_client_registration": true
+    },
+    "limited_key_cannot_admin": {
+      "http_status": 401,
+      "expected": 401
+    }
+  },
+  "production": {
+    "original_twelve_versions_unchanged": true,
+    "original_twelve_plus_ingress_plus_mcp_published_active": true,
+    "new_subscription_or_server_service": false,
+    "new_external_account_permission_granted": false,
+    "customer_or_telegram_messages_sent": false,
+    "public_posts_or_ads": false,
+    "paid_spend": 0,
+    "lead79_guard_untouched": true
+  },
+  "official_registration_evidence": {
+    "repository": "https://github.com/openai/openai-apps-sdk-examples",
+    "commit": "18cc38e78a968712c357bacdc3c79fead5bfc6b4",
+    "path": "README.md",
+    "section": "Testing in ChatGPT",
+    "documented_flow": "Enable developer mode; add an app in Settings > Connectors; app use in conversations. Server creation alone is not account registration.",
+    "guide": "https://platform.openai.com/docs/guides/developer-mode"
+  },
+  "registration_entry": "https://chatgpt.com/#settings/Connectors",
+  "one_user_action": "Add M&B Codex as a custom MCP app using this mcp_url and OAuth, and approve the account authorization. Availability depends on the account/workspace Developer Mode policy, which this session cannot inspect.",
+  "remaining_test": "After the app is connected in ordinary ChatGPT, invoke submit_codex_task with the safe text-only instruction, then get_codex_task_status until actual final output; only then can CONNECTED be claimed.",
+  "remaining_execution_capability": "The existing hosted Agent retains tools=[] and vault_ids=[]; this bridge does not grant workflow/GitHub/shell mutation tools or override ChatGPT tool-approval policy.",
+  "verification_counts": {
+    "new_mcp_js": 8,
+    "affected_ingress_js": 9,
+    "new_and_affected_python": 15,
+    "safe_runtime_boundary_checks": 10,
+    "chatgpt_client_tests_run": 0
+  }
+}

@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T16:05:58.989317+00:00",
+  "captured_at_utc": "2026-10-19T16:30:02.520080+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "ingress-release.json",
+  "latest_release": "mcp-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
@@ -273,7 +273,15 @@
     "id": "JcFvUMfm9orHdKbu",
     "active": true,
     "published": true,
-    "version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed",
-    "active_version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed"
-  }
+    "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+    "active_version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee"
+  },
+  "additional_mcp": {
+    "id": "CedAfsMxGSnrlG0y",
+    "active": true,
+    "published": true,
+    "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+    "active_version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a"
+  },
+  "chatgpt_mcp_connection": "BLOCKED_PENDING_ACCOUNT_REGISTRATION_AND_OAUTH_CONSENT"
 }
