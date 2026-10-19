@@ -1,0 +1,68 @@
+{
+  "scope": "No customer rows or table exports are committed. Existing IDs must be reused. Full original table schemas need live inspection; do not recreate from guesses.",
+  "tables": [
+    {
+      "name": "Leads",
+      "id": "ns20LV2q6otiEP3X",
+      "purpose": "Discovery, qualification, outreach/reply/follow-up history",
+      "schema_status": "Existing table; full schema not re-exported during handoff"
+    },
+    {
+      "name": "Clients",
+      "id": "vJEJHMoNylbhv4Yo",
+      "purpose": "Website requests and real project lifecycle",
+      "schema_status": "Existing table; full schema not re-exported during handoff"
+    },
+    {
+      "name": "Blacklist",
+      "id": "NE0QU8afBFipimhW",
+      "purpose": "STOP, bounces and outreach suppression",
+      "schema_status": "Existing table; full schema not re-exported during handoff"
+    },
+    {
+      "name": "Journal",
+      "id": "FmcVgSV9fjQvXdYw",
+      "purpose": "Workflow result/error and Oxylabs estimate journal",
+      "observed_contract_fields": [
+        "date",
+        "workflow",
+        "resultat",
+        "details"
+      ],
+      "schema_status": "Fields used by workflows; not a fresh database schema export"
+    },
+    {
+      "name": "Growth Queue",
+      "id": "aqPFAT3TBwLGhlIj",
+      "purpose": "Central jobs, qualified prospects, action reservations, content drafts and review tasks",
+      "schema_status": "All eleven user columns were confirmed in n8n UI and native upsert execution",
+      "user_columns": {
+        "task_key": "string",
+        "type": "string",
+        "priority": "string",
+        "source": "string",
+        "owner": "string",
+        "status": "string",
+        "created_at": "string",
+        "last_action": "string",
+        "next_action": "string",
+        "due_at": "string",
+        "payload": "string"
+      },
+      "native_columns": [
+        "id",
+        "createdAt",
+        "updatedAt"
+      ],
+      "last_observed_snapshot": {
+        "observed_paris": "2026-10-19 04:54:06",
+        "rows": 22,
+        "open": 19,
+        "content_drafts": 7,
+        "completed_quality_reviews": 1,
+        "seo_opportunities": 2
+      },
+      "note": "Rows change on hourly production execution; these counts are historical observations."
+    }
+  ]
+}

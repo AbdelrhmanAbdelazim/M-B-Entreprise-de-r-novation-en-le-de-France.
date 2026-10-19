@@ -1,0 +1,887 @@
+{
+  "name": "W8 – Notifications pages SEO",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "__PRIVATE_221105fd_6a38_4062_ab1e_0353d20112e7_WEBHOOK_PATH__",
+        "options": {}
+      },
+      "id": "221105fd-6a38-4062-ab1e-0353d20112e7",
+      "name": "Webhook",
+      "webhookId": "__PRIVATE_221105fd_6a38_4062_ab1e_0353d20112e7_WEBHOOK_PATH__",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1904,
+        -384
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst b = $json.body || {};\nconst msg = String(b.message || '').slice(0, 3900);\nif (!msg) return [];\nreturn [{ json: { message: msg, journal: { date: nowP(), workflow: 'W8', resultat: String(b.resultat || 'ok').slice(0, 20), details: msg.slice(0, 300) } } }];\n"
+      },
+      "id": "370e3dba-bc39-4ab0-93df-677ca5b6a626",
+      "name": "Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        -384
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
+        "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "cdfd34cc-165d-4695-a367-c91a69830cef",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2352,
+        -384
+      ],
+      "webhookId": "__PRIVATE_cdfd34cc_165d_4695_a367_c91a69830cef_WEBHOOK_ID__",
+      "credentials": {
+        "telegramApi": {
+          "id": "__EXISTING_TELEGRAMAPI_CREDENTIAL_ID__",
+          "name": "Telegram M&B"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Message').first().json.journal }];"
+      },
+      "id": "8e50a68c-7210-4cde-bf15-cc0ab13f5590",
+      "name": "Ligne journal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2560,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "FmcVgSV9fjQvXdYw"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "cfb040d8-fa6b-41ec-8fd3-d94937dd9269",
+      "name": "Journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2784,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 7 * * *"
+            }
+          ]
+        }
+      },
+      "id": "c89b53f0-c306-4d2c-9a54-b4c08a42273f",
+      "name": "SEO – quotidien",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1488,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "b20778fa-0ce3-4323-9451-928f0d51c51a",
+      "name": "SEO – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        496
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst q=$input.all().map(i=>i.json);if(q.some(t=>t.task_key==='seo:'+day()&&['running','done'].includes(t.status)))return [];return [jq(row('seo:'+day(),'seo_scan','WARM','W8','running',{},'Contrôle public du site et des pages locales','W8'))];"
+      },
+      "id": "1ce46d2b-dd05-4553-88f6-8f085095267b",
+      "name": "SEO – réserver",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "253d84cc-e584-4eef-a31f-36ca6414c506",
+      "name": "SEO – réservation",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.maison-mb.fr/",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 20000
+        }
+      },
+      "id": "09b92fec-bab9-449a-8e01-c191bfdb7313",
+      "name": "SEO – accueil",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst r=$json;if(r.statusCode>=400)throw new Error('SEO homepage HTTP '+r.statusCode);const html=String(r.body||r.data||'');const urls=new Set(['https://www.maison-mb.fr/']);for(const m of html.matchAll(/href\\s*=\\s*[\"']([^\"'#]+)[\"']/gi)){let u=m[1];if(u.startsWith('/'))u='https://www.maison-mb.fr'+u;if(!/^https:\\/\\/(www\\.)?maison-mb\\.fr\\//i.test(u)||/\\.(pdf|png|jpg|webp|css|js)(\\?|$)/i.test(u))continue;if(/renov|paris|ville|service|salle|cuisine|degat|peinture/i.test(u))urls.add(u.split('?')[0]);if(urls.size>=5)break;}return [...urls].map((url,i)=>jq({url,_idx:i}));"
+      },
+      "id": "b7a15a1b-86d2-4f72-8dd5-73de52ed65aa",
+      "name": "SEO – URLs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 20000
+        }
+      },
+      "id": "2c54032c-8706-423b-b975-5660110f57f0",
+      "name": "SEO – pages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst facts=$input.all().map((i,k)=>{const r=i.json;const html=String(r.body||r.data||'');const url=$('SEO – URLs').all()[k].json.url;const title=(html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i)||[])[1]||'';const desc=(html.match(/<meta[^>]*name=[\"']description[\"'][^>]*content=[\"']([^\"']*)/i)||html.match(/<meta[^>]*content=[\"']([^\"']*)[\"'][^>]*name=[\"']description/i)||[])[1]||'';const h1=(html.match(/<h1\\b/gi)||[]).length;const canonical=(html.match(/<link[^>]*rel=[\"']canonical[\"'][^>]*href=[\"']([^\"']*)/i)||[])[1]||'';const issues=[];if(Number(r.statusCode)>=400)issues.push('HTTP '+r.statusCode);if(!title.trim())issues.push('title_missing');if(!desc.trim())issues.push('description_missing');if(h1!==1)issues.push('h1_count_'+h1);if(!canonical)issues.push('canonical_missing');return {url,status:r.statusCode||200,title:title.replace(/<[^>]+>/g,'').slice(0,200),description:desc.slice(0,350),h1,canonical,issues};});const groups={};for(const p of facts){const t=norm(p.title);if(t)(groups[t]??=[]).push(p.url);}for(const p of facts)if((groups[norm(p.title)]||[]).length>1)p.issues.push('duplicate_title_in_sample');return [jq({_idx:0,facts,prompt:'Tu es spécialiste SEO local rénovation Paris/Île-de-France. Analyse UNIQUEMENT ces observations publiques réelles. Ne prétends pas connaître Search Console, positions, volume de recherche ou conversions. Ne crée ni doorway pages ni contenu dupliqué. Réponds en JSON {\"recommandations\":[{\"url\":\"URL du relevé\",\"priorite\":\"HOT|WARM\",\"action\":\"correction concrète justifiée par une observation\"}],\"opportunites\":[{\"sujet\":\"thème commercial lié aux pages observées\",\"raison\":\"raison prudente, sans chiffre inventé\"}]}. Aucun changement du site, seulement des tâches à examiner. Observations: '+JSON.stringify(facts)})];"
+      },
+      "id": "2ac8f653-9136-40c0-8fa7-c5753169f88b",
+      "name": "SEO – observations",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst result=JSON.parse($json.text);const facts=$('SEO – observations').first().json.facts;const old=$('SEO – Queue').all().map(i=>i.json);const out=[];for(const f of facts){if(!f.issues.length)continue;const key='seo-issue:'+hash(f.url+'|'+f.issues.sort().join('|'));if(old.some(t=>t.task_key===key))continue;const recommendations=(result.recommandations||[]).filter(x=>x.url===f.url).slice(0,5);out.push(jq(row(key,'seo','WARM','W8','needs_review',{url:f.url,observed_at:iso(),facts:f,recommendations,model:$json.moteur},'Corriger après revue ; aucune modification automatique du site','W8')));}for(const op of (result.opportunites||[]).slice(0,3)){if(!op.sujet||!op.raison)continue;const key='seo-topic:'+hash(norm(op.sujet));if(old.some(t=>t.task_key===key))continue;out.push(jq(row(key,'seo_topic','WARM','W8','needs_review',{...op,observed_urls:facts.map(f=>f.url),limitation:'Opportunity hypothesis; no search-volume or rankings access.'},'Vérifier la demande et l’unicité avant création de contenu','W8')));}out.push(jq(row('seo:'+day(),'seo_scan','WARM','W8','done',{pages:facts.length,issues:facts.reduce((n,p)=>n+p.issues.length,0),model:$json.moteur},'Prochain contrôle demain','W8')));return out;"
+      },
+      "id": "7478b1e2-9f48-4fd7-893e-7e17e49b63b4",
+      "name": "SEO – tâches",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "task_key",
+              "displayName": "task_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "owner",
+              "displayName": "owner",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_action",
+              "displayName": "last_action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "next_action",
+              "displayName": "next_action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "due_at",
+              "displayName": "due_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "7f3f62c0-1bd5-41ad-aec6-f2cb58140043",
+      "name": "SEO – sauvegarder",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn [jq({date:paris(),workflow:'W8',resultat:'ok',details:'SEO radar: '+$('SEO – observations').first().json.facts.length+' pages publiques contrôlées ; tâches='+$('SEO – tâches').all().filter(i=>i.json.type!=='seo_scan').length})];"
+      },
+      "id": "a71b901e-7d24-4d78-90b3-73d03d5ffca0",
+      "name": "SEO – journal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3ea11286-7bf9-4b42-a843-01d90e1a7195",
+      "name": "Boucle résilience SEO",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1216,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'user',content:$('SEO – observations').item.json.prompt}],temperature:0.2}) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "fc55144f-f583-4014-97fa-35ee91544d1a",
+      "name": "OpenAI SEO",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        720
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "__EXISTING_OPENAIAPI_CREDENTIAL_ID__",
+          "name": "OpenAI account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=  {{ JSON.stringify({contents:[{parts:[{text:$('SEO – observations').item.json.prompt}]}],generationConfig:{responseMimeType:'application/json',temperature:0.2} }) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "85a5767d-d69a-4efb-8172-778d0ab00d93",
+      "name": "Gemini SEO",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        928
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "__EXISTING_GOOGLEPALMAPI_CREDENTIAL_ID__",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('SEO – observations').item.json.prompt }}",
+        "batching": {}
+      },
+      "id": "8fc552b5-b1e4-46ad-b753-f9a196c2b444",
+      "name": "Claude SEO",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        448,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-5-5",
+          "cachedResultName": "Claude Sonnet 5.5"
+        },
+        "options": {}
+      },
+      "id": "a9e2222c-fc88-46ec-a126-a4ed0fefa40a",
+      "name": "Modèle Claude SEO",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [
+        704,
+        928
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": "__EXISTING_ANTHROPICAPI_CREDENTIAL_ID__",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst text=String($json.choices?.[0]?.message?.content||'');const parsed=JSON.parse(text.slice(text.indexOf('{'),text.lastIndexOf('}')+1));if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)!==false)throw new Error('Invalid model JSON');if (!(Array.isArray(parsed.recommandations)&&Array.isArray(parsed.opportunites))) throw new Error('Invalid task-specific model contract');\nreturn {json:{_idx:$('SEO – observations').item.json._idx,text:JSON.stringify(parsed),moteur:'openai'}};"
+      },
+      "id": "433b3c67-2bf9-4112-99cf-5d13caced95e",
+      "name": "Valider OpenAI SEO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        928
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst text=String(($json.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join(''));const parsed=JSON.parse(text.slice(text.indexOf('{'),text.lastIndexOf('}')+1));if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)!==false)throw new Error('Invalid model JSON');if (!(Array.isArray(parsed.recommandations)&&Array.isArray(parsed.opportunites))) throw new Error('Invalid task-specific model contract');\nreturn {json:{_idx:$('SEO – observations').item.json._idx,text:JSON.stringify(parsed),moteur:'gemini'}};"
+      },
+      "id": "1a2f351e-dd22-4178-be3f-4bfb9d37692c",
+      "name": "Valider Gemini SEO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        928
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst text=String($json.text||'');const parsed=JSON.parse(text.slice(text.indexOf('{'),text.lastIndexOf('}')+1));if(!parsed||typeof parsed!=='object'||Array.isArray(parsed)!==false)throw new Error('Invalid model JSON');if (!(Array.isArray(parsed.recommandations)&&Array.isArray(parsed.opportunites))) throw new Error('Invalid task-specific model contract');\nreturn {json:{_idx:$('SEO – observations').item.json._idx,text:JSON.stringify(parsed),moteur:'claude'}};"
+      },
+      "id": "bf937f9d-dbbc-4f72-8b57-772e3f75119c",
+      "name": "Valider Claude SEO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        928
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Ligne journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ligne journal": {
+      "main": [
+        [
+          {
+            "node": "Journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modèle Claude SEO": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude SEO",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – observations": {
+      "main": [
+        [
+          {
+            "node": "Boucle résilience SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Boucle résilience SEO": {
+      "main": [
+        [
+          {
+            "node": "SEO – tâches",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gemini SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini SEO": {
+      "main": [
+        [
+          {
+            "node": "Valider Gemini SEO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenAI SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valider Gemini SEO": {
+      "main": [
+        [
+          {
+            "node": "Boucle résilience SEO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenAI SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI SEO": {
+      "main": [
+        [
+          {
+            "node": "Valider OpenAI SEO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valider OpenAI SEO": {
+      "main": [
+        [
+          {
+            "node": "Boucle résilience SEO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude SEO": {
+      "main": [
+        [
+          {
+            "node": "Valider Claude SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valider Claude SEO": {
+      "main": [
+        [
+          {
+            "node": "Boucle résilience SEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – quotidien": {
+      "main": [
+        [
+          {
+            "node": "SEO – Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – Queue": {
+      "main": [
+        [
+          {
+            "node": "SEO – réserver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – réserver": {
+      "main": [
+        [
+          {
+            "node": "SEO – réservation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – réservation": {
+      "main": [
+        [
+          {
+            "node": "SEO – accueil",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – accueil": {
+      "main": [
+        [
+          {
+            "node": "SEO – URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – URLs": {
+      "main": [
+        [
+          {
+            "node": "SEO – pages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – pages": {
+      "main": [
+        [
+          {
+            "node": "SEO – observations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – tâches": {
+      "main": [
+        [
+          {
+            "node": "SEO – sauvegarder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – sauvegarder": {
+      "main": [
+        [
+          {
+            "node": "SEO – journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEO – journal": {
+      "main": [
+        [
+          {
+            "node": "Journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "errorWorkflow": "4O2ZR1JpDOgJZOLw",
+    "timezone": "Europe/Paris"
+  },
+  "versionId": "7870f597-ee43-44d8-b737-224b06cfa129",
+  "meta": {},
+  "nodeGroups": [],
+  "id": "uOuQs4E5H443sbKh",
+  "tags": []
+}
