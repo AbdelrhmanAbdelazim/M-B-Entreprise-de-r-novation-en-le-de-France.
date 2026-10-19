@@ -1,3 +1,11 @@
+# Archived saved patches — all six deployed
+
+**LIVE release complete:** W2, W3, W4, W6, W7 and W9 were applied to their existing production IDs and published. See `../activation.json` for before/after versions and unchanged patch hashes. The JSON files here are retained exactly as reviewed; their internal pre-release labels describe their creation, not current deployment state. **Do not reapply them.** Current published exports are one directory above. Strict version guards intentionally refuse these historical changes against the new live versions.
+
+The material below records their original preparation and test evidence, not a pending activation requirement.
+
+---
+
 # Reviewed changes pending live access
 
 These six minimal patches continue production commit `883e99b`. They are **not deployed workflow exports**, new workflows or a replacement for the twelve public production snapshots. Original files, IDs, versions, credentials, webhooks, provider ordering, schedules and W0 remain unchanged.

@@ -1,0 +1,266 @@
+{
+  "result": "LIVE",
+  "captured_at_utc": "2026-10-19T04:28:21.626683+00:00",
+  "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
+  "branch": "codex/growth-engine-883e99b",
+  "inventory_count": 13,
+  "expected_workflow_count": 12,
+  "unrelated_workflows_modified": false,
+  "workflow_execution_requested": false,
+  "test_messages_or_posts_sent": false,
+  "paid_advertising_enabled": false,
+  "advertising_spend": 0,
+  "preflight_and_postflight": {
+    "watchdog_routing": "confirmed_all_eleven_to_W0_no_self_reference",
+    "manager_and_specialist_primary_fallbacks": "confirmed_from_live_graph",
+    "smtp_guard_bypass": "none_reachable_from_triggers",
+    "existing_table_schemas": "confirmed_no_new_tables",
+    "transactional_exactly_once": "not_proven_read_then_upsert_is_not_atomic"
+  },
+  "safe_tests": {
+    "suite": "tests/activation-safety.test.mjs",
+    "passed": 20,
+    "failed": 0,
+    "mode": "synthetic fixtures in local VM using freshly read live candidates; no delivery, model or node-engine transports"
+  },
+  "write_method": "six PUT existing-ID drafts with publishIfActive=false; read-back then six POST publish with explicit verified versionId; final independent GET of all twelve",
+  "patches": {
+    "W6": {
+      "state": "deployed_and_published",
+      "before_version": "0e1870f6-5e71-4ed5-a1af-0a63e67de99a",
+      "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "saved_patch_sha256": "bf04a96d03436d30179b8ec73ee22fab3534c83c85e02ea69e8fe9778bc5b43a",
+      "original_patch_file_unchanged": true
+    },
+    "W7": {
+      "state": "deployed_and_published",
+      "before_version": "08a11820-5bf1-4d58-9312-af2934ee62fd",
+      "published_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "saved_patch_sha256": "2d6a420cc5279e019bc4efc5cf732d0f133b83691921c5c9e2795eeee9786634",
+      "original_patch_file_unchanged": true
+    },
+    "W2": {
+      "state": "deployed_and_published",
+      "before_version": "3895d8e5-93a7-4636-bc7a-ec2848ac8f7c",
+      "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "saved_patch_sha256": "ed2a7962ea7191e553766325d56672526a23effcc6ff18f6e580fbf1e4c4e4c4",
+      "original_patch_file_unchanged": true
+    },
+    "W3": {
+      "state": "deployed_and_published",
+      "before_version": "da7cc8fe-a667-4336-864c-5028d44bd37d",
+      "published_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "saved_patch_sha256": "16a593f723913b1587c5c2773c4a2b113dd99426ef84409cf2e9dadcde0695fb",
+      "original_patch_file_unchanged": true
+    },
+    "W4": {
+      "state": "deployed_and_published",
+      "before_version": "1f520932-4388-4dcd-8624-67d1b3c30d7f",
+      "published_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "saved_patch_sha256": "b24e52d4fe225179840fe26d0a19e2d61ecd5cafb063a08613d1488c058239c2",
+      "original_patch_file_unchanged": true
+    },
+    "W9": {
+      "state": "deployed_and_published",
+      "before_version": "d5e70d66-72e1-469e-bb57-c08e8833448a",
+      "published_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "saved_patch_sha256": "27d769ac915ccdb31b535a0b634218ad10a3d9a3d306edb535ed24a25b849a41",
+      "original_patch_file_unchanged": true
+    }
+  },
+  "workflows": {
+    "W6": {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "name": "W6 – Rappels échéances",
+      "active": true,
+      "published": true,
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 9 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "name": "My workflow",
+      "active": true,
+      "published": true,
+      "version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "active_version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 * * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "name": "W7 – Recherche de leads",
+      "active": true,
+      "published": true,
+      "version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "active_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "10 6,10,14,18 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "name": "W0 – Erreurs (Telegram + journal)",
+      "active": true,
+      "published": true,
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "error_workflow": null
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "name": "W1 – Réponses emails",
+      "active": true,
+      "published": true,
+      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "name": "W2 – Demandes du site web",
+      "active": true,
+      "published": true,
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "name": "W3 – Envoi quotidien",
+      "active": true,
+      "published": true,
+      "version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "active_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 8 * * 1-4"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "name": "W10 – Idées de contenu (vidéos)",
+      "active": true,
+      "published": true,
+      "version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "active_version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 4 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "name": "W4 – Relance unique",
+      "active": true,
+      "published": true,
+      "version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "active_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 9 * * 1-4"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W8": {
+      "id": "uOuQs4E5H443sbKh",
+      "name": "W8 – Notifications pages SEO",
+      "active": true,
+      "published": true,
+      "version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "active_version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 7 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "name": "W9 – Après chantier (avis + parrainage)",
+      "active": true,
+      "published": true,
+      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "patched": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "*/15 8-20 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "name": "W5 – Rapport hebdomadaire",
+      "active": true,
+      "published": true,
+      "version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "active_version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "patched": false,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 8,18 * * *"
+      ],
+      "error_workflow": "4O2ZR1JpDOgJZOLw"
+    }
+  },
+  "limitations": [
+    "No strict transactional exactly-once proof across concurrent Data Table read/upsert executions",
+    "Native Data Table operation execution and real delivery were not manually triggered; new configurations reuse verified existing schemas",
+    "Social publishing/CMS/Search Console remain unconnected; drafts only",
+    "Future production outputs depend on host health, provider quotas and approved qualified prospects"
+  ],
+  "observed_existing_hosted_runs": [
+    {
+      "id": "307",
+      "workflowId": "gc97zrWop11I70CG",
+      "status": "success",
+      "mode": "trigger",
+      "startedAt": "2026-10-19T04:10:00.472Z",
+      "stoppedAt": "2026-10-19T04:10:51.213Z"
+    },
+    {
+      "id": "306",
+      "workflowId": "cKUyJSLOF69uXGnO",
+      "status": "success",
+      "mode": "trigger",
+      "startedAt": "2026-10-19T04:00:27.190Z",
+      "stoppedAt": "2026-10-19T04:02:14.046Z"
+    }
+  ],
+  "post_activation_handoff_checks": {
+    "new_publication_guard_tests": 4,
+    "affected_offline_assembly_checks": 4,
+    "failed": 0,
+    "artifact_validator": "passed_after_published_exports_changed",
+    "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
+  }
+}

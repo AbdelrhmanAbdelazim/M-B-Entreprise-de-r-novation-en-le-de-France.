@@ -24,6 +24,8 @@ def collect(root=ROOT):
     if set(revisions) != PATCHED or len(continuation['pending_revisions']) != len(PATCHED):
         raise ValueError('Pending revision inventory differs from the reviewed six-workflow handoff')
     reports = []
+    pending_count = 0
+    deployed_count = 0
     identities = set()
     for name, record in sorted(manifest['workflows'].items()):
         blob = (root / (name + '.json')).read_bytes()
@@ -45,14 +47,30 @@ def collect(root=ROOT):
             patch = json.loads(patch_blob)
             if patch['workflow_name'] != name or entry['workflow_id'] != record['id']:
                 raise ValueError('Pending patch is assigned to a different workflow')
-            candidate = stage(workflow, patch)
+            if entry.get('status') == 'deployed':
+                if entry.get('deployed_version_id') != workflow['versionId']:
+                    raise ValueError('Deployed revision differs from the published baseline')
+                nodes = {node['id']: node for node in workflow['nodes']}
+                for change in patch['node_changes']:
+                    if any(nodes.get(change['node_id'], {}).get('parameters', {}).get(k) != v for k, v in change['parameters'].items()):
+                        raise ValueError('Published node differs from its deployed patch')
+                for added in patch.get('add_nodes', []):
+                    if nodes.get(added['id']) != added:
+                        raise ValueError('Published added node differs from its deployed patch')
+                for source, ports in patch.get('connection_changes', {}).items():
+                    if workflow['connections'].get(source) != ports:
+                        raise ValueError('Published graph differs from its deployed patch')
+                deployed_count += 1
+            else:
+                candidate = stage(workflow, patch)
+                pending_count += 1
         schedules = [interval['expression'] for node in workflow['nodes']
                      if node['type'] == 'n8n-nodes-base.scheduleTrigger'
                      for interval in node['parameters'].get('rule', {}).get('interval', [])
                      if interval.get('field') == 'cronExpression']
         reports.append({'workflow': name, 'id': workflow['id'], 'published_version_at_handoff': workflow['versionId'],
                         'last_recorded_active': record['last_verified_active'], 'current_live_state': 'not_verified',
-                        'pending_patch': name in revisions, 'baseline_nodes': len(workflow['nodes']),
+                        'pending_patch': name in revisions and revisions[name].get('status') != 'deployed', 'baseline_nodes': len(workflow['nodes']),
                         'candidate_nodes': len(candidate['nodes']), 'timezone': workflow['settings'].get('timezone'),
                         'retained_cron': schedules})
     tables = load(root / 'data-tables.json')['tables']
@@ -65,9 +83,20 @@ def collect(root=ROOT):
             reference = node['parameters'].get('dataTableId')
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
+    activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
+    published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
+    if published:
+        for entry in reports:
+            recorded = activation['workflows'][entry['workflow']]
+            if (not recorded.get('active') or not recorded.get('published')
+                    or recorded['id'] != entry['id'] or recorded['version_id'] != entry['published_version_at_handoff']
+                    or recorded['active_version_id'] != recorded['version_id']):
+                raise ValueError('Publication evidence differs from the baseline')
+            entry['last_verified_live_state'] = 'Published/Active at activation capture'
     return {'mode': 'offline_only', 'handoff_status': 'complete_for_cloud_continuation',
-            'live_deployment': 'pending_api_access_and_runtime_validation',
-            'workflow_count': len(reports), 'pending_patch_count': len(revisions),
+            'live_deployment': 'published_verified_at_capture' if published else 'pending_api_access_and_runtime_validation',
+            'workflow_count': len(reports), 'pending_patch_count': pending_count,
+            'reviewed_patch_count': len(revisions), 'deployed_patch_count': deployed_count,
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,
@@ -87,7 +116,9 @@ def main():
         with args.out.open('x') as stream:
             json.dump(report, stream, ensure_ascii=False, indent=2)
             stream.write('\n')
-    print('OFFLINE_HANDOFF_OK: 12 existing workflow identities; 6 reviewed patch assemblies; 5 existing tables. No live execution. Mac not required for Cloud continuation.')
+    print('OFFLINE_HANDOFF_OK: workflows=' + str(report['workflow_count']) + '; reviewed_patches=' + str(report['reviewed_patch_count'])
+          + '; pending_patches=' + str(report['pending_patch_count']) + '; deployment=' + report['live_deployment']
+          + '. No live execution. Mac not required for Cloud continuation.')
 
 
 if __name__ == '__main__':

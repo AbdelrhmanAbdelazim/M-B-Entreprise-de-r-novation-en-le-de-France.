@@ -493,7 +493,7 @@
     },
     {
       "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst b=$('Chantier – un par un').item.json;const clients=$('Chantier – Clients frais').all(0,$runIndex).map(i=>i.json);const q=$input.all().map(i=>i.json);const c=clients.find(c=>String(c.id)===String(b.id));const key='after:'+b.id+':'+b.kind;const allowed=!!c&&norm(c.statut)==='termine'&&!q.some(t=>t.task_key===key)&&(b.kind==='merci'?!c.date_remerciement:!c.date_relance_avis&&norm(c.avis)!=='oui');return [jq({allowed,ledger:allowed?row(key,'action','WARM','W9','reserved',{action:{...b,_action_key:key}},'Livraison réservée ; aucune répétition automatique si incertaine','W9'):null})];"
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst b=$('Chantier – un par un').item.json;const clients=$('Chantier – Clients frais').all(0,$runIndex).map(i=>i.json);const q=$input.all().map(i=>i.json);const c=clients.find(c=>String(c.id)===String(b.id));const key='after:'+b.id+':'+b.kind;let allowed=!!c&&norm(c.statut)==='termine'&&!q.some(t=>t.task_key===key)&&(b.kind==='merci'?!c.date_remerciement:!c.date_relance_avis&&norm(c.avis)!=='oui');const blacklist=$('Chantier – Blacklist fraîche').all(0,$runIndex).map(i=>mail(i.json.email)).filter(Boolean);const recipient=mail(c?.email);const domain=recipient.split('@')[1]||'';allowed=allowed&&mail(b.to)===recipient&&!blacklist.includes(recipient)&&!blacklist.some(e=>!FREE.has(e.split('@')[1])&&e.split('@')[1]===domain);return [jq({allowed,ledger:allowed?row(key,'action','WARM','W9','reserved',{action:{...b,_action_key:key}},'Livraison réservée ; aucune répétition automatique si incertaine','W9'):null})];"
       },
       "id": "48496473-7caa-4f67-98cf-8239f98179d5",
       "name": "Chantier – garde",
@@ -706,6 +706,27 @@
         1200,
         1168
       ]
+    },
+    {
+      "id": "ca6e081f-d8cc-4a54-806d-c4db783f4cda",
+      "name": "Chantier – Blacklist fraîche",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        1400,
+        736
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "NE0QU8afBFipimhW",
+          "mode": "id"
+        },
+        "returnAll": true
+      }
     }
   ],
   "connections": {
@@ -940,7 +961,7 @@
       "main": [
         [
           {
-            "node": "Chantier – Queue fraîche",
+            "node": "Chantier – Blacklist fraîche",
             "type": "main",
             "index": 0
           }
@@ -1107,6 +1128,17 @@
           }
         ]
       ]
+    },
+    "Chantier – Blacklist fraîche": {
+      "main": [
+        [
+          {
+            "node": "Chantier – Queue fraîche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1116,8 +1148,8 @@
     "errorWorkflow": "4O2ZR1JpDOgJZOLw",
     "timezone": "Europe/Paris"
   },
-  "versionId": "d5e70d66-72e1-469e-bb57-c08e8833448a",
-  "meta": {},
+  "versionId": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+  "meta": null,
   "nodeGroups": [],
   "id": "9ttUYW3XcSztxwRu",
   "tags": []

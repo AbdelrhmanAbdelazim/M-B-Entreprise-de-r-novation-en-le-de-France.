@@ -1,21 +1,19 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T04:03:30.096751+00:00",
+  "recorded_at_utc": "2026-10-19T04:28:21.626683+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
-    "verified": false,
+    "verified": true,
     "N8N_BASE_URL_present": true,
     "N8N_API_KEY_present": true,
     "runtime_variable_state": "ready",
     "secret_binding_state": "ready",
-    "authentication_acceptance": "not_verified_due_to_timeout",
+    "authentication_acceptance": "confirmed_by_authenticated_inventory_and_definition_reads",
     "last_authenticated_api_attempt": {
-      "endpoint": "GET /api/v1/workflows",
-      "result": "BLOCKED",
-      "reason": "n8n_API_timeout",
-      "timeout_seconds": 20,
-      "source": "preceding READ-ONLY connection turn after environment publication",
-      "retried_in_offline_continuation": false
+      "result": "CONNECTED",
+      "inventory_count": 13,
+      "expected_matched": 12,
+      "captured_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     "historical_observations": [
       {
@@ -30,7 +28,8 @@
     ],
     "no_replacement_key_created": true,
     "no_host_changes": true,
-    "live_deployment": "pending_api_access_and_runtime_validation"
+    "live_deployment": "published_readback_verified",
+    "activation_report": "activation.json"
   },
   "production_changes": false,
   "public_production_snapshots_changed": false,
@@ -53,6 +52,19 @@
       "suite": "tests/test_cloud_handoff.py",
       "transport": "in_memory_only",
       "previous_28_tests_rerun": false
+    },
+    "production_activation": {
+      "passed": 20,
+      "failed": 0,
+      "live_readback_workflows": 12,
+      "mode": "isolated local VM; six draft/save/publish/read-back operations; no execution requests"
+    },
+    "post_activation_handoff": {
+      "new_publication_guard_tests": 4,
+      "affected_offline_assembly_checks": 4,
+      "failed": 0,
+      "artifact_validator": "passed_after_published_exports_changed",
+      "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
     }
   },
   "existing_table_roles": {
@@ -67,73 +79,84 @@
       "workflow_id": "YjzC3pFzYRR7d2an",
       "path": "pending/W2.patch.json",
       "sha256": "ed2a7962ea7191e553766325d56672526a23effcc6ff18f6e580fbf1e4c4e4c4",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 1,
-      "added_nodes": 1
+      "added_nodes": 1,
+      "deployed_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "workflow": "W3",
       "workflow_id": "RstxLOezyHrDIv7k",
       "path": "pending/W3.patch.json",
       "sha256": "16a593f723913b1587c5c2773c4a2b113dd99426ef84409cf2e9dadcde0695fb",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 2,
-      "added_nodes": 0
+      "added_nodes": 0,
+      "deployed_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "workflow": "W4",
       "workflow_id": "Ipqy6qKmAuXVz2vl",
       "path": "pending/W4.patch.json",
       "sha256": "b24e52d4fe225179840fe26d0a19e2d61ecd5cafb063a08613d1488c058239c2",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 2,
-      "added_nodes": 0
+      "added_nodes": 0,
+      "deployed_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "workflow": "W6",
       "workflow_id": "xNbB0gcC1XPbXZ0z",
       "path": "pending/W6.patch.json",
       "sha256": "bf04a96d03436d30179b8ec73ee22fab3534c83c85e02ea69e8fe9778bc5b43a",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 1,
-      "added_nodes": 4
+      "added_nodes": 4,
+      "deployed_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "workflow": "W7",
       "workflow_id": "gc97zrWop11I70CG",
       "path": "pending/W7.patch.json",
       "sha256": "2d6a420cc5279e019bc4efc5cf732d0f133b83691921c5c9e2795eeee9786634",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 2,
-      "added_nodes": 0
+      "added_nodes": 0,
+      "deployed_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "workflow": "W9",
       "workflow_id": "9ttUYW3XcSztxwRu",
       "path": "pending/W9.patch.json",
       "sha256": "27d769ac915ccdb31b535a0b634218ad10a3d9a3d306edb535ed24a25b849a41",
-      "status": "offline_tested_not_deployed",
+      "status": "deployed",
       "changed_existing_nodes": 1,
-      "added_nodes": 1
+      "added_nodes": 1,
+      "deployed_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
     }
   ],
   "remaining_constraints": [
-    "Fresh live exports, versions, active/published state and first W7/report production executions unavailable",
-    "No proof of transactional uniqueness or exactly-once SMTP across concurrent executions; read-then-upsert reservations are not an atomic lock",
-    "n8n Data Table node execution and mapping of added lookups/reservations need isolated runtime validation after access",
-    "No social publishing/CMS/Search Console integration is established; retain drafts only",
-    "No customer SMTP delivery, Telegram or public publication tested",
-    "No paid advertising approval or spending"
+    "No strict transactional exactly-once proof across concurrent Data Table read/upsert executions",
+    "Native Data Table operation execution and real delivery were not manually triggered; new configurations reuse verified existing schemas",
+    "Social publishing/CMS/Search Console remain unconnected; drafts only",
+    "Future production outputs depend on host health, provider quotas and approved qualified prospects"
   ],
   "offline_assembly": {
     "report": "cloud-readiness.json",
     "workflow_count": 12,
-    "pending_patch_count": 6,
+    "pending_patch_count": 0,
     "existing_table_count": 5,
-    "status": "complete_for_cloud_continuation",
+    "status": "published_verified_at_capture",
     "different_checkout_path_tested": true,
     "mac_required": false,
-    "live_workflow_execution": false
+    "live_workflow_execution": false,
+    "reviewed_patch_count": 6
   },
   "resume_entrypoint": "../../CLOUD_RESUME.md"
 }

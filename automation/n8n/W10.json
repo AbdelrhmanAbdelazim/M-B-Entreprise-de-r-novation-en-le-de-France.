@@ -1121,7 +1121,7 @@
     "timezone": "Europe/Paris"
   },
   "versionId": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
-  "meta": {},
+  "meta": null,
   "nodeGroups": [],
   "id": "63yycckNMI9mXnkz",
   "tags": []

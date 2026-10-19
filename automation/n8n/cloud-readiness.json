@@ -1,9 +1,11 @@
 {
   "mode": "offline_only",
   "handoff_status": "complete_for_cloud_continuation",
-  "live_deployment": "pending_api_access_and_runtime_validation",
+  "live_deployment": "published_verified_at_capture",
   "workflow_count": 12,
-  "pending_patch_count": 6,
+  "pending_patch_count": 0,
+  "reviewed_patch_count": 6,
+  "deployed_patch_count": 6,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -21,7 +23,8 @@
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W0",
@@ -33,7 +36,8 @@
       "baseline_nodes": 4,
       "candidate_nodes": 4,
       "timezone": "Europe/Paris",
-      "retained_cron": []
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W1",
@@ -45,7 +49,8 @@
       "baseline_nodes": 33,
       "candidate_nodes": 33,
       "timezone": "Europe/Paris",
-      "retained_cron": []
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W10",
@@ -59,47 +64,51 @@
       "timezone": "Europe/Paris",
       "retained_cron": [
         "30 4 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W2",
       "id": "YjzC3pFzYRR7d2an",
-      "published_version_at_handoff": "3895d8e5-93a7-4636-bc7a-ec2848ac8f7c",
+      "published_version_at_handoff": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
-      "baseline_nodes": 16,
+      "pending_patch": false,
+      "baseline_nodes": 17,
       "candidate_nodes": 17,
       "timezone": "Europe/Paris",
-      "retained_cron": []
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W3",
       "id": "RstxLOezyHrDIv7k",
-      "published_version_at_handoff": "da7cc8fe-a667-4336-864c-5028d44bd37d",
+      "published_version_at_handoff": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
+      "pending_patch": false,
       "baseline_nodes": 29,
       "candidate_nodes": 29,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "30 8 * * 1-4"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W4",
       "id": "Ipqy6qKmAuXVz2vl",
-      "published_version_at_handoff": "1f520932-4388-4dcd-8624-67d1b3c30d7f",
+      "published_version_at_handoff": "a347e53d-277e-4920-81b8-46f24aa1f408",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
+      "pending_patch": false,
       "baseline_nodes": 29,
       "candidate_nodes": 29,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "30 9 * * 1-4"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W5",
@@ -113,35 +122,38 @@
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 8,18 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W6",
       "id": "xNbB0gcC1XPbXZ0z",
-      "published_version_at_handoff": "0e1870f6-5e71-4ed5-a1af-0a63e67de99a",
+      "published_version_at_handoff": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
-      "baseline_nodes": 5,
+      "pending_patch": false,
+      "baseline_nodes": 9,
       "candidate_nodes": 9,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 9 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W7",
       "id": "gc97zrWop11I70CG",
-      "published_version_at_handoff": "08a11820-5bf1-4d58-9312-af2934ee62fd",
+      "published_version_at_handoff": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
+      "pending_patch": false,
       "baseline_nodes": 45,
       "candidate_nodes": 45,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "10 6,10,14,18 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W8",
@@ -155,38 +167,40 @@
       "timezone": "Europe/Paris",
       "retained_cron": [
         "30 7 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     },
     {
       "workflow": "W9",
       "id": "9ttUYW3XcSztxwRu",
-      "published_version_at_handoff": "d5e70d66-72e1-469e-bb57-c08e8833448a",
+      "published_version_at_handoff": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
-      "pending_patch": true,
-      "baseline_nodes": 36,
+      "pending_patch": false,
+      "baseline_nodes": 37,
       "candidate_nodes": 37,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "*/15 8-20 * * *"
-      ]
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
     }
   ],
   "existing_tables": [
     {
-      "name": "Leads",
+      "name": "leads",
       "id": "ns20LV2q6otiEP3X"
     },
     {
-      "name": "Clients",
+      "name": "clients",
       "id": "vJEJHMoNylbhv4Yo"
     },
     {
-      "name": "Blacklist",
+      "name": "blacklist",
       "id": "NE0QU8afBFipimhW"
     },
     {
-      "name": "Journal",
+      "name": "journal",
       "id": "FmcVgSV9fjQvXdYw"
     },
     {

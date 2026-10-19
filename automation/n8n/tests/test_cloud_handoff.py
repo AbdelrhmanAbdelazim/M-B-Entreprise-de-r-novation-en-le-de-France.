@@ -98,7 +98,7 @@ class ReadOnlyProbeTests(unittest.TestCase):
 
 class OfflineAssemblyTests(unittest.TestCase):
     def copy_bundle(self, target):
-        for name in ['manifest.json', 'continuation.json', 'data-tables.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
+        for name in ['manifest.json', 'continuation.json', 'data-tables.json', 'My workflow.json', 'activation.json'] + [f'W{i}.json' for i in range(11)]:
             shutil.copyfile(ROOT / name, target / name)
         (target / 'pending').mkdir()
         for source in (ROOT / 'pending').glob('*.patch.json'):
@@ -107,11 +107,12 @@ class OfflineAssemblyTests(unittest.TestCase):
     def test_full_twelve_workflow_six_patch_assembly_needs_no_mac_or_credentials(self):
         report = collect(ROOT)
         self.assertEqual(report['workflow_count'], 12)
-        self.assertEqual(report['pending_patch_count'], 6)
+        self.assertEqual(report['pending_patch_count'], 0)
+        self.assertEqual(report['deployed_patch_count'], 6)
         self.assertEqual(len(report['existing_tables']), 5)
         self.assertFalse(report['mac_required_for_continuation'])
         self.assertFalse(report['workflow_execution_performed'])
-        self.assertEqual(report['live_deployment'], 'pending_api_access_and_runtime_validation')
+        self.assertEqual(report['live_deployment'], 'published_verified_at_capture')
         self.assertTrue(all(w['current_live_state'] == 'not_verified' for w in report['workflows']))
 
     def test_resume_is_portable_to_a_different_checkout_path(self):

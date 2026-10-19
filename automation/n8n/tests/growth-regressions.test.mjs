@@ -4,14 +4,19 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { test } from 'node:test';
 import vm from 'node:vm';
+import { execFileSync } from 'node:child_process';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const baseline = process.env.N8N_TEST_BASELINE === '1';
 const doc = name => {
-  const d = JSON.parse(readFileSync(join(root, name + '.json')));
+  const d = baseline ? JSON.parse(execFileSync('git', ['show', '883e99b9a859fef687f5ffe997e999328c43e384:automation/n8n/' + name + '.json'], { cwd: join(root, '..', '..'), encoding: 'utf8' })) : JSON.parse(readFileSync(join(root, name + '.json')));
   if (!baseline) {
     const p = JSON.parse(readFileSync(join(root, 'pending', name + '.patch.json')));
-    for (const change of p.node_changes) Object.assign(d.nodes.find(n => n.id === change.node_id).parameters, change.parameters);
-    for (const n of p.add_nodes || []) d.nodes.push(n);
+    if (d.versionId === p.base_version_id) {
+      for (const change of p.node_changes) Object.assign(d.nodes.find(n => n.id === change.node_id).parameters, change.parameters);
+      for (const n of p.add_nodes || []) d.nodes.push(n);
+    } else {
+      for (const change of p.node_changes) assert.equal(d.nodes.find(n => n.id === change.node_id).parameters.jsCode, change.parameters.jsCode, 'Published code drift requires a new review');
+    }
   }
   return d;
 };

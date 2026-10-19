@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -12,7 +13,7 @@ from stage_patch import stage
 
 class StagePatchTests(unittest.TestCase):
     def setUp(self):
-        self.documents = {name: json.loads((ROOT / (name + '.json')).read_text()) for name in ['W2', 'W3', 'W4', 'W6', 'W7', 'W9']}
+        self.documents = {name: json.loads(subprocess.check_output(['git', 'show', '883e99b9a859fef687f5ffe997e999328c43e384:automation/n8n/' + name + '.json'], cwd=ROOT.parents[1], text=True)) for name in ['W2', 'W3', 'W4', 'W6', 'W7', 'W9']}  # Immutable pre-activation fixtures, never used for live deployment
         self.patches = {name: json.loads((ROOT / 'pending' / (name + '.patch.json')).read_text()) for name in self.documents}
 
     def test_changes_preserve_existing_bindings_ids_schedules_and_activation(self):

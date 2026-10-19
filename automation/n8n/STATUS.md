@@ -1,5 +1,52 @@
 # n8n Growth Engine — Cloud handoff / STATUS
 
+## LIVE — verified production publication, 19 October 2026
+
+**Production activation completed from commit `184da0b`.** Authenticated API access works with the existing Cloud bindings. Inventory: **13 workflows total, all 12 expected IDs matched**; the unrelated thirteenth workflow was not modified. All twelve were independently read again after publication: `active=true`, `activeVersionId=versionId`, and the published nodes/connections equal the saved graph. Machine-readable IDs, exact versions, schedules and evidence: `activation.json` and `manifest.json`.
+
+| Workflow | Actual final state | Release action | Retained schedule — Europe/Paris |
+|---|---|---|---|
+| W0 | Published / Active | Watchdog verified, unchanged; no self-reference | Production error events |
+| W1 | Published / Active | Inbox/STOP→Blacklist verified, unchanged | IMAP inbound events |
+| W2 | Published / Active | Saved Blacklist acknowledgement patch deployed | Existing website webhook |
+| W3 | Published / Active | Saved HOT/approval/history/test-sink patch deployed | Mon–Thu 08:30; send gate 08:00–17:59 |
+| W4 | Published / Active | Saved qualified follow-up/uncertain-send patch deployed | Mon–Thu 09:30; one follow-up after 7 days |
+| W5 | Published / Active | Unchanged | Daily 08:00 / 18:00; Monday morning weekly view |
+| W6 | Published / Active | Saved reminder reservation patch deployed | Daily 09:00 |
+| W7 | Published / Active | Saved search-failure / prospect metadata patch deployed | Daily 06:10 / 10:10 / 14:10 / 18:10; max 8 search requests/day |
+| W8 | Published / Active | Unchanged | Daily 07:30 + existing webhook |
+| W9 | Published / Active | Saved fresh Blacklist / recipient guard patch deployed | Every 15 minutes 08:00–20:45 |
+| W10 | Published / Active | Unchanged; drafts only | Daily 04:30; max 7 drafts, pause at 14 pending |
+| My workflow | Published / Active | Manager verified, unchanged | Hourly at minute 00 + Chat |
+
+### What was actually done
+
+- Fresh definitions exactly matched the previous published baseline, including all six patch base versions/nodes/graphs. None of the six patches had already been applied.
+- Reused the existing five Data Tables; authenticated metadata confirmed their actual columns. No Data Table or row was created/modified during testing.
+- Applied **only** saved W2/W3/W4/W6/W7/W9 deltas. Each was saved as a draft using `publishIfActive=false`, read back, then its exact checked version was published and read back again. No workflow was deleted, duplicated or deactivated. Existing node IDs, credential bindings, webhook routes, schedules, W0 routing and workflow execution state were preserved.
+- All eleven workflows still route errors to W0. W0 has an enabled Error Trigger, Telegram + Journal branches, and no reference to itself. My workflow retains hourly coordination, explicit commands, memory and read-only inventory tools; it does not gain duplicate specialist duties.
+- Sales/management/W1: **OpenAI → Gemini → Claude**. SEO/research/content W7/W8/W10: **Gemini → OpenAI → Claude**. Deep review: **Claude → OpenAI → Gemini**. Provider/contract failures advance along those paths; final failure stops the execution under W0 routing. Verified from the live graphs; no live provider failure was injected.
+- Existing hosted trigger executions **306 (Manager)** and **307 (W7)** were successful before this release. These were observed, not re-triggered tests. Next scheduled runs were not forced.
+
+### Safe verification and limits
+
+**20 isolated acceptance checks passed** against candidates assembled from fresh live definitions. Verified approved HOT/WARM gating, reply/rejection/STOP suppression, fresh blacklist/domain checks, conflicting approvals, reserved/uncertain/done history, alias deduplication, business hours, one due follow-up only, W1 unsubscribe conversion, W2 acknowledgement suppression, W6 same-day reservations, W7 error-vs-empty handling and W9 completed-project/current-recipient checks. No n8n delivery/node-engine transport was present in the local VM.
+
+Static live-graph checks found no trigger-to-SMTP bypass around the applicable send guard. **4 new publication handoff checks + 4 affected offline assembly checks passed**, and the artifact validator passed after the exports changed. Earlier successful model/content/SEO tests were retained, not repeated. Native Data Table operation execution and real SMTP/Telegram delivery were not manually exercised; existing live schemas and cloned native configurations were checked. **Zero test email, Telegram, customer messages, social posts or ads; no paid advertising activation or spending.**
+
+Strict exactly-once delivery across simultaneous read/upsert executions remains unproved; existing action reservations must never be cleared/retried automatically after uncertain delivery. Social publisher/CMS/Search Console account integrations remain unconnected, so content stays in human-review drafts. Future outcomes still depend on host health, quotas, usable source data and approved prospects; publication is not a promise of leads or guaranteed uptime.
+
+### Durable continuation
+
+The current `W*.json` and `My workflow.json` are the newest sanitized **live published** exports. Original six files under `pending/` are unchanged historical patch artifacts; their deployed versions/hashes are recorded in `activation.json` and `continuation.json`. **Do not apply them again** or replace current exports with commit `883e99b`. Old fixtures are recoverable from immutable Git history for regression comparison only.
+
+`cloud_handoff.py` now recognizes deployed deltas without adding their nodes again, validates the publication evidence and reports **zero pending patches**. `CLOUD_RESUME.md` explains continuation from branch `codex/growth-engine-883e99b` on a phone. Hosted n8n and Cloud credentials do not require the Mac. No API deployment blocker remains at this capture; social/CMS/Search Console connections and optional real-delivery verification remain separate tasks.
+
+---
+
+## Historical checkpoints below — superseded by the live release above
+
+
 ## آخر تحديث — استكمال Cloud دون انتظار n8n API
 
 **المكتمل محليًا:** التصديرات الإنتاجية الاثنا عشر والترقيعات الست محفوظة دون تغيير منذ `b3b5d4a`. اكتمل تجميعها في الذاكرة مع التحقق من المعرّفات والبصمات وإعادة استخدام الجداول الخمسة؛ الدليل في `cloud-readiness.json`. نجح الاستلام من checkout بمسار مختلف، دون اعتماد على ملفات Mac أو متصفحه أو عملياته.

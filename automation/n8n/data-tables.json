@@ -1,26 +1,63 @@
 {
-  "scope": "No customer rows or table exports are committed. Existing IDs must be reused. Full original table schemas need live inspection; do not recreate from guesses.",
+  "scope": "Five existing table IDs and live column schemas verified; no tables or rows created, changed or exported by activation tests.",
   "tables": [
     {
-      "name": "Leads",
+      "name": "leads",
       "id": "ns20LV2q6otiEP3X",
       "purpose": "Discovery, qualification, outreach/reply/follow-up history",
-      "schema_status": "Existing table; full schema not re-exported during handoff"
+      "schema_status": "Confirmed from authenticated live Data Table metadata during activation; no customer rows exported",
+      "user_columns": {
+        "date_envoi": "string",
+        "date_relance": "string",
+        "date_reponse": "string",
+        "departement": "string",
+        "email": "string",
+        "entreprise": "string",
+        "message_id": "string",
+        "site": "string",
+        "source": "string",
+        "statut": "string",
+        "sujet": "string",
+        "type": "string",
+        "variante": "string",
+        "ville": "string"
+      },
+      "schema_verified_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
-      "name": "Clients",
+      "name": "clients",
       "id": "vJEJHMoNylbhv4Yo",
       "purpose": "Website requests and real project lifecycle",
-      "schema_status": "Existing table; full schema not re-exported during handoff"
+      "schema_status": "Confirmed from authenticated live Data Table metadata during activation; no customer rows exported",
+      "user_columns": {
+        "avis": "string",
+        "date": "string",
+        "date_relance_avis": "string",
+        "date_remerciement": "string",
+        "email": "string",
+        "nom": "string",
+        "projet": "string",
+        "source": "string",
+        "statut": "string",
+        "telephone": "string",
+        "ville": "string"
+      },
+      "schema_verified_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
-      "name": "Blacklist",
+      "name": "blacklist",
       "id": "NE0QU8afBFipimhW",
       "purpose": "STOP, bounces and outreach suppression",
-      "schema_status": "Existing table; full schema not re-exported during handoff"
+      "schema_status": "Confirmed from authenticated live Data Table metadata during activation; no customer rows exported",
+      "user_columns": {
+        "date": "string",
+        "email": "string",
+        "raison": "string"
+      },
+      "schema_verified_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
-      "name": "Journal",
+      "name": "journal",
       "id": "FmcVgSV9fjQvXdYw",
       "purpose": "Workflow result/error and Oxylabs estimate journal",
       "observed_contract_fields": [
@@ -29,25 +66,32 @@
         "resultat",
         "details"
       ],
-      "schema_status": "Fields used by workflows; not a fresh database schema export"
+      "schema_status": "Confirmed from authenticated live Data Table metadata during activation; no customer rows exported",
+      "user_columns": {
+        "date": "string",
+        "details": "string",
+        "resultat": "string",
+        "workflow": "string"
+      },
+      "schema_verified_at_utc": "2026-10-19T04:28:21.626683+00:00"
     },
     {
       "name": "Growth Queue",
       "id": "aqPFAT3TBwLGhlIj",
       "purpose": "Central jobs, qualified prospects, action reservations, content drafts and review tasks",
-      "schema_status": "All eleven user columns were confirmed in n8n UI and native upsert execution",
+      "schema_status": "Confirmed from authenticated live Data Table metadata during activation; no customer rows exported",
       "user_columns": {
-        "task_key": "string",
-        "type": "string",
-        "priority": "string",
-        "source": "string",
-        "owner": "string",
-        "status": "string",
         "created_at": "string",
+        "due_at": "string",
         "last_action": "string",
         "next_action": "string",
-        "due_at": "string",
-        "payload": "string"
+        "owner": "string",
+        "payload": "string",
+        "priority": "string",
+        "source": "string",
+        "status": "string",
+        "task_key": "string",
+        "type": "string"
       },
       "native_columns": [
         "id",
@@ -62,7 +106,8 @@
         "completed_quality_reviews": 1,
         "seo_opportunities": 2
       },
-      "note": "Rows change on hourly production execution; these counts are historical observations."
+      "note": "Rows change on hourly production execution; these counts are historical observations.",
+      "schema_verified_at_utc": "2026-10-19T04:28:21.626683+00:00"
     }
   ]
 }
