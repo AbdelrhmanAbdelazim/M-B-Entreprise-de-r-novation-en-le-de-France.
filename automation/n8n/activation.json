@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T09:52:18.219175+00:00",
+  "captured_at_utc": "2026-10-19T10:29:01.196583+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -166,8 +166,8 @@
       "name": "W10 – Idées de contenu (vidéos)",
       "active": true,
       "published": true,
-      "version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
-      "active_version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "active_version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -194,8 +194,8 @@
       "name": "W8 – Notifications pages SEO",
       "active": true,
       "published": true,
-      "version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
-      "active_version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -222,8 +222,8 @@
       "name": "W5 – Rapport hebdomadaire",
       "active": true,
       "published": true,
-      "version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
-      "active_version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "active_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,5 +264,5 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "qualification-release.json"
+  "latest_release": "windsor-release.json"
 }

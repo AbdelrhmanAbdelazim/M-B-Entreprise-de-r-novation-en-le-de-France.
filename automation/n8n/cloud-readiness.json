@@ -6,6 +6,7 @@
   "pending_patch_count": 0,
   "reviewed_patch_count": 6,
   "deployed_patch_count": 6,
+  "additional_verified_production_revisions": 3,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -55,7 +56,7 @@
     {
       "workflow": "W10",
       "id": "63yycckNMI9mXnkz",
-      "published_version_at_handoff": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "published_version_at_handoff": "ba899b2d-16ac-4964-8231-80d67a961244",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -113,7 +114,7 @@
     {
       "workflow": "W5",
       "id": "yaiq1MmW8dw5SUg7",
-      "published_version_at_handoff": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "published_version_at_handoff": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -158,7 +159,7 @@
     {
       "workflow": "W8",
       "id": "uOuQs4E5H443sbKh",
-      "published_version_at_handoff": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "published_version_at_handoff": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,

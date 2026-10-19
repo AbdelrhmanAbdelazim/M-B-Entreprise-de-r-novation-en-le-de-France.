@@ -103,6 +103,7 @@ class OfflineAssemblyTests(unittest.TestCase):
         (target / 'pending').mkdir()
         for source in (ROOT / 'pending').glob('*.patch.json'):
             shutil.copyfile(source, target / 'pending' / source.name)
+        shutil.copytree(ROOT / 'revisions', target / 'revisions')
 
     def test_full_twelve_workflow_six_patch_assembly_needs_no_mac_or_credentials(self):
         report = collect(ROOT)

@@ -23,6 +23,11 @@ def collect(root=ROOT):
     revisions = {entry['workflow']: entry for entry in continuation['pending_revisions']}
     if set(revisions) != PATCHED or len(continuation['pending_revisions']) != len(PATCHED):
         raise ValueError('Pending revision inventory differs from the reviewed six-workflow handoff')
+    additional = continuation.get('production_revisions', [])
+    if len({entry['workflow'] for entry in additional}) != len(additional):
+        raise ValueError('Duplicate additional production revision')
+    if additional and {entry['workflow'] for entry in additional} != {'W5', 'W8', 'W10'}:
+        raise ValueError('Additional production revision inventory is incomplete or unexpected')
     reports = []
     pending_count = 0
     deployed_count = 0
@@ -81,6 +86,19 @@ def collect(root=ROOT):
             else:
                 candidate = stage(workflow, patch)
                 pending_count += 1
+        for entry in [r for r in additional if r['workflow'] == name]:
+            directory = root / 'revisions' / 'windsor-20261019'
+            if name not in {'W5', 'W8', 'W10'} or entry['path'] != 'revisions/windsor-20261019/' + name + '.patch.json':
+                raise ValueError('Unexpected additional production revision')
+            before_blob = (directory / (name + '.before.json')).read_bytes()
+            patch_blob = (root / entry['path']).read_bytes()
+            if (hashlib.sha256(before_blob).hexdigest() != entry['before_sha256']
+                    or hashlib.sha256(patch_blob).hexdigest() != entry['sha256']):
+                raise ValueError('Additional production revision provenance changed')
+            revised = stage(json.loads(before_blob), json.loads(patch_blob))
+            if (entry['published_version_id'] != workflow['versionId']
+                    or any(revised.get(k) != workflow.get(k) for k in ['id','name','nodes','connections','settings'])):
+                raise ValueError('Published workflow differs from additional production revision')
         schedules = [interval['expression'] for node in workflow['nodes']
                      if node['type'] == 'n8n-nodes-base.scheduleTrigger'
                      for interval in node['parameters'].get('rule', {}).get('interval', [])
@@ -101,6 +119,8 @@ def collect(root=ROOT):
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
     activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
+    if activation and activation.get('latest_release') == 'windsor-release.json' and len(additional) != 3:
+        raise ValueError('Windsor publication evidence requires all three additional revisions')
     published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
     if published:
         for entry in reports:
@@ -114,6 +134,7 @@ def collect(root=ROOT):
             'live_deployment': 'published_verified_at_capture' if published else 'pending_api_access_and_runtime_validation',
             'workflow_count': len(reports), 'pending_patch_count': pending_count,
             'reviewed_patch_count': len(revisions), 'deployed_patch_count': deployed_count,
+            'additional_verified_production_revisions': len(additional),
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,

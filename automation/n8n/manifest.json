@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Latest sanitized published live definitions; W3/W4/W7 qualification revision supersedes their initial six-patch release; strict patch chains archived under revisions/qualification-20261019.",
-  "latest_live_refresh": "CONNECTED; all twelve independently re-read Published/Active after qualification release; no workflow execution requests",
+  "source": "Latest sanitized published live definitions including qualification and read-only Windsor consumer revisions; no real Windsor feed is claimed.",
+  "latest_live_refresh": "All twelve expected graphs independently re-read Published/Active; unrelated thirteenth untouched.",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -22,7 +22,7 @@
       ],
       "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
@@ -48,7 +48,7 @@
       ],
       "published_version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -71,7 +71,7 @@
       ],
       "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W0": {
       "id": "4O2ZR1JpDOgJZOLw",
@@ -90,7 +90,7 @@
       ],
       "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W1": {
       "id": "EvDz4KtOEgIYKh7Q",
@@ -114,7 +114,7 @@
       ],
       "published_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
@@ -137,7 +137,7 @@
       ],
       "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W3": {
       "id": "RstxLOezyHrDIv7k",
@@ -161,18 +161,18 @@
       ],
       "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
       "name": "W10 – Idées de contenu (vidéos)",
-      "version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "7381d54d56f0e04e5d551f9bb03f2bec46932de189be7655c0d1c495dbe105a8",
-      "public_sha256": "4041ccd863ef70504d6891ebeb31028185e440c754cef794066a00c0db7a9192",
+      "actual_download_at_utc": "2026-10-19T10:29:01.196583+00:00",
+      "source_sha256": "72941e3267896f98c9261fa844ae6233c264a20b25ab523bc4f7a8ef04cf455e",
+      "public_sha256": "14acec9075f0d0ef8ba1af25e52b0b458affc9a8d28b09604436d61683e41be5",
       "redacted_paths": [
         "/nodes/13/credentials/googlePalmApi/id",
         "/nodes/19/credentials/openAiApi/id",
@@ -184,9 +184,9 @@
         "/nodes/9/parameters/chatId",
         "/nodes/9/webhookId"
       ],
-      "published_version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "published_version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
@@ -210,18 +210,18 @@
       ],
       "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",
       "name": "W8 – Notifications pages SEO",
-      "version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "7f79dbd143506f4702290dbed90edc5b6b09f638ab75ad666fea44975f960a6d",
-      "public_sha256": "125406d347327d48aca0029b70e08c69cdd11d012fb601e652c050343b32b167",
+      "actual_download_at_utc": "2026-10-19T10:29:01.196583+00:00",
+      "source_sha256": "da51479f8071f67387c108132e385418004bc5b8ef5495df50fa7f93741e8a18",
+      "public_sha256": "6cdd7771056a7ea65769fbcec8ee4e4017a3cd429032f5efc68832c035fa4c70",
       "redacted_paths": [
         "/nodes/0/parameters/path",
         "/nodes/0/webhookId",
@@ -232,9 +232,9 @@
         "/nodes/2/webhookId",
         "/nodes/20/credentials/anthropicApi/id"
       ],
-      "published_version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W9": {
       "id": "9ttUYW3XcSztxwRu",
@@ -261,26 +261,26 @@
       ],
       "published_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "W5": {
       "id": "yaiq1MmW8dw5SUg7",
       "name": "W5 – Rapport hebdomadaire",
-      "version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "1ef54feca77223b26b9fcb749f08525c02220c99e89473b5ab88ae0cbe08bf4e",
-      "public_sha256": "38e937f1aac4276785ffac7f837f0633e9c20c39ae07faf9f80618f59172a4eb",
+      "actual_download_at_utc": "2026-10-19T10:29:01.196583+00:00",
+      "source_sha256": "c276fdf6f80e60aa18bde7fb7d2994e3ea6c9ea88340127d997ff9b6c3a67ce5",
+      "public_sha256": "1bbd0b00ff6e0d0eb3a7dd478cfd2998b98997f6f44fbd49f6d5058bc37c8448",
       "redacted_paths": [
         "/nodes/4/credentials/telegramApi/id",
         "/nodes/4/parameters/chatId",
         "/nodes/4/webhookId"
       ],
-      "published_version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "published_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
     }
   },
   "continuation": {

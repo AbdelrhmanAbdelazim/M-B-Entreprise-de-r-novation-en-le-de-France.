@@ -6,6 +6,10 @@ Branch: **`codex/growth-engine-883e99b`**. Production baseline on `main`: `883e9
 
 The complete non-secret handoff is in GitHub. n8n runs on its hosted server, not on the Mac. No Mac path, browser session, terminal process, private file or credential exported from the Mac is required for Cloud continuation. Cloud already has the existing n8n environment bindings; their availability does not prove that the server accepts them. The latest authenticated inventory and definition reads succeeded: all twelve expected workflows are Published/Active, and the six saved patches are deployed. See automation/n8n/activation.json for the exact captured versions. No replacement key was created.
 
+## Latest Windsor consumer release
+
+Read `automation/n8n/windsor-release.json` and the newest STATUS entry first. W5/W8/W10 analytics consumers are published; all twelve live graphs were read back Active/Published. The six source accounts are connected through Windsor according to the operator, but no Windsor tool, Cloud binding or n8n credential/query is exposed here. No real data was fetched/imported and no automatic collector was installed. The existing Growth Queue access task records the blocker. `windsor_import.py` is a private normalized-export bridge, offline by default, not proof of an automatic connection. Never import test fixtures. Analytics access grants no social publishing or paid-ad permission. Preserve both original and qualification patch chains plus the newer strict `production_revisions` records.
+
 ## Latest qualification release
 
 Continue from the latest branch head, including `automation/n8n/qualification-release.json` and `revisions/qualification-20261019/`. W7/W3/W4 now have the published qualification/backfill and lead #79 no-resend protections. The 47 unsent-lead backlog has 26 approved HOT, 20 WARM review and one COLD hold. The retained quota selects up to 10 next W3 cycle. Do not reapply either release's historical patches. Current exports and strict two-stage patch checks are the handoff; customer evidence remains in the live Growth Queue, not Git. See STATUS for live-readback limits and the next scheduled run to observe.

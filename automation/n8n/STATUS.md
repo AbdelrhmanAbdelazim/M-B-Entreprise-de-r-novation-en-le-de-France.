@@ -1,5 +1,25 @@
 # n8n Growth Engine — Cloud handoff / STATUS
 
+## Latest release — LIVE consumers; Windsor source access pending, 19 October 2026
+
+**All twelve hosted workflows were independently re-read Published/Active after deploying W5/W8/W10.** W0/W1/W2/W3/W4/W6/W7/W9/Manager were not changed; schedules, IDs, credentials, webhooks, Data Tables and W0 routing remain intact. The unrelated thirteenth workflow remains untouched. Exact versions and access evidence: `windsor-release.json`.
+
+**Connection status corrected:** the operator confirms **Search Console, GA4, Google Business Profile, Google Ads, Meta Ads and Instagram are connected through Windsor.ai**. This supersedes earlier notes saying those source accounts were unconnected. However, this Cloud session has no callable Windsor tool or Windsor secret/variable binding, and live n8n has no Windsor credential/query/node. Existing Growth Queue contains **zero real analytics snapshots**. Thus source-account connection is operator-confirmed; direct data access and automatic Windsor ingestion are **not verified and remain blocked**, rather than being reported as live. No replacement key or credentials were requested/created. One deduplicated Manager access task was recorded.
+
+**Implemented and published:**
+- **W5:** per-source analytics reporting, exact periods and spend currency; missing/stale data is explicit, never zero. Existing operational reporting remains. Windsor read access does not authorize ads or social publishing.
+- **W8:** fresh validated Search Console/GA4 data can prioritize up to five existing homepage-discovered pages. Analytics cannot create arbitrary fetch targets. Observed low CTR can create a deduplicated review task; no doorway pages or automatic website modifications. Existing Gemini→OpenAI→Claude routing remains.
+- **W10:** validated source observations can inform content discovery and record evidence periods. Content remains review-only, with a separate publishing connection required. Ads remain drafts with budget zero. The seven existing drafts received metadata-only wording corrections; their content, quality notes, status and budgets were preserved.
+- **Import bridge:** `windsor_import.py` validates a private normalized Windsor export offline by default. Explicit `--apply` writes only an analytics snapshot into existing Growth Queue, preserves identity/creation time, rejects older replacement data and reads the result back. No synthetic snapshot was imported. This is not an installed automatic collector; an actual exposed read connection is still required for that.
+
+**Verification:** 10 isolated consumer checks + 8 importer contract/fake-transport checks + 2 strict publication/provenance checks passed. The affected portable-checkout handoff check also passed. One additional local report calculation used the real tables without delivery and correctly found six unavailable data channels. Fresh live API readback verified all twelve published graphs and the eight Queue metadata/task writes. No workflow was manually executed, no provider API was called, no customer/Telegram/email test was sent, no public post was published, and no ad or budget was changed. W3/W4 blacklist, unsubscribe, deduplication, uncertain-send protections and the hard block on lead #79 remain unchanged. Earlier unrelated successful tests were retained.
+
+**Still required:** expose the existing Windsor read connection to n8n/Cloud, verify its actual accounts/fields, then install and verify bounded automatic ingestion. A question about the connection's location is pending; no secret should be put in chat. Analytics permissions do not establish social publishing permissions. CMS write access remains separate. Next scheduled executions of the changed consumers have not yet been observed. The hosted engine continues without the Mac; Windsor automatic data ingestion must not be described as working yet.
+
+**Schedules unchanged (Europe/Paris):** W5 08:00/18:00; W8 07:30 + existing webhook; W10 04:30 with existing draft capacity. W0–W4/W6/W7/W9 and Manager retain the schedules recorded below. Existing five tables are reused; no new table or workflow was created.
+
+---
+
 ## Latest release — LIVE qualification repair, 19 October 2026
 
 The current live n8n state was independently re-read after publication: **W0–W10 and My workflow are all Published/Active** on their existing IDs. W3/W4/W7 now include the qualification repair; the other nine remain unchanged. Exact versions, checks and counts: `qualification-release.json`. Original six deployed patches remain archived; strict before/after provenance for this release is in `revisions/qualification-20261019/`.

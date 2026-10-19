@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T09:52:18.219175+00:00",
+  "recorded_at_utc": "2026-10-19T10:29:01.196583+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -13,7 +13,7 @@
       "result": "CONNECTED",
       "inventory_count": 13,
       "expected_matched": 12,
-      "captured_at_utc": "2026-10-19T09:52:18.219175+00:00"
+      "captured_at_utc": "2026-10-19T10:29:01.196583+00:00"
     },
     "historical_observations": [
       {
@@ -72,6 +72,13 @@
       "live_rows_upserted": 47,
       "eligible": 26,
       "next_cycle_selected": 10
+    },
+    "windsor_release": {
+      "report": "windsor-release.json",
+      "isolated_checks": 18,
+      "real_table_local_report_checks": 1,
+      "direct_provider_read_verified": false,
+      "deployed_consumers": 3
     }
   },
   "existing_table_roles": {
@@ -183,5 +190,28 @@
     "live_workflow_execution": false,
     "reviewed_patch_count": 6
   },
-  "resume_entrypoint": "../../CLOUD_RESUME.md"
+  "resume_entrypoint": "../../CLOUD_RESUME.md",
+  "production_revisions": [
+    {
+      "workflow": "W10",
+      "path": "revisions/windsor-20261019/W10.patch.json",
+      "sha256": "678628fad95cfc06b420ad0dc58e4cc3c706fe0de9f77016c6337763ff5f5d2f",
+      "before_sha256": "4041ccd863ef70504d6891ebeb31028185e440c754cef794066a00c0db7a9192",
+      "published_version_id": "ba899b2d-16ac-4964-8231-80d67a961244"
+    },
+    {
+      "workflow": "W8",
+      "path": "revisions/windsor-20261019/W8.patch.json",
+      "sha256": "53c4cc0bf5b127a21660c159d8a7ce1f8b8e6451280b122d34c83bb2b2c5a119",
+      "before_sha256": "125406d347327d48aca0029b70e08c69cdd11d012fb601e652c050343b32b167",
+      "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f"
+    },
+    {
+      "workflow": "W5",
+      "path": "revisions/windsor-20261019/W5.patch.json",
+      "sha256": "192b12818000c399555ab5182d53d7ce838531441c29180e59ebd969370c122d",
+      "before_sha256": "38e937f1aac4276785ffac7f837f0633e9c20c39ae07faf9f80618f59172a4eb",
+      "published_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3"
+    }
+  ]
 }
