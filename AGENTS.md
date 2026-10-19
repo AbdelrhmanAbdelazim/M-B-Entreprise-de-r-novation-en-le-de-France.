@@ -85,3 +85,9 @@ When several technically valid options exist, prefer the option most likely to i
 6. partnerships with architects, property managers, real-estate agencies, syndics and contractors.
 
 Do not sacrifice site quality or search-engine compliance for short-term SEO tactics.
+
+## n8n / Growth Engine continuation
+
+For automation tasks, read `CLOUD_RESUME.md` and `automation/n8n/STATUS.md` first. The latest reviewed work is on `codex/growth-engine-883e99b`; preserve newer remote work and user changes when selecting a checkout. Keep the twelve production baseline exports distinct from `automation/n8n/pending/` deltas.
+
+Use existing isolated checkouts, not new worktrees unless requested. Cloud handoff tools need only Python standard library, not a Mac or website build. Retain successful tests recorded in STATUS; rerun only those directly affected by new changes. Never import redacted workflow exports over production. No real customer test messages, public test posts or ad spending. API timeout is not a reason to replace credentials, modify the server, reset workflow versions or stop independent local work. Record live deployment as pending until current versions and isolated runtime checks are available.

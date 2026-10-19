@@ -1,6 +1,6 @@
 # Portable n8n continuation bundle
 
-Start with [STATUS.md](STATUS.md), then [manifest.json](manifest.json) and [data-tables.json](data-tables.json). Read the repository root AGENTS.md. These are the last verified actual production exports, sanitized for this public repository. They are not fresh live exports after the documented host outage and are not directly deployable until private bindings are restored from the same existing live workflows.
+For phone/Cloud continuation, select branch `codex/growth-engine-883e99b` and start with [CLOUD_RESUME.md](../../CLOUD_RESUME.md). Then read [STATUS.md](STATUS.md), then [manifest.json](manifest.json) and [data-tables.json](data-tables.json). Read the repository root AGENTS.md. These are the last verified actual production exports, sanitized for this public repository. They are not fresh live exports after the documented host outage and are not directly deployable until private bindings are restored from the same existing live workflows.
 
 ## Cloud setup
 
@@ -21,6 +21,11 @@ The n8n server returned500/504 during this handoff. Control from Cloud is theref
 
 ## Continuation from commit 883e99b
 
-Latest Cloud findings and pending changes are in [STATUS.md](STATUS.md), [continuation.json](continuation.json) and [pending/README.md](pending/README.md). The historical 500/504 observation above is not a current host-health conclusion: the Cloud request was denied by its proxy before reaching the host. Secure n8n requirements were saved to the environment draft but are not configured/applied in the running instance.
+Latest Cloud findings and pending changes are in [STATUS.md](STATUS.md), [continuation.json](continuation.json) and [pending/README.md](pending/README.md). The historical 500/504 observation above is not a current host-health conclusion: the Cloud request was denied by its proxy before reaching the host. That was an earlier observation. After environment publication, both existing n8n bindings are ready; the last authenticated inventory request timed out after 20 seconds. See the latest STATUS and continuation.json. Do not request or create another API key because of a timeout.
 
 The original twelve exports remain the production baseline. Pending patches and `stage_patch.py` provide tested local deltas with version/node/graph guards, not published changes. Only the new changed behavior was tested; successful model/content/SEO business tests from the prior session were retained.
+
+
+## Portable Cloud continuation tools
+
+The completed offline assembly is recorded in [cloud-readiness.json](cloud-readiness.json). `cloud_handoff.py` can assemble/check all six reviewed deltas against all twelve baseline identities without network or workflow execution when artifacts change. `live_status.py --timeout 20` is the saved, bounded GET-only connection/inventory comparison command for future access checks. Neither tool deploys or activates anything. Existing successful tests need not run again simply because a new Cloud task starts. Detailed commands and remaining live steps are in the root CLOUD_RESUME.md.

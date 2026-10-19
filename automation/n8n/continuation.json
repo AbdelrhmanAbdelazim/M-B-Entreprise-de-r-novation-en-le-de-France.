@@ -1,16 +1,36 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T03:39:44.389003+00:00",
+  "recorded_at_utc": "2026-10-19T04:03:30.096751+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": false,
-    "origin_response_received": false,
-    "observed_failure": "CONNECT tunnel denied by network proxy: 403; HTTP origin status 000",
-    "prior_500_not_reproduced_or_assumed": true,
-    "N8N_BASE_URL_present": false,
-    "N8N_API_KEY_present": false,
-    "draft_requirements_saved": true,
-    "requirements_applied_or_published": false
+    "N8N_BASE_URL_present": true,
+    "N8N_API_KEY_present": true,
+    "runtime_variable_state": "ready",
+    "secret_binding_state": "ready",
+    "authentication_acceptance": "not_verified_due_to_timeout",
+    "last_authenticated_api_attempt": {
+      "endpoint": "GET /api/v1/workflows",
+      "result": "BLOCKED",
+      "reason": "n8n_API_timeout",
+      "timeout_seconds": 20,
+      "source": "preceding READ-ONLY connection turn after environment publication",
+      "retried_in_offline_continuation": false
+    },
+    "historical_observations": [
+      {
+        "stage": "before_runtime_binding",
+        "failure": "proxy CONNECT 403"
+      },
+      {
+        "stage": "network_restored_before_binding",
+        "root_http": 200,
+        "unauthenticated_inventory_http": 401
+      }
+    ],
+    "no_replacement_key_created": true,
+    "no_host_changes": true,
+    "live_deployment": "pending_api_access_and_runtime_validation"
   },
   "production_changes": false,
   "public_production_snapshots_changed": false,
@@ -26,7 +46,14 @@
     },
     "targeted_baseline_failures": 17,
     "baseline_note": "14 failures out of the first 15 regression cases; 3 further W2/W6 failures. The passing empty-search baseline and later positive controls are not defects.",
-    "cli": "W9 staged to ignored private-live with no remote operation"
+    "cli": "W9 staged to ignored private-live with no remote operation",
+    "cloud_continuation_tools": {
+      "passed": 13,
+      "failed": 0,
+      "suite": "tests/test_cloud_handoff.py",
+      "transport": "in_memory_only",
+      "previous_28_tests_rerun": false
+    }
   },
   "existing_table_roles": {
     "Task Queue": "Growth Queue: task rows",
@@ -97,5 +124,16 @@
     "No social publishing/CMS/Search Console integration is established; retain drafts only",
     "No customer SMTP delivery, Telegram or public publication tested",
     "No paid advertising approval or spending"
-  ]
+  ],
+  "offline_assembly": {
+    "report": "cloud-readiness.json",
+    "workflow_count": 12,
+    "pending_patch_count": 6,
+    "existing_table_count": 5,
+    "status": "complete_for_cloud_continuation",
+    "different_checkout_path_tested": true,
+    "mac_required": false,
+    "live_workflow_execution": false
+  },
+  "resume_entrypoint": "../../CLOUD_RESUME.md"
 }

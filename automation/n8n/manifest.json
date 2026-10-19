@@ -275,6 +275,8 @@
     "path": "continuation.json",
     "status": "offline_tested_pending_live_rebase",
     "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-    "production_snapshots_preserved": true
+    "production_snapshots_preserved": true,
+    "offline_assembly_report": "cloud-readiness.json",
+    "resume_entrypoint": "../../CLOUD_RESUME.md"
   }
 }
