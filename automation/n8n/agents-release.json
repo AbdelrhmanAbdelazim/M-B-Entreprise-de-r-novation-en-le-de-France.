@@ -1,0 +1,40 @@
+{
+  "captured_at_utc": "2026-10-19T13:30:30.759538+00:00",
+  "result": "LIVE",
+  "workflow_id": "cKUyJSLOF69uXGnO",
+  "published_version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
+  "all_12_published_active": true,
+  "other_11_versions_unchanged": true,
+  "credential": "OpenAI account 2 (existing binding preserved)",
+  "root_cause": "The disconnected HTTP node lost session_id, constructing /sessions//events. The events wrapper and agent.session.input.message type are valid in the current official schema.",
+  "test": {
+    "agent_execution_id": "364",
+    "state": "success",
+    "task_status": "done",
+    "turn_status": "completed",
+    "final_result": "M&B Codex connected successfully",
+    "session_creations": 0,
+    "events_posts": 1,
+    "turn_polls": 3,
+    "manager_tools_execution_id": "365",
+    "manager_tools_state": "success",
+    "enqueue_verified": true,
+    "completed_result_read_verified": true
+  },
+  "isolated_tests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "temporary_nodes_removed": true,
+  "customer_transports_used": false,
+  "public_posts": false,
+  "ads_spend": 0,
+  "worker_cadence": "Existing Manager hourly schedule; one queued technical task per cycle. Poll interval 10 seconds, max 24 polls / 240 seconds, bounded read-only resume.",
+  "tables": [
+    "Growth Queue (agent_task, agent_session, agent_log)"
+  ],
+  "session_strategy": "Reuse verified idle session; create only absent or authenticated 404. No creation on timeouts or 5xx.",
+  "replay_strategy": "Persistent reservation, stable idempotency key, baseline turn correlation, completed instruction fingerprint reuse; uncertain acceptance reconciles via reads rather than a second POST. Data Table read/upsert is not a transactional cross-execution lock.",
+  "permissions": "Hosted gpt-6-astra agent tools=[], vault_ids=[]; no new repository, shell or production-administration tool permissions granted.",
+  "remaining_blocker": null
+}

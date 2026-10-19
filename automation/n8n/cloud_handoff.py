@@ -31,6 +31,10 @@ def collect(root=ROOT):
     followups = continuation.get('followup_revisions', [])
     if followups and (len(followups) != 3 or {r['workflow'] for r in followups} != {'My workflow','W5','W10'}):
         raise ValueError('Metricool follow-up revision inventory is incomplete or unexpected')
+    agents = continuation.get('agents_revision')
+    if agents:
+        from agents_verify import verify
+        verify(root, agents)
     reports = []
     pending_count = 0
     deployed_count = 0
@@ -115,8 +119,9 @@ def collect(root=ROOT):
                     or hashlib.sha256(patch_blob).hexdigest() != entry['sha256']):
                 raise ValueError('Metricool revision provenance changed')
             revised = stage(json.loads(before_blob), json.loads(patch_blob))
-            if (entry['published_version_id'] != workflow['versionId']
-                    or any(revised.get(k) != workflow.get(k) for k in ['id','name','nodes','connections','settings'])):
+            target = load(root / 'revisions/agents-20261019/My workflow.before.json') if agents and name == 'My workflow' else workflow
+            if (entry['published_version_id'] != target['versionId']
+                    or any(revised.get(k) != target.get(k) for k in ['id','name','nodes','connections','settings'])):
                 raise ValueError('Published workflow differs from Metricool revision')
         schedules = [interval['expression'] for node in workflow['nodes']
                      if node['type'] == 'n8n-nodes-base.scheduleTrigger'

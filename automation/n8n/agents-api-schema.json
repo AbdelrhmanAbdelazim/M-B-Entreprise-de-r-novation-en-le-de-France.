@@ -1,0 +1,73 @@
+{
+  "verified_on": "2026-10-19",
+  "source": "Official openai/openai-python current generated API resources and types",
+  "source_commit": "6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368",
+  "files": [
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/resources/beta/agents/sessions/events.py",
+      "sha256": "e9ef5a4a841fc141afc57ca6fe0a5e6ba6c7e9766aec721ea8d47bc64a90321e"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agents/sessions/event_create_params.py",
+      "sha256": "bbfc3feed8e478fafe5f5a3a57c67f3af7d24e426f2469fd1eb647d0c9965d3e"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agent_session_input_param.py",
+      "sha256": "1b82f05609c7997c5ec440774bb6eb19c70a7148b4500a660dc0fff163984992"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agent_session_input_message_param.py",
+      "sha256": "6ac7e29e8e7ee9bd243971032fb257870285288c7bc2411cd4a7838d9923aaa9"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/input_content_param.py",
+      "sha256": "4a01f3607265f26193bcf1679fe9e606db71aacc34e55a7b82d4834dc8466668"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agents/session_create_params.py",
+      "sha256": "70fe10d2ef44268bad65a58f96ae70e4150f1092c885bf78f28e3ddb99df5af1"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agents/sessions/turn.py",
+      "sha256": "6ecbf60f75c2b0550396a4396da0c9aac12ffaa63f5b13389e30783e5fdb3615"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agent_session_message.py",
+      "sha256": "aae17f48ea30a035c568d3cdcf6e04b354760538ded4ac68170a6b304403fae4"
+    },
+    {
+      "url": "https://github.com/openai/openai-python/blob/6eaa90ee20b40bbe84a5b1a5031d7cf672c7d368/src/openai/types/beta/agents/sessions/turns/item_list_params.py",
+      "sha256": "dc94ffb7c5f359580b6a283b75f00d89742e1aff58dee524974b55a775de399d"
+    }
+  ],
+  "endpoints": {
+    "create": "POST /v1/agents/sessions",
+    "read": "GET /v1/agents/sessions/{session_id}",
+    "submit": "POST /v1/agents/sessions/{session_id}/events",
+    "turns": "GET /v1/agents/sessions/{session_id}/turns?limit=20&order=desc",
+    "result": "GET /v1/agents/sessions/{session_id}/turns/{turn_id}/items?limit=100&order=desc"
+  },
+  "headers": [
+    "OpenAI-Beta: agents=v1",
+    "Idempotency-Key: stable-per-task (events POST)"
+  ],
+  "submission_body": {
+    "events": [
+      {
+        "type": "agent.session.input.message",
+        "input": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "<task instruction>"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "completion": "HTTP 202 is acknowledgement only. Correlate a new turn against the pre-submit baseline, wait for completed, then extract completed assistant final_answer output_text from that same turn."
+}

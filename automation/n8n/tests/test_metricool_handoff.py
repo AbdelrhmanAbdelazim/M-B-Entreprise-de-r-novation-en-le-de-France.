@@ -11,7 +11,7 @@ class MetricoolHandoffTests(unittest.TestCase):
  def test_strict_successor_chain_matches_all_three_current_workflows(self):
   report=collect(ROOT);self.assertEqual(report['metricool_verified_followup_revisions'],3);self.assertEqual(report['additional_verified_production_revisions'],3);self.assertEqual(report['pending_patch_count'],0)
   for name in ['My workflow','W5','W10']:
-   directory=ROOT/'revisions/metricool-20261019';before=json.loads((directory/(name+'.before.json')).read_text());patch=json.loads((directory/(name+'.patch.json')).read_text());current=json.loads((ROOT/(name+'.json')).read_text());candidate=stage(before,patch)
+   directory=ROOT/'revisions/metricool-20261019';before=json.loads((directory/(name+'.before.json')).read_text());patch=json.loads((directory/(name+'.patch.json')).read_text());current_path=ROOT/'revisions/agents-20261019/My workflow.before.json' if name=='My workflow' and (ROOT/'revisions/agents-20261019/My workflow.before.json').exists() else ROOT/(name+'.json');current=json.loads(current_path.read_text());candidate=stage(before,patch)
    for key in ['id','name','nodes','connections','settings']:self.assertEqual(candidate[key],current[key])
  def test_changed_metricool_patch_cannot_be_reported_as_verified(self):
   with tempfile.TemporaryDirectory() as directory:

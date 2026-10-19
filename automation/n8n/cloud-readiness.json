@@ -16,12 +16,12 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "published_version_at_handoff": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 62,
-      "candidate_nodes": 62,
+      "baseline_nodes": 100,
+      "candidate_nodes": 100,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"

@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Latest published live definitions through the internal Metricool lifecycle release; external Metricool/Windsor transport remains explicitly blocked.",
-  "latest_live_refresh": "All twelve independently re-read Published/Active; lead chain and unrelated thirteenth workflow untouched.",
+  "source": "Published live exports through verified OpenAI Agents session/event/turn integration; internal tests completed and temporary nodes removed.",
+  "latest_live_refresh": "2026-10-19T13:30:30.759538+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -22,18 +22,18 @@
       ],
       "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
-      "source_sha256": "7d90bcf926214401516476fafb19d3d41217abef62dcf070af713ceab98f8dff",
-      "public_sha256": "a4bd265c6a7f305dc9cf9b1b644f85f4a367879295117d2bf4fed3e7d938bfc4",
+      "actual_download_at_utc": "2026-10-19T13:30:30.759538+00:00",
+      "source_sha256": "163eb0d60ebcbc8721ca4dab3f1d2d7102eb6190d9b2894f6c30dee3a290c580",
+      "public_sha256": "dd8b3b3e1e6bb226422a9265920d3bcc866766d7bf0ca9d256460ae8912e5ea0",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -44,11 +44,19 @@
         "/nodes/52/credentials/openAiApi/id",
         "/nodes/53/credentials/googlePalmApi/id",
         "/nodes/55/credentials/anthropicApi/id",
-        "/nodes/6/credentials/openAiApi/id"
+        "/nodes/6/credentials/openAiApi/id",
+        "/nodes/62/credentials/openAiApi/id",
+        "/nodes/70/credentials/openAiApi/id",
+        "/nodes/73/credentials/openAiApi/id",
+        "/nodes/78/credentials/openAiApi/id",
+        "/nodes/85/webhookId",
+        "/nodes/88/credentials/openAiApi/id",
+        "/nodes/91/credentials/openAiApi/id",
+        "/nodes/94/webhookId"
       ],
-      "published_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "published_version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -71,7 +79,7 @@
       ],
       "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W0": {
       "id": "4O2ZR1JpDOgJZOLw",
@@ -90,7 +98,7 @@
       ],
       "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W1": {
       "id": "EvDz4KtOEgIYKh7Q",
@@ -114,7 +122,7 @@
       ],
       "published_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
@@ -137,7 +145,7 @@
       ],
       "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W3": {
       "id": "RstxLOezyHrDIv7k",
@@ -161,7 +169,7 @@
       ],
       "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
@@ -186,7 +194,7 @@
       ],
       "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
@@ -210,7 +218,7 @@
       ],
       "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",
@@ -234,7 +242,7 @@
       ],
       "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W9": {
       "id": "9ttUYW3XcSztxwRu",
@@ -261,7 +269,7 @@
       ],
       "published_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     },
     "W5": {
       "id": "yaiq1MmW8dw5SUg7",
@@ -280,7 +288,7 @@
       ],
       "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
+      "latest_readback_at_utc": "2026-10-19T13:30:30.759538+00:00"
     }
   },
   "continuation": {

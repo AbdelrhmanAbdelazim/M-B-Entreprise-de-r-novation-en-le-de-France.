@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T10:50:49.200671+00:00",
+  "recorded_at_utc": "2026-10-19T13:30:30.759538+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -85,6 +85,13 @@
       "isolated_checks": 16,
       "internal_queue_upserts": 9,
       "actual_provider_read_verified": false
+    },
+    "agents_release": {
+      "report": "agents-release.json",
+      "isolated_checks": 10,
+      "live_agent_execution": "364",
+      "live_manager_tools_execution": "365",
+      "exact_final_result_verified": true
     }
   },
   "existing_table_roles": {
@@ -242,5 +249,9 @@
       "before_sha256": "1bbd0b00ff6e0d0eb3a7dd478cfd2998b98997f6f44fbd49f6d5058bc37c8448",
       "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff"
     }
-  ]
+  ],
+  "agents_revision": {
+    "path": "revisions/agents-20261019/verification.json",
+    "sha256": "05f05e09615774ef40da5af6cf0d1c7ec6552e305943e0498643c8b959837a52"
+  }
 }

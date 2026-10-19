@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T10:50:49.200671+00:00",
+  "captured_at_utc": "2026-10-19T13:30:30.759538+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
-      "active_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
+      "active_version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,5 +264,9 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "metricool-release.json"
+  "latest_release": "agents-release.json",
+  "agent_integration_safe_executions": [
+    "364",
+    "365"
+  ]
 }

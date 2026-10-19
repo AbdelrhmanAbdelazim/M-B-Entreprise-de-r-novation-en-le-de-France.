@@ -1,5 +1,9 @@
 # Continue M&B Growth Engine from Codex Cloud / phone
 
+## Latest OpenAI Agents release
+
+Read `automation/n8n/agents-release.json` and the latest STATUS entry first. Manager is Published/Active with a tested session/event/turn bridge using existing `OpenAI account 2`; all twelve workflows were re-read active and the other eleven versions were unchanged. Runtime executions 364/365 prove exact final output and both queue tools. Temporary probes are removed. Preserve the original, qualification, Windsor, Metricool and Agents provenance chains; `cloud_handoff.py` verifies the complete chain. Do not replay the successful connectivity test or reset completed jobs. Hosted technical jobs currently have no external tool/vault permissions; do not claim repository mutations merely from a successful text response. Existing hourly cadence applies, and uncertain submissions are reconciled with reads.
+
 ## Where the complete current work is saved
 
 Branch: **`codex/growth-engine-883e99b`**. Production baseline on `main`: `883e99b`. First reviewed patch checkpoint: `b3b5d4a`. Continue from the latest commit on the continuation branch, not from the older `main` exports alone. This branch is intentionally not merged or deployed by the continuation task.
