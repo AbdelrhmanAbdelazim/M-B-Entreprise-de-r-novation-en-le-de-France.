@@ -1,0 +1,66 @@
+{
+  "format_version": 1,
+  "status": "offline_tested_candidate_not_deployed",
+  "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
+  "workflow_name": "W2",
+  "workflow_id": "YjzC3pFzYRR7d2an",
+  "base_version_id": "3895d8e5-93a7-4636-bc7a-ec2848ac8f7c",
+  "expected_graph_sha256": "bdebd2bab7f877dc9a0e939bd2e0e4dbce145af07bc60d6dfdec69b1db679291",
+  "node_changes": [
+    {
+      "node_id": "0df626d5-5db4-4c5c-8588-84c34e1c851c",
+      "node_name": "Accusé ?",
+      "expected_node_sha256": "359f36269d16d3570fbf2692287503ed2eb7a53d4ec7dd3f448f3aea4661f955",
+      "parameters": {
+        "jsCode": "\nconst c = $('Normaliser').first().json;\nif (!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(c.email)) return [];\nconst blacklist=$('Site – Blacklist fraîche').all().map(i=>String(i.json.email||'').trim().toLowerCase()).filter(Boolean);\nif(blacklist.includes(c.email))return [];\nconst text = `Bonjour ${c.nom},\n\nMerci pour votre demande de devis. Nous l'avons bien reçue et nous revenons vers vous sous 24 h.\n\nEn attendant, vous pouvez découvrir quelques-uns de nos chantiers : https://www.maison-mb.fr/realisations/\n\nBien cordialement,\nAbdelrahman\nGérant – M&B Rénovation\n07 53 30 65 59 · www.maison-mb.fr`;\nreturn [{ json: { to: c.email, subject: 'Votre demande de devis – M&B Rénovation', text } }];\n"
+      }
+    }
+  ],
+  "add_nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "NE0QU8afBFipimhW",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "cc0b0230-9f30-48b6-854e-c0bf1be825f2",
+      "name": "Site – Blacklist fraîche",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1600,
+        640
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    }
+  ],
+  "connection_changes": {
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Site – Blacklist fraîche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – Blacklist fraîche": {
+      "main": [
+        [
+          {
+            "node": "Accusé ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

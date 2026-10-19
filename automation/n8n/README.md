@@ -18,3 +18,9 @@ The first command validates this new handoff artifact offline. The second is rea
 No provider API keys, operational credential IDs, Telegram destinations, webhook routes, customer table rows or browser sessions are stored here. Existing credential types/names and workflow/data-table IDs describe dependencies; placeholders do not create credentials. Redacted JSON paths are in manifest. Full original table schemas other than the verified Growth Queue contract must be read from n8n; do not recreate them from guesses.
 
 The n8n server returned500/504 during this handoff. Control from Cloud is therefore not yet demonstrated. Once network policy and the secret binding are ready and the host responds, a Cloud task can continue directly from GitHub without this Mac. The website/mb/React setup is independent and should not block this automation work.
+
+## Continuation from commit 883e99b
+
+Latest Cloud findings and pending changes are in [STATUS.md](STATUS.md), [continuation.json](continuation.json) and [pending/README.md](pending/README.md). The historical 500/504 observation above is not a current host-health conclusion: the Cloud request was denied by its proxy before reaching the host. Secure n8n requirements were saved to the environment draft but are not configured/applied in the running instance.
+
+The original twelve exports remain the production baseline. Pending patches and `stage_patch.py` provide tested local deltas with version/node/graph guards, not published changes. Only the new changed behavior was tested; successful model/content/SEO business tests from the prior session were retained.

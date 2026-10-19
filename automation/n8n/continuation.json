@@ -1,0 +1,101 @@
+{
+  "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
+  "recorded_at_utc": "2026-10-19T03:39:44.389003+00:00",
+  "branch": "codex/growth-engine-883e99b",
+  "live_state": {
+    "verified": false,
+    "origin_response_received": false,
+    "observed_failure": "CONNECT tunnel denied by network proxy: 403; HTTP origin status 000",
+    "prior_500_not_reproduced_or_assumed": true,
+    "N8N_BASE_URL_present": false,
+    "N8N_API_KEY_present": false,
+    "draft_requirements_saved": true,
+    "requirements_applied_or_published": false
+  },
+  "production_changes": false,
+  "public_production_snapshots_changed": false,
+  "previous_successful_business_tests_repeated": false,
+  "new_verification": {
+    "javascript_regressions": {
+      "passed": 22,
+      "failed": 0
+    },
+    "python_patch_guards": {
+      "passed": 6,
+      "failed": 0
+    },
+    "targeted_baseline_failures": 17,
+    "baseline_note": "14 failures out of the first 15 regression cases; 3 further W2/W6 failures. The passing empty-search baseline and later positive controls are not defects.",
+    "cli": "W9 staged to ignored private-live with no remote operation"
+  },
+  "existing_table_roles": {
+    "Task Queue": "Growth Queue: task rows",
+    "Prospects/Leads": "Leads plus Growth Queue prospect rows",
+    "Content Queue": "Growth Queue content and quality_review rows",
+    "Actions Log": "Growth Queue action reservations plus Journal"
+  },
+  "pending_revisions": [
+    {
+      "workflow": "W2",
+      "workflow_id": "YjzC3pFzYRR7d2an",
+      "path": "pending/W2.patch.json",
+      "sha256": "ed2a7962ea7191e553766325d56672526a23effcc6ff18f6e580fbf1e4c4e4c4",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 1
+    },
+    {
+      "workflow": "W3",
+      "workflow_id": "RstxLOezyHrDIv7k",
+      "path": "pending/W3.patch.json",
+      "sha256": "16a593f723913b1587c5c2773c4a2b113dd99426ef84409cf2e9dadcde0695fb",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0
+    },
+    {
+      "workflow": "W4",
+      "workflow_id": "Ipqy6qKmAuXVz2vl",
+      "path": "pending/W4.patch.json",
+      "sha256": "b24e52d4fe225179840fe26d0a19e2d61ecd5cafb063a08613d1488c058239c2",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0
+    },
+    {
+      "workflow": "W6",
+      "workflow_id": "xNbB0gcC1XPbXZ0z",
+      "path": "pending/W6.patch.json",
+      "sha256": "bf04a96d03436d30179b8ec73ee22fab3534c83c85e02ea69e8fe9778bc5b43a",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 4
+    },
+    {
+      "workflow": "W7",
+      "workflow_id": "gc97zrWop11I70CG",
+      "path": "pending/W7.patch.json",
+      "sha256": "2d6a420cc5279e019bc4efc5cf732d0f133b83691921c5c9e2795eeee9786634",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0
+    },
+    {
+      "workflow": "W9",
+      "workflow_id": "9ttUYW3XcSztxwRu",
+      "path": "pending/W9.patch.json",
+      "sha256": "27d769ac915ccdb31b535a0b634218ad10a3d9a3d306edb535ed24a25b849a41",
+      "status": "offline_tested_not_deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 1
+    }
+  ],
+  "remaining_constraints": [
+    "Fresh live exports, versions, active/published state and first W7/report production executions unavailable",
+    "No proof of transactional uniqueness or exactly-once SMTP across concurrent executions; read-then-upsert reservations are not an atomic lock",
+    "n8n Data Table node execution and mapping of added lookups/reservations need isolated runtime validation after access",
+    "No social publishing/CMS/Search Console integration is established; retain drafts only",
+    "No customer SMTP delivery, Telegram or public publication tested",
+    "No paid advertising approval or spending"
+  ]
+}

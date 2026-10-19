@@ -1,0 +1,180 @@
+{
+  "format_version": 1,
+  "status": "offline_tested_candidate_not_deployed",
+  "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
+  "workflow_name": "W6",
+  "workflow_id": "xNbB0gcC1XPbXZ0z",
+  "base_version_id": "0e1870f6-5e71-4ed5-a1af-0a63e67de99a",
+  "expected_graph_sha256": "62f925e947dbf4983a6b5a09098661bcebc2918239814e20d2197dcd34387a37",
+  "node_changes": [
+    {
+      "node_id": "29aec35c-cbad-4422-8ef2-2df41652dd98",
+      "node_name": "Vérifier échéances",
+      "expected_node_sha256": "ec9b286a9623d57ac086ac4a37c5e210dc8f109ba30b2e9a4fe3ad7a401f6729",
+      "parameters": {
+        "jsCode": "\nconst items = [\n  ['Assurance décennale Entoria', '2026-10-16'],\n  ['Campagne Meta Ads', '2026-10-19'],\n  ['Email Hostinger', '2026-11-07'],\n  ['Abonnement n8n', '2026-11-11'],\n  ['Domaine maison-mb.fr', '2027-02-13'],\n];\nconst today = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });\nconst reminderKey='reminder:'+today;\nif($('Rappels – Queue').all().some(i=>i.json.task_key===reminderKey))return [];\nconst lines = [];\nfor (const [name, date] of items) {\n  const d = Math.round((Date.parse(date) - Date.parse(today)) / 86400000);\n  if (![30, 7, 3, 1, 0].includes(d)) continue;\n  if (d === 0) lines.push(`🚨 النهارده آخر يوم: ${name} (${date}) — جدّد حالاً!`);\n  else if (d === 1) lines.push(`⚠️ بكرة آخر يوم: ${name} (${date})`);\n  else lines.push(`⏰ فاضل ${d} يوم على: ${name} (${date})`);\n}\n\n// --- Claude API : pas d'endpoint de solde → rappel tous les 15 jours (à partir du 19/10/2026)\nconst jours = Math.round((Date.parse(today) - Date.parse('2026-10-19')) / 86400000);\nif (jours >= 0 && jours % 15 === 0) lines.push('💳 افتكر تشوف رصيد Claude API (console.anthropic.com ← Billing). لو أقل من 3 $ اشحن الرصيد.');\n// --- Oxylabs AI : pas d'endpoint de solde → estimation = crédits de départ − consommation notée par W7 dans le journal\nconst OXYLABS_DEPART = 1000, SEUIL = 200;\nconst rows = $('Journal').all().map(i => i.json).filter(r => r.workflow === 'W7');\nconst used = (filtre) => rows.filter(filtre).reduce((s, r) => s + Number((String(r.details || '').match(/oxylabs_credits=(\\d+)/) || [0, 0])[1]), 0);\nconst reste = OXYLABS_DEPART - used(() => true);\nconst resteHier = OXYLABS_DEPART - used(r => String(r.date || '').slice(0, 10) < today);\nconst lundi = new Date(today + 'T12:00:00Z').getUTCDay() === 1;\nif (reste < SEUIL && (resteHier >= SEUIL || lundi)) lines.push(`🔋 رصيد Oxylabs قرب يخلص: فاضل حوالي ${reste} credit من ${OXYLABS_DEPART} (تقدير). اشحن من hPanel أو قلّل البحث في W7.`);\nfor(const it of $('Rappels – Queue').all()){const r=it.json;if(r.type!=='deadline'||['done','rejected'].includes(r.status))continue;const due=String(r.due_at||'').slice(0,10);const delta=Math.round((Date.parse(due)-Date.parse(today))/86400000);if([1,0].includes(delta))lines.push((delta===1?'⏰ بكرة: ':'⚠️ اليوم: ')+r.next_action+' (#'+r.id+')');}\nif (!lines.length) return [];\nreturn [{ json: { message: '🔔 تذكير M&B\\n\\n' + lines.join('\\n'), _reservation:{task_key:reminderKey,type:'action',priority:'WARM',source:'W6',owner:'W6',status:'reserved',created_at:new Date().toISOString(),last_action:new Date().toISOString(),next_action:'Livraison du rappel réservée ; vérifier les logs avant toute répétition',due_at:today,payload:JSON.stringify({kind:'management_reminder',execution:$execution.id})} } }];\n"
+      }
+    }
+  ],
+  "add_nodes": [
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json._reservation.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "task_key": "={{ $json._reservation.task_key }}",
+            "type": "={{ $json._reservation.type }}",
+            "priority": "={{ $json._reservation.priority }}",
+            "source": "={{ $json._reservation.source }}",
+            "owner": "={{ $json._reservation.owner }}",
+            "status": "={{ $json._reservation.status }}",
+            "created_at": "={{ $json._reservation.created_at }}",
+            "last_action": "={{ $json._reservation.last_action }}",
+            "next_action": "={{ $json._reservation.next_action }}",
+            "due_at": "={{ $json._reservation.due_at }}",
+            "payload": "={{ $json._reservation.payload }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "d41cf0fe-10e2-4d6a-9c80-2cde8cda3828",
+      "name": "Rappels – réserver",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        300
+      ]
+    },
+    {
+      "id": "4d612c59-f084-4b2d-9510-e3532388e54a",
+      "name": "Rappels – restaurer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ],
+      "parameters": {
+        "jsCode": "return [{json:$('Vérifier échéances').first().json}];"
+      }
+    },
+    {
+      "id": "3e060bde-5148-454c-92d4-3916a93b0c82",
+      "name": "Rappels – résultat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const r=$('Vérifier échéances').first().json._reservation;return [{json:{...r,status:'done',last_action:new Date().toISOString(),next_action:'Rappel transmis ; aucune répétition automatique ce jour'}}];"
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "a52a9561-93db-4b23-b06e-6738da137e1d",
+      "name": "Rappels – enregistrer",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1600,
+        300
+      ]
+    }
+  ],
+  "connection_changes": {
+    "Vérifier échéances": {
+      "main": [
+        [
+          {
+            "node": "Rappels – réserver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rappels – réserver": {
+      "main": [
+        [
+          {
+            "node": "Rappels – restaurer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rappels – restaurer": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Rappels – résultat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rappels – résultat": {
+      "main": [
+        [
+          {
+            "node": "Rappels – enregistrer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
