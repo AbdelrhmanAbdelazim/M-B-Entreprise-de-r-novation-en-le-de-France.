@@ -15,7 +15,7 @@ class WindsorHandoffTests(unittest.TestCase):
  def test_all_three_published_consumers_have_strict_before_patch_after_provenance(self):
   report=collect(ROOT);self.assertEqual(report['additional_verified_production_revisions'],3);self.assertEqual(report['pending_patch_count'],0)
   for name in ['W5','W8','W10']:
-   directory=ROOT/'revisions/windsor-20261019';before=json.loads((directory/(name+'.before.json')).read_text());patch=json.loads((directory/(name+'.patch.json')).read_text());current=json.loads((ROOT/(name+'.json')).read_text());candidate=stage(before,patch)
+   directory=ROOT/'revisions/windsor-20261019';before=json.loads((directory/(name+'.before.json')).read_text());patch=json.loads((directory/(name+'.patch.json')).read_text());current_path=ROOT/'revisions/metricool-20261019'/(name+'.before.json');current=json.loads((current_path if current_path.exists() else ROOT/(name+'.json')).read_text());candidate=stage(before,patch)
    for key in ['id','name','nodes','connections','settings']:self.assertEqual(candidate[key],current[key])
  def test_changed_archive_and_missing_revision_refuse_false_handoff(self):
   with tempfile.TemporaryDirectory() as directory:

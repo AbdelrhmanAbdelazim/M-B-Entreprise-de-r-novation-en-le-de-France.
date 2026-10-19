@@ -1,0 +1,151 @@
+{
+  "result": "LIVE_ENGINE_INTERNAL_METRICOOL_LIFECYCLE_PUBLISHED_EXTERNAL_API_BLOCKED",
+  "captured_at_utc": "2026-10-19T10:50:49.200671+00:00",
+  "base_commit": "bb33e4633fb9ced59b4704f19efdb9bee0dd2426",
+  "changed_workflows": [
+    "My workflow",
+    "W5",
+    "W10"
+  ],
+  "workflow_versions": {
+    "W6": {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active": true,
+      "published": true
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "active_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
+      "active": true,
+      "published": true
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active": true,
+      "published": true
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active": true,
+      "published": true
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active": true,
+      "published": true
+    },
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active": true,
+      "published": true
+    },
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active": true,
+      "published": true
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "active_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "active": true,
+      "published": true
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active": true,
+      "published": true
+    },
+    "W8": {
+      "id": "uOuQs4E5H443sbKh",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active": true,
+      "published": true
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active": true,
+      "published": true
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "active_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "active": true,
+      "published": true
+    }
+  },
+  "metricool": {
+    "social_accounts_connected_operator_confirmed": true,
+    "credential_found": false,
+    "binding_found": false,
+    "callable_tool_found": false,
+    "existing_endpoint_or_node_found": false,
+    "actual_provider_read_verified": false,
+    "actual_scheduling_or_publishing_verified": false,
+    "actual_analytics_ingestion_verified": false,
+    "external_transport_installed": false,
+    "internal_lifecycle_published": true,
+    "one_user_action": "Authorize the existing Metricool API connection in hosted n8n as a securely stored credential named Metricool; do not reconnect accounts or send secrets in chat."
+  },
+  "safe_tests": {
+    "isolated_policy_and_workflow_checks": 16,
+    "failed": 0,
+    "real_provider_or_delivery_calls": 0,
+    "earlier_unrelated_tests_repeated": false,
+    "publication_provenance_checks": 4
+  },
+  "queue_verification": {
+    "content_drafts": 7,
+    "waiting_approval": 7,
+    "publication_rows": 0,
+    "provider_requests": 0,
+    "backfill_repeat_writes": 0,
+    "send_ledger_unchanged": true,
+    "original_drafts_status_quality_and_budgets_unchanged": true,
+    "source_rows_imported": 0
+  },
+  "internal_queue_upserts_verified": 9,
+  "workflow_execution_requested": false,
+  "paid_advertising_changes_or_spend": false,
+  "critical_lead_workflows_unchanged": [
+    "W1",
+    "W2",
+    "W3",
+    "W4",
+    "W7",
+    "W9"
+  ],
+  "preflight_and_postflight": {
+    "watchdog_routing": "confirmed_all_eleven_to_W0_no_self_reference",
+    "manager_and_specialist_primary_fallbacks": "confirmed_from_live_graph",
+    "smtp_guard_bypass": "none_reachable_from_triggers",
+    "existing_table_schemas": "confirmed_no_new_tables",
+    "transactional_exactly_once": "not_proven_read_then_upsert_is_not_atomic"
+  },
+  "remaining_blockers": [
+    "Metricool API authorization unavailable; authenticated discovery, submission, scheduling, publication and analytics transport cannot be implemented/verified against the runtime.",
+    "Windsor read connection remains unavailable; existing consumers and export bridge are retained, without fabricated source data.",
+    "Draft approval and approved real media remain required by the existing production process.",
+    "Atomic cross-execution uniqueness and provider request idempotency remain unproved; no automatic retry after an uncertain request.",
+    "New scheduled workflow executions have not been forced for testing."
+  ]
+}

@@ -28,6 +28,9 @@ def collect(root=ROOT):
         raise ValueError('Duplicate additional production revision')
     if additional and {entry['workflow'] for entry in additional} != {'W5', 'W8', 'W10'}:
         raise ValueError('Additional production revision inventory is incomplete or unexpected')
+    followups = continuation.get('followup_revisions', [])
+    if followups and (len(followups) != 3 or {r['workflow'] for r in followups} != {'My workflow','W5','W10'}):
+        raise ValueError('Metricool follow-up revision inventory is incomplete or unexpected')
     reports = []
     pending_count = 0
     deployed_count = 0
@@ -96,9 +99,25 @@ def collect(root=ROOT):
                     or hashlib.sha256(patch_blob).hexdigest() != entry['sha256']):
                 raise ValueError('Additional production revision provenance changed')
             revised = stage(json.loads(before_blob), json.loads(patch_blob))
+            # A successor must retain the complete verified Windsor release as its pinned input.
+            next_revision = next((r for r in followups if r['workflow'] == name), None)
+            target = load(root / 'revisions/metricool-20261019' / (name + '.before.json')) if next_revision else workflow
+            if (entry['published_version_id'] != target['versionId']
+                    or any(revised.get(k) != target.get(k) for k in ['id','name','nodes','connections','settings'])):
+                raise ValueError('Published workflow differs from additional production revision')
+        for entry in [r for r in followups if r['workflow'] == name]:
+            directory = root / 'revisions/metricool-20261019'
+            if entry['path'] != 'revisions/metricool-20261019/' + name + '.patch.json':
+                raise ValueError('Unexpected Metricool revision path')
+            before_blob = (directory / (name + '.before.json')).read_bytes()
+            patch_blob = (root / entry['path']).read_bytes()
+            if (hashlib.sha256(before_blob).hexdigest() != entry['before_sha256']
+                    or hashlib.sha256(patch_blob).hexdigest() != entry['sha256']):
+                raise ValueError('Metricool revision provenance changed')
+            revised = stage(json.loads(before_blob), json.loads(patch_blob))
             if (entry['published_version_id'] != workflow['versionId']
                     or any(revised.get(k) != workflow.get(k) for k in ['id','name','nodes','connections','settings'])):
-                raise ValueError('Published workflow differs from additional production revision')
+                raise ValueError('Published workflow differs from Metricool revision')
         schedules = [interval['expression'] for node in workflow['nodes']
                      if node['type'] == 'n8n-nodes-base.scheduleTrigger'
                      for interval in node['parameters'].get('rule', {}).get('interval', [])
@@ -119,8 +138,10 @@ def collect(root=ROOT):
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
     activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
-    if activation and activation.get('latest_release') == 'windsor-release.json' and len(additional) != 3:
+    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json'} and len(additional) != 3:
         raise ValueError('Windsor publication evidence requires all three additional revisions')
+    if activation and activation.get('latest_release') == 'metricool-release.json' and len(followups) != 3:
+        raise ValueError('Metricool publication evidence requires all three follow-up revisions')
     published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
     if published:
         for entry in reports:
@@ -135,6 +156,7 @@ def collect(root=ROOT):
             'workflow_count': len(reports), 'pending_patch_count': pending_count,
             'reviewed_patch_count': len(revisions), 'deployed_patch_count': deployed_count,
             'additional_verified_production_revisions': len(additional),
+            'metricool_verified_followup_revisions': len(followups),
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,

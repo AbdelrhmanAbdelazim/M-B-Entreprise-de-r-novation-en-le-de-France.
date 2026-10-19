@@ -7,6 +7,7 @@
   "reviewed_patch_count": 6,
   "deployed_patch_count": 6,
   "additional_verified_production_revisions": 3,
+  "metricool_verified_followup_revisions": 3,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -15,12 +16,12 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "published_version_at_handoff": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 59,
-      "candidate_nodes": 59,
+      "baseline_nodes": 62,
+      "candidate_nodes": 62,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"
@@ -56,7 +57,7 @@
     {
       "workflow": "W10",
       "id": "63yycckNMI9mXnkz",
-      "published_version_at_handoff": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "published_version_at_handoff": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -114,7 +115,7 @@
     {
       "workflow": "W5",
       "id": "yaiq1MmW8dw5SUg7",
-      "published_version_at_handoff": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "published_version_at_handoff": "97c0dbb1-0d76-4427-8305-f661e38240ff",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,

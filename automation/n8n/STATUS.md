@@ -1,5 +1,21 @@
 # n8n Growth Engine — Cloud handoff / STATUS
 
+## Latest release — LIVE internal Metricool lifecycle; external API blocked
+
+**All twelve workflows were independently re-read Published/Active after deploying Manager/W5/W10.** Existing workflow IDs, credentials, schedules, webhooks, five Data Tables and W0 routing are retained. W1/W2/W3/W4/W6/W7/W8/W9/W0 were not changed, including the working lead chain, suppression rules and lead #79's hard no-resend guard. Exact current versions and runtime boundary: `metricool-release.json`.
+
+**Executed:** channel-specific adaptations for the seven current drafts; revision-bound human content approvals; one permanent outbox slot per content/channel; fresh reservation checks; media/calendar/channel holds; provider ID/attempt tracking; correlated read-confirmed receipt reconciliation; no automatic uncertain retry; cancellation-request state without false cancellation claims; completion only after all requested targets are confirmed. Confirmed publication failures have a reserved W0 error path. W10/W5 accept bounded verified social feedback without adding overlapping Windsor metrics. Manager now maintains a summary/access task and detects overdue radar/SEO/content jobs without replaying delivery workflows.
+
+**Actual current queue:** seven drafts still `needs_review`, zero publication rows, zero provider requests and zero imported Metricool analytics. Nine internal upserts were verified: seven metadata-only adaptations, one deduplicated access task and one Manager summary. Original copy, quality notes, approval states, ad budgets and send action rows are unchanged. Repeating the backfill produces zero writes. None of this is a public publishing test.
+
+**Access finding:** social accounts are already connected in Metricool according to the operator. Fresh Cloud readiness and all live n8n workflows/credential metadata show no Metricool credential, binding, endpoint, node or callable tool. Therefore external authenticated scheduling/publishing and analytics transport are **not LIVE**; no provider endpoint or successful authentication was invented. Windsor's already-connected source accounts likewise remain inaccessible to this session; existing Windsor consumers/export bridge were preserved. No accounts or keys were reconnected/replaced.
+
+**Verification:** 16 isolated policy/workflow checks passed, plus four affected publication/provenance checks. Native API responses and independent live readback verified all twelve published graphs and the nine internal upserts. Existing primary/fallback chains and all eleven errorWorkflow→W0 references still pass the graph guard. No workflow was manually executed, no real email/Telegram/customer test message or public post was sent, and no ad or budget was changed. Later scheduled executions are not claimed until observed. Strict transactional exactly-once delivery remains unproved; uncertain attempts require read reconciliation.
+
+**One authorization action required:** securely authorize the existing Metricool API connection in hosted n8n as a credential named `Metricool`, without reconnecting social accounts or putting secrets in chat. After that, actual account discovery, API request/response contracts, transport installation and provider readback can be completed. This boundary does not prevent the existing hosted engine and all safe internal components from operating without the Mac.
+
+---
+
 ## Latest release — LIVE consumers; Windsor source access pending, 19 October 2026
 
 **All twelve hosted workflows were independently re-read Published/Active after deploying W5/W8/W10.** W0/W1/W2/W3/W4/W6/W7/W9/Manager were not changed; schedules, IDs, credentials, webhooks, Data Tables and W0 routing remain intact. The unrelated thirteenth workflow remains untouched. Exact versions and access evidence: `windsor-release.json`.

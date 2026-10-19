@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Latest sanitized published live definitions including qualification and read-only Windsor consumer revisions; no real Windsor feed is claimed.",
-  "latest_live_refresh": "All twelve expected graphs independently re-read Published/Active; unrelated thirteenth untouched.",
+  "source": "Latest published live definitions through the internal Metricool lifecycle release; external Metricool/Windsor transport remains explicitly blocked.",
+  "latest_live_refresh": "All twelve independently re-read Published/Active; lead chain and unrelated thirteenth workflow untouched.",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -22,18 +22,18 @@
       ],
       "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "52917d2d2b5b608e290c6a324d1284ad3a3b7fec4ecdb25ff005a895d8415521",
-      "public_sha256": "a8f6fc705589426d31540680f89acd22540f0cf495b838b28a6c43ab14402694",
+      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
+      "source_sha256": "7d90bcf926214401516476fafb19d3d41217abef62dcf070af713ceab98f8dff",
+      "public_sha256": "a4bd265c6a7f305dc9cf9b1b644f85f4a367879295117d2bf4fed3e7d938bfc4",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -46,9 +46,9 @@
         "/nodes/55/credentials/anthropicApi/id",
         "/nodes/6/credentials/openAiApi/id"
       ],
-      "published_version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "published_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -71,7 +71,7 @@
       ],
       "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W0": {
       "id": "4O2ZR1JpDOgJZOLw",
@@ -90,7 +90,7 @@
       ],
       "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W1": {
       "id": "EvDz4KtOEgIYKh7Q",
@@ -114,7 +114,7 @@
       ],
       "published_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
@@ -137,7 +137,7 @@
       ],
       "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W3": {
       "id": "RstxLOezyHrDIv7k",
@@ -161,18 +161,18 @@
       ],
       "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
       "name": "W10 – Idées de contenu (vidéos)",
-      "version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T10:29:01.196583+00:00",
-      "source_sha256": "72941e3267896f98c9261fa844ae6233c264a20b25ab523bc4f7a8ef04cf455e",
-      "public_sha256": "14acec9075f0d0ef8ba1af25e52b0b458affc9a8d28b09604436d61683e41be5",
+      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
+      "source_sha256": "98eb1d0617da430515872a96e3e424cc9731d1e80511c2353c92eb4660e8e96b",
+      "public_sha256": "098ba790d80f1ac5006f6dfa9b8c9c3fa20a57565405c45705f1d97266e90f0e",
       "redacted_paths": [
         "/nodes/13/credentials/googlePalmApi/id",
         "/nodes/19/credentials/openAiApi/id",
@@ -184,9 +184,9 @@
         "/nodes/9/parameters/chatId",
         "/nodes/9/webhookId"
       ],
-      "published_version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
@@ -210,7 +210,7 @@
       ],
       "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",
@@ -234,7 +234,7 @@
       ],
       "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W9": {
       "id": "9ttUYW3XcSztxwRu",
@@ -261,26 +261,26 @@
       ],
       "published_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "W5": {
       "id": "yaiq1MmW8dw5SUg7",
       "name": "W5 – Rapport hebdomadaire",
-      "version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T10:29:01.196583+00:00",
-      "source_sha256": "c276fdf6f80e60aa18bde7fb7d2994e3ea6c9ea88340127d997ff9b6c3a67ce5",
-      "public_sha256": "1bbd0b00ff6e0d0eb3a7dd478cfd2998b98997f6f44fbd49f6d5058bc37c8448",
+      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
+      "source_sha256": "aff7a73c624ff9acb98914c885fa344a5fed43ba2dc1276236110668b8db5f0e",
+      "public_sha256": "fb811ff70b5180e32272929562a397d542237baa7375dfa88798f7901c71504c",
       "redacted_paths": [
         "/nodes/4/credentials/telegramApi/id",
         "/nodes/4/parameters/chatId",
         "/nodes/4/webhookId"
       ],
-      "published_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "latest_readback_at_utc": "2026-10-19T10:50:49.200671+00:00"
     }
   },
   "continuation": {

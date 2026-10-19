@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T10:29:01.196583+00:00",
+  "recorded_at_utc": "2026-10-19T10:50:49.200671+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -13,7 +13,7 @@
       "result": "CONNECTED",
       "inventory_count": 13,
       "expected_matched": 12,
-      "captured_at_utc": "2026-10-19T10:29:01.196583+00:00"
+      "captured_at_utc": "2026-10-19T10:50:49.200671+00:00"
     },
     "historical_observations": [
       {
@@ -79,6 +79,12 @@
       "real_table_local_report_checks": 1,
       "direct_provider_read_verified": false,
       "deployed_consumers": 3
+    },
+    "metricool_release": {
+      "report": "metricool-release.json",
+      "isolated_checks": 16,
+      "internal_queue_upserts": 9,
+      "actual_provider_read_verified": false
     }
   },
   "existing_table_roles": {
@@ -212,6 +218,29 @@
       "sha256": "192b12818000c399555ab5182d53d7ce838531441c29180e59ebd969370c122d",
       "before_sha256": "38e937f1aac4276785ffac7f837f0633e9c20c39ae07faf9f80618f59172a4eb",
       "published_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3"
+    }
+  ],
+  "followup_revisions": [
+    {
+      "workflow": "My workflow",
+      "path": "revisions/metricool-20261019/My workflow.patch.json",
+      "sha256": "e7b483ad45893d203ae216698d39440d8abb594a31ef5adf422a8b00a0aaaf57",
+      "before_sha256": "a8f6fc705589426d31540680f89acd22540f0cf495b838b28a6c43ab14402694",
+      "published_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980"
+    },
+    {
+      "workflow": "W10",
+      "path": "revisions/metricool-20261019/W10.patch.json",
+      "sha256": "71d5827f0626afd134b3d56e0ae06c5de88dadf98d7b86b504f2d1b8d5010a7b",
+      "before_sha256": "14acec9075f0d0ef8ba1af25e52b0b458affc9a8d28b09604436d61683e41be5",
+      "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf"
+    },
+    {
+      "workflow": "W5",
+      "path": "revisions/metricool-20261019/W5.patch.json",
+      "sha256": "ee2a19e6e914e7e6c9283f95e73a1cb69f15ebd8dd60909a7288685d805e24f3",
+      "before_sha256": "1bbd0b00ff6e0d0eb3a7dd478cfd2998b98997f6f44fbd49f6d5058bc37c8448",
+      "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff"
     }
   ]
 }
