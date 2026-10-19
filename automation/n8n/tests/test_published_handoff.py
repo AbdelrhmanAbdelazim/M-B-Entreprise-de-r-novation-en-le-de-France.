@@ -39,10 +39,25 @@ class PublishedHandoffTests(unittest.TestCase):
             for name in ['manifest.json', 'continuation.json', 'data-tables.json', 'activation.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
                 shutil.copyfile(ROOT / name, target / name)
             shutil.copytree(ROOT / 'pending', target / 'pending')
+            shutil.copytree(ROOT / 'revisions', target / 'revisions')
             path = target / 'activation.json'; data = json.loads(path.read_text())
             data['workflows']['W3']['active'] = False; path.write_text(json.dumps(data))
             with self.assertRaisesRegex(ValueError, 'Publication evidence'):
                 collect(target)
+
+    def test_qualification_revision_preserves_both_immutable_patch_chains(self):
+        report = collect(ROOT)
+        self.assertEqual(report['pending_patch_count'], 0)
+        continuation = json.loads((ROOT / 'continuation.json').read_text())
+        for name in ['W3', 'W4', 'W7']:
+            entry = next(x for x in continuation['pending_revisions'] if x['workflow'] == name)
+            revision = entry['superseding_revision']
+            before = json.loads((ROOT / 'revisions/qualification-20261019' / (name + '.before.json')).read_text())
+            staged = stage(before, json.loads((ROOT / revision['path']).read_text()))
+            current = json.loads((ROOT / (name + '.json')).read_text())
+            for key in ['id', 'name', 'nodes', 'connections', 'settings']:
+                self.assertEqual(staged[key], current[key])
+            self.assertEqual(current['versionId'], revision['published_version_id'])
 
 
 if __name__ == '__main__':

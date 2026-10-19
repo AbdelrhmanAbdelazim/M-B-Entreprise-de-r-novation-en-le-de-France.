@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T04:28:21.626683+00:00",
+  "captured_at_utc": "2026-10-19T09:52:18.219175+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -102,8 +102,8 @@
       "name": "W7 – Recherche de leads",
       "active": true,
       "published": true,
-      "version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
-      "active_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -152,8 +152,8 @@
       "name": "W3 – Envoi quotidien",
       "active": true,
       "published": true,
-      "version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
-      "active_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -180,8 +180,8 @@
       "name": "W4 – Relance unique",
       "active": true,
       "published": true,
-      "version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
-      "active_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -262,5 +262,7 @@
     "failed": 0,
     "artifact_validator": "passed_after_published_exports_changed",
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
-  }
+  },
+  "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
+  "latest_release": "qualification-release.json"
 }

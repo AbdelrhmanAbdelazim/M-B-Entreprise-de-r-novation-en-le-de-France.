@@ -10,7 +10,9 @@ const baseline = process.env.N8N_TEST_BASELINE === '1';
 const doc = name => {
   const d = baseline ? JSON.parse(execFileSync('git', ['show', '883e99b9a859fef687f5ffe997e999328c43e384:automation/n8n/' + name + '.json'], { cwd: join(root, '..', '..'), encoding: 'utf8' })) : JSON.parse(readFileSync(join(root, name + '.json')));
   if (!baseline) {
-    const p = JSON.parse(readFileSync(join(root, 'pending', name + '.patch.json')));
+    const continuation = JSON.parse(readFileSync(join(root, 'continuation.json')));
+    const revision = continuation.pending_revisions.find(r => r.workflow === name)?.superseding_revision;
+    const p = JSON.parse(readFileSync(revision ? join(root, revision.path) : join(root, 'pending', name + '.patch.json')));
     if (d.versionId === p.base_version_id) {
       for (const change of p.node_changes) Object.assign(d.nodes.find(n => n.id === change.node_id).parameters, change.parameters);
       for (const n of p.add_nodes || []) d.nodes.push(n);

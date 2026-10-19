@@ -48,9 +48,26 @@ def collect(root=ROOT):
             if patch['workflow_name'] != name or entry['workflow_id'] != record['id']:
                 raise ValueError('Pending patch is assigned to a different workflow')
             if entry.get('status') == 'deployed':
-                if entry.get('deployed_version_id') != workflow['versionId']:
+                deployed_workflow = workflow
+                revision = entry.get('superseding_revision')
+                if revision:
+                    # Verify both immutable releases; never treat a newer version as permission to drift.
+                    directory = root / 'revisions' / 'qualification-20261019'
+                    if revision['path'] != 'revisions/qualification-20261019/' + name + '.patch.json':
+                        raise ValueError('Unexpected superseding revision path')
+                    before_blob = (directory / (name + '.before.json')).read_bytes()
+                    revision_blob = (root / revision['path']).read_bytes()
+                    if (hashlib.sha256(before_blob).hexdigest() != revision['before_sha256']
+                            or hashlib.sha256(revision_blob).hexdigest() != revision['sha256']):
+                        raise ValueError('Superseding revision provenance changed')
+                    deployed_workflow = json.loads(before_blob)
+                    revised = stage(deployed_workflow, json.loads(revision_blob))
+                    if (revision['published_version_id'] != workflow['versionId']
+                            or any(revised.get(k) != workflow.get(k) for k in ['id','name','nodes','connections','settings'])):
+                        raise ValueError('Published workflow differs from its verified superseding revision')
+                if entry.get('deployed_version_id') != deployed_workflow['versionId']:
                     raise ValueError('Deployed revision differs from the published baseline')
-                nodes = {node['id']: node for node in workflow['nodes']}
+                nodes = {node['id']: node for node in deployed_workflow['nodes']}
                 for change in patch['node_changes']:
                     if any(nodes.get(change['node_id'], {}).get('parameters', {}).get(k) != v for k, v in change['parameters'].items()):
                         raise ValueError('Published node differs from its deployed patch')
@@ -58,7 +75,7 @@ def collect(root=ROOT):
                     if nodes.get(added['id']) != added:
                         raise ValueError('Published added node differs from its deployed patch')
                 for source, ports in patch.get('connection_changes', {}).items():
-                    if workflow['connections'].get(source) != ports:
+                    if deployed_workflow['connections'].get(source) != ports:
                         raise ValueError('Published graph differs from its deployed patch')
                 deployed_count += 1
             else:

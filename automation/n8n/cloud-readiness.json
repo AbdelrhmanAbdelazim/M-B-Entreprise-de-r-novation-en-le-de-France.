@@ -83,7 +83,7 @@
     {
       "workflow": "W3",
       "id": "RstxLOezyHrDIv7k",
-      "published_version_at_handoff": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "published_version_at_handoff": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -98,7 +98,7 @@
     {
       "workflow": "W4",
       "id": "Ipqy6qKmAuXVz2vl",
-      "published_version_at_handoff": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "published_version_at_handoff": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -143,12 +143,12 @@
     {
       "workflow": "W7",
       "id": "gc97zrWop11I70CG",
-      "published_version_at_handoff": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "published_version_at_handoff": "c713903d-dc06-4559-ac3d-c7a504707000",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 45,
-      "candidate_nodes": 45,
+      "baseline_nodes": 47,
+      "candidate_nodes": 47,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "10 6,10,14,18 * * *"

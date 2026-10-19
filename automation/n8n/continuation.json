@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T04:28:21.626683+00:00",
+  "recorded_at_utc": "2026-10-19T09:52:18.219175+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -13,7 +13,7 @@
       "result": "CONNECTED",
       "inventory_count": 13,
       "expected_matched": 12,
-      "captured_at_utc": "2026-10-19T04:28:21.626683+00:00"
+      "captured_at_utc": "2026-10-19T09:52:18.219175+00:00"
     },
     "historical_observations": [
       {
@@ -31,8 +31,8 @@
     "live_deployment": "published_readback_verified",
     "activation_report": "activation.json"
   },
-  "production_changes": false,
-  "public_production_snapshots_changed": false,
+  "production_changes": true,
+  "public_production_snapshots_changed": true,
   "previous_successful_business_tests_repeated": false,
   "new_verification": {
     "javascript_regressions": {
@@ -65,6 +65,13 @@
       "failed": 0,
       "artifact_validator": "passed_after_published_exports_changed",
       "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
+    },
+    "qualification_release": {
+      "report": "qualification-release.json",
+      "tests_passed": 26,
+      "live_rows_upserted": 47,
+      "eligible": 26,
+      "next_cycle_selected": 10
     }
   },
   "existing_table_roles": {
@@ -94,7 +101,13 @@
       "changed_existing_nodes": 2,
       "added_nodes": 0,
       "deployed_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
-      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W3.patch.json",
+        "sha256": "64676f80e1ee5176e0115a6bffbda3ca28554a8fb6fd457bfbef0804e9f557e9",
+        "before_sha256": "7fb0ca84f59671560e60942ba7a6aec0e55679ee2fa7df6b6cf6d4b4978aab12",
+        "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f"
+      }
     },
     {
       "workflow": "W4",
@@ -105,7 +118,13 @@
       "changed_existing_nodes": 2,
       "added_nodes": 0,
       "deployed_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
-      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W4.patch.json",
+        "sha256": "c45294e6b3f12e945ba526f342ec43cf14208443c604f1a330af3c884c211646",
+        "before_sha256": "de410e92fbc912a55d9ed195b582f1cca2b9d4c19d944f70118f78a86963b0ec",
+        "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e"
+      }
     },
     {
       "workflow": "W6",
@@ -127,7 +146,13 @@
       "changed_existing_nodes": 2,
       "added_nodes": 0,
       "deployed_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
-      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W7.patch.json",
+        "sha256": "368054b7bea50ab7c6de340be8e0abd273b543f830ff22c35128f8f788e08601",
+        "before_sha256": "df0aed89224d44f536829b368705791a30505217c8136b16083b462b3dc23f58",
+        "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000"
+      }
     },
     {
       "workflow": "W9",

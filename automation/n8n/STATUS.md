@@ -1,5 +1,23 @@
 # n8n Growth Engine — Cloud handoff / STATUS
 
+## Latest release — LIVE qualification repair, 19 October 2026
+
+The current live n8n state was independently re-read after publication: **W0–W10 and My workflow are all Published/Active** on their existing IDs. W3/W4/W7 now include the qualification repair; the other nine remain unchanged. Exact versions, checks and counts: `qualification-release.json`. Original six deployed patches remain archived; strict before/after provenance for this release is in `revisions/qualification-20261019/`.
+
+**Root cause:** W7 created Queue approvals only for new discoveries, skipping the 42 older unsent leads entirely. Five newer partners remained WARM with no automatic review consumer. The old HOT rule required an explicit request for work, blocking otherwise evidenced local renovation partners. W3 itself did trigger on Monday 19 October at 08:30 Paris: execution 316 succeeded and SMTP accepted one message to lead #79. No recovery resend was performed.
+
+**Implemented in production:** W7 has an independent backlog qualification branch and the same evidence-based policy for new discoveries. It automatically approves only verified HOT local renovation partners, distinguishes partnership fit from advertised work requests, and holds uncertain/unsafe cases. It preserves human decisions, rejects duplicates/invalid/blacklisted/stopped/already-contacted leads, and expires automatic source approvals after 14 days. W3 and W4 have a hard exclusion for lead #79 plus recipient/evidence checks. Explicit human qualification followed by approval remains available through the existing Manager commands. Existing delivery reservations and all SMTP guards remain in place.
+
+**Current 47-lead dataset:** 26 HOT approved, 20 WARM awaiting human review, one COLD unsuitable prospect held. All 47 Queue upserts and their readback were verified. Leads and existing action rows, including lead #79's completed send, are unchanged. Repeating qualification yields zero writes. **26 leads pass the fresh W3 gate; the preserved quota selects at most 10 next cycle, Tuesday 20 October 08:30 Europe/Paris**, assuming no intervening replies, blacklist entries or other sends. No catch-up mailing was executed.
+
+**Verification:** 11 isolated qualification/chain checks passed, plus 15 directly affected W3/W4 safety checks; 2 publication/provenance checks passed. These checks use local VM fixtures, with no delivery transports. The W7→qualification→approval→W3→single W4 follow-up→reply-stop chain was verified in isolation using the deployed code. Native Queue API operations and actual Published/Active state were verified live; the modified workflows were not manually executed. A future scheduled run has not yet been observed. Earlier successful unrelated AI/SEO/content tests were retained.
+
+**Schedules unchanged, Europe/Paris:** W7 06:10/10:10/14:10/18:10 (two searches/cycle); W3 Mon–Thu 08:30; W4 Mon–Thu 09:30, one follow-up after seven days. W0 errors; W1 inbox events; W2 existing webhook; W5 08:00/18:00; W6 09:00; W8 07:30 + webhook; W9 every 15 minutes 08:00–20:45; W10 04:30 drafts; Manager hourly + Chat. Sales/management OpenAI→Gemini→Claude; research/SEO/content Gemini→OpenAI→Claude; deep review Claude→OpenAI→Gemini; final failure→W0. Existing Leads, Clients, Blacklist, Journal and Growth Queue tables are reused.
+
+**Remaining limits:** 20 uncertain prospects need human review; the one unsuitable prospect remains held. Social publishing, CMS and Search Console still need actual connected accounts. Automatic delivery remains subject to quotas and fresh stop checks; transactional exactly-once SMTP is not proved. No test email, Telegram, customer message, public post, paid campaign or ad spend occurred. Hosted n8n and the saved Cloud bindings operate without the Mac.
+
+---
+
 ## LIVE — verified production publication, 19 October 2026
 
 **Production activation completed from commit `184da0b`.** Authenticated API access works with the existing Cloud bindings. Inventory: **13 workflows total, all 12 expected IDs matched**; the unrelated thirteenth workflow was not modified. All twelve were independently read again after publication: `active=true`, `activeVersionId=versionId`, and the published nodes/connections equal the saved graph. Machine-readable IDs, exact versions, schedules and evidence: `activation.json` and `manifest.json`.

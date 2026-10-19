@@ -1,0 +1,214 @@
+{
+  "result": "LIVE",
+  "captured_at_utc": "2026-10-19T09:52:18.219175+00:00",
+  "base_commit": "4657f7c8549a731d5262171de317f018673195f4",
+  "root_cause": "W7 created approval records only for new insertions; 42 legacy leads had none, five pending partners had no automatic requalification path. Explicit open-work-demand regex prevented otherwise evidenced local B2B partners from being HOT.",
+  "dataset": {
+    "dataset": 47,
+    "hot_approved": 26,
+    "warm_review": 20,
+    "cold_held": 1,
+    "live_rows_verified": 47,
+    "eligible_next_cycle": 26,
+    "next_cycle_selected_with_retained_quota": 10,
+    "next_cycle": "2026-10-20T08:30:00+02:00",
+    "lead79_send_ledger_unchanged": true,
+    "lead79_hard_blocked_in_W3_and_W4": true,
+    "leads_table_unchanged": true,
+    "no_messages_sent_during_testing": true,
+    "repeat_qualification_writes": 0,
+    "verification_mode": "live REST readback plus isolated JS evaluation; no workflow execution or delivery transport"
+  },
+  "safe_tests": {
+    "qualification_and_chain": 11,
+    "affected_W3_W4_safety": 15,
+    "failed": 0,
+    "delivery_transports": false,
+    "live_workflow_execution_requested": false,
+    "publication_provenance": 2
+  },
+  "workflow_versions": {
+    "W6": {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active": true,
+      "published": true
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "active_version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "active": true,
+      "published": true
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active": true,
+      "published": true
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active": true,
+      "published": true
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active": true,
+      "published": true
+    },
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active": true,
+      "published": true
+    },
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active": true,
+      "published": true
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "active_version_id": "12a08a2d-f5f4-47a0-94bc-c2839eb7f33c",
+      "active": true,
+      "published": true
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active": true,
+      "published": true
+    },
+    "W8": {
+      "id": "uOuQs4E5H443sbKh",
+      "version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "active_version_id": "7870f597-ee43-44d8-b737-224b06cfa129",
+      "active": true,
+      "published": true
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active": true,
+      "published": true
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "active_version_id": "9913b14e-fdd2-4773-9a15-bae2243d00f3",
+      "active": true,
+      "published": true
+    }
+  },
+  "changed_workflows": [
+    "W3",
+    "W4",
+    "W7"
+  ],
+  "existing_node_credentials_webhooks_schedules_settings_preserved": true,
+  "data_tables_created": 0,
+  "qualification_rows_upserted": 47,
+  "send_actions_modified": 0,
+  "preflight_and_postflight": {
+    "watchdog_routing": "confirmed_all_eleven_to_W0_no_self_reference",
+    "manager_and_specialist_primary_fallbacks": "confirmed_from_live_graph",
+    "smtp_guard_bypass": "none_reachable_from_triggers",
+    "existing_table_schemas": "confirmed_no_new_tables",
+    "transactional_exactly_once": "not_proven_read_then_upsert_is_not_atomic"
+  },
+  "remaining_limits": [
+    "No manual live workflow execution or SMTP test; next scheduled execution still to be observed.",
+    "Retained shared quota reserves up to 20 follow-ups; 26 eligible prospects yield at most 10 first contacts next cycle on current data.",
+    "Read-before-upsert and SMTP reservations do not prove transactional exactly-once delivery.",
+    "20 uncertain prospects require human review; one unsuitable prospect held.",
+    "Social publisher, CMS and Search Console connections remain unavailable."
+  ],
+  "latest_observed_executions": {
+    "W6": {
+      "id": "319",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T07:00:00.505Z"
+    },
+    "My workflow": {
+      "id": "332",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T09:00:00.465Z"
+    },
+    "W7": {
+      "id": "327",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T08:10:00.273Z"
+    },
+    "W0": {
+      "id": "288",
+      "mode": "manual",
+      "status": "success",
+      "startedAt": "2026-10-19T00:41:39.202Z"
+    },
+    "W1": {
+      "id": "334",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T09:26:29.170Z"
+    },
+    "W2": {
+      "id": "83",
+      "mode": "webhook",
+      "status": "success",
+      "startedAt": "2026-10-15T12:25:28.714Z"
+    },
+    "W3": {
+      "id": "316",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T06:30:00.596Z"
+    },
+    "W10": {
+      "id": "300",
+      "mode": "manual",
+      "status": "success",
+      "startedAt": "2026-10-19T02:43:31.306Z"
+    },
+    "W4": {
+      "id": "322",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T07:30:01.037Z"
+    },
+    "W8": {
+      "id": "310",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T05:30:00.366Z"
+    },
+    "W9": {
+      "id": "336",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T09:45:00.017Z"
+    },
+    "W5": {
+      "id": "313",
+      "mode": "trigger",
+      "status": "success",
+      "startedAt": "2026-10-19T06:00:00.760Z"
+    }
+  },
+  "latest_observed_executions_note": "Read-only historical observations, not re-triggered tests; all precede this repair."
+}
