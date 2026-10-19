@@ -1,0 +1,221 @@
+{
+  "captured_at_utc": "2026-10-19T19:47:37.488900+00:00",
+  "result": "BLOCKED_MISSING_META_APP_CLIENT",
+  "base_commit": "0aaae39e28d6e6a0b78cc8debcefdc65e81cf42f",
+  "live_configuration": {
+    "workflow_count": 15,
+    "published_active_count": 14,
+    "all_workflow_definitions_unchanged": true,
+    "workflows": [
+      {
+        "id": "4O2ZR1JpDOgJZOLw",
+        "name": "W0 – Erreurs (Telegram + journal)",
+        "active": true,
+        "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+        "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088"
+      },
+      {
+        "id": "63yycckNMI9mXnkz",
+        "name": "W10 – Idées de contenu (vidéos)",
+        "active": true,
+        "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+        "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf"
+      },
+      {
+        "id": "9ttUYW3XcSztxwRu",
+        "name": "W9 – Après chantier (avis + parrainage)",
+        "active": true,
+        "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+        "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84"
+      },
+      {
+        "id": "CedAfsMxGSnrlG0y",
+        "name": "M&B – ChatGPT Codex MCP",
+        "active": true,
+        "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+        "published_version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a"
+      },
+      {
+        "id": "EvDz4KtOEgIYKh7Q",
+        "name": "W1 – Réponses emails",
+        "active": true,
+        "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+        "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c"
+      },
+      {
+        "id": "Ipqy6qKmAuXVz2vl",
+        "name": "W4 – Relance unique",
+        "active": true,
+        "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+        "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e"
+      },
+      {
+        "id": "JcFvUMfm9orHdKbu",
+        "name": "M&B – ChatGPT production ingress",
+        "active": true,
+        "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+        "published_version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee"
+      },
+      {
+        "id": "OyYa8UtfX7NuHbL7",
+        "name": "Gemini + Claude Automation Workflow",
+        "active": false,
+        "version_id": "6f8819ed-c2f7-48e5-b3d9-48fb32182b2d",
+        "published_version_id": null
+      },
+      {
+        "id": "RstxLOezyHrDIv7k",
+        "name": "W3 – Envoi quotidien",
+        "active": true,
+        "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+        "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f"
+      },
+      {
+        "id": "YjzC3pFzYRR7d2an",
+        "name": "W2 – Demandes du site web",
+        "active": true,
+        "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+        "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60"
+      },
+      {
+        "id": "cKUyJSLOF69uXGnO",
+        "name": "My workflow",
+        "active": true,
+        "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+        "published_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e"
+      },
+      {
+        "id": "gc97zrWop11I70CG",
+        "name": "W7 – Recherche de leads",
+        "active": true,
+        "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+        "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf"
+      },
+      {
+        "id": "uOuQs4E5H443sbKh",
+        "name": "W8 – Notifications pages SEO",
+        "active": true,
+        "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+        "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f"
+      },
+      {
+        "id": "xNbB0gcC1XPbXZ0z",
+        "name": "W6 – Rappels échéances",
+        "active": true,
+        "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+        "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c"
+      },
+      {
+        "id": "yaiq1MmW8dw5SUg7",
+        "name": "W5 – Rapport hebdomadaire",
+        "active": true,
+        "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+        "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb"
+      }
+    ],
+    "existing_credential_metadata_count": 9,
+    "meta_or_oauth_credential_found": false,
+    "Meta_app_client_binding_found": false,
+    "variables_api_http_status": 403,
+    "variables_not_inspected_or_bypassed": true,
+    "relevant_cloud_bindings": [
+      "N8N_BASE_URL",
+      "N8N_API_KEY"
+    ],
+    "native_credential_schemas_read": [
+      "oAuth2Api",
+      "facebookGraphApi"
+    ],
+    "native_callback_render_observed": {
+      "http_status": 200,
+      "html_title": "n8n - OAuth Callback",
+      "OAuth_authorization_attempt": false,
+      "Meta_redirect_registered": false
+    }
+  },
+  "implemented_artifacts": {
+    "oauth_settings": "meta-connection.json",
+    "read_only_permission_evaluator": "meta-preflight.js",
+    "future_workflow_transport_installed": false,
+    "new_live_nodes_or_workflows": 0,
+    "new_credentials_or_unusable_placeholders_created": 0,
+    "blocked_setup_task_id": 106,
+    "setup_task_key": "integration:meta:oauth-client",
+    "captured_source_sha256": {
+      "meta-preflight.js": "6963935488a4ae6366f25e3996ddb9f9733f7200252af56c6ec12a5c34e23036",
+      "meta-connection.json": "8b05e3e49bec67ee94b4d4604280ac13e5b25662ae7b4ec44a3356abb9acddf1"
+    }
+  },
+  "official_source_evidence": {
+    "graph_api_version_from_Meta_SDK": "v26.0",
+    "SDK_version": "26.0.2",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/facebook/facebook-nodejs-business-sdk/main/src/api.js",
+        "sha256_at_inspection": "998a57f7d40da61281a18c30f87ecad8413eeab5da31482d83d18b5bed8396f6"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/facebook/facebook-nodejs-business-sdk/main/src/objects/page.js",
+        "sha256_at_inspection": "110ff690c9c6d570ae3ad85ba4ad2f8debc3eeaa5850f396c2975252945714b8"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/facebook/facebook-nodejs-business-sdk/main/src/objects/user.js",
+        "sha256_at_inspection": "4d76e7ebf7a7acd9aaaf967d78905c2b3831c738019285714cc663cf1eb7d16b"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/facebook/facebook-nodejs-business-sdk/main/src/objects/ig-user.js",
+        "sha256_at_inspection": "dd05a551d3f90a00f1e4168725cf81bb4d36855ebb518e06cf2de4c1bb655d1d"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/n8n-io/n8n/master/packages/nodes-base/credentials/OAuth2Api.credentials.ts",
+        "sha256_at_inspection": "202d6f8c2cbe550125314282c77f9dea6100d07a59d8ff3a3e73e6aaf9f331b4"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/n8n-io/n8n/master/packages/nodes-base/credentials/FacebookGraphApi.credentials.ts",
+        "sha256_at_inspection": "812fbf7a1d239e157329337f3bfb0c0779145cf9f4724aa7a099a792757ba446"
+      }
+    ],
+    "direct_Meta_documentation_pages": "Not retrieved from this Cloud session; no unsupported permission/runtime success claim",
+    "permissions_and_account_access_must_still_be_verified_from_real_Graph_API": true
+  },
+  "oauth": {
+    "authorization_url": null,
+    "reason": "No actual Meta App ID/client secret binding or native OAuth credential exists; a valid consent URL/state cannot be fabricated",
+    "account_setup_url": "https://developers.facebook.com/apps/",
+    "redirect_uri": "https://navajowhite-cormorant-668337.hostingersite.com/rest/oauth2-credential/callback",
+    "requested_scopes": [
+      "pages_show_list",
+      "pages_read_engagement",
+      "pages_manage_posts",
+      "instagram_basic",
+      "instagram_content_publish"
+    ],
+    "ads_scopes_requested": false,
+    "human_prerequisite": "Register or make available the company-owned Meta application and bind its client configuration in hosted n8n through secure credential settings. App secrets must never be sent in chat.",
+    "consent_request_not_sent": true
+  },
+  "verification": {
+    "new_isolated_checks_passed": 12,
+    "Graph_API_authenticated_calls": 0,
+    "actual_Facebook_publishing_permission_verified": false,
+    "actual_Instagram_publishing_permission_verified": false,
+    "native_oauth_client_registered": false,
+    "scheduling_activated": false,
+    "actual_publications": 0,
+    "previous_successful_business_tests_repeated": false,
+    "all_existing_seven_drafts_still_needs_review": true,
+    "post391473868_status": "uncertain",
+    "post391473868_no_retry": true,
+    "existing_schedules_and_workflows_preserved": true
+  },
+  "safety": {
+    "customer_or_Telegram_test_messages": 0,
+    "public_posts": 0,
+    "ad_campaign_or_budget_changes": 0,
+    "paid_spend": 0,
+    "lead79_resent": false,
+    "secrets_in_chat_git_or_queue": false,
+    "Manager_execution_logging_unchanged_no_token_payload_nodes_added": true
+  },
+  "remaining_boundary": "Application registration/client binding precedes OAuth consent; native callback exists but app redirect registration, user consent, scoped permissions and official transport are not verified. Neither platform is LIVE."
+}

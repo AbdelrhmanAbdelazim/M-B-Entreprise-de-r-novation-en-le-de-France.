@@ -129,6 +129,14 @@
       "internal_records_created": 2,
       "integration_notice_updated": 1,
       "platform_publish_calls": 0
+    },
+    "meta": {
+      "report": "meta-connection-release.json",
+      "isolated_checks_passed": 12,
+      "live_platform_calls": 0,
+      "production_workflow_changes": 0,
+      "setup_task_id": 106,
+      "status": "BLOCKED_MISSING_META_APP_CLIENT"
     }
   },
   "existing_table_roles": {
