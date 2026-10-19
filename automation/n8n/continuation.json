@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T16:30:02.520080+00:00",
+  "recorded_at_utc": "2026-10-19T19:21:13.405849+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -112,6 +112,14 @@
       "limited_key_admin_rejection": 401,
       "limited_key_legacy_namespace_rejection": 403,
       "original_12_versions_unchanged": true
+    },
+    "management": {
+      "report": "management-release.json",
+      "isolated_checks_passed": 13,
+      "captured_real_update_read_cases_passed": 8,
+      "captured_recruitment_replay_passed": 1,
+      "live_delivery_tests": 0,
+      "queue_row_corrections": 14
     }
   },
   "existing_table_roles": {
@@ -281,5 +289,9 @@
   "mcp_revision": {
     "path": "revisions/mcp-20261019/verification.json",
     "sha256": "ee16f26b55b9f2ebd840d3399faa84476561966cc755847eee3092f801cd5674"
+  },
+  "management_revision": {
+    "path": "revisions/management-20261019/verification.json",
+    "sha256": "99e468a6a5766b492b0cb0030c02230cffd21e7eb2fa0178abc63a4f5cf71e2d"
   }
 }

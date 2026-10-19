@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Published production exports through the hosted OAuth MCP bridge; MCP server publication is verified, ChatGPT account registration/consent and ChatGPT-origin execution are not.",
-  "latest_live_refresh": "2026-10-19T16:30:02.520080+00:00",
+  "source": "Verified published exports through owner-authorized Telegram management, proof-gated completion, recruitment routing and public-page opportunity corrections; provider access/ordinary ChatGPT consent remain explicitly blocked.",
+  "latest_live_refresh": "2026-10-19T19:21:13.405849+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -22,18 +22,18 @@
       ],
       "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T16:05:58.989317+00:00",
-      "source_sha256": "c65ddd8b9b179fa523b7691eb7986d4832d0cd06d4814d0b5b38320521e86a9b",
-      "public_sha256": "f26dab9d106c5700ca9e5f94c6d36ee28d8ebeb52e08dda3d30213a875ce9720",
+      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
+      "source_sha256": "ead80b5900a4ad98bf3a72629ffeb41c1b810048ccdf2ed75c80885319d91080",
+      "public_sha256": "d4d389d7a1a6db89d7e1ba35f5cd1200af432df851d72f8e6663d8f3d8477840",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -54,20 +54,20 @@
         "/nodes/91/credentials/openAiApi/id",
         "/nodes/94/webhookId"
       ],
-      "published_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "published_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
       "name": "W7 – Recherche de leads",
-      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T09:52:18.219175+00:00",
-      "source_sha256": "21d3ec8dbdfe2a4633db81a5fa93236eec86c5d9d6834d9bd2c341067cc052e0",
-      "public_sha256": "a23f183f8af0eff3a05be41dcb912a8977d41c57d400627d41e5598d5f69e8fa",
+      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
+      "source_sha256": "df2b27095a3584844419b4a2c83976bba15c3b310ee3ac3d98170aaab8c69afd",
+      "public_sha256": "82445509a90db89928f1868ec49ce205e40dd0757a26ddf32bc0734131c2c1bf",
       "redacted_paths": [
         "/nodes/10/credentials/anthropicApi/id",
         "/nodes/12/credentials/telegramApi/id",
@@ -77,9 +77,9 @@
         "/nodes/19/credentials/googlePalmApi/id",
         "/nodes/25/credentials/openAiApi/id"
       ],
-      "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W0": {
       "id": "4O2ZR1JpDOgJZOLw",
@@ -98,18 +98,18 @@
       ],
       "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W1": {
       "id": "EvDz4KtOEgIYKh7Q",
       "name": "W1 – Réponses emails",
-      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "adc8f90ae89d70c8b618dfa11c0edd0aff80cfd054ea74af37fe04a00c2f95da",
-      "public_sha256": "282231dd9ba8969104f70b5a4d63407e25a3ee4dc796ef605f294e9f456dabf4",
+      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
+      "source_sha256": "a23b824d312c21d217455398715c48c658179ccab7927497901a64a87d1d1c94",
+      "public_sha256": "5e971ac50ea6135ce0135df3454af4449fe9762cb200f5559be375d4fe178554",
       "redacted_paths": [
         "/nodes/0/credentials/imap/id",
         "/nodes/13/credentials/googlePalmApi/id",
@@ -120,9 +120,9 @@
         "/nodes/5/parameters/chatId",
         "/nodes/5/webhookId"
       ],
-      "published_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
@@ -145,7 +145,7 @@
       ],
       "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W3": {
       "id": "RstxLOezyHrDIv7k",
@@ -169,7 +169,7 @@
       ],
       "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
@@ -194,7 +194,7 @@
       ],
       "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
@@ -218,7 +218,7 @@
       ],
       "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",
@@ -242,18 +242,18 @@
       ],
       "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W9": {
       "id": "9ttUYW3XcSztxwRu",
       "name": "W9 – Après chantier (avis + parrainage)",
-      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
-      "source_sha256": "cf28b16ee6598f2bbfc1292991b2ce6d589bf4d421419880227d86137fa8c7a5",
-      "public_sha256": "8ab15287385ab46d96836f2ab697705726b6f5d8df106dc05b17584f4410e077",
+      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
+      "source_sha256": "2710c5acff8cc53ceef52bac215200e3dc87f362b47f4acb0fe49e87a6893597",
+      "public_sha256": "5c0b163a47d4b13992925086f840f5d3d7fb5c469d63ff44cd45f6ef3aa14e83",
       "redacted_paths": [
         "/nodes/10/credentials/telegramApi/id",
         "/nodes/10/parameters/chatId",
@@ -264,31 +264,32 @@
         "/nodes/20/credentials/telegramApi/id",
         "/nodes/20/parameters/chatId",
         "/nodes/20/webhookId",
+        "/nodes/37/parameters/jsCode",
         "/nodes/4/credentials/smtp/id",
         "/nodes/4/webhookId"
       ],
-      "published_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     },
     "W5": {
       "id": "yaiq1MmW8dw5SUg7",
       "name": "W5 – Rapport hebdomadaire",
-      "version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
-      "source_sha256": "aff7a73c624ff9acb98914c885fa344a5fed43ba2dc1276236110668b8db5f0e",
-      "public_sha256": "fb811ff70b5180e32272929562a397d542237baa7375dfa88798f7901c71504c",
+      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
+      "source_sha256": "acc839d680119e5046603426b39b8afe3ad86c26e9d928281a2592301b925d87",
+      "public_sha256": "e6eb2367aa3f5b66cf23bc51dbe07789239326373a73953c69e0e05bc1bbb588",
       "redacted_paths": [
         "/nodes/4/credentials/telegramApi/id",
         "/nodes/4/parameters/chatId",
         "/nodes/4/webhookId"
       ],
-      "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T16:30:02.520080+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
     }
   },
   "continuation": {

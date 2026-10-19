@@ -3,19 +3,20 @@ from unittest.mock import patch
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from ingress_verify import verify
 from cloud_handoff import collect
+MANAGER="revisions/management-20261019/My workflow.before.json" if (ROOT/"revisions/management-20261019").exists() else "My workflow.json"
 import ingress
 class IngressHandoffTests(unittest.TestCase):
  def test_published_ingress_chain_preserves_original_engine(self):
-  verify(ROOT,json.loads((ROOT/'continuation.json').read_text())['ingress_revision'],'revisions/mcp-20261019/ChatGPT ingress.before.json' if (ROOT/'revisions/mcp-20261019').exists() else 'ChatGPT ingress.json');self.assertEqual(collect(ROOT)['pending_patch_count'],0)
+  verify(ROOT,json.loads((ROOT/'continuation.json').read_text())['ingress_revision'],'revisions/mcp-20261019/ChatGPT ingress.before.json' if (ROOT/'revisions/mcp-20261019').exists() else 'ChatGPT ingress.json',MANAGER);self.assertEqual(collect(ROOT)['pending_patch_count'],0)
  def test_changed_ingress_or_archived_input_is_rejected(self):
   entry=json.loads((ROOT/'continuation.json').read_text())['ingress_revision']
   front='revisions/mcp-20261019/ChatGPT ingress.before.json' if (ROOT/'revisions/mcp-20261019').exists() else 'ChatGPT ingress.json'
-  for target in [front,'My workflow.json','revisions/ingress-20261019/My workflow.draft-before.json']:
+  for target in [front,MANAGER,'revisions/ingress-20261019/My workflow.draft-before.json']:
    with self.subTest(target=target),tempfile.TemporaryDirectory() as directory:
     r=pathlib.Path(directory);shutil.copytree(ROOT/'revisions',r/'revisions')
     for name in ['ChatGPT ingress.json','My workflow.json']:shutil.copyfile(ROOT/name,r/name)
-    verify(r,entry,front);p=r/target;p.write_text(p.read_text()+' ')
-    with self.assertRaises(AssertionError):verify(r,entry,front)
+    verify(r,entry,front,MANAGER);p=r/target;p.write_text(p.read_text()+' ')
+    with self.assertRaises(AssertionError):verify(r,entry,front,MANAGER)
  def test_uncertain_submit_exposes_only_safe_correlation_for_resume(self):
   with patch.object(ingress,'call',side_effect=RuntimeError('transport unavailable')):
    with self.assertRaisesRegex(RuntimeError,'request_id=request-fixture-001'):ingress.submit('safe task','request-fixture-001','technical')

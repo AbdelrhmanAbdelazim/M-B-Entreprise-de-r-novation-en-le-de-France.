@@ -36,7 +36,7 @@ class PublishedHandoffTests(unittest.TestCase):
     def test_mismatched_publication_evidence_prevents_a_false_live_claim(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory)
-            for name in ['Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json', 'continuation.json', 'data-tables.json', 'activation.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
+            for name in ['management.js', 'qualification.js', 'Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json', 'continuation.json', 'data-tables.json', 'activation.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
                 shutil.copyfile(ROOT / name, target / name)
             shutil.copytree(ROOT / 'pending', target / 'pending')
             shutil.copytree(ROOT / 'revisions', target / 'revisions')
@@ -54,7 +54,8 @@ class PublishedHandoffTests(unittest.TestCase):
             revision = entry['superseding_revision']
             before = json.loads((ROOT / 'revisions/qualification-20261019' / (name + '.before.json')).read_text())
             staged = stage(before, json.loads((ROOT / revision['path']).read_text()))
-            current = json.loads((ROOT / (name + '.json')).read_text())
+            current_path = ROOT/'revisions/management-20261019/W7.before.json' if name=='W7' and (ROOT/'revisions/management-20261019').exists() else ROOT/(name+'.json')
+            current = json.loads(current_path.read_text())
             for key in ['id', 'name', 'nodes', 'connections', 'settings']:
                 self.assertEqual(staged[key], current[key])
             self.assertEqual(current['versionId'], revision['published_version_id'])

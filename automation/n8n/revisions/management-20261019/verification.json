@@ -1,0 +1,44 @@
+{
+  "captured_at_utc": "2026-10-19T19:21:13.405849+00:00",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before_sha256": "f26dab9d106c5700ca9e5f94c6d36ee28d8ebeb52e08dda3d30213a875ce9720",
+      "after_sha256": "d4d389d7a1a6db89d7e1ba35f5cd1200af432df851d72f8e6663d8f3d8477840",
+      "before_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "published_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8"
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "before_sha256": "a23f183f8af0eff3a05be41dcb912a8977d41c57d400627d41e5598d5f69e8fa",
+      "after_sha256": "82445509a90db89928f1868ec49ce205e40dd0757a26ddf32bc0734131c2c1bf",
+      "before_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf"
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "before_sha256": "282231dd9ba8969104f70b5a4d63407e25a3ee4dc796ef605f294e9f456dabf4",
+      "after_sha256": "5e971ac50ea6135ce0135df3454af4449fe9762cb200f5559be375d4fe178554",
+      "before_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c"
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "before_sha256": "8ab15287385ab46d96836f2ab697705726b6f5d8df106dc05b17584f4410e077",
+      "after_sha256": "5c0b163a47d4b13992925086f840f5d3d7fb5c469d63ff44cd45f6ef3aa14e83",
+      "before_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84"
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "before_sha256": "fb811ff70b5180e32272929562a397d542237baa7375dfa88798f7901c71504c",
+      "after_sha256": "e6eb2367aa3f5b66cf23bc51dbe07789239326373a73953c69e0e05bc1bbb588",
+      "before_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb"
+    }
+  },
+  "changed_source_sha256": {
+    "management.js": "acdde881ce0901149d3855964a6644a39d668d875f5863d9ee73354a6a827947",
+    "qualification.js": "6363cac7e5af64194d2a9a74156075a35a3f8e5bbaeff6a758c5e36317a9e2e8"
+  }
+}

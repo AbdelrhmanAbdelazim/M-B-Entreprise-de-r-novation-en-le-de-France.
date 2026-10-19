@@ -31,6 +31,11 @@ def collect(root=ROOT):
     followups = continuation.get('followup_revisions', [])
     if followups and (len(followups) != 3 or {r['workflow'] for r in followups} != {'My workflow','W5','W10'}):
         raise ValueError('Metricool follow-up revision inventory is incomplete or unexpected')
+    management = continuation.get('management_revision')
+    management_names = set()
+    if management:
+        from management_verify import verify as verify_management
+        management_names = set(verify_management(root, management)['workflows'])
     mcp = continuation.get('mcp_revision')
     if mcp:
         from mcp_verify import verify as verify_mcp
@@ -38,7 +43,7 @@ def collect(root=ROOT):
     ingress = continuation.get('ingress_revision')
     if ingress:
         from ingress_verify import verify as verify_ingress
-        verify_ingress(root, ingress, 'revisions/mcp-20261019/ChatGPT ingress.before.json' if mcp else 'ChatGPT ingress.json')
+        verify_ingress(root, ingress, 'revisions/mcp-20261019/ChatGPT ingress.before.json' if mcp else 'ChatGPT ingress.json', 'revisions/management-20261019/My workflow.before.json' if management else 'My workflow.json')
     agents = continuation.get('agents_revision')
     if agents:
         from agents_verify import verify
@@ -55,6 +60,7 @@ def collect(root=ROOT):
         if workflow['id'] != record['id'] or workflow['versionId'] != record['version_id'] or workflow['id'] in identities:
             raise ValueError('Workflow identity/version mismatch')
         identities.add(workflow['id'])
+        historical = load(root / 'revisions/management-20261019' / (name + '.before.json')) if name in management_names else workflow
         candidate = workflow
         if name in revisions:
             entry = revisions[name]
@@ -68,7 +74,7 @@ def collect(root=ROOT):
             if patch['workflow_name'] != name or entry['workflow_id'] != record['id']:
                 raise ValueError('Pending patch is assigned to a different workflow')
             if entry.get('status') == 'deployed':
-                deployed_workflow = workflow
+                deployed_workflow = historical
                 revision = entry.get('superseding_revision')
                 if revision:
                     # Verify both immutable releases; never treat a newer version as permission to drift.
@@ -82,8 +88,8 @@ def collect(root=ROOT):
                         raise ValueError('Superseding revision provenance changed')
                     deployed_workflow = json.loads(before_blob)
                     revised = stage(deployed_workflow, json.loads(revision_blob))
-                    if (revision['published_version_id'] != workflow['versionId']
-                            or any(revised.get(k) != workflow.get(k) for k in ['id','name','nodes','connections','settings'])):
+                    if (revision['published_version_id'] != historical['versionId']
+                            or any(revised.get(k) != historical.get(k) for k in ['id','name','nodes','connections','settings'])):
                         raise ValueError('Published workflow differs from its verified superseding revision')
                 if entry.get('deployed_version_id') != deployed_workflow['versionId']:
                     raise ValueError('Deployed revision differs from the published baseline')
@@ -127,7 +133,7 @@ def collect(root=ROOT):
                     or hashlib.sha256(patch_blob).hexdigest() != entry['sha256']):
                 raise ValueError('Metricool revision provenance changed')
             revised = stage(json.loads(before_blob), json.loads(patch_blob))
-            target = load(root / 'revisions/agents-20261019/My workflow.before.json') if agents and name == 'My workflow' else workflow
+            target = load(root / 'revisions/agents-20261019/My workflow.before.json') if agents and name == 'My workflow' else historical
             if (entry['published_version_id'] != target['versionId']
                     or any(revised.get(k) != target.get(k) for k in ['id','name','nodes','connections','settings'])):
                 raise ValueError('Published workflow differs from Metricool revision')
@@ -151,26 +157,28 @@ def collect(root=ROOT):
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
     activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
-    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json'} and len(additional) != 3:
+    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json'} and len(additional) != 3:
         raise ValueError('Windsor publication evidence requires all three additional revisions')
-    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json'} and len(followups) != 3:
+    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json'} and len(followups) != 3:
         raise ValueError('Metricool publication evidence requires all three follow-up revisions')
-    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json','mcp-release.json'} and not agents:
+    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json','mcp-release.json','management-release.json'} and not agents:
         raise ValueError('Agents release provenance is required')
-    if activation and activation.get('latest_release') in {'ingress-release.json','mcp-release.json'}:
+    if activation and activation.get('latest_release') in {'ingress-release.json','mcp-release.json','management-release.json'}:
         if not ingress:
             raise ValueError('Ingress release provenance is required')
         actual = load(root / 'ChatGPT ingress.json')
         recorded = activation.get('additional_ingress', {})
         if not recorded.get('active') or not recorded.get('published') or recorded.get('id') != actual['id'] or recorded.get('version_id') != actual['versionId'] or recorded.get('active_version_id') != actual['versionId']:
             raise ValueError('Ingress publication evidence differs from its export')
-    if activation and activation.get('latest_release') == 'mcp-release.json':
+    if activation and activation.get('latest_release') in {'mcp-release.json','management-release.json'}:
         if not mcp:
             raise ValueError('MCP publication provenance is required')
         actual = load(root / 'Codex MCP.json')
         recorded = activation.get('additional_mcp', {})
         if not recorded.get('active') or not recorded.get('published') or recorded.get('id') != actual['id'] or recorded.get('version_id') != actual['versionId'] or recorded.get('active_version_id') != actual['versionId']:
             raise ValueError('MCP publication evidence differs from its export')
+    if activation and activation.get('latest_release') == 'management-release.json' and not management:
+        raise ValueError('Management publication provenance is required')
     published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
     if published:
         for entry in reports:
@@ -188,6 +196,7 @@ def collect(root=ROOT):
             'metricool_verified_followup_revisions': len(followups),
             'additional_ingress_verified': bool(ingress),
             'additional_mcp_published_verified': bool(mcp),
+            'management_revisions_verified': len(management_names),
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,

@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T16:30:02.520080+00:00",
+  "captured_at_utc": "2026-10-19T19:21:13.405849+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
-      "active_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "active_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -102,8 +102,8 @@
       "name": "W7 – Recherche de leads",
       "active": true,
       "published": true,
-      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
-      "active_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "active_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -128,8 +128,8 @@
       "name": "W1 – Réponses emails",
       "active": true,
       "published": true,
-      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
-      "active_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "active_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [],
@@ -208,8 +208,8 @@
       "name": "W9 – Après chantier (avis + parrainage)",
       "active": true,
       "published": true,
-      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
-      "active_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "active_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -222,8 +222,8 @@
       "name": "W5 – Rapport hebdomadaire",
       "active": true,
       "published": true,
-      "version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
-      "active_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "active_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "mcp-release.json",
+  "latest_release": "management-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"

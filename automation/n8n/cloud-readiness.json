@@ -10,6 +10,7 @@
   "metricool_verified_followup_revisions": 3,
   "additional_ingress_verified": true,
   "additional_mcp_published_verified": true,
+  "management_revisions_verified": 5,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -18,12 +19,12 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "published_version_at_handoff": "92490adb-39cd-4f52-a057-5ef884cf6af8",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 110,
-      "candidate_nodes": 110,
+      "baseline_nodes": 114,
+      "candidate_nodes": 114,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"
@@ -46,7 +47,7 @@
     {
       "workflow": "W1",
       "id": "EvDz4KtOEgIYKh7Q",
-      "published_version_at_handoff": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "published_version_at_handoff": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -117,7 +118,7 @@
     {
       "workflow": "W5",
       "id": "yaiq1MmW8dw5SUg7",
-      "published_version_at_handoff": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "published_version_at_handoff": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -147,7 +148,7 @@
     {
       "workflow": "W7",
       "id": "gc97zrWop11I70CG",
-      "published_version_at_handoff": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "published_version_at_handoff": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -177,12 +178,12 @@
     {
       "workflow": "W9",
       "id": "9ttUYW3XcSztxwRu",
-      "published_version_at_handoff": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "published_version_at_handoff": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 37,
-      "candidate_nodes": 37,
+      "baseline_nodes": 47,
+      "candidate_nodes": 47,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "*/15 8-20 * * *"

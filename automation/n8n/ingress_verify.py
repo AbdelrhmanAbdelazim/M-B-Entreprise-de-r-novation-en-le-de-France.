@@ -1,14 +1,14 @@
 """Strict offline provenance and safety checks for the published ingress successor."""
 import hashlib,json
 
-def verify(root,entry,front_target="ChatGPT ingress.json"):
+def verify(root,entry,front_target="ChatGPT ingress.json",manager_target="My workflow.json"):
  def read(path):return json.loads((root/path).read_text())
  path='revisions/ingress-20261019/verification.json';assert entry['path']==path
  assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry['sha256']
  p=read(path)
- for path,key in [('revisions/ingress-20261019/My workflow.before.json','before_sha256'),('revisions/ingress-20261019/My workflow.draft-before.json','draft_before_sha256'),('My workflow.json','after_sha256'),(front_target,'ingress_sha256')]:
+ for path,key in [('revisions/ingress-20261019/My workflow.before.json','before_sha256'),('revisions/ingress-20261019/My workflow.draft-before.json','draft_before_sha256'),(manager_target,'after_sha256'),(front_target,'ingress_sha256')]:
   assert hashlib.sha256((root/path).read_bytes()).hexdigest()==p[key]
- old=read('revisions/ingress-20261019/My workflow.before.json');new=read('My workflow.json');front=read(front_target);nodes={n['id']:n for n in new['nodes']}
+ old=read('revisions/ingress-20261019/My workflow.before.json');new=read(manager_target);front=read(front_target);nodes={n['id']:n for n in new['nodes']}
  assert old['id']==new['id']==p['id']=='cKUyJSLOF69uXGnO' and new['versionId']==p['published_version_id']
  assert old['settings']==new['settings']
  for n in old['nodes']:

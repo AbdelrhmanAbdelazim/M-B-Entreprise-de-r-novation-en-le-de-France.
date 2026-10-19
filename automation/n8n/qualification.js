@@ -36,7 +36,7 @@ function qualifyProspects(leads, blacklist, queue, evidence, timestamp) {
     const relevant = ['architecte','maitre_oeuvre','agence','syndic','courtier','gestionnaire'].includes(l.type) || (l.type === 'entreprise_generale' && contractor);
     const evidenceOK = e?.garder === true && e.email_observed === true && lower(e.email) === email && host(e.site) === company(l) && Number.isFinite(age) && age >= 0 && age <= 14 * 86400000;
     const professional = domain === company(l) || domain.endsWith('.' + company(l));
-    const requestedWork = /(?:recherch(?:e|ons)|besoin|appel.{0,4}offres|consultation).{0,100}(?:sous.?trait|artisan|entreprise|travaux|renov)|(?:sous.?trait|artisan).{0,80}(?:recherch|partenair)/.test(text);
+    const requestedWork = e?.work_request?.verified===true && e.work_request.source_url===e.source_url && Date.parse(e.work_request.valid_until)>=now.getTime() && /(?:recherch(?:e|ons)|besoin|appel.{0,4}offres|consultation).{0,100}(?:sous.?trait|artisan|entreprise|travaux|renov)|(?:sous.?trait|artisan).{0,80}(?:recherch|partenair)/.test(text);
     if (!decision.reason) {
       if (e?.garder === false || !relevant) deny('irrelevant_or_competitor');
       else if (!evidenceOK) { decision.grade = 'WARM'; decision.status = 'needs_review'; deny('missing_or_stale_verified_source'); }
@@ -52,7 +52,7 @@ function qualifyProspects(leads, blacklist, queue, evidence, timestamp) {
       qualification_reason:decision.reason, qualification_evidence:e || null,
       evidence:decision.reason, auto_approved:decision.status === 'approved'};
     // Stable decisions produce no repeat writes; evidence expiry and safety changes still take effect.
-    if (old && oldp.qualification_policy === policy && old.status === decision.status && old.priority === decision.grade && oldp.qualification_reason === decision.reason && JSON.stringify(oldp.qualification_evidence) === JSON.stringify(e || null)) { decisions.push(decision); continue; }
+    if (old && oldp.qualification_policy === policy && old.status === decision.status && old.priority === decision.grade && oldp.qualification_reason === decision.reason && oldp.score===score && oldp.opportunity_type===payload.opportunity_type && JSON.stringify(oldp.qualification_evidence) === JSON.stringify(e || null)) { decisions.push(decision); continue; }
     rows.push(fields({task_key:key,type:'prospect',priority:decision.grade,source:'W7',owner:'W3',status:decision.status,
       created_at:old?.created_at || iso,last_action:iso,due_at:old?.due_at || iso,payload:JSON.stringify(payload),
       next_action:decision.status === 'approved' ? 'W3: prochain cycle ouvré ; vérifications fraîches obligatoires' : 'Revue humaine : ' + decision.reason}));
