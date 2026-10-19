@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Verified published exports through owner-authorized Telegram management, proof-gated completion, recruitment routing and public-page opportunity corrections; provider access/ordinary ChatGPT consent remain explicitly blocked.",
-  "latest_live_refresh": "2026-10-19T19:21:13.405849+00:00",
+  "source": "Published Manager single-node social safety successor; official publishing remains BLOCKED without usable platform authorization. All prior release provenance retained.",
+  "latest_live_refresh": "2026-10-19T19:34:06.099092+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -22,18 +22,18 @@
       ],
       "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T19:21:13.405849+00:00",
-      "source_sha256": "ead80b5900a4ad98bf3a72629ffeb41c1b810048ccdf2ed75c80885319d91080",
-      "public_sha256": "d4d389d7a1a6db89d7e1ba35f5cd1200af432df851d72f8e6663d8f3d8477840",
+      "actual_download_at_utc": "2026-10-19T19:33:09.951826+00:00",
+      "source_sha256": "9536e38a8b3bc09d2d6ce7e4e5d1f8c8f07548c67a1fe5dbcd8b6b5e1a9e1c9a",
+      "public_sha256": "639fee2e167a6712a6986c2f17e7b70c752d8e88077be4d0899ff2678d4df858",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -54,9 +54,9 @@
         "/nodes/91/credentials/openAiApi/id",
         "/nodes/94/webhookId"
       ],
-      "published_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "published_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -79,7 +79,7 @@
       ],
       "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W0": {
       "id": "4O2ZR1JpDOgJZOLw",
@@ -98,7 +98,7 @@
       ],
       "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W1": {
       "id": "EvDz4KtOEgIYKh7Q",
@@ -122,7 +122,7 @@
       ],
       "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
@@ -145,7 +145,7 @@
       ],
       "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W3": {
       "id": "RstxLOezyHrDIv7k",
@@ -169,7 +169,7 @@
       ],
       "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
@@ -194,7 +194,7 @@
       ],
       "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
@@ -218,7 +218,7 @@
       ],
       "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",
@@ -242,7 +242,7 @@
       ],
       "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W9": {
       "id": "9ttUYW3XcSztxwRu",
@@ -270,7 +270,7 @@
       ],
       "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     },
     "W5": {
       "id": "yaiq1MmW8dw5SUg7",
@@ -289,7 +289,7 @@
       ],
       "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:21:13.405849+00:00"
+      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
     }
   },
   "continuation": {

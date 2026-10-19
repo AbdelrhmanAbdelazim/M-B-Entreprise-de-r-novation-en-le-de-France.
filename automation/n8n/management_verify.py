@@ -1,13 +1,13 @@
 """Strict provenance of the Telegram/management repair; no external execution."""
 import hashlib,json
 NAMES={'W1','W5','W7','W9','My workflow'}
-def verify(root,entry):
+def verify(root,entry,manager_target="My workflow.json"):
  def read(p):return json.loads((root/p).read_text())
  path='revisions/management-20261019/verification.json';assert entry['path']==path
  assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry['sha256'];proof=read(path);assert set(proof['workflows'])==NAMES
  for source,digest in proof['changed_source_sha256'].items():assert hashlib.sha256((root/source).read_bytes()).hexdigest()==digest
  for name,p in proof['workflows'].items():
-  before_path='revisions/management-20261019/'+name+'.before.json';after_path=name+'.json'
+  before_path='revisions/management-20261019/'+name+'.before.json';after_path=manager_target if name=='My workflow' else name+'.json'
   for path,key in [(before_path,'before_sha256'),(after_path,'after_sha256')]:assert hashlib.sha256((root/path).read_bytes()).hexdigest()==p[key]
   old,new=read(before_path),read(after_path);assert old['id']==new['id']==p['id'] and old['versionId']==p['before_version_id'] and new['versionId']==p['published_version_id']
   assert old['settings']==new['settings'];nodes={n['id']:n for n in new['nodes']};assert len(nodes)==len(new['nodes'])

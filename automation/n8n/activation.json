@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T19:21:13.405849+00:00",
+  "captured_at_utc": "2026-10-19T19:34:06.099092+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
-      "active_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "active_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "management-release.json",
+  "latest_release": "social-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"

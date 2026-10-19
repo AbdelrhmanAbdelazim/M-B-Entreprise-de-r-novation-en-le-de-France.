@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T19:21:13.405849+00:00",
+  "recorded_at_utc": "2026-10-19T19:33:09.951826+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -120,6 +120,15 @@
       "captured_recruitment_replay_passed": 1,
       "live_delivery_tests": 0,
       "queue_row_corrections": 14
+    },
+    "social": {
+      "report": "social-release.json",
+      "safe_policy_tests": 10,
+      "private_runtime_replay": true,
+      "workflow_execution_requests": 0,
+      "internal_records_created": 2,
+      "integration_notice_updated": 1,
+      "platform_publish_calls": 0
     }
   },
   "existing_table_roles": {
@@ -293,5 +302,9 @@
   "management_revision": {
     "path": "revisions/management-20261019/verification.json",
     "sha256": "99e468a6a5766b492b0cb0030c02230cffd21e7eb2fa0178abc63a4f5cf71e2d"
+  },
+  "social_revision": {
+    "path": "revisions/social-20261019/verification.json",
+    "sha256": "c887d9024054a5a9d8c85f070a4a7e67dcf4ae595b6a8c3066ee298f4a074b85"
   }
 }

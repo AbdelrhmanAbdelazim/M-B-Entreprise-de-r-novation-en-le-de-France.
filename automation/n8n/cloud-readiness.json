@@ -11,6 +11,7 @@
   "additional_ingress_verified": true,
   "additional_mcp_published_verified": true,
   "management_revisions_verified": 5,
+  "social_safety_revision_verified": true,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -19,7 +20,7 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "published_version_at_handoff": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
