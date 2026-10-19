@@ -1,6 +1,6 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
-  "recorded_at_utc": "2026-10-19T13:30:30.759538+00:00",
+  "recorded_at_utc": "2026-10-19T16:05:58.989317+00:00",
   "branch": "codex/growth-engine-883e99b",
   "live_state": {
     "verified": true,
@@ -92,6 +92,18 @@
       "live_agent_execution": "364",
       "live_manager_tools_execution": "365",
       "exact_final_result_verified": true
+    },
+    "chatgpt_ingress": {
+      "report": "ingress-release.json",
+      "safe_internal_request_id_proof": true,
+      "manager_execution_id": "388",
+      "concurrent_identical_posts": 3,
+      "matched_queue_tasks": 1,
+      "events_posts": 1,
+      "result_verified": true,
+      "test_queue_rows_removed": 2,
+      "isolated_js_checks": 20,
+      "affected_python_checks": 15
     }
   },
   "existing_table_roles": {
@@ -253,5 +265,9 @@
   "agents_revision": {
     "path": "revisions/agents-20261019/verification.json",
     "sha256": "05f05e09615774ef40da5af6cf0d1c7ec6552e305943e0498643c8b959837a52"
+  },
+  "ingress_revision": {
+    "path": "revisions/ingress-20261019/verification.json",
+    "sha256": "15cc45607e578842c478fb08cde754f19d6969c074313f8e281e63bb781f0f67"
   }
 }

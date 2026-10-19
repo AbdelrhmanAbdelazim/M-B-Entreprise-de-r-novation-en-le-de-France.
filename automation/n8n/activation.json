@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T13:30:30.759538+00:00",
+  "captured_at_utc": "2026-10-19T16:05:58.989317+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
-      "active_version_id": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
+      "version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "active_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,9 +264,16 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "agents-release.json",
+  "latest_release": "ingress-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
-  ]
+  ],
+  "additional_ingress": {
+    "id": "JcFvUMfm9orHdKbu",
+    "active": true,
+    "published": true,
+    "version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed",
+    "active_version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed"
+  }
 }

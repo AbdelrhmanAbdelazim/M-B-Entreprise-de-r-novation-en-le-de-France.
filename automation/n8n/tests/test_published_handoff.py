@@ -36,7 +36,7 @@ class PublishedHandoffTests(unittest.TestCase):
     def test_mismatched_publication_evidence_prevents_a_false_live_claim(self):
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory)
-            for name in ['manifest.json', 'continuation.json', 'data-tables.json', 'activation.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
+            for name in ['ChatGPT ingress.json', 'manifest.json', 'continuation.json', 'data-tables.json', 'activation.json', 'My workflow.json'] + [f'W{i}.json' for i in range(11)]:
                 shutil.copyfile(ROOT / name, target / name)
             shutil.copytree(ROOT / 'pending', target / 'pending')
             shutil.copytree(ROOT / 'revisions', target / 'revisions')

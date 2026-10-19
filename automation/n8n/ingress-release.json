@@ -1,0 +1,70 @@
+{
+  "captured_at_utc": "2026-10-19T16:05:58.989317+00:00",
+  "result": "WORKING_FOR_AUTHENTICATED_SUBMISSION_AND_RESULT_RETRIEVAL",
+  "manager": {
+    "id": "cKUyJSLOF69uXGnO",
+    "published_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b"
+  },
+  "ingress": {
+    "id": "JcFvUMfm9orHdKbu",
+    "active": true,
+    "published": true,
+    "version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed",
+    "active_version_id": "bb4741f4-fb2a-4010-bf47-9f667d2a90ed"
+  },
+  "existing_12_published_active": true,
+  "other_11_versions_unchanged": true,
+  "production_url": "https://navajowhite-cormorant-668337.hostingersite.com/webhook/mb-chatgpt/v1/commands",
+  "method": "POST",
+  "required_header_names": [
+    "X-N8N-API-KEY",
+    "Content-Type"
+  ],
+  "optional_header_names": [
+    "Idempotency-Key"
+  ],
+  "status_url": "https://navajowhite-cormorant-668337.hostingersite.com/webhook/mb-chatgpt/v1/status?request_id={request_id}",
+  "status_method": "GET",
+  "authentication": "Existing N8N_API_KEY binding, validated server-side by a fixed read-only GET of the Manager definition. No new key, credential or secret was created. Queue writes and dispatch are unreachable before positive authenticated identity verification.",
+  "secret_logging": "Dedicated ingress disables saving success/error/manual execution data and progress. Raw headers never enter Manager or Growth Queue. Only sanitized metadata/results are exposed.",
+  "technical_path": "Authenticated ingress -> existing Growth Queue agent_task contract used by codex_technical_task -> internal Manager trigger -> existing Codex worker -> stored final result -> authenticated status endpoint. No additional model call for technical classification.",
+  "nontechnical_path": "manager_request -> atomic ready-to-running claim -> existing Manager primary/fallback and tools -> stored response. This model branch was statically/locally checked, not manually executed during this technical ingress proof. Ready requests also recover on the preserved hourly Manager cadence; running requests are not automatically replayed.",
+  "idempotency": "Deterministic task key. Key-only upsert never resets status/payload; canonical lowest row ID and conditional empty-payload initialization elect a single owner. Existing key with another task/route returns409. Three simultaneous same-ID submissions created one task and one Agent POST in the real runtime. No database unique index or global distributed exactly-once guarantee is claimed.",
+  "automatic_request_id": "If omitted, deterministic source+route+instruction hash; provide a new explicit request_id for an intentionally new repeated instruction. Caller helper supplies UUID and reuses it across bounded retries.",
+  "retries": "Bounded read-only auth retry; callers retry the same request_id. Technical work still has hourly scheduled recovery when immediate dispatch is busy. Agent polling/reconciliation and W0 routing preserved.",
+  "safe_test": {
+    "ingress_execution_id": "385",
+    "manager_execution_id": "388",
+    "state": "success",
+    "actual_final_result": "M&B ChatGPT ingress connected",
+    "concurrent_identical_submissions": 3,
+    "matched_agent_tasks": 1,
+    "events_posts": 1,
+    "session_creations": 0,
+    "turn_polls": 3,
+    "unauthorized_missing_key": 401,
+    "unauthorized_invalid_key": 401,
+    "empty_task": 400,
+    "completed_replay": 200,
+    "conflicting_replay": 409,
+    "unknown_status": 404,
+    "temporary_test_flags_removed": true,
+    "test_only_queue_rows_deleted": 2,
+    "test_result_endpoint_after_cleanup": 404,
+    "front_execution_payloads_saved": false
+  },
+  "existing_user_draft": "Archived unmodified after sanitization. It had removed AI Agent and its edges. The complete published Manager node/edge set was preserved/restored while retaining the draft visual arrangement; no removed-Agent draft was published.",
+  "no_customer_delivery_or_public_posts": true,
+  "ads_spend": 0,
+  "lead79_guards_unchanged": true,
+  "caller_capabilities": {
+    "this_codex_cloud_conversation": "Can call ingress.py using existing environment bindings; no copy/paste or n8n UI required. Persistent AGENTS instructions describe this path.",
+    "ordinary_chatgpt_without_http_or_codex_tool": "No account-level Action/MCP connection can be registered by the tools available in this session. Endpoint existence is not proof of native ChatGPT tool registration.",
+    "hosted_agent_permissions": "Existing tools=[] / vault_ids=[] remain; the text-result proof does not grant GitHub, shell or n8n modification capabilities."
+  },
+  "verification": {
+    "isolated_javascript_checks_passed": 20,
+    "affected_python_checks_passed": 15,
+    "failed": 0
+  }
+}

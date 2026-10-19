@@ -60,14 +60,14 @@ function codexStep(stage,value,ctx,now,iteration=1){
     const messages=r.body.data.filter(i=>i.type==='message'&&i.role==='assistant'&&i.turn_id===ctx.turn_id&&i.status==='completed'&&i.phase==='final_answer');
     const text=messages.map(i=>(i.content||[]).filter(c=>c.type==='output_text').map(c=>c.text).join('')).reverse().join('\n').trim();
     if(!text)return fail('completed_turn_has_no_final_assistant_result','uncertain');
-    if(ctx.is_test&&text!=='M&B Codex connected successfully')return fail('internal_test_final_text_mismatch');
+    if(ctx.is_test&&text!==(ctx.expected_result||'M&B Codex connected successfully'))return fail('internal_test_final_text_mismatch');
     return {...ctx,route:'finish',status:'done',result:codexSafe(text),completed_at:now};
   }
   return fail('unknown_state');
 }
 function codexFinish(ctx,now){
   const previous=codexUnpack(ctx.job),notify=ctx.status!=='done'&&ctx.is_test!==true&&!previous.w0_reported;
-  const p={instruction:ctx.instruction,model:ctx.model,fingerprint:ctx.fingerprint,is_test:ctx.is_test===true,session_id:ctx.session_id||null,turn_id:ctx.turn_id||null,turn_status:ctx.turn_status||null,status:ctx.status,started_at:ctx.started_at,submitted_at:ctx.submitted_at||null,accepted_at:ctx.accepted_at||null,completed_at:ctx.completed_at||null,last_checked_at:now,deadline_at:ctx.deadline_at,submission_key:ctx.submission_key||null,baseline_turn_ids:ctx.baseline_turn_ids||[],resume_count:ctx.resume_count||0,result:codexSafe(ctx.result),error:codexSafe(ctx.error),reused_from_task:ctx.reused_from_task||null,w0_reported:previous.w0_reported||notify,notify_w0:notify};
+  const p={request_id:previous.request_id||null,route:previous.route||null,ingress_execution_id:previous.ingress_execution_id||null,manager_execution_id:String(ctx.execution_id||previous.manager_execution_id||''),expected_result:ctx.expected_result||null,instruction:ctx.instruction,model:ctx.model,fingerprint:ctx.fingerprint,is_test:ctx.is_test===true,session_id:ctx.session_id||null,turn_id:ctx.turn_id||null,turn_status:ctx.turn_status||null,status:ctx.status,started_at:ctx.started_at,submitted_at:ctx.submitted_at||null,accepted_at:ctx.accepted_at||null,completed_at:ctx.completed_at||null,last_checked_at:now,deadline_at:ctx.deadline_at,submission_key:ctx.submission_key||null,baseline_turn_ids:ctx.baseline_turn_ids||[],resume_count:ctx.resume_count||0,result:codexSafe(ctx.result),error:codexSafe(ctx.error),reused_from_task:ctx.reused_from_task||null,w0_reported:previous.w0_reported||notify,notify_w0:notify};
   const rows=[codexRow(ctx.job_key,'agent_task',ctx.status,p,now,ctx.job),codexRow('codex-log:'+ctx.job_key,'agent_log',ctx.status,{...p,instruction:undefined},now)];
   if(ctx.session_id)rows.push(codexRow('codex:session:manager','agent_session',ctx.status==='done'?'idle':['failed','cancelled'].includes(ctx.status)?'failed':'uncertain',{session_id:ctx.session_id,last_task_key:ctx.job_key,last_turn_id:ctx.turn_id||null,last_checked_at:now},now));
   return rows;

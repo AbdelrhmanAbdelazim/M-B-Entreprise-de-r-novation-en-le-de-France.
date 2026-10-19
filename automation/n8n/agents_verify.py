@@ -1,15 +1,15 @@
 """Offline verification of the narrowly scoped, already-published Agents integration."""
 import hashlib,json
 
-def verify(root,entry):
+def verify(root,entry,target="My workflow.json"):
  def read(path):return json.loads((root/path).read_text())
  path='revisions/agents-20261019/verification.json'
  assert entry['path']==path
  assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry['sha256']
  p=read(path);directory='revisions/agents-20261019/'
- for path,key in [(directory+'My workflow.before.json','before_sha256'),(directory+'My workflow.draft-before.json','draft_before_sha256'),('My workflow.json','after_sha256')]:
+ for path,key in [(directory+'My workflow.before.json','before_sha256'),(directory+'My workflow.draft-before.json','draft_before_sha256'),(target,'after_sha256')]:
   assert hashlib.sha256((root/path).read_bytes()).hexdigest()==p[key]
- old=read(directory+'My workflow.before.json');draft=read(directory+'My workflow.draft-before.json');new=read('My workflow.json')
+ old=read(directory+'My workflow.before.json');draft=read(directory+'My workflow.draft-before.json');new=read(target)
  assert old['id']==draft['id']==new['id']==p['id']=='cKUyJSLOF69uXGnO'
  assert new['versionId']==p['published_version_id']
  assert old['settings']==draft['settings']==new['settings']

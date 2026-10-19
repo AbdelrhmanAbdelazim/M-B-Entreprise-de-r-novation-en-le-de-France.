@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "M&B ChatGPT production ingress",
+    "version": "1.0.0",
+    "description": "Authenticated submission/result contract. This artifact does not register a ChatGPT Action or MCP connection. Existing N8N_API_KEY binding only; never paste credentials into chat."
+  },
+  "servers": [
+    {
+      "url": "https://navajowhite-cormorant-668337.hostingersite.com"
+    }
+  ],
+  "security": [
+    {
+      "N8nApiKey": []
+    }
+  ],
+  "paths": {
+    "/webhook/mb-chatgpt/v1/commands": {
+      "post": {
+        "operationId": "submitGrowthTask",
+        "summary": "Queue a Manager/Codex instruction without manual prompt transfer",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Must equal request_id when both are supplied."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "task",
+                  "source"
+                ],
+                "properties": {
+                  "task": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 12000
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "chatgpt"
+                    ]
+                  },
+                  "request_id": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 120,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,119}$"
+                  },
+                  "route": {
+                    "type": "string",
+                    "enum": [
+                      "technical",
+                      "manager"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Completed with nonempty actual final result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatus"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted or still pending; not completion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid JSON/task/idempotency key"
+          },
+          "401": {
+            "description": "Missing or invalid existing n8n API key"
+          },
+          "409": {
+            "description": "Same request_id bound to another task or route"
+          },
+          "415": {
+            "description": "JSON content type required"
+          },
+          "500": {
+            "description": "Backend failure; retry same request_id"
+          }
+        }
+      }
+    },
+    "/webhook/mb-chatgpt/v1/status": {
+      "get": {
+        "operationId": "getGrowthTaskStatus",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 120,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,119}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Completed with nonempty actual final result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatus"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted or still pending; not completion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid JSON/task/idempotency key"
+          },
+          "401": {
+            "description": "Missing or invalid existing n8n API key"
+          },
+          "500": {
+            "description": "Backend failure; retry same request_id"
+          },
+          "404": {
+            "description": "Unknown or cleaned test request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "N8nApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-N8N-API-KEY"
+      }
+    },
+    "schemas": {
+      "TaskStatus": {
+        "type": "object",
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "nullable": false
+          },
+          "task_id": {
+            "type": "string",
+            "nullable": false
+          },
+          "codex_task_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": false
+          },
+          "result": {
+            "type": "string",
+            "nullable": true
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          },
+          "ingress_execution_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "manager_execution_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "status_url": {
+            "type": "string",
+            "nullable": false
+          }
+        }
+      }
+    }
+  }
+}

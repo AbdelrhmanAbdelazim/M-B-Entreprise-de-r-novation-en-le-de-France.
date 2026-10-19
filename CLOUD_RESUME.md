@@ -1,5 +1,9 @@
 # Continue M&B Growth Engine from Codex Cloud / phone
 
+## Latest authenticated ChatGPT ingress
+
+Read `automation/n8n/ingress-release.json`, `ingress-openapi.json` and the newest STATUS entry first. The production command/status webhooks are deployed in a separate protected ingress workflow; all original twelve remain active. This Codex conversation can submit/poll with `python automation/n8n/ingress.py`, using existing N8N bindings. Preserve request IDs on retry. No new credentials or UI steps are needed. Runtime ingress385/Manager388 proved exact final output and concurrent dedup; test-only Queue rows were cleaned. All old revision chains plus the ingress successor are strictly verified. Never infer native ChatGPT Action/MCP registration or external Agent tool permissions from this HTTP proof; neither was granted. Do not replay the successful test.
+
 ## Latest OpenAI Agents release
 
 Read `automation/n8n/agents-release.json` and the latest STATUS entry first. Manager is Published/Active with a tested session/event/turn bridge using existing `OpenAI account 2`; all twelve workflows were re-read active and the other eleven versions were unchanged. Runtime executions 364/365 prove exact final output and both queue tools. Temporary probes are removed. Preserve the original, qualification, Windsor, Metricool and Agents provenance chains; `cloud_handoff.py` verifies the complete chain. Do not replay the successful connectivity test or reset completed jobs. Hosted technical jobs currently have no external tool/vault permissions; do not claim repository mutations merely from a successful text response. Existing hourly cadence applies, and uncertain submissions are reconciled with reads.

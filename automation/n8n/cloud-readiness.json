@@ -8,6 +8,7 @@
   "deployed_patch_count": 6,
   "additional_verified_production_revisions": 3,
   "metricool_verified_followup_revisions": 3,
+  "additional_ingress_verified": true,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -16,12 +17,12 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "02cc2d3c-daa2-4013-8c0b-d48f044eac63",
+      "published_version_at_handoff": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 100,
-      "candidate_nodes": 100,
+      "baseline_nodes": 110,
+      "candidate_nodes": 110,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"
