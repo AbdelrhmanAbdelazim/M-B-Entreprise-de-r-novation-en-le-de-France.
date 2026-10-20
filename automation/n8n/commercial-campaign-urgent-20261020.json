@@ -1,0 +1,68 @@
+{
+  "checked_at_utc": "2026-10-20T11:16:43.295214+00:00",
+  "campaign_id": "mb-commercial-20261020-html",
+  "manifest_sha256": "160876fbfe41b26cbd7c127495f90df04952787d201eb9e39c6e2f7c310fc250",
+  "approved_maximum": 14,
+  "report_delivery_instruction": {
+    "to": "abdelrhman.elshreef@gmail.com",
+    "subject": "M&B Rénovation — Rapport final de campagne",
+    "source": "latest_explicit_operator_instruction",
+    "updated_at_utc": "2026-10-20T11:16:43.295214+00:00",
+    "archive_via_IMAP_if_safe_interface_available": true
+  },
+  "result": "BLOCKED_BEFORE_DELIVERY",
+  "live_link_probes": {
+    "checked_at_utc": "2026-10-20T11:15:58.915118+00:00",
+    "results": [
+      {
+        "url": "https://www.maison-mb.fr/",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://maison-mb.fr/",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://www.maison-mb.fr/realisations/",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://www.maison-mb.fr/sous-traitance-renovation/",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://www.maison-mb.fr/plaquette.pdf",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://www.maison-mb.fr/images/realisations/chantier-moulures-cache-radiateurs.jpg",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      },
+      {
+        "url": "https://www.maison-mb.fr/images/realisations/avant-apres-douche.jpg",
+        "passed": false,
+        "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+      }
+    ]
+  },
+  "network_policy": "Enforced revision2 excludes both website domains; saved draft revision6 includes them. Available configuration tool saves drafts only; no apply/publish capability.",
+  "latest_W3_execution": "444",
+  "new_campaign_execution_id": null,
+  "new_customer_messages_SMTP_accepted": 0,
+  "report_sent": false,
+  "Sent_archive_verified": false,
+  "active_published_workflows": 14,
+  "workflow_schedule_credential_changes": false,
+  "queue_task_id": 145,
+  "queue_technical_hold_retained": true,
+  "report_builder_existing_tests_passed": 4,
+  "new_report_destination_checks_passed": true,
+  "safe_oneoff_execution_entry_installed": false,
+  "IMAP_APPEND_interface_available": false
+}
