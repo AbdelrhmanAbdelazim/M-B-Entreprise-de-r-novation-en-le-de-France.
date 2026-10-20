@@ -1,0 +1,35 @@
+{
+  "captured_at_utc": "2026-10-20T16:33:09.074471+00:00",
+  "source_lead_execution_id": "592",
+  "report_diagnostic_execution_id": "593",
+  "prepared_lead_ids": [
+    95,
+    96
+  ],
+  "existing_approved_queue_ids": [
+    179,
+    180
+  ],
+  "report_task_id": 181,
+  "customer_sends_this_operation": 0,
+  "customer_send_execution_ids": [],
+  "customer_smtp_receipts": [],
+  "report_smtp_accepted": false,
+  "report_blocker": "Existing daily execution593 produced dry_run=true / transport_executed=false and did not execute SMTP; no authorized direct report transport exposed. User prohibits workflow edits.",
+  "native_W3_template_unchanged": true,
+  "draft_personalization": "existing type-specific syndic/agence wording, exact native W3 HTML and text; no new body override",
+  "review": "Codex/OpenAI assistant deterministic source/HTML checks; no new hosted Manager review execution",
+  "next_existing_W3_cycle_paris": "2026-10-21T08:30:00+02:00",
+  "future_selection_checked": "isolated current-snapshot simulation only; both pass, subject to fresh runtime eligibility/quota",
+  "daily_customer_smtp_accepted": 24,
+  "daily_global_cap": 30,
+  "unsettled_customer_sends_today": 0,
+  "maximum_capacity_remaining_today": 6,
+  "current_business_window_closed": true,
+  "444_recipients_and_lead79_excluded": true,
+  "workflows_published_active": 15,
+  "workflow_versions_and_schedules_unchanged": true,
+  "new_workflow_executions_requested": 0,
+  "new_model_calls": 0,
+  "previous_campaign_reexecuted": false
+}
