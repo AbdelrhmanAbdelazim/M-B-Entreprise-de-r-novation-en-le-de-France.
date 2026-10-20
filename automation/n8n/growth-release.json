@@ -1,0 +1,259 @@
+{
+  "result": "PARTIALLY_LIVE_VERIFIED",
+  "full_requested_growth_engine_complete": false,
+  "captured_at_utc": "2026-10-20T14:27:08.693120+00:00",
+  "branch": "automation/growth-engine-safe-2026-10",
+  "base_project_commit": "5d4a4166b7596a21dcfdc353dd6b4f78baf2ab7c",
+  "existing_PR": 21,
+  "prior_cloud_handoff_merged_from": "79f085284044a69181262d22237a320a23dbb6d3",
+  "production": {
+    "total_workflow_definitions": 17,
+    "published_active": 15,
+    "original14_preserved_published_active": true,
+    "new_workflow": {
+      "id": "MyHbk1Xn67RftCnB",
+      "published_version_id": "8ab02a43-de9f-4f0c-a81a-dd20241ce9bf",
+      "snapshot": "revisions/growth-20261020/AI Continuous Improvement.json",
+      "sha256": "b733b6f01fb960190e6a09d7c7699139b84fe123623088f066b5043e1bdea6f7",
+      "source_path": "revisions/growth-20261020/improvement-source.js",
+      "source_sha256": "5c801c9e3af6b0bd613a0aa1cf2430d73feb820c28ab29132bc5befbaedb1e5b"
+    },
+    "changed_original_workflows": {
+      "My workflow": {
+        "id": "cKUyJSLOF69uXGnO",
+        "before_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+        "published_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+        "before_sha256": "639fee2e167a6712a6986c2f17e7b70c752d8e88077be4d0899ff2678d4df858",
+        "after_sha256": "a302ed095de850df8dc1dc3b4d5ba0252302108267201dde46298d73d27e4c10"
+      },
+      "W10": {
+        "id": "63yycckNMI9mXnkz",
+        "before_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+        "published_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+        "before_sha256": "098ba790d80f1ac5006f6dfa9b8c9c3fa20a57565405c45705f1d97266e90f0e",
+        "after_sha256": "221c1a372da32e2bb562ff031b7f4644d580e93a48731342bb0bcbec81e2eeb2"
+      }
+    },
+    "old_schedules_credentials_webhooks_tables_preserved": true,
+    "watchdog_no_self_route": true
+  },
+  "campaign145": {
+    "verified_at_utc": "2026-10-20T13:46:55.238481+00:00",
+    "campaign145_smtp_accepted": 14,
+    "campaign145_receipts_match_leads": true,
+    "campaign145_customer_execution_ids": [
+      "495",
+      "497",
+      "500",
+      "502",
+      "505",
+      "507",
+      "509",
+      "513",
+      "515",
+      "517",
+      "519",
+      "521",
+      "523",
+      "525"
+    ],
+    "report_SMTP_accepted_execution": "527",
+    "report_recipient_delivery_confirmed": false,
+    "Sent_archival_verified": false,
+    "temporary_workflow_id": "pSmkSOKAzuIs0jRW",
+    "temporary_active": false,
+    "temporary_published": false,
+    "temporary_production_POST_status": 404,
+    "operator_approval_consumed": true,
+    "execution444_receipts_backfilled_to_existing_action_rows": 10,
+    "lead79_resent": false,
+    "new_customer_sends": 0,
+    "send_statuses_changed": false,
+    "history_deleted": false
+  },
+  "safe_live_test": {
+    "request_id": "chatgpt-growth-audit-20261020-final",
+    "Manager_execution": "569",
+    "child_execution": "570",
+    "status": "completed_with_schema_validated_output",
+    "customer_or_operator_report_transport_executed": false,
+    "original_failure_execution": "539",
+    "original_failed_command_reconciled_as_failed": true,
+    "fixes": [
+      "single-run table reads and ID deduplication",
+      "premature n8n expression delimiters corrected",
+      "bounded concise JSON output",
+      "deterministic metrics separated from unverified model suggestions"
+    ],
+    "model_calls": [
+      {
+        "stage": "analysis",
+        "provider": "gemini",
+        "ok": false,
+        "usage": null
+      },
+      {
+        "stage": "analysis",
+        "provider": "openai",
+        "ok": true,
+        "usage": {
+          "prompt_tokens": 823,
+          "completion_tokens": 135,
+          "total_tokens": 958,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        }
+      },
+      {
+        "stage": "writing",
+        "provider": "claude",
+        "ok": true,
+        "usage": {
+          "input_tokens": 1613,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "output_tokens": 218,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        }
+      },
+      {
+        "stage": "review",
+        "provider": "openai",
+        "ok": true,
+        "usage": {
+          "prompt_tokens": 1200,
+          "completion_tokens": 134,
+          "total_tokens": 1334,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        }
+      }
+    ],
+    "Gemini_native_credential_test": "OK / Connection successful",
+    "Gemini_generation_last_result": "Service unavailable / model high demand; not a successful generation",
+    "W0_followup_error_executions_succeeded": [
+      "546",
+      "547"
+    ]
+  },
+  "offline_tests": {
+    "new_JS_cases": 35,
+    "new_growth_provenance_Python_cases": 3,
+    "directly_affected_previous_handoff_Python_cases": 24,
+    "full_W10_calendar_Code_node_replay": "passed;8 future drafts/review gate; no transport",
+    "new_report_scheduled_SMTP_delivery": "NOT TESTED; no test email sent",
+    "new_W10_post_change_scheduled_cycle": "not yet observed"
+  },
+  "actual_schedule": {
+    "unchanged_W3": "30 8 * * 1-4 Europe/Paris",
+    "unchanged_W4": "30 9 * * 1-4 Europe/Paris",
+    "unchanged_W5": "0 8,18 * * * Europe/Paris (existing Telegram report)",
+    "new_improvement_and_owner_email": "15 18 * * * Europe/Paris",
+    "weekly_comparison": "Monday in the same18:15 email; no duplicate weekly timer",
+    "daily_report_recipient": "abdelrhman.elshreef@gmail.com",
+    "new_report_first_scheduled_execution_pending": true,
+    "SMTP_retry": "disabled; reserve-before-send, fresh ownership check; uncertain results held"
+  },
+  "AI_specialization": {
+    "research_analysis": [
+      "Gemini",
+      "OpenAI",
+      "Claude"
+    ],
+    "content_writing": [
+      "Claude",
+      "OpenAI",
+      "Gemini"
+    ],
+    "management_quality_review": [
+      "OpenAI",
+      "Gemini",
+      "Claude"
+    ],
+    "all_provider_failure": "W0",
+    "new_customer_AI_copy_chain_enabled": false,
+    "note": "New roles deployed in W10 writing, Manager quality review and the observer; existing W1/W2/W3/W4/W7 delivery/qualification architecture otherwise retained"
+  },
+  "content": {
+    "draft_channels": [
+      "Facebook",
+      "Instagram",
+      "Threads",
+      "LinkedIn",
+      "TikTok",
+      "YouTube Shorts",
+      "Pinterest",
+      "Google Business Profile"
+    ],
+    "newly_generated_drafts_only": true,
+    "old_drafts_modified": false,
+    "human_and_media_approval_retained": true,
+    "provider_publish_transport_enabled": false,
+    "existing_Metricool_posts_untouched": [
+      "391473955",
+      "391474031",
+      "391474116",
+      "397725911"
+    ],
+    "external_post_states_verified": false,
+    "post391473868_uncertain_no_resend_hold_preserved": true,
+    "unproven_content_brief_auto_completion_blocked": true
+  },
+  "data_tables": {
+    "Task_Queue_Content_Queue_Actions_Log": "Existing Growth Queue by typed records",
+    "Leads": "existing leads",
+    "Blacklist": "existing blacklist",
+    "Journal": "existing journal",
+    "Clients": "existing clients",
+    "new_tables_created": 0,
+    "schema_changes": 0
+  },
+  "remaining": {
+    "Metricool_Windsor": "No usable credential/token binding exposed; variables API403. External account connections do not establish runtime API permission. No provider status, analytics or publish success claimed.",
+    "Meta_other_social": "No exposed official OAuth/app-client/publishing authorization; no transport enabled or accounts reconnected.",
+    "Gemini": "Valid credential; last generation service unavailable, fallback operational.",
+    "website_SEO": "Current Cloud enforced revision2 still lacks website hosts; no live website HTTP verification or website changes. Do not ask to add already-published domains again.",
+    "customer_model_pipeline": "Existing acquisition/suppression/approved templates remain; a new per-prospect Gemini→Claude→OpenAI sending gate was not inserted. Requires separately verified delivery-impacting rollout.",
+    "sales_attribution": "No proven quotes/contracts/site-visits data in connected tables. UTM/site deployment not changed without verified analytics/review.",
+    "autonomous_code_changes": "Hosted Agent still has no external tool/vault grants; suggestions are stored/reported, mutation allowlist empty. No self-approval, auto-merge or policy changes.",
+    "ordinary_ChatGPT_app": "Account registration/consent and ChatGPT-origin tool test remain unverified; authenticated Cloud ingress/Manager path verified.",
+    "Sent_IMAP": "Previous report527 SMTP accepted; no safe exposed IMAP LIST/APPEND/UID interface, Sent archival not verified."
+  },
+  "safety": {
+    "customer_messages_sent_this_work": 0,
+    "test_public_posts": 0,
+    "new_or_changed_ads": 0,
+    "paid_subscriptions_added": 0,
+    "advertising_spend": 0,
+    "API_billed_cost": "unknown; existing authorized model calls logged by token usage",
+    "lead79_resent": false,
+    "campaign145_reexecuted": false,
+    "histories_deleted": false,
+    "all_original_table_fields_statuses_unchanged_except_queue_metadata": "Only campaign closure flags, existing action receipt enrichment, and four external post observations were written; no contact field/status resets."
+  }
+}

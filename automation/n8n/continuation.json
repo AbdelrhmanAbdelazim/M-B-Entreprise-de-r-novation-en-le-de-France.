@@ -1,7 +1,7 @@
 {
   "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
   "recorded_at_utc": "2026-10-19T19:33:09.951826+00:00",
-  "branch": "codex/growth-engine-883e99b",
+  "branch": "automation/growth-engine-safe-2026-10",
   "live_state": {
     "verified": true,
     "N8N_BASE_URL_present": true,
@@ -145,6 +145,14 @@
       "offline_browser_layouts": 4,
       "campaign_executed": false,
       "approval_required": true
+    },
+    "growth_release": {
+      "read_only_live_execution": "570",
+      "Manager_execution": "569",
+      "Gemini_credential_test": "OK",
+      "Gemini_generation": "Provider service unavailable/high demand; OpenAI fallback succeeded",
+      "Claude_OpenAI_generation": "schema-validated successful output",
+      "models_customer_delivery": false
     }
   },
   "existing_table_roles": {
@@ -326,5 +334,9 @@
   "commercial_revision": {
     "path": "revisions/commercial-email-20261020/verification.json",
     "sha256": "e4cc927be0f217a11d670280a74ade762a94e9a573cb02e49b2286265f762430"
+  },
+  "growth_revision": {
+    "path": "revisions/growth-20261020/verification.json",
+    "sha256": "3b1cc05fc3f24124e7fbdc4ffb74241c877bb6cfe6176a03f582ab1a6eb780fe"
   }
 }

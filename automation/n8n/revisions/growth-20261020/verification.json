@@ -1,0 +1,32 @@
+{
+  "captured_at_utc": "2026-10-20T14:06:27.004637+00:00",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "published_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+      "before_sha256": "639fee2e167a6712a6986c2f17e7b70c752d8e88077be4d0899ff2678d4df858",
+      "after_sha256": "a302ed095de850df8dc1dc3b4d5ba0252302108267201dde46298d73d27e4c10"
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "before_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "published_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+      "before_sha256": "098ba790d80f1ac5006f6dfa9b8c9c3fa20a57565405c45705f1d97266e90f0e",
+      "after_sha256": "221c1a372da32e2bb562ff031b7f4644d580e93a48731342bb0bcbec81e2eeb2"
+    }
+  },
+  "new_workflow": {
+    "id": "MyHbk1Xn67RftCnB",
+    "published_version_id": "8ab02a43-de9f-4f0c-a81a-dd20241ce9bf",
+    "snapshot": "revisions/growth-20261020/AI Continuous Improvement.json",
+    "sha256": "b733b6f01fb960190e6a09d7c7699139b84fe123623088f066b5043e1bdea6f7",
+    "source_path": "revisions/growth-20261020/improvement-source.js",
+    "source_sha256": "5c801c9e3af6b0bd613a0aa1cf2430d73feb820c28ab29132bc5befbaedb1e5b"
+  },
+  "source_sha256": "5c801c9e3af6b0bd613a0aa1cf2430d73feb820c28ab29132bc5befbaedb1e5b",
+  "content_source": {
+    "path": "revisions/growth-20261020/content-source.js",
+    "sha256": "696885a97dfc5b369652535e28d10a1aff3f0d80006fe9ba5b13f9fa435a13dd"
+  }
+}

@@ -1,9 +1,9 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-20T11:00:56.095613+00:00",
+  "captured_at_utc": "2026-10-20T14:27:08.693120+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
-  "branch": "codex/growth-engine-883e99b",
-  "inventory_count": 13,
+  "branch": "automation/growth-engine-safe-2026-10",
+  "inventory_count": 17,
   "expected_workflow_count": 12,
   "unrelated_workflows_modified": false,
   "workflow_execution_requested": false,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
-      "active_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+      "active_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -166,8 +166,8 @@
       "name": "W10 – Idées de contenu (vidéos)",
       "active": true,
       "published": true,
-      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
-      "active_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+      "active_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "commercial-email-release.json",
+  "latest_release": "growth-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
@@ -283,5 +283,14 @@
     "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
     "active_version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a"
   },
-  "chatgpt_mcp_connection": "BLOCKED_PENDING_ACCOUNT_REGISTRATION_AND_OAUTH_CONSENT"
+  "chatgpt_mcp_connection": "BLOCKED_PENDING_ACCOUNT_REGISTRATION_AND_OAUTH_CONSENT",
+  "additional_improvement": {
+    "id": "MyHbk1Xn67RftCnB",
+    "active": true,
+    "published": true,
+    "version_id": "8ab02a43-de9f-4f0c-a81a-dd20241ce9bf",
+    "schedule": "15 18 * * *",
+    "timezone": "Europe/Paris",
+    "first_scheduled_email_not_yet_observed": true
+  }
 }

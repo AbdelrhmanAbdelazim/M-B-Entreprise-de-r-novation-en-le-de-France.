@@ -13,6 +13,7 @@
   "management_revisions_verified": 5,
   "social_safety_revision_verified": true,
   "commercial_email_revisions_verified": 2,
+  "growth_revisions_verified": 2,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -21,12 +22,12 @@
     {
       "workflow": "My workflow",
       "id": "cKUyJSLOF69uXGnO",
-      "published_version_at_handoff": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "published_version_at_handoff": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
-      "baseline_nodes": 114,
-      "candidate_nodes": 114,
+      "baseline_nodes": 117,
+      "candidate_nodes": 117,
       "timezone": "Europe/Paris",
       "retained_cron": [
         "0 * * * *"
@@ -62,7 +63,7 @@
     {
       "workflow": "W10",
       "id": "63yycckNMI9mXnkz",
-      "published_version_at_handoff": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "published_version_at_handoff": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,

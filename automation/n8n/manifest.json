@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "W3/W4 shared multipart HTML harmonization verified Published/Active; no campaign execution before explicit operator approval.",
-  "latest_live_refresh": "2026-10-20T11:00:56.095613+00:00",
+  "source": "Live read-back after requested growth specialist/observer release; older immutable releases retained.",
+  "latest_live_refresh": "2026-10-20T14:27:08.693120+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -27,13 +27,13 @@
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T19:33:09.951826+00:00",
-      "source_sha256": "9536e38a8b3bc09d2d6ce7e4e5d1f8c8f07548c67a1fe5dbcd8b6b5e1a9e1c9a",
-      "public_sha256": "639fee2e167a6712a6986c2f17e7b70c752d8e88077be4d0899ff2678d4df858",
+      "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
+      "source_sha256": "950b4f14132607c309a84a90fb6fadcadcee38146c63e395dd94e8b747ece730",
+      "public_sha256": "a302ed095de850df8dc1dc3b4d5ba0252302108267201dde46298d73d27e4c10",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -54,9 +54,9 @@
         "/nodes/91/credentials/openAiApi/id",
         "/nodes/94/webhookId"
       ],
-      "published_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "published_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
+      "latest_readback_at_utc": "2026-10-20T14:27:08.693120+00:00"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -174,13 +174,13 @@
     "W10": {
       "id": "63yycckNMI9mXnkz",
       "name": "W10 – Idées de contenu (vidéos)",
-      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T10:50:49.200671+00:00",
-      "source_sha256": "98eb1d0617da430515872a96e3e424cc9731d1e80511c2353c92eb4660e8e96b",
-      "public_sha256": "098ba790d80f1ac5006f6dfa9b8c9c3fa20a57565405c45705f1d97266e90f0e",
+      "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
+      "source_sha256": "65d7e27d933a915606b50782c76d35da5711451265c53cbff21bd4e785c80f03",
+      "public_sha256": "221c1a372da32e2bb562ff031b7f4644d580e93a48731342bb0bcbec81e2eeb2",
       "redacted_paths": [
         "/nodes/13/credentials/googlePalmApi/id",
         "/nodes/19/credentials/openAiApi/id",
@@ -192,9 +192,9 @@
         "/nodes/9/parameters/chatId",
         "/nodes/9/webhookId"
       ],
-      "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "published_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
+      "latest_readback_at_utc": "2026-10-20T14:27:08.693120+00:00"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",

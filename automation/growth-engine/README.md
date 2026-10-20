@@ -1,12 +1,12 @@
 # M&B Rénovation — Growth Engine, production-safe rollout
 
-Status: **SPECIFICATION / NOT DEPLOYED**. This branch is intentionally isolated; no production workflow was changed by this file.
+Status: **PARTIALLY DEPLOYED / VERIFIED LIVE COMPONENTS**. See [LIVE.md](LIVE.md) and [growth-release.json](../n8n/growth-release.json). The original blueprint below remains a target; do not interpret its unchecked stages as completed. The existing14 production workflows remain active, plus the newly requested daily observer.
 
 ## Verified operational baseline (2026-10-20)
-- n8n has 14 workflows (W0–W10 and integration workflows). Preserve the existing production timers, W3 daily email, W4 follow-up, W7 leads, W1 inbound responses, W0 error logging.
-- User/Codex reported 14 SMTP-accepted messages for the approved single-use campaign, and SMTP acceptance of report during execution 527. Verify temporary campaign has been disabled; never assume inbox delivery.
-- Metricool connected brand ID **7298712** under brand label `MohamedAbdelrahman90` (verify company ownership/branding before publication). Reported network connections: Facebook, Instagram, Threads, LinkedIn, Pinterest, TikTok, GBP and YouTube. **Do not infer API publishing entitlement from listed connections.**
-- Metricool API inspection shows already-scheduled `autoPublish:true` PENDING items: post 391473955 on Oct 20 at 18:00 Paris; 391474031 on Oct 21 at 18:00; 391474116 on Oct 22 at 18:00; 397725911 on Oct 22 at 20:30. These are NOT confirmed published. Check provider-specific statuses before retries. Previous post 391473868 encountered Metricool account limit; never blindly retry or reschedule.
+- The original14 production workflows remain active; current rollout adds the requested observer (15 active of17 definitions). Preserve the existing production timers, W3 daily email, W4 follow-up, W7 leads, W1 inbound responses, W0 error logging.
+- Live receipts verified:14 unique SMTP-accepted messages matched stored Lead Message-IDs; report527 was accepted by SMTP. The temporary workflow is inactive/unpublished, its production POST returned404 and the approval is marked consumed. Never rerun the campaign or infer inbox/Sent delivery.
+- Previously reported Metricool brand ID **7298712** under brand label `MohamedAbdelrahman90` (verify company ownership/branding before publication). Reported network connections: Facebook, Instagram, Threads, LinkedIn, Pinterest, TikTok, GBP and YouTube. **Do not infer API publishing entitlement from listed connections.**
+- The project’s prior Metricool inspection reported already-scheduled `autoPublish:true` PENDING items: post 391473955 on Oct 20 at 18:00 Paris; 391474031 on Oct 21 at 18:00; 391474116 on Oct 22 at 18:00; 397725911 on Oct 22 at 20:30. These are NOT confirmed published. Check provider-specific statuses before retries. Previous post 391473868 encountered Metricool account limit; never blindly retry or reschedule.
 - Existing GitHub n8n JSON files are redacted backups. Do not import them over production or mistake a Git commit for a deployment.
 
 ## Target architecture (reuse, do not duplicate)
