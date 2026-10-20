@@ -1,3 +1,7 @@
+## Current Meta read-only evidence — 20 October2026
+
+The existing shared OAuth credential now successfully authenticates the user: native613→614 read Graphv26 identity, actual permissions and complete Pages list. Actual grants: pages_show_list, pages_read_engagement, public_profile. Pages list is empty; company Facebook Page ID and linked Instagram remain unverified. Missing: pages_manage_posts, instagram_basic, instagram_content_publish. No Page token provisioning or publishing transport was enabled. Review those scopes and complete company Page/IG consent through the existing credential; account Connected is insufficient. Other platforms and existing uncertain/scheduled Metricool items remain at their documented boundaries. See provider-readonly-release.json; prior release notes below are historical.
+
 # Direct official publishing — actual deployment boundary
 
 The existing Manager now prepares future official-channel publication intents, using W10's existing calendar/approval state. It no longer creates **new Metricool publication slots**. Legacy Metricool receipt/state reconciliation remains available for existing slots; no Metricool item was submitted, changed, cancelled or retried. The sole publication table is still the existing typed Growth Queue. This is a queue/preflight deployment, **not a working platform publishing transport**.

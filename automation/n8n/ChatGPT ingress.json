@@ -1,5 +1,8 @@
 {
+  "id": "JcFvUMfm9orHdKbu",
   "name": "M&B – ChatGPT production ingress",
+  "active": true,
+  "versionId": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
   "nodes": [
     {
       "id": "cc89fff9-d658-4306-8596-fbb109b83133",
@@ -695,6 +698,699 @@
       "parameters": {
         "jsCode": "// Pure public-boundary logic. No credentials or HTTP transports are stored here.\nfunction ingressHash(s){let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return(a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');}\nfunction ingressError(code,error){return {code,response:{error}};}\nfunction ingressParse(raw,mode){\n const h=raw.headers||{},b=mode==='status'?raw.query:raw.body;\n if(![h['x-n8n-api-key'],h['x-mb-mcp-key']].some(v=>typeof v==='string'&&v.trim()))return ingressError(401,'authentication_required');\n if(!b||typeof b!=='object'||Array.isArray(b))return ingressError(400,'json_object_required');\n const input={mode};\n if(mode==='command'){\n  if(!String(h['content-type']||'').toLowerCase().startsWith('application/json'))return ingressError(415,'application_json_required');\n  if(Object.keys(b).some(k=>!['task','source','request_id','route'].includes(k)))return ingressError(400,'unknown_request_field');\n  if(b.source!=='chatgpt'||typeof b.task!=='string'||!b.task.trim()||b.task.length>12000)return ingressError(400,'invalid_task_or_source');\n  input.task=b.task.trim();\n  if(/\\b(?:sk-(?:proj-|ant-)?[a-zA-Z0-9_-]{12,}|Bearer\\s+\\S+|(?:api[_-]?key|password|access_token)\\s*[:=]\\s*[^\\s,;}]+)/i.test(input.task))return ingressError(400,'secret_bearing_task_rejected');\n  if(b.route!==undefined&&!['technical','manager'].includes(b.route))return ingressError(400,'invalid_route');\n  input.route=b.route||(/\\b(codex|agent|workflow|w(?:[0-9]|10)|code|website|api|n8n|technical|debug|fix|review|reply only)\\b|تعديل|راجع الموقع|برمج|تقني|إصلاح/i.test(input.task)?'technical':'manager');\n  if(/\\b(?:ads?|advertising|budget|campaign)\\b|إعلان|ميزانية/i.test(input.task))input.route='manager';\n  input.source='chatgpt';\n }\n const supplied=b.request_id??h['idempotency-key'];\n if(b.request_id&&h['idempotency-key']&&b.request_id!==h['idempotency-key'])return ingressError(400,'conflicting_idempotency_keys');\n const key=supplied??(mode==='command'?(h['x-mb-mcp-key']?'mcp-auto-':'auto-')+ingressHash('chatgpt|'+input.route+'|'+input.task):'');\n if(typeof key!=='string'||! /^[A-Za-z0-9][A-Za-z0-9._:-]{7,119}$/.test(key))return ingressError(400,'invalid_request_id');\n return {...input,request_id:key,task_key:'chatgpt:'+key};\n}\nfunction ingressPayload(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction ingressView(row,request){\n const p=ingressPayload(row);\n if(!row?.type)return {code:404,response:{request_id:request.request_id,error:'request_not_found'}};\n if(request.task&&(p.instruction!==request.task||p.route!==request.route))return {code:409,response:{request_id:request.request_id,error:'request_id_already_bound_to_different_command'}};\n const done=row.status==='done'&&!!p.result;\n return {code:done?200:202,response:{request_id:request.request_id,codex_task_id:row.type==='agent_task'?row.task_key:null,task_id:row.task_key,status:row.status,result:done?p.result:null,error:p.error||null,ingress_execution_id:p.ingress_execution_id||null,manager_execution_id:p.manager_execution_id||null,status_url:'/webhook/__PRIVATE_9f1529b2_a658_4844_b73f_1e79ccc82b25_WEBHOOK_PATH__?request_id='+encodeURIComponent(request.request_id)}};\n}\nfunction ingressInitial(request,row,now,executionId){\n const technical=request.route==='technical';\n return {task_key:request.task_key,type:technical?'agent_task':'manager_request',priority:'WARM',source:'chatgpt',owner:technical?'Codex':'Manager',status:'ready',created_at:now,last_action:now,next_action:'Authenticated ChatGPT request accepted; Manager dispatch pending',due_at:now,payload:JSON.stringify({request_id:request.request_id,instruction:request.task,route:request.route,requested_by:'ChatGPT via Manager',scope:'existing_permissions_only_no_test_delivery',ingress_execution_id:String(executionId)})};\n}\nfunction ingressManagerContext(row){\n const p=ingressPayload(row),fromQueue=row.type==='manager_request';\n const r={request_id:row.request_id||p.request_id,task_key:row.task_key,task:fromQueue?p.instruction:row.task,route:fromQueue?p.route:row.route,source:row.source};\n if(r.source!=='chatgpt'||r.route!=='manager'||typeof r.task!=='string'||!r.task.trim()||r.task_key!=='chatgpt:'+r.request_id)throw new Error('INVALID_MANAGER_REQUEST_CONTEXT');\n return r;\n}\nfunction ingressManagerPending(queue){return queue.filter(r=>r.type==='manager_request'&&r.source==='chatgpt'&&r.status==='ready').sort((a,b)=>String(a.created_at).localeCompare(String(b.created_at))).slice(0,1);}\n\nfunction ingressBridgeAuthorize(request,actualHash,expectedHash){\n const a=String(actualHash||'').toLowerCase(),b=String(expectedHash||'').toLowerCase();let diff=a.length^b.length;\n for(let i=0;i<64;i++)diff|=(a.charCodeAt(i)||0)^(b.charCodeAt(i)||0);\n if(diff!==0||!/^[0-9a-f]{64}$/.test(a))return ingressError(401,'authentication_failed');\n if(!String(request.request_id||'').startsWith('mcp-'))return ingressError(403,'mcp_request_namespace_required');\n if(request.mode==='command'&&request.route!=='technical')return ingressError(403,'mcp_key_technical_scope_only');\n return {limited_bridge_authenticated:true};\n}\n\nconst r=$('ChatGPT – requête valide ?').first().json;return [{json:ingressBridgeAuthorize(r,$json.bridge_key_hash,'2ff161282b6f524ee608ae35547225d29d983989fbe2e8cd86acd3b635bc400a')}];"
       }
+    },
+    {
+      "id": "60ee7793-c2d5-47a0-a863-740e5f5d1482",
+      "name": "Provider – diagnostic interne",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        4400
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    },
+    {
+      "id": "235a8202-f5a9-4764-b2f6-b1bc1e961f2d",
+      "name": "Provider – valider contexte",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        4450
+      ],
+      "parameters": {
+        "jsCode": "if($json.provider_readonly!==true||$json.source!=='mb-manager-readonly')throw new Error('PROVIDER_READONLY_INTERNAL_CONTEXT_REQUIRED');return [{json:{provider_readonly:true}}];"
+      }
+    },
+    {
+      "id": "0a407140-91a2-4911-8545-417736e36e03",
+      "name": "Provider – Queue sûre",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        0,
+        4500
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "returnAll": true
+      }
+    },
+    {
+      "id": "c3796ad9-eaac-45e2-b311-a46504d6204f",
+      "name": "Provider – contexte sans secret",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        4550
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nreturn [{json:pvSeed($input.all().map(x=>x.json),new Date().toISOString(),$execution.id)}];"
+      }
+    },
+    {
+      "id": "588c4043-db38-4f0b-a273-26c6e6167a84",
+      "name": "Meta – identité lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        520,
+        4600
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v26.0/me",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "id,name"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "cd6a0125-d37c-4114-96f1-11c6e5870d67",
+      "name": "Meta – identité sûre",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        4650
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Provider – contexte sans secret').first().json;return [{json:pvUser(state,$json)}];"
+      }
+    },
+    {
+      "id": "1316ade3-0ed4-4a61-a4cd-c70ccfb9fa60",
+      "name": "Meta – authentifié ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        4700
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c68a0b67-1b5e-4b73-a35b-675aa808a9e6",
+              "leftValue": "={{ $json.meta.user_identity_read===true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "b1350883-c40f-4e66-bdb6-ac200f3ea37b",
+      "name": "Meta – permissions lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        1300,
+        4750
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v26.0/me/permissions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "90eaffe9-f72b-4d60-aad5-298231cc43b6",
+      "name": "Meta – permissions sûres",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        4800
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Meta – identité sûre').first().json;return [{json:pvPermissions(state,$json)}];"
+      }
+    },
+    {
+      "id": "7df88a1f-e16e-4744-8351-99fa98d31a15",
+      "name": "Meta – pages lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        260,
+        4850
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v26.0/me/accounts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "id,name,tasks,instagram_business_account{id,username}"
+            },
+            {
+              "name": "limit",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "4eebc11f-f211-46f5-a7d1-4f43c405ec61",
+      "name": "Meta – pages sûres",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        4900
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Meta – permissions sûres').first().json;return [{json:pvPages(state,$json)}];"
+      }
+    },
+    {
+      "id": "34405eab-047e-42d1-9be6-7263e1312535",
+      "name": "Meta – page unique ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        780,
+        4950
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e711b5d4-797c-4a7b-95bd-474eb50bd2cf",
+              "leftValue": "={{ typeof $json.meta.page?.id==='string' && /^\\d+$/.test($json.meta.page.id) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "d3fe3c50-f002-49f2-a424-fceee1b84d6e",
+      "name": "Meta – page identité lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        1040,
+        5000
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://graph.facebook.com/v26.0/'+$json.meta.page.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "id,name,link"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "e876348e-53af-4026-b128-d3079adf2ca0",
+      "name": "Meta – page identité sûre",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        5050
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Meta – pages sûres').first().json;return [{json:pvPageIdentity(state,$json)}];"
+      }
+    },
+    {
+      "id": "e4462c31-027f-4818-9711-f4ac3558b5cf",
+      "name": "Meta – Instagram lié ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        5100
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "923a6b99-e2c3-4f64-ada2-8795b9ba1c94",
+              "leftValue": "={{ typeof $json.meta.page?.instagram_id==='string' && /^\\d+$/.test($json.meta.page.instagram_id) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "0e9280f7-fae4-428f-97f0-9264a551dc50",
+      "name": "Meta – Instagram identité lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        260,
+        5150
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://graph.facebook.com/v26.0/'+$json.meta.page.instagram_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "id,username,name"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "23af7652-9c57-4bfd-9d3c-92dd9f43f94e",
+      "name": "Meta – Instagram identité sûre",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        5200
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Meta – Instagram lié ?').first().json;return [{json:pvInstagram(state,$json)}];"
+      }
+    },
+    {
+      "id": "608f8d97-9b0a-4469-a1ab-2625911df3b0",
+      "name": "Meta – Instagram quota lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        780,
+        5250
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://graph.facebook.com/v26.0/'+$json.meta.page.instagram_id+'/content_publishing_limit' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "config,quota_usage"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "__EXISTING_OAUTH2API_CREDENTIAL_ID__",
+          "name": "M&B Meta direct — awaiting company app OAuth"
+        }
+      }
+    },
+    {
+      "id": "70785c51-1801-4647-90b3-382971cd53d3",
+      "name": "Meta – Instagram quota sûr",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        5300
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Meta – Instagram identité sûre').first().json;return [{json:pvInstagramLimit(state,$json)}];"
+      }
+    },
+    {
+      "id": "bc6ed255-e7fc-4809-9858-e26e0b2dd7b7",
+      "name": "Provider – contexte Runway",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        5350
+      ],
+      "parameters": {
+        "jsCode": "return [{json:$json}];"
+      }
+    },
+    {
+      "id": "eac6f8f5-63e6-4b8f-b7c2-f3447254f68c",
+      "name": "Runway – organisation lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        0,
+        5400
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.dev.runwayml.com/v1/organization",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Runway-Version",
+              "value": "2024-11-06"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "__EXISTING_HTTPHEADERAUTH_CREDENTIAL_ID__",
+          "name": "M&B Runway — API"
+        }
+      }
+    },
+    {
+      "id": "3576fc2c-e34c-4dbe-b83e-82879452d08b",
+      "name": "Runway – résultat sûr",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        5450
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Provider – contexte Runway').first().json;return [{json:pvRunway(state,$json)}];"
+      }
+    },
+    {
+      "id": "65feb5bc-31de-4395-98e1-a483ed8fb288",
+      "name": "Creatomate – rendu existant ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        5500
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9372dcf0-3d66-44ef-b0c4-b801b7792ab6",
+              "leftValue": "={{ typeof $json.creatomate.render_id==='string' && /^[a-f0-9-]{36}$/i.test($json.creatomate.render_id) }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "06ac9cf5-bdef-47df-bc9c-3db1f9134c67",
+      "name": "Creatomate – rendu lecture",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        780,
+        5550
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://api.creatomate.com/v1/renders/'+$json.creatomate.render_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 8000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "__EXISTING_HTTPHEADERAUTH_CREDENTIAL_ID__",
+          "name": "M&B Creatomate — API (awaiting secure input)"
+        }
+      }
+    },
+    {
+      "id": "d40cf8db-a9c3-4bf7-86ae-d9fdd79a2899",
+      "name": "Creatomate – résultat sûr",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        5600
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nconst state=$('Runway – résultat sûr').first().json;return [{json:pvCreatomate(state,$json)}];"
+      }
+    },
+    {
+      "id": "d7a06508-e8ef-49d4-bad6-de8a534b2080",
+      "name": "Provider – résultat public",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        5650
+      ],
+      "parameters": {
+        "jsCode": "// Safe response projection only. Raw provider headers/errors/paging URLs must never leave the no-save ingress child.\nfunction pvJSON(row){try{return JSON.parse(row?.payload||'{}');}catch{return {};}}\nfunction pvSeed(rows,now,execution){\n const ids=[...new Set(rows.filter(r=>r.type==='content').map(pvJSON).map(p=>p.video_draft?.render_id).filter(v=>typeof v==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(v)))];\n return {observed_at_utc:now,execution_id:String(execution),read_only:true,publish_requests:0,generation_requests:0,meta:{},creatomate:{credential_present:true,render_id:ids.length===1?ids[0]:null,authentication_verified:false,plan:null,credits:null},runway:{credential_present:true},requests:[]};\n}\nfunction pvBody(raw){return raw?.body&&typeof raw.body==='object'?raw.body:{};}\nfunction pvStatus(raw){return Number.isInteger(raw?.statusCode)?raw.statusCode:0;}\nfunction pvID(value){return typeof value==='string'&&/^\\d+$/.test(value)?value:null;}\nfunction pvText(value,max=160){return typeof value==='string'?value.replace(/[\\u0000-\\u001f]/g,' ').slice(0,max):null;}\nfunction pvTrace(state,service,path,raw){\n const body=pvBody(raw),s=pvStatus(raw),c=body.error?.code;\n state.requests.push({service,method:'GET',path,http_status:s,provider_error_code:Number.isFinite(c)?c:null,success:s===200&&!body.error,transport_failed:!!raw?.error&&!s});return body;\n}\nfunction pvUser(state,raw){const b=pvTrace(state,'meta','/v26.0/me',raw);state.meta.user_identity_read=pvStatus(raw)===200&&!!pvID(b.id);state.meta.user_identity=state.meta.user_identity_read?{id:pvID(b.id),name:pvText(b.name)}:null;return state;}\nfunction pvPermissions(state,raw){const b=pvTrace(state,'meta','/v26.0/me/permissions',raw);state.meta.permissions_complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;state.meta.permissions=(Array.isArray(b.data)?b.data:[]).filter(p=>/^[a-z_]+$/.test(p.permission||'')&&['granted','declined','expired'].includes(p.status)).map(p=>({permission:p.permission,status:p.status}));return state;}\nfunction pvPages(state,raw){\n const b=pvTrace(state,'meta','/v26.0/me/accounts',raw),complete=pvStatus(raw)===200&&Array.isArray(b.data)&&!b.paging?.next;\n state.meta.pages_complete=complete;const pages=(Array.isArray(b.data)?b.data:[]).filter(p=>pvID(p.id)&&typeof p.name==='string');state.meta.accessible_page_count=pages.length;\n const candidates=pages.filter(p=>{const n=p.name.normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');return n.startsWith('mb')&&n.includes('renov');}).map(p=>({id:pvID(p.id),name:pvText(p.name),tasks:(Array.isArray(p.tasks)?p.tasks:[]).filter(t=>/^[A-Z_]+$/.test(t)),instagram_id:pvID(p.instagram_business_account?.id),instagram_username:pvText(p.instagram_business_account?.username)}));\n state.meta.company_page_candidates=candidates;state.meta.page=complete&&candidates.length===1?candidates[0]:null;state.meta.page_selection_reason=state.meta.page?'unique_matching_company_page':!complete?'page_list_failed_or_incomplete':'no_unique_company_page';return state;\n}\nfunction pvPageIdentity(state,raw){const b=pvTrace(state,'meta','/v26.0/{selected_page_id}',raw);state.meta.page_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.id;return state;}\nfunction pvInstagram(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}',raw);state.meta.instagram_identity_verified=pvStatus(raw)===200&&pvID(b.id)===state.meta.page?.instagram_id;state.meta.instagram_username=state.meta.instagram_identity_verified?pvText(b.username):null;return state;}\nfunction pvInstagramLimit(state,raw){const b=pvTrace(state,'meta','/v26.0/{linked_ig_id}/content_publishing_limit',raw),l=Array.isArray(b.data)?b.data[0]:null;const verified=pvStatus(raw)===200&&Number.isInteger(l?.quota_usage)&&Number.isInteger(l?.config?.quota_total);state.meta.instagram_quota=verified?{verified:true,used:l.quota_usage,total:l.config.quota_total,available:l.quota_usage<l.config.quota_total}:{verified:false};return state;}\nfunction pvRunway(state,raw){const b=pvTrace(state,'runway','/v1/organization',raw),ok=pvStatus(raw)===200&&Number.isFinite(b.creditBalance)&&b.tier&&typeof b.tier==='object';state.runway={credential_present:true,authentication_verified:!!ok,api_credits:ok?b.creditBalance:null,tier:ok?{max_monthly_credit_spend:Number.isFinite(b.tier.maxMonthlyCreditSpend)?b.tier.maxMonthlyCreditSpend:null,models:Object.entries(b.tier.models||{}).filter(([name])=>/^[\\w.-]{1,100}$/.test(name)).slice(0,100).map(([model,x])=>({model,max_daily_generations:Number.isFinite(x.maxDailyGenerations)?x.maxDailyGenerations:null,max_concurrent_generations:Number.isFinite(x.maxConcurrentGenerations)?x.maxConcurrentGenerations:null}))}:null,generation_enabled:false,spend_authorized:false};return state;}\nfunction pvCreatomate(state,raw){if(!state.creatomate.render_id)return state;const b=pvTrace(state,'creatomate','/v1/renders/{existing_render_id}',raw);state.creatomate.authentication_verified=pvStatus(raw)===200&&b.id===state.creatomate.render_id;state.creatomate.render_status=state.creatomate.authentication_verified?pvText(b.status,40):null;return state;}\nfunction pvFinal(state){const m=state.meta,granted=new Set((m.permissions||[]).filter(p=>p.status==='granted').map(p=>p.permission));m.required_scopes={facebook:['pages_show_list','pages_read_engagement','pages_manage_posts'],instagram:['pages_show_list','pages_read_engagement','instagram_basic','instagram_content_publish']};m.missing_scopes=Object.fromEntries(Object.entries(m.required_scopes).map(([k,v])=>[k,v.filter(x=>!granted.has(x))]));m.facebook_publishing_scope_granted=m.permissions_complete===true&&granted.has('pages_manage_posts');m.instagram_publishing_scope_granted=m.permissions_complete===true&&granted.has('instagram_content_publish');m.page_create_content_task=!!m.page?.tasks.some(t=>['CREATE_CONTENT','MANAGE'].includes(t));m.target_page_credential_verified=false;m.publisher_enabled=false;\n if(!state.creatomate.render_id)state.creatomate.verification_reason='No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.';\n state.creatomate.render_enabled=false;state.creatomate.plan_verified=false;state.creatomate.credits_verified=false;state.rendering_enabled=false;state.publishing_enabled=false;return state;}\n\nreturn [{json:{output:JSON.stringify(pvFinal($json))}}];"
+      }
     }
   ],
   "connections": {
@@ -1018,9 +1714,312 @@
           }
         ]
       ]
+    },
+    "Provider – diagnostic interne": {
+      "main": [
+        [
+          {
+            "node": "Provider – valider contexte",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Provider – valider contexte": {
+      "main": [
+        [
+          {
+            "node": "Provider – Queue sûre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Provider – Queue sûre": {
+      "main": [
+        [
+          {
+            "node": "Provider – contexte sans secret",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Provider – contexte sans secret": {
+      "main": [
+        [
+          {
+            "node": "Meta – identité lecture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – identité lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – identité sûre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – identité sûre": {
+      "main": [
+        [
+          {
+            "node": "Meta – authentifié ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – authentifié ?": {
+      "main": [
+        [
+          {
+            "node": "Meta – permissions lecture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Provider – contexte Runway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – permissions lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – permissions sûres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – permissions sûres": {
+      "main": [
+        [
+          {
+            "node": "Meta – pages lecture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – pages lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – pages sûres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – pages sûres": {
+      "main": [
+        [
+          {
+            "node": "Meta – page unique ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – page unique ?": {
+      "main": [
+        [
+          {
+            "node": "Meta – page identité lecture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Meta – Instagram lié ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – page identité lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – page identité sûre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – page identité sûre": {
+      "main": [
+        [
+          {
+            "node": "Meta – Instagram lié ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – Instagram lié ?": {
+      "main": [
+        [
+          {
+            "node": "Meta – Instagram identité lecture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Provider – contexte Runway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – Instagram identité lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – Instagram identité sûre",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – Instagram identité sûre": {
+      "main": [
+        [
+          {
+            "node": "Meta – Instagram quota lecture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – Instagram quota lecture": {
+      "main": [
+        [
+          {
+            "node": "Meta – Instagram quota sûr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta – Instagram quota sûr": {
+      "main": [
+        [
+          {
+            "node": "Provider – contexte Runway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Provider – contexte Runway": {
+      "main": [
+        [
+          {
+            "node": "Runway – organisation lecture",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Runway – organisation lecture": {
+      "main": [
+        [
+          {
+            "node": "Runway – résultat sûr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Runway – résultat sûr": {
+      "main": [
+        [
+          {
+            "node": "Creatomate – rendu existant ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creatomate – rendu existant ?": {
+      "main": [
+        [
+          {
+            "node": "Creatomate – rendu lecture",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Provider – résultat public",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creatomate – rendu lecture": {
+      "main": [
+        [
+          {
+            "node": "Creatomate – résultat sûr",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creatomate – résultat sûr": {
+      "main": [
+        [
+          {
+            "node": "Provider – résultat public",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "nodeGroups": [],
   "settings": {
     "saveExecutionProgress": false,
     "saveManualExecutions": false,
@@ -1032,9 +2031,6 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
   "meta": null,
-  "nodeGroups": [],
-  "id": "JcFvUMfm9orHdKbu",
   "tags": []
 }

@@ -1,5 +1,8 @@
 {
+  "id": "cKUyJSLOF69uXGnO",
   "name": "My workflow",
+  "active": true,
+  "versionId": "d52c5f35-d223-441d-9d10-bd5566579b2a",
   "nodes": [
     {
       "id": "952824a5-3f41-4489-a56a-574f195f743e",
@@ -3379,7 +3382,7 @@
           "conditions": [
             {
               "id": "035067c1-c1c1-4805-9071-c22ce6bad39e",
-              "leftValue": "={{ ['/growth-audit-safe','/growth-ingest-safe','/social-preflight-safe'].includes($('ChatGPT – contexte Manager').first().json.task) }}",
+              "leftValue": "={{ ['/growth-audit-safe','/growth-ingest-safe','/social-preflight-safe','/provider-connections-readonly'].includes($('ChatGPT – contexte Manager').first().json.task) }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -3403,7 +3406,7 @@
         3050
       ],
       "parameters": {
-        "jsCode": "if($('ChatGPT – contexte Manager').first().json.task==='/social-preflight-safe')return [{json:{social_audit:true}}];\nif($('ChatGPT – contexte Manager').first().json.task==='/growth-ingest-safe')return [{json:{\"crm_ingest\": true, \"source_workflow_id\": \"fixture\", \"crm_dry_run\": true, \"events\": [{\"id\": -1, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:new\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"fixture@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -2, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:known\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"known@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -3, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:duplicate\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"duplicate@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -4, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:missing\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}]}}];\nreturn [{json:{audit_safe:true,request_id:$('ChatGPT – contexte Manager').first().json.request_id}}];"
+        "jsCode": "if($('ChatGPT – contexte Manager').first().json.task==='/provider-connections-readonly')return [{json:{provider_readonly:true,source:'mb-manager-readonly'}}];\nif($('ChatGPT – contexte Manager').first().json.task==='/social-preflight-safe')return [{json:{social_audit:true}}];\nif($('ChatGPT – contexte Manager').first().json.task==='/growth-ingest-safe')return [{json:{\"crm_ingest\": true, \"source_workflow_id\": \"fixture\", \"crm_dry_run\": true, \"events\": [{\"id\": -1, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:new\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"fixture@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -2, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:known\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"known@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -3, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:duplicate\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"duplicate@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -4, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:missing\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}]}}];\nreturn [{json:{audit_safe:true,request_id:$('ChatGPT – contexte Manager').first().json.request_id}}];"
       }
     },
     {
@@ -3420,6 +3423,61 @@
         "workflowId": {
           "__rl": true,
           "value": "MyHbk1Xn67RftCnB",
+          "mode": "id"
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    },
+    {
+      "id": "131b6b05-6d5d-485a-9bfa-5d13978283d6",
+      "name": "Provider – connexion demandée ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        780,
+        8850
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e461d9c-3966-4f95-ae99-309d820fe20f",
+              "leftValue": "={{ $json.provider_readonly===true }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "fcd2e04a-fe64-44b7-b40f-f2ff76b321e3",
+      "name": "Provider – lecture protégée",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        8900
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "JcFvUMfm9orHdKbu",
           "mode": "id"
         },
         "mode": "once",
@@ -4874,7 +4932,7 @@
       "main": [
         [
           {
-            "node": "Growth – audit sans transport",
+            "node": "Provider – connexion demandée ?",
             "type": "main",
             "index": 0
           }
@@ -4891,9 +4949,38 @@
           }
         ]
       ]
+    },
+    "Provider – connexion demandée ?": {
+      "main": [
+        [
+          {
+            "node": "Provider – lecture protégée",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Growth – audit sans transport",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Provider – lecture protégée": {
+      "main": [
+        [
+          {
+            "node": "ChatGPT – résultat Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "nodeGroups": [],
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
@@ -4903,11 +4990,8 @@
     "availableInMCP": false,
     "timezone": "Europe/Paris"
   },
-  "versionId": "57548ccb-cf34-41a5-a539-e3451a73846a",
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "nodeGroups": [],
-  "id": "cKUyJSLOF69uXGnO",
   "tags": []
 }

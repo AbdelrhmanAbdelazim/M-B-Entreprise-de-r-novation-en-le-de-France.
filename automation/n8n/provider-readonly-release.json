@@ -1,0 +1,354 @@
+{
+  "result": "READONLY_PROBE_AND_W10_GUARDS_LIVE_PUBLISHING_AND_RENDERING_BLOCKED",
+  "branch": "automation/growth-engine-safe-2026-10",
+  "PR": 21,
+  "captured_at_utc": "2026-10-20T19:29:35.387780+00:00",
+  "verification": {
+    "path": "revisions/provider-readonly-20261020/verification.json",
+    "sha256": "c52166e98b5c178c643a514cca944e6ad4d0202df6574f617ce4a500fead0342"
+  },
+  "provider_evidence": {
+    "observed_at_utc": "2026-10-20T19:27:19.517Z",
+    "execution_id": "614",
+    "read_only": true,
+    "publish_requests": 0,
+    "generation_requests": 0,
+    "meta": {
+      "user_identity_read": true,
+      "permissions_complete": true,
+      "permissions": [
+        {
+          "permission": "pages_show_list",
+          "status": "granted"
+        },
+        {
+          "permission": "pages_read_engagement",
+          "status": "granted"
+        },
+        {
+          "permission": "public_profile",
+          "status": "granted"
+        }
+      ],
+      "pages_complete": true,
+      "accessible_page_count": 0,
+      "company_page_candidates": [],
+      "page": null,
+      "page_selection_reason": "no_unique_company_page",
+      "required_scopes": {
+        "facebook": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "missing_scopes": {
+        "facebook": [
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "facebook_publishing_scope_granted": false,
+      "instagram_publishing_scope_granted": false,
+      "page_create_content_task": false,
+      "target_page_credential_verified": false,
+      "publisher_enabled": false
+    },
+    "creatomate": {
+      "credential_present": true,
+      "render_id": null,
+      "authentication_verified": false,
+      "plan": null,
+      "credits": null,
+      "verification_reason": "No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.",
+      "render_enabled": false,
+      "plan_verified": false,
+      "credits_verified": false
+    },
+    "runway": {
+      "credential_present": true,
+      "authentication_verified": false,
+      "api_credits": null,
+      "tier": null,
+      "generation_enabled": false,
+      "spend_authorized": false
+    },
+    "requests": [
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/permissions",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/accounts",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "runway",
+        "method": "GET",
+        "path": "/v1/organization",
+        "http_status": 401,
+        "provider_error_code": null,
+        "success": false,
+        "transport_failed": false
+      }
+    ],
+    "rendering_enabled": false,
+    "publishing_enabled": false
+  },
+  "live_verification": {
+    "captured_at_utc": "2026-10-20T19:29:35.387780+00:00",
+    "active_published_count": 15,
+    "definition_count": 17,
+    "unchanged_other_workflow_versions": 14,
+    "schedules_settings_webhooks_preserved": true,
+    "credentials_reused_unchanged": true,
+    "workflow_states": [
+      {
+        "id": "4O2ZR1JpDOgJZOLw",
+        "name": "W0 – Erreurs (Telegram + journal)",
+        "active": true,
+        "versionId": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+        "activeVersionId": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "63yycckNMI9mXnkz",
+        "name": "W10 – Idées de contenu (vidéos)",
+        "active": true,
+        "versionId": "fbaec34d-c724-4145-82d0-c1070c63329f",
+        "activeVersionId": "fbaec34d-c724-4145-82d0-c1070c63329f",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 4 * * *"
+        ]
+      },
+      {
+        "id": "9ttUYW3XcSztxwRu",
+        "name": "W9 – Après chantier (avis + parrainage)",
+        "active": true,
+        "versionId": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+        "activeVersionId": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "*/15 8-20 * * *"
+        ]
+      },
+      {
+        "id": "CedAfsMxGSnrlG0y",
+        "name": "M&B – ChatGPT Codex MCP",
+        "active": true,
+        "versionId": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+        "activeVersionId": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "EvDz4KtOEgIYKh7Q",
+        "name": "W1 – Réponses emails",
+        "active": true,
+        "versionId": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+        "activeVersionId": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "Ipqy6qKmAuXVz2vl",
+        "name": "W4 – Relance unique",
+        "active": true,
+        "versionId": "970060cd-6c2a-4549-953d-b748ad959e6d",
+        "activeVersionId": "970060cd-6c2a-4549-953d-b748ad959e6d",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 9 * * 1-4"
+        ]
+      },
+      {
+        "id": "JcFvUMfm9orHdKbu",
+        "name": "M&B – ChatGPT production ingress",
+        "active": true,
+        "versionId": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
+        "activeVersionId": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "MyHbk1Xn67RftCnB",
+        "name": "M&B — AI Continuous Improvement",
+        "active": true,
+        "versionId": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
+        "activeVersionId": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "15 18 * * *"
+        ]
+      },
+      {
+        "id": "OyYa8UtfX7NuHbL7",
+        "name": "Gemini + Claude Automation Workflow",
+        "active": false,
+        "versionId": "6f8819ed-c2f7-48e5-b3d9-48fb32182b2d",
+        "activeVersionId": null,
+        "timezone": null,
+        "cron": []
+      },
+      {
+        "id": "RstxLOezyHrDIv7k",
+        "name": "W3 – Envoi quotidien",
+        "active": true,
+        "versionId": "79a240b8-0992-4383-8671-7c805790c33a",
+        "activeVersionId": "79a240b8-0992-4383-8671-7c805790c33a",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 8 * * 1-4"
+        ]
+      },
+      {
+        "id": "YjzC3pFzYRR7d2an",
+        "name": "W2 – Demandes du site web",
+        "active": true,
+        "versionId": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+        "activeVersionId": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "cKUyJSLOF69uXGnO",
+        "name": "My workflow",
+        "active": true,
+        "versionId": "d52c5f35-d223-441d-9d10-bd5566579b2a",
+        "activeVersionId": "d52c5f35-d223-441d-9d10-bd5566579b2a",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 * * * *"
+        ]
+      },
+      {
+        "id": "gc97zrWop11I70CG",
+        "name": "W7 – Recherche de leads",
+        "active": true,
+        "versionId": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+        "activeVersionId": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "10 6,10,14,18 * * *"
+        ]
+      },
+      {
+        "id": "pSmkSOKAzuIs0jRW",
+        "name": "M&B campaign145 isolated temporary transport 20261020",
+        "active": false,
+        "versionId": "93340e7f-d4a2-42a8-9b90-b4777e925286",
+        "activeVersionId": null,
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "uOuQs4E5H443sbKh",
+        "name": "W8 – Notifications pages SEO",
+        "active": true,
+        "versionId": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+        "activeVersionId": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 7 * * *"
+        ]
+      },
+      {
+        "id": "xNbB0gcC1XPbXZ0z",
+        "name": "W6 – Rappels échéances",
+        "active": true,
+        "versionId": "6942ea57-1672-4f77-9fae-73105fb0213c",
+        "activeVersionId": "6942ea57-1672-4f77-9fae-73105fb0213c",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 9 * * *"
+        ]
+      },
+      {
+        "id": "yaiq1MmW8dw5SUg7",
+        "name": "W5 – Rapport hebdomadaire",
+        "active": true,
+        "versionId": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+        "activeVersionId": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 8,18 * * *"
+        ]
+      }
+    ],
+    "runtime": {
+      "manager_execution_id": "613",
+      "credential_child_execution_id": "614",
+      "status": "success",
+      "raw_provider_response_saving": "disabled"
+    },
+    "existing_content_drafts": 14,
+    "existing_draft_states": [
+      "needs_review"
+    ],
+    "post391473868_hold_preserved": true,
+    "render_requests": 0,
+    "publish_requests": 0,
+    "generation_requests": 0,
+    "customer_test_messages": 0
+  },
+  "tests": {
+    "provider_projection_cases": 7,
+    "new_video_gate_cases": 3,
+    "exact_native_calendar_replay": "new draft + OpenAI review + stable identity + duplicate skip; isolated only",
+    "all_candidate_code_nodes": "compiled",
+    "new_successor_cases": 3,
+    "affected_predecessor_handoff_cases": 8,
+    "affected_cloud_handoff_cases": 13,
+    "all_passed": true,
+    "unrelated_business_model_delivery_tests_repeated": false
+  },
+  "not_done": [
+    "Meta Page/Instagram identity and publishing entitlement not available: actual pages list empty, three scopes missing",
+    "Creatomate authentication/plan/credits remain unverified; no known existing render ID for documented safe read",
+    "Runway organization GET returned401; API credit balance/tier unavailable",
+    "No render/generation/upload/post transport enabled; no MP4 produced",
+    "Media HTTP/rights and content approval and Metricool historical reconciliation still required",
+    "Existing observer593 report dry-run defect remains unchanged; not a claim that owner email reporting is repaired"
+  ],
+  "credentials_created_or_modified": 0,
+  "all_existing_15_active": true,
+  "schedules_unchanged": true,
+  "post391473868_held": true,
+  "closed14campaign_not_replayed": true,
+  "lead79_not_resent": true,
+  "human_actions": {
+    "meta": "In the existing shared credential, review pages_manage_posts, instagram_basic and instagram_content_publish, complete company app permission eligibility if Meta requires it, and reauthorize the company Page and linked professional Instagram with an authorized manager. No duplicate app/credential.",
+    "runway": "In the existing encrypted Runway Header Auth credential UI, verify Authorization is Bearer followed by a valid Runway Developer API key for the intended organization. Do not paste any value into chat.",
+    "creatomate": "No paid verification requested. Authentication can be tested against an already-existing render ID when available or a newly verified documented free account API; do not create a render only to test."
+  }
+}

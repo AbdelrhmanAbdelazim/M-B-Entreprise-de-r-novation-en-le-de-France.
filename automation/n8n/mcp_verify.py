@@ -1,13 +1,13 @@
 """Offline provenance for the OAuth MCP publication, never a ChatGPT registration claim."""
 import hashlib,json
 
-def verify(root,entry):
+def verify(root,entry,front_after="ChatGPT ingress.json"):
  def read(p):return json.loads((root/p).read_text())
  path='revisions/mcp-20261019/verification.json';assert entry['path']==path
  assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry['sha256']
  proof=read(path)
- for p,key in [('revisions/mcp-20261019/ChatGPT ingress.before.json','front_before_sha256'),('ChatGPT ingress.json','front_after_sha256'),('Codex MCP.json','mcp_sha256')]:assert hashlib.sha256((root/p).read_bytes()).hexdigest()==proof[key]
- old=read('revisions/mcp-20261019/ChatGPT ingress.before.json');front=read('ChatGPT ingress.json');server=read('Codex MCP.json');nodes={n['id']:n for n in front['nodes']}
+ for p,key in [('revisions/mcp-20261019/ChatGPT ingress.before.json','front_before_sha256'),(front_after,'front_after_sha256'),('Codex MCP.json','mcp_sha256')]:assert hashlib.sha256((root/p).read_bytes()).hexdigest()==proof[key]
+ old=read('revisions/mcp-20261019/ChatGPT ingress.before.json');front=read(front_after);server=read('Codex MCP.json');nodes={n['id']:n for n in front['nodes']}
  assert old['id']==front['id']==proof['front_id'] and front['versionId']==proof['front_published_version_id']
  assert server['id']==proof['mcp_id'] and server['versionId']==proof['mcp_published_version_id']
  assert old['settings']==front['settings']

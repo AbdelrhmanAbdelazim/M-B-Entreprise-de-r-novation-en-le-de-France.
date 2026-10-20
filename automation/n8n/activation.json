@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
-      "active_version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
+      "version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
+      "active_version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -166,8 +166,8 @@
       "name": "W10 – Idées de contenu (vidéos)",
       "active": true,
       "published": true,
-      "version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
-      "active_version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
+      "version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
+      "active_version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "direct-social-release.json",
+  "latest_release": "provider-readonly-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
@@ -273,8 +273,8 @@
     "id": "JcFvUMfm9orHdKbu",
     "active": true,
     "published": true,
-    "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
-    "active_version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee"
+    "version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
+    "active_version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44"
   },
   "additional_mcp": {
     "id": "CedAfsMxGSnrlG0y",

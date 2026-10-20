@@ -1,5 +1,5 @@
 {
-  "status": "BLOCKED_AUTHORIZATION",
+  "status": "PREPARATION_LIVE_CONNECTIONS_PARTIALLY_VERIFIED",
   "rendering_enabled": false,
   "publishing_enabled": false,
   "automatic_spending_authorized": false,
@@ -8,26 +8,44 @@
     "credential_type": "httpHeaderAuth",
     "header_name": "Authorization",
     "credential_value_format": "Bearer <existing project API key; enter in encrypted n8n UI only>",
-    "credential_configured": false,
-    "account_plan": "unknown; Google login does not expose API authorization or credit balance",
+    "credential_configured": "user_reports_key_saved; metadata binding exists; key not inspected",
+    "account_plan": "unverified: no known documented free plan/credits API",
     "connection_verified": false,
     "render_endpoint": "POST https://api.creatomate.com/v1/renders",
     "status_endpoint": "GET https://api.creatomate.com/v1/renders/{verified_render_id}",
-    "request_schema": {"source": "RenderScript object produced by mbVideoDraft; never submitted during this task"},
-    "preflight_required": ["authenticated read-only permission proof", "account credits/plan proof", "explicit no-spend authorization for any render", "company media rights and reachable asset URLs", "OpenAI quality review", "existing human publishing approval"],
-    "on_uncertain_submission": "hold; never retry render creation without provider reconciliation"
+    "request_schema": {
+      "source": "RenderScript object produced by mbVideoDraft; never submitted during this task"
+    },
+    "preflight_required": [
+      "authenticated read-only permission proof",
+      "account credits/plan proof",
+      "explicit no-spend authorization for any render",
+      "company media rights and reachable asset URLs",
+      "OpenAI quality review",
+      "existing human publishing approval"
+    ],
+    "on_uncertain_submission": "hold; never retry render creation without provider reconciliation",
+    "credential_available": true,
+    "readonly_verification": "Skipped: no existing render ID in current Content Queue; no render created.",
+    "readonly_transport_installed": true
   },
   "runway": {
-    "credential_available": false,
+    "credential_available": true,
     "connection_verified": false,
-    "account_plan": "unknown",
+    "account_plan": "unverified after organization API authentication rejection",
     "api_free_tier": "not verified for this account; no inference from consumer Google login",
     "read_only_account_endpoint": "GET https://api.dev.runwayml.com/v1/organization",
-    "headers": ["Authorization", "X-Runway-Version"],
-    "version_binding": "resolve from current official API before first authenticated request",
+    "headers": [
+      "Authorization",
+      "X-Runway-Version"
+    ],
+    "version_binding": "2024-11-06; current official SDK default",
     "generation_enabled": false,
     "credit_purchase_enabled": false,
-    "generation_request_schema": "not bound; optional generation remains disabled"
+    "generation_request_schema": "not bound; optional generation remains disabled",
+    "readonly_http_status": 401,
+    "credit_balance": null,
+    "readonly_transport_installed": true
   },
   "documentation_checked": [
     "https://github.com/Creatomate/creatomate-node/blob/main/src/Client.ts",
@@ -37,5 +55,8 @@
   "documentation_access_limit": "Direct service documentation domains blocked by current Cloud CONNECT policy; official SDK sources were read via permitted GitHub. No alternate relay used.",
   "site_asset_access": "current Cloud policy blocks website origins; file existence verified locally only",
   "transport_implemented": false,
-  "mp4_generated": false
+  "mp4_generated": false,
+  "latest_readonly_execution_id": "614",
+  "latest_readonly_at_utc": "2026-10-20T19:27:19.517Z",
+  "read_only_credential_probe_transport_implemented": true
 }

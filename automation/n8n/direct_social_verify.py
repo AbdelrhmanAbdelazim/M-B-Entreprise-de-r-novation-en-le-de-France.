@@ -1,7 +1,7 @@
 """Verify the immutable queue-only direct-social successor; never provider requests."""
 import json,hashlib,copy
 
-def verify(root,entry):
+def verify(root,entry,targets=None):
  path='revisions/direct-social-20261020/verification.json'
  def sha(p):return hashlib.sha256((root/p).read_bytes()).hexdigest()
  assert entry['path']==path and entry['sha256']==sha(path)
@@ -10,8 +10,9 @@ def verify(root,entry):
  for name,p in proof['workflows'].items():
   assert p['before']=='revisions/direct-social-20261020/'+name+'.before.json'
   assert p['after']==('My workflow.json' if name=='My workflow' else 'revisions/direct-social-20261020/AI Continuous Improvement.json')
-  assert sha(p['before'])==p['before_sha256'] and sha(p['after'])==p['after_sha256']
-  old=json.loads((root/p['before']).read_text());new=json.loads((root/p['after']).read_text());assert old['id']==new['id']==p['id'] and old['versionId']==p['before_version_id'] and new['versionId']==p['published_version_id'] and new['active']
+  after=(targets or {}).get(name,p['after'])
+  assert sha(p['before'])==p['before_sha256'] and sha(after)==p['after_sha256']
+  old=json.loads((root/p['before']).read_text());new=json.loads((root/after).read_text());assert old['id']==new['id']==p['id'] and old['versionId']==p['before_version_id'] and new['versionId']==p['published_version_id'] and new['active']
   assert old['settings']==new['settings'];a={n['name']:n for n in old['nodes']};b={n['name']:n for n in new['nodes']}
   if name=='My workflow':
    assert set(a)==set(b) and old['connections']==new['connections']

@@ -1,0 +1,168 @@
+{
+  "kind": "native_readonly_provider_video_successor",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before": "revisions/provider-readonly-20261020/My workflow.before.json",
+      "after": "My workflow.json",
+      "before_sha256": "ac32dca2a8dc823f1e43e96925e22dc2a397eac36abed4f59d847fcb93992b7e",
+      "after_sha256": "f8138c58d1868e97fa3065be3557d6a70ede20c947815066d3c25a973381b01e",
+      "before_version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
+      "published_version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a"
+    },
+    "ChatGPT ingress": {
+      "id": "JcFvUMfm9orHdKbu",
+      "before": "revisions/provider-readonly-20261020/ChatGPT ingress.before.json",
+      "after": "ChatGPT ingress.json",
+      "before_sha256": "1cb0e70d155dfb6effcd340a887c945b746cd9a63e101cec0524f6b8ebc7a7bd",
+      "after_sha256": "deeacec370d9dd5f091d2ae5f4deaf8579ed4bc40d5622e26b6f510378858e73",
+      "before_version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+      "published_version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44"
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "before": "revisions/provider-readonly-20261020/W10.before.json",
+      "after": "W10.json",
+      "before_sha256": "9e653dea2fcdcb1e8dad05304fadfc5235ee4910046b291e3551c6ecbdc26c17",
+      "after_sha256": "d1383f9eff868353eadbef60dd47faa0d3a042221bd202e6e3a2bf415ce880c3",
+      "before_version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
+      "published_version_id": "fbaec34d-c724-4145-82d0-c1070c63329f"
+    }
+  },
+  "sources": {
+    "provider-readonly": {
+      "path": "revisions/provider-readonly-20261020/provider-readonly-source.js",
+      "sha256": "90b5ae00af85d19bdad5ec64f3c5667b08fcab8160bbd670b1491094438f6933"
+    },
+    "video-provider-gates": {
+      "path": "revisions/provider-readonly-20261020/video-provider-gates-source.js",
+      "sha256": "0df04d5f934c6fc5adfd913ca7f3c5cdc32038eea01aa47202fbe16419538ae3"
+    }
+  },
+  "provider_evidence": {
+    "observed_at_utc": "2026-10-20T19:27:19.517Z",
+    "execution_id": "614",
+    "read_only": true,
+    "publish_requests": 0,
+    "generation_requests": 0,
+    "meta": {
+      "user_identity_read": true,
+      "permissions_complete": true,
+      "permissions": [
+        {
+          "permission": "pages_show_list",
+          "status": "granted"
+        },
+        {
+          "permission": "pages_read_engagement",
+          "status": "granted"
+        },
+        {
+          "permission": "public_profile",
+          "status": "granted"
+        }
+      ],
+      "pages_complete": true,
+      "accessible_page_count": 0,
+      "company_page_candidates": [],
+      "page": null,
+      "page_selection_reason": "no_unique_company_page",
+      "required_scopes": {
+        "facebook": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "missing_scopes": {
+        "facebook": [
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "facebook_publishing_scope_granted": false,
+      "instagram_publishing_scope_granted": false,
+      "page_create_content_task": false,
+      "target_page_credential_verified": false,
+      "publisher_enabled": false
+    },
+    "creatomate": {
+      "credential_present": true,
+      "render_id": null,
+      "authentication_verified": false,
+      "plan": null,
+      "credits": null,
+      "verification_reason": "No existing Creatomate render ID in current content records. Official SDK documents non-billable GET of an existing render; no unsupported account probe or new render was substituted.",
+      "render_enabled": false,
+      "plan_verified": false,
+      "credits_verified": false
+    },
+    "runway": {
+      "credential_present": true,
+      "authentication_verified": false,
+      "api_credits": null,
+      "tier": null,
+      "generation_enabled": false,
+      "spend_authorized": false
+    },
+    "requests": [
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/permissions",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/accounts",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "runway",
+        "method": "GET",
+        "path": "/v1/organization",
+        "http_status": 401,
+        "provider_error_code": null,
+        "success": false,
+        "transport_failed": false
+      }
+    ],
+    "rendering_enabled": false,
+    "publishing_enabled": false
+  },
+  "runtime": {
+    "request_id": "mb-provider-connections-20261020-v1",
+    "manager_execution_id": "613",
+    "credential_child_execution_id": "614",
+    "status": "success",
+    "provider_calls": 4,
+    "generation_calls": 0,
+    "publish_calls": 0
+  },
+  "rollback": "Republish the pinned before_version_id of each existing workflow using native n8n version history. Never import redacted exports."
+}

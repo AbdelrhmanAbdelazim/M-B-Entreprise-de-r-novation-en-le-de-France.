@@ -2,7 +2,7 @@
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
   "source": "Live read-back after requested growth specialist/observer release; older immutable releases retained.",
-  "latest_live_refresh": "2026-10-20T14:27:08.693120+00:00",
+  "latest_live_refresh": "2026-10-20T19:29:54.874476+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -27,14 +27,32 @@
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
+      "version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
-      "source_sha256": "950b4f14132607c309a84a90fb6fadcadcee38146c63e395dd94e8b747ece730",
-      "public_sha256": "ac32dca2a8dc823f1e43e96925e22dc2a397eac36abed4f59d847fcb93992b7e",
+      "source_sha256": "e36d3078f7d19b9318d74c6929dba21dd845a1d6d1e912438ede65ce35f13a8b",
+      "public_sha256": "f8138c58d1868e97fa3065be3557d6a70ede20c947815066d3c25a973381b01e",
       "redacted_paths": [
+        "/activeVersion/nodes/1/webhookId",
+        "/activeVersion/nodes/25/credentials/openAiApi/id",
+        "/activeVersion/nodes/26/credentials/googlePalmApi/id",
+        "/activeVersion/nodes/28/credentials/anthropicApi/id",
+        "/activeVersion/nodes/3/credentials/anthropicApi/id",
+        "/activeVersion/nodes/5/credentials/googlePalmApi/id",
+        "/activeVersion/nodes/52/credentials/openAiApi/id",
+        "/activeVersion/nodes/53/credentials/googlePalmApi/id",
+        "/activeVersion/nodes/55/credentials/anthropicApi/id",
+        "/activeVersion/nodes/6/credentials/openAiApi/id",
+        "/activeVersion/nodes/62/credentials/openAiApi/id",
+        "/activeVersion/nodes/70/credentials/openAiApi/id",
+        "/activeVersion/nodes/73/credentials/openAiApi/id",
+        "/activeVersion/nodes/78/credentials/openAiApi/id",
+        "/activeVersion/nodes/85/webhookId",
+        "/activeVersion/nodes/88/credentials/openAiApi/id",
+        "/activeVersion/nodes/91/credentials/openAiApi/id",
+        "/activeVersion/nodes/94/webhookId",
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
         "/nodes/26/credentials/googlePalmApi/id",
@@ -52,11 +70,13 @@
         "/nodes/85/webhookId",
         "/nodes/88/credentials/openAiApi/id",
         "/nodes/91/credentials/openAiApi/id",
-        "/nodes/94/webhookId"
+        "/nodes/94/webhookId",
+        "/pinData",
+        "/staticData"
       ],
-      "published_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+      "published_version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-20T14:27:08.693120+00:00"
+      "latest_readback_at_utc": "2026-10-20T19:27:19.517Z"
     },
     "W7": {
       "id": "gc97zrWop11I70CG",
@@ -174,14 +194,23 @@
     "W10": {
       "id": "63yycckNMI9mXnkz",
       "name": "W10 – Idées de contenu (vidéos)",
-      "version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
+      "version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
-      "source_sha256": "65d7e27d933a915606b50782c76d35da5711451265c53cbff21bd4e785c80f03",
-      "public_sha256": "9e653dea2fcdcb1e8dad05304fadfc5235ee4910046b291e3551c6ecbdc26c17",
+      "source_sha256": "415cf82a3e637407260a753511702685fffe808fc2b4835a58c4212fa2691ac4",
+      "public_sha256": "d1383f9eff868353eadbef60dd47faa0d3a042221bd202e6e3a2bf415ce880c3",
       "redacted_paths": [
+        "/activeVersion/nodes/13/credentials/googlePalmApi/id",
+        "/activeVersion/nodes/19/credentials/openAiApi/id",
+        "/activeVersion/nodes/24/credentials/googlePalmApi/id",
+        "/activeVersion/nodes/27/credentials/openAiApi/id",
+        "/activeVersion/nodes/5/credentials/anthropicApi/id",
+        "/activeVersion/nodes/7/credentials/anthropicApi/id",
+        "/activeVersion/nodes/9/credentials/telegramApi/id",
+        "/activeVersion/nodes/9/parameters/chatId",
+        "/activeVersion/nodes/9/webhookId",
         "/nodes/13/credentials/googlePalmApi/id",
         "/nodes/19/credentials/openAiApi/id",
         "/nodes/24/credentials/googlePalmApi/id",
@@ -190,11 +219,13 @@
         "/nodes/7/credentials/anthropicApi/id",
         "/nodes/9/credentials/telegramApi/id",
         "/nodes/9/parameters/chatId",
-        "/nodes/9/webhookId"
+        "/nodes/9/webhookId",
+        "/pinData",
+        "/staticData"
       ],
-      "published_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+      "published_version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-20T14:27:08.693120+00:00"
+      "latest_readback_at_utc": "2026-10-20T19:27:19.517Z"
     },
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
