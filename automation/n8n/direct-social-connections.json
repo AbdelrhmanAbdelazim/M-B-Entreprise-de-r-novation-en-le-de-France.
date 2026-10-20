@@ -1,7 +1,7 @@
 {
   "status": "BLOCKED_OFFICIAL_ACCOUNT_AUTHORIZATION",
   "callback": "https://navajowhite-cormorant-668337.hostingersite.com/rest/oauth2-credential/callback",
-  "credential_mutations_performed": 0,
+  "credential_mutations_performed": 1,
   "credential_creation_auto_review_rejected": true,
   "auto_review_reason": "Persistent publishing-scope credentials proposed before explicit scope consent/account OAuth; no creation command executed. Safe alternative is configuration-only review.",
   "new_transport_installed": false,
@@ -12,7 +12,7 @@
       "publish_permission_verified": false,
       "publishing_enabled": false,
       "credential_available": false,
-      "credential_created": false,
+      "credential_created": true,
       "portal": "Meta for Developers",
       "setup_url": "https://developers.facebook.com/apps/",
       "required_scopes_for_review": [
@@ -23,7 +23,10 @@
       "scope_granted": false,
       "human_authorization_required": "Company-owned Meta app + Page admin tasks + user OAuth, then securely provision target Page credential.",
       "authorization_url": null,
-      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+      "authorization_url_reason": "Empty shared credential is saved, but client binding, scope review and native OAuth state are still absent; use its n8n settings URL, not a fabricated Meta consent URL.",
+      "credential_slot_name": "M&B Meta direct — awaiting company app OAuth",
+      "shared_empty_credential_id": "ybI0FqlXSaLQle1z",
+      "credential_empty": true
     },
     {
       "channel": "instagram",
@@ -31,7 +34,7 @@
       "publish_permission_verified": false,
       "publishing_enabled": false,
       "credential_available": false,
-      "credential_created": false,
+      "credential_created": true,
       "portal": "Meta for Developers",
       "setup_url": "https://developers.facebook.com/apps/",
       "required_scopes_for_review": [
@@ -43,7 +46,10 @@
       "scope_granted": false,
       "human_authorization_required": "Same company Meta app, professional Instagram linked to the selected Page, required permissions/app access and Page token binding.",
       "authorization_url": null,
-      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+      "authorization_url_reason": "Empty shared credential is saved, but client binding, scope review and native OAuth state are still absent; use its n8n settings URL, not a fabricated Meta consent URL.",
+      "credential_slot_name": "M&B Meta direct — awaiting company app OAuth",
+      "shared_empty_credential_id": "ybI0FqlXSaLQle1z",
+      "credential_empty": true
     },
     {
       "channel": "google_business_profile",
@@ -168,7 +174,9 @@
     "allowedDomains": "graph.facebook.com",
     "ignoreSSLIssues": false,
     "api_version_evidence": "Official facebook-nodejs-business-sdk main src/api.js reports VERSION v26.0, SDK26.0.2 at this inspection",
-    "do_not_create_or_start_oauth_without_explicit_scope_confirmation": true
+    "do_not_create_or_start_oauth_without_explicit_scope_confirmation": true,
+    "empty_credential_creation_approved_and_completed": true,
+    "scope_review_required_before_oauth": true
   },
   "native_schemas_read": {
     "googleBusinessProfileOAuth2Api": "available",
@@ -221,5 +229,10 @@
     "https://github.com/pinterest/api-description/blob/main/v5/openapi.yaml",
     "https://github.com/linkedin-developers/linkedin-api-python-client",
     "https://github.com/fbsamples/threads_api"
-  ]
+  ],
+  "meta_empty_credential_creation_authorized": true,
+  "meta_empty_credential_created": true,
+  "meta_empty_credential_persisted_verified": true,
+  "meta_empty_credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z",
+  "auto_review_rejection_resolution": "Historical rejection retained for the prior multi-platform proposal. User explicitly approved this single empty Meta credential; creation succeeded. No other platform credential creation is authorized by that approval."
 }
