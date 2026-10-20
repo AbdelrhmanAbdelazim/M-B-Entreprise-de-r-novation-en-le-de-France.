@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-19T19:34:06.099092+00:00",
+  "captured_at_utc": "2026-10-20T11:00:56.095613+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "codex/growth-engine-883e99b",
   "inventory_count": 13,
@@ -152,8 +152,8 @@
       "name": "W3 – Envoi quotidien",
       "active": true,
       "published": true,
-      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
-      "active_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "version_id": "79a240b8-0992-4383-8671-7c805790c33a",
+      "active_version_id": "79a240b8-0992-4383-8671-7c805790c33a",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -180,8 +180,8 @@
       "name": "W4 – Relance unique",
       "active": true,
       "published": true,
-      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
-      "active_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
+      "active_version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "social-release.json",
+  "latest_release": "commercial-email-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"

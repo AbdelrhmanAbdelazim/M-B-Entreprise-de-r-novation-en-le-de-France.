@@ -1,0 +1,39 @@
+{
+  "mode": "offline Chromium, local existing image bytes; no public posts or email delivery",
+  "checks": [
+    {
+      "name": "first-contact",
+      "viewport": "iphone",
+      "horizontal_overflow": false,
+      "source_images_loaded": 2,
+      "actual_mail_client_test": false
+    },
+    {
+      "name": "first-contact",
+      "viewport": "desktop",
+      "horizontal_overflow": false,
+      "source_images_loaded": 2,
+      "actual_mail_client_test": false
+    },
+    {
+      "name": "followup",
+      "viewport": "iphone",
+      "horizontal_overflow": false,
+      "source_images_loaded": 2,
+      "actual_mail_client_test": false
+    },
+    {
+      "name": "followup",
+      "viewport": "desktop",
+      "horizontal_overflow": false,
+      "source_images_loaded": 2,
+      "actual_mail_client_test": false
+    }
+  ],
+  "not_claimed": [
+    "Actual Gmail rendering",
+    "Actual Outlook rendering",
+    "Actual Apple Mail/iPhone client rendering",
+    "Live website HTTP accessibility"
+  ]
+}

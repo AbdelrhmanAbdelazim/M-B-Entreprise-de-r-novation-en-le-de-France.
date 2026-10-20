@@ -16,7 +16,7 @@ class MetricoolHandoffTests(unittest.TestCase):
  def test_changed_metricool_patch_cannot_be_reported_as_verified(self):
   with tempfile.TemporaryDirectory() as directory:
    target=Path(directory)
-   for name in ['social-publishing.js', 'management.js', 'qualification.js', 'Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json','continuation.json','activation.json','data-tables.json','My workflow.json']+[f'W{i}.json' for i in range(11)]:shutil.copyfile(ROOT/name,target/name)
+   for name in ['commercial-email.js', 'social-publishing.js', 'management.js', 'qualification.js', 'Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json','continuation.json','activation.json','data-tables.json','My workflow.json']+[f'W{i}.json' for i in range(11)]:shutil.copyfile(ROOT/name,target/name)
    for name in ['pending','revisions']:shutil.copytree(ROOT/name,target/name)
    p=target/'revisions/metricool-20261019/My workflow.patch.json';p.write_text(p.read_text()+' ')
    with self.assertRaisesRegex(ValueError,'Metricool revision provenance'):collect(target)

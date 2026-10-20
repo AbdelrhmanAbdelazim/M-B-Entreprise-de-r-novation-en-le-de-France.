@@ -1,8 +1,8 @@
 {
   "format_version": 1,
   "prepared_at_utc": "2026-10-19T03:25:55.045183+00:00",
-  "source": "Published Manager single-node social safety successor; official publishing remains BLOCKED without usable platform authorization. All prior release provenance retained.",
-  "latest_live_refresh": "2026-10-19T19:34:06.099092+00:00",
+  "source": "W3/W4 shared multipart HTML harmonization verified Published/Active; no campaign execution before explicit operator approval.",
+  "latest_live_refresh": "2026-10-20T11:00:56.095613+00:00",
   "redaction_policy": "Operational credential IDs, Telegram destination IDs, webhook IDs/routes are placeholders; execution/pinned data omitted. Do not import over production.",
   "workflows": {
     "W6": {
@@ -150,13 +150,13 @@
     "W3": {
       "id": "RstxLOezyHrDIv7k",
       "name": "W3 – Envoi quotidien",
-      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "version_id": "79a240b8-0992-4383-8671-7c805790c33a",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T09:52:18.219175+00:00",
-      "source_sha256": "a45526a4da5805c51d40688e3f8467b642d98e8f8115b6d01afbe07372f61bf5",
-      "public_sha256": "7927887183bb17a77d7dcfb76685cb05dbc4624d6d1cc05587ffe685025a0b1b",
+      "actual_download_at_utc": "2026-10-20T11:00:56.095613+00:00",
+      "source_sha256": "27d42770e3b0bcb1d8bed2fb762fe59be57894a55a05941e5ad23bbd12b6434b",
+      "public_sha256": "3a98373b5f8c3bac80468ecf07bead62c19851c29318b0f217fcb6479138b3e2",
       "redacted_paths": [
         "/nodes/12/webhookId",
         "/nodes/14/credentials/telegramApi/id",
@@ -167,9 +167,9 @@
         "/nodes/8/credentials/smtp/id",
         "/nodes/8/webhookId"
       ],
-      "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "published_version_id": "79a240b8-0992-4383-8671-7c805790c33a",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
+      "latest_readback_at_utc": "2026-10-20T11:00:56.095613+00:00"
     },
     "W10": {
       "id": "63yycckNMI9mXnkz",
@@ -199,13 +199,13 @@
     "W4": {
       "id": "Ipqy6qKmAuXVz2vl",
       "name": "W4 – Relance unique",
-      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
-      "actual_download_at_utc": "2026-10-19T09:52:18.219175+00:00",
-      "source_sha256": "e4275efa0442e81d0a7256ace4169732c164cad6647e81d7c74344fc77970634",
-      "public_sha256": "13e4b4494ee247ea645a25fca705e5efbe31a1c6eeefa216615ac58b32f4e34b",
+      "actual_download_at_utc": "2026-10-20T11:00:56.095613+00:00",
+      "source_sha256": "68a9f6e794d9e4b712738be2602390fa2f5976026ced5abdbeac1a4f7cfd0c62",
+      "public_sha256": "46801e81b9d6817dd7350fb140e6a96bd60b87c8ad74e623203fbf8c1809e752",
       "redacted_paths": [
         "/nodes/12/webhookId",
         "/nodes/14/credentials/telegramApi/id",
@@ -216,9 +216,9 @@
         "/nodes/8/credentials/smtp/id",
         "/nodes/8/webhookId"
       ],
-      "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "published_version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
       "last_verified_api_state": "Published/Active",
-      "latest_readback_at_utc": "2026-10-19T19:34:06.099092+00:00"
+      "latest_readback_at_utc": "2026-10-20T11:00:56.095613+00:00"
     },
     "W8": {
       "id": "uOuQs4E5H443sbKh",

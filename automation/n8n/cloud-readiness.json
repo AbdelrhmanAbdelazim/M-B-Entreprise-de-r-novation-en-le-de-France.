@@ -12,6 +12,7 @@
   "additional_mcp_published_verified": true,
   "management_revisions_verified": 5,
   "social_safety_revision_verified": true,
+  "commercial_email_revisions_verified": 2,
   "baseline_and_patch_provenance": "verified_for_local_assembly",
   "mac_required_for_continuation": false,
   "workflow_execution_performed": false,
@@ -89,7 +90,7 @@
     {
       "workflow": "W3",
       "id": "RstxLOezyHrDIv7k",
-      "published_version_at_handoff": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "published_version_at_handoff": "79a240b8-0992-4383-8671-7c805790c33a",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,
@@ -104,7 +105,7 @@
     {
       "workflow": "W4",
       "id": "Ipqy6qKmAuXVz2vl",
-      "published_version_at_handoff": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "published_version_at_handoff": "970060cd-6c2a-4549-953d-b748ad959e6d",
       "last_recorded_active": true,
       "current_live_state": "not_verified",
       "pending_patch": false,

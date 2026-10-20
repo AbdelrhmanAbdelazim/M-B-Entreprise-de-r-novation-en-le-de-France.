@@ -2,6 +2,14 @@
   "name": "W4 – Relance unique",
   "nodes": [
     {
+      "id": "cf48e3f3-3eb6-4325-9fad-8d30085b23d1",
+      "name": "Lun-jeu 9h30",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        -608
+      ],
       "parameters": {
         "rule": {
           "interval": [
@@ -11,26 +19,9 @@
             }
           ]
         }
-      },
-      "id": "cf48e3f3-3eb6-4325-9fad-8d30085b23d1",
-      "name": "Lun-jeu 9h30",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        1760,
-        -608
-      ]
+      }
     },
     {
-      "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "mode": "id",
-          "value": "ns20LV2q6otiEP3X"
-        },
-        "returnAll": true
-      },
       "id": "d66dff8d-7f44-417e-8d96-2a6902d4922a",
       "name": "Leads",
       "type": "n8n-nodes-base.dataTable",
@@ -40,18 +31,18 @@
       "position": [
         1984,
         -608
-      ]
-    },
-    {
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
           "__rl": true,
           "mode": "id",
-          "value": "NE0QU8afBFipimhW"
+          "value": "ns20LV2q6otiEP3X"
         },
         "returnAll": true
-      },
+      }
+    },
+    {
       "id": "41c10bd9-0734-4b0c-b19f-98ab35b1dfdd",
       "name": "Blacklist",
       "type": "n8n-nodes-base.dataTable",
@@ -61,12 +52,18 @@
       "position": [
         2208,
         -608
-      ]
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "NE0QU8afBFipimhW"
+        },
+        "returnAll": true
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\nconst ORIGINAL_FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nlet test = false; try { test = !!$('Test (temporaire)').first().json.body.test; } catch (e) {}\nif (test) return []; // Test mode never produces real email recipients.\nconst dow = new Date(today() + 'T12:00:00Z').getUTCDay();\nif (dow === 0 || dow === 6) return [];\nconst leads = $('Leads').all().map(i => i.json).filter(r => r.id);\nconst bl = $('Blacklist').all().map(i => String(i.json.email || '').toLowerCase()).filter(Boolean);\nconst blMail = new Set(bl), blDom = new Set(bl.map(dom).filter(d => d && !FREE.has(d)));\nconst t = today();\nconst j7 = new Date(t + 'T12:00:00Z'); j7.setUTCDate(j7.getUTCDate() - 7); const lim = j7.toISOString().slice(0, 10);\nconst deja = leads.filter(l => l.date_envoi === t || l.date_relance === t).length;\n// 30 envois/jour au total, dont 20 relances maximum\nconst quota = Math.max(0, Math.min(20, 30 - deja));\nconst usedDom = new Set(leads.filter(l => l.date_envoi === t || l.date_relance === t).map(l => dom(l.email)));\nconst out = [];const seenEmail=new Set();const growth=$('Commercial – Queue').all().map(i=>i.json);\nconst rank=l=>growth.find(t=>t.task_key==='prospect:'+company(l))?.priority==='HOT'?0:1;\nfor (const l of [...leads].sort((a,b)=>rank(a)-rank(b))) {\n  if(Number(l.id)===79)continue; // Explicit no-resend incident protection.\n\n  if (out.length >= quota) break;\n  const e = String(l.email || '').toLowerCase(), d = dom(e);if(seenEmail.has(e))continue;seenEmail.add(e);\n  const approval=growth.filter(t=>t.task_key==='prospect:'+company(l));if(approval.length!==1||approval[0].status!=='approved'||!['HOT','WARM'].includes(approval[0].priority))continue;\n  if(growth.some(t=>t.task_key==='send:followup:'+company(l)))continue;\n  if (l.statut !== 'envoye' || l.date_reponse || l.date_relance || !l.date_envoi || l.date_envoi > lim) continue;\n  if (blMail.has(e) || blDom.has(d)) continue;\n  if (!FREE.has(d) && usedDom.has(d)) continue;\n  usedDom.add(d);\n  out.push({ json: { id: l.id, email: e, type: l.type, variante: 'A', sujet: l.sujet } });\n}\nreturn out;\n"
-      },
       "id": "73ba94c7-f9f8-4fa9-8619-71a8cf59e850",
       "name": "Sélection",
       "type": "n8n-nodes-base.code",
@@ -74,12 +71,12 @@
       "position": [
         2416,
         -608
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\nconst ORIGINAL_FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nlet test = false; try { test = !!$('Test (temporaire)').first().json.body.test; } catch (e) {}\nif (test) return []; // Test mode never produces real email recipients.\nconst dow = new Date(today() + 'T12:00:00Z').getUTCDay();\nif (dow === 0 || dow === 6) return [];\nconst leads = $('Leads').all().map(i => i.json).filter(r => r.id);\nconst bl = $('Blacklist').all().map(i => String(i.json.email || '').toLowerCase()).filter(Boolean);\nconst blMail = new Set(bl), blDom = new Set(bl.map(dom).filter(d => d && !FREE.has(d)));\nconst t = today();\nconst j7 = new Date(t + 'T12:00:00Z'); j7.setUTCDate(j7.getUTCDate() - 7); const lim = j7.toISOString().slice(0, 10);\nconst deja = leads.filter(l => l.date_envoi === t || l.date_relance === t).length;\n// 30 envois/jour au total, dont 20 relances maximum\nconst quota = Math.max(0, Math.min(20, 30 - deja));\nconst usedDom = new Set(leads.filter(l => l.date_envoi === t || l.date_relance === t).map(l => dom(l.email)));\nconst out = [];const seenEmail=new Set();const growth=$('Commercial – Queue').all().map(i=>i.json);\nconst rank=l=>growth.find(t=>t.task_key==='prospect:'+company(l))?.priority==='HOT'?0:1;\nfor (const l of [...leads].sort((a,b)=>rank(a)-rank(b))) {\n  if(Number(l.id)===79)continue; // Explicit no-resend incident protection.\n\n  if (out.length >= quota) break;\n  const e = String(l.email || '').toLowerCase(), d = dom(e);if(seenEmail.has(e))continue;seenEmail.add(e);\n  const approval=growth.filter(t=>t.task_key==='prospect:'+company(l));if(approval.length!==1||approval[0].status!=='approved'||!['HOT','WARM'].includes(approval[0].priority))continue;\n  if(growth.some(t=>t.task_key==='send:followup:'+company(l)))continue;\n  if (l.statut !== 'envoye' || l.date_reponse || l.date_relance || !l.date_envoi || l.date_envoi > lim) continue;\n  if (blMail.has(e) || blDom.has(d)) continue;\n  if (!FREE.has(d) && usedDom.has(d)) continue;\n  usedDom.add(d);\n  out.push({ json: { id: l.id, email: e, type: l.type, variante: 'A', sujet: l.sujet } });\n}\nreturn out;\n"
+      }
     },
     {
-      "parameters": {
-        "options": {}
-      },
       "id": "ffe654de-39c1-4fdb-b259-d77b29ca5b7a",
       "name": "Un par un",
       "type": "n8n-nodes-base.splitInBatches",
@@ -87,13 +84,12 @@
       "position": [
         2640,
         -608
-      ]
+      ],
+      "parameters": {
+        "options": {}
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "\nconst l = $json;\nconst defs = { agence: 'Remise en état de logements – Paris & Île-de-France', syndic: 'Travaux en copropriété – Paris & Île-de-France', courtier: 'Artisan second œuvre pour votre réseau – Île-de-France' };\nconst base = l.sujet || defs[l.type] || 'Collaboration second œuvre – Paris & Île-de-France';\nconst subject = /^re\\s*:/i.test(base) ? base : 'Re: ' + base;\nconst text = `Bonjour,\n\nJe me permets de revenir vers vous suite à mon message de la semaine dernière. Si vous avez un chantier en préparation, je peux passer le voir ou vous envoyer un chiffrage.\n\nBonne journée,\nAbdelrahman – M&B Rénovation – 07 53 30 65 59`;\nconst pro = ['architecte', 'maitre_oeuvre', 'entreprise_generale'];\nconst link = pro.includes(l.type) ? 'https://www.maison-mb.fr/sous-traitance-renovation/' : 'https://www.maison-mb.fr/realisations/';\nconst P = s => `<p style=\"margin:0 0 16px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:24px;color:#2b2b2b;\">${s}</p>`;\nconst html = `<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>${subject.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</title></head>\n<body style=\"margin:0;padding:0;background:#f4f1ea;\" bgcolor=\"#f4f1ea\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#f4f1ea\" style=\"background:#f4f1ea;\"><tr><td align=\"center\" style=\"padding:24px 12px;\">\n<table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" style=\"width:600px;max-width:600px;background:#ffffff;\">\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:28px 24px;\">\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:38px;color:#c9a54a;letter-spacing:2px;\">M&amp;B</div>\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:20px;color:#c9a54a;letter-spacing:6px;\">RÉNOVATION</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#d9d4c7;padding-top:10px;\">Second œuvre · Paris &amp; Île-de-France</div>\n</td></tr>\n<tr><td style=\"padding:32px 36px 8px 36px;\">\n${P('Bonjour,')}${P(\"Je me permets de revenir vers vous suite à mon message de la semaine dernière. Si vous avez un chantier en préparation, je peux passer le voir ou vous envoyer un chiffrage.\")}${P('Bonne journée,')}\n</td></tr>\n<tr><td style=\"padding:0 36px 8px 36px;\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>\n<td width=\"50%\" style=\"padding-right:6px;\"><img src=\"https://www.maison-mb.fr/images/realisations/chantier-moulures-cache-radiateurs.jpg\" width=\"258\" alt=\"Moulures et cache-radiateurs – réalisation M&amp;B Rénovation\" style=\"display:block;width:100%;max-width:258px;height:auto;border:0;\"></td>\n<td width=\"50%\" style=\"padding-left:6px;\"><img src=\"https://www.maison-mb.fr/images/realisations/avant-apres-douche.jpg\" width=\"258\" alt=\"Douche avant/après – réalisation M&amp;B Rénovation\" style=\"display:block;width:100%;max-width:258px;height:auto;border:0;\"></td>\n</tr></table>\n</td></tr>\n<tr><td style=\"padding:16px 36px 0 36px;\">\n<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" style=\"margin:4px auto 22px auto;\"><tr><td align=\"center\" bgcolor=\"#c9a54a\" style=\"background:#c9a54a;\">\n<a href=\"${link}\" style=\"display:inline-block;padding:14px 30px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;color:#111a2b;text-decoration:none;\">VOIR NOS RÉALISATIONS</a></td></tr></table>\n</td></tr>\n<tr><td style=\"padding:8px 36px 28px 36px;\">\n<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"border-left:3px solid #c9a54a;padding-left:14px;\">\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:26px;color:#111a2b;\">Abdelrahman</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#6b6b6b;\">Gérant – M&amp;B Rénovation</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#6b6b6b;\"><a href=\"tel:+33753306559\" style=\"color:#6b6b6b;text-decoration:none;\">07 53 30 65 59</a> · <a href=\"https://www.maison-mb.fr\" style=\"color:#9a7a2e;text-decoration:none;\">www.maison-mb.fr</a></div>\n</td></tr></table>\n</td></tr>\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:18px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#b8b2a3;\">\n<a href=\"https://www.maison-mb.fr/plaquette.pdf\" style=\"color:#c9a54a;text-decoration:none;\">Télécharger notre plaquette (PDF)</a><br>\nSi ce message ne vous concerne pas, répondez simplement STOP.\n</td></tr>\n</table></td></tr></table></body></html>`;\nreturn { json: { ...l, to: l.email, subject, text, html } };\n"
-      },
       "id": "55c975e9-ee76-4d96-ba3d-340ec429683f",
       "name": "Construire email",
       "type": "n8n-nodes-base.code",
@@ -101,9 +97,21 @@
       "position": [
         2864,
         -400
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Shared M&B commercial design. Pure renderer: no transport and no recipient selection.\nconst MB_EMAIL_ASSETS={site:'https://www.maison-mb.fr/',projects:'https://www.maison-mb.fr/realisations/',subcontract:'https://www.maison-mb.fr/sous-traitance-renovation/',pdf:'https://www.maison-mb.fr/plaquette.pdf',photos:[{url:'https://www.maison-mb.fr/images/realisations/chantier-moulures-cache-radiateurs.jpg',alt:'Moulures et cache-radiateurs – réalisation M&B Rénovation'},{url:'https://www.maison-mb.fr/images/realisations/avant-apres-douche.jpg',alt:'Douche avant/après – réalisation M&B Rénovation'}]};\nfunction renderCommercialEmail(lead,kind){\n if(!['outreach','followup'].includes(kind))throw new Error('MB_EMAIL_INVALID_KIND');\n const email=String(lead.email||'').trim().toLowerCase();if(!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/.test(email))throw new Error('MB_EMAIL_INVALID_ADDRESS');\n if(Number(lead.id)===79)throw new Error('MB_EMAIL_LEAD79_NEVER_RESEND');\n if(kind==='outreach'&&(lead.date_envoi||lead.message_id||lead.date_reponse||lead.date_relance||['envoye','relance','stop','pas_interesse','interesse','erreur'].includes(lead.statut)))throw new Error('MB_EMAIL_FIRST_CONTACT_ALREADY_CONTACTED_OR_SUPPRESSED');\n if(kind==='followup'&&(!lead.date_envoi||!lead.message_id||lead.date_reponse||lead.date_relance||lead.statut!=='envoye'))throw new Error('MB_EMAIL_FOLLOWUP_REQUIRES_PRIOR_SEND_PROOF');\n const variants={\n  architecte:{subject:'Collaboration second œuvre – Paris & Île-de-France',copy:\"Nous souhaitons collaborer avec des architectes pour la réalisation des lots de second œuvre sur leurs projets de rénovation.\",pro:true},\n  maitre_oeuvre:{subject:'Collaboration second œuvre – Paris & Île-de-France',copy:\"Nous souhaitons collaborer avec des maîtres d’œuvre sur leurs chantiers de rénovation et prendre en charge des lots de second œuvre.\",pro:true},\n  entreprise_generale:{subject:'Collaboration second œuvre – Paris & Île-de-France',copy:\"Nous proposons des interventions en sous-traitance pour les lots de second œuvre de vos chantiers à Paris et en Île-de-France.\",pro:true},\n  agence:{subject:'Remise en état de logements – Paris & Île-de-France',copy:'Nous souhaitons collaborer avec votre agence pour la remise en état de logements entre deux locations ou avant une vente.'},\n  gestionnaire:{subject:'Remise en état de logements – Paris & Île-de-France',copy:'Nous proposons des interventions de second œuvre pour la remise en état des logements que vous gérez, entre deux locations ou avant une vente.'},\n  syndic:{subject:'Travaux en copropriété – Paris & Île-de-France',copy:\"Nous souhaitons collaborer avec des syndics et gestionnaires de copropriété pour les travaux en parties communes, les remises en état après dégâts des eaux et la rénovation d’appartements.\"},\n  courtier:{subject:'Artisan second œuvre pour votre réseau – Île-de-France',copy:\"Nous souhaitons rejoindre votre réseau d’artisans partenaires pour des projets de rénovation à Paris et en Île-de-France.\"}\n };\n const v=variants[lead.type];if(!v)throw new Error('MB_EMAIL_UNSUPPORTED_PROSPECT_TYPE');\n const original=String(lead.sujet||v.subject);if(/[\\r\\n]/.test(original))throw new Error('MB_EMAIL_INVALID_SUBJECT');\n const subject=kind==='followup'?(/^re\\s*:/i.test(original)?original:'Re: '+original):v.subject;\n const intro=\"M&B Rénovation est une entreprise de second œuvre intervenant à Paris et dans toute l’Île-de-France. Nous prenons en charge les travaux de rénovation intérieure : salle de bain, électricité, plâtrerie, carrelage, peinture et parquet.\";\n const paragraphs=kind==='outreach'?[intro,v.copy]:['Je me permets de revenir vers vous au sujet de mon précédent message.',v.copy];\n const offer=kind==='outreach'?'Je peux passer sur un de vos chantiers ou vous envoyer un chiffrage sur plans.':'Si vous avez un chantier en préparation, je peux passer le voir ou vous envoyer un chiffrage sur plans.';\n const escape=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');\n const P=s=>'<p style=\"margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:24px;color:#2b2b2b;\">'+escape(s)+'</p>';\n const text=['Bonjour,',...paragraphs,'Quelques réalisations : '+MB_EMAIL_ASSETS.projects,...(v.pro?['Notre offre de sous-traitance : '+MB_EMAIL_ASSETS.subcontract]:[]),offer,'Bonne journée,','Abdelrahman — Gérant, M&B Rénovation','07 53 30 65 59',MB_EMAIL_ASSETS.site,'Plaquette PDF : '+MB_EMAIL_ASSETS.pdf,'Si ce message ne vous concerne pas, répondez simplement STOP.'].join('\\n\\n');\n const html=`<!DOCTYPE html><html lang=\"fr\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"x-apple-disable-message-reformatting\"><title>${escape(subject)}</title><!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]--><style>@media only screen and (max-width:480px){.mb-content{padding-left:20px!important;padding-right:20px!important}.mb-button{font-size:12px!important;letter-spacing:1px!important}}</style></head>\n<body style=\"margin:0;padding:0;background:#f4f1ea;-webkit-text-size-adjust:100%;\" bgcolor=\"#f4f1ea\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#f4f1ea\"><tr><td align=\"center\" style=\"padding:24px 12px;\">\n<!--[if mso]><table role=\"presentation\" width=\"600\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td><![endif]-->\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" style=\"width:100%;max-width:600px;background:#fff;\">\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:28px 24px;\"><div style=\"font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:38px;color:#c9a54a;letter-spacing:2px;\">M&amp;B</div><div style=\"font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:20px;color:#c9a54a;letter-spacing:6px;\">RÉNOVATION</div><div style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#d9d4c7;padding-top:10px;\">Second œuvre · Paris &amp; Île-de-France</div></td></tr>\n<tr><td class=\"mb-content\" style=\"padding:32px 36px 8px;\">${P('Bonjour,')}${paragraphs.map(P).join('')}</td></tr>\n<tr><td class=\"mb-content\" style=\"padding:0 36px 8px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>${MB_EMAIL_ASSETS.photos.map((p,i)=>'<td width=\"50%\" valign=\"top\" style=\"padding-'+(i?'left':'right')+':6px;\"><img src=\"'+p.url+'\" width=\"258\" alt=\"'+escape(p.alt)+'\" style=\"display:block;width:100%;max-width:258px;height:auto;border:0;\"></td>').join('')}</tr></table></td></tr>\n<tr><td class=\"mb-content\" style=\"padding:16px 36px 0;\">${P('Quelques réalisations de M&B Rénovation :')}<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" style=\"margin:4px auto 22px;\"><tr><td align=\"center\" bgcolor=\"#c9a54a\" style=\"background:#c9a54a;mso-padding-alt:14px 24px;\"><a class=\"mb-button\" href=\"${MB_EMAIL_ASSETS.projects}\" style=\"display:inline-block;padding:14px 24px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;font-weight:bold;letter-spacing:2px;color:#111a2b;text-decoration:none;\">VOIR NOS RÉALISATIONS</a></td></tr></table>${v.pro?'<p style=\"font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;\"><a href=\"'+MB_EMAIL_ASSETS.subcontract+'\" style=\"color:#9a7a2e;\">Notre offre de sous-traitance</a></p>':''}${P(offer)}${P('Bonne journée,')}</td></tr>\n<tr><td class=\"mb-content\" style=\"padding:8px 36px 28px;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"border-left:3px solid #c9a54a;padding-left:14px;\"><div style=\"font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:26px;color:#111a2b;\">Abdelrahman</div><div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#6b6b6b;\">Gérant — M&amp;B Rénovation</div><div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;\"><a href=\"tel:+33753306559\" style=\"color:#6b6b6b;text-decoration:none;\">07 53 30 65 59</a><br><a href=\"${MB_EMAIL_ASSETS.site}\" style=\"color:#9a7a2e;text-decoration:none;\">www.maison-mb.fr</a></div></td></tr></table></td></tr>\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:18px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#b8b2a3;\"><a href=\"${MB_EMAIL_ASSETS.pdf}\" style=\"color:#c9a54a;text-decoration:none;\">Télécharger notre plaquette (PDF)</a><br>Si ce message ne vous concerne pas, répondez simplement STOP.</td></tr></table><!--[if mso]></td></tr></table><![endif]--></td></tr></table></body></html>`;\n return {...lead,to:email,subject,text,html,variante:'A',email_format:'multipart/alternative'};\n}\n\nreturn {json:renderCommercialEmail($json,\"followup\")};\n"
+      }
     },
     {
+      "id": "9023c3b3-6873-4bd7-b223-2664337db048",
+      "name": "Variante A ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3088,
+        -400
+      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -126,17 +134,19 @@
           ]
         },
         "options": {}
-      },
-      "id": "9023c3b3-6873-4bd7-b223-2664337db048",
-      "name": "Variante A ?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        3088,
-        -400
-      ]
+      }
     },
     {
+      "id": "36b132e4-6321-4556-ac99-90a7bb6f520c",
+      "name": "Email HTML (A)",
+      "webhookId": "__PRIVATE_36b132e4_6321_4556_ac99_90a7bb6f520c_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "onError": "continueRegularOutput",
+      "position": [
+        3296,
+        -496
+      ],
       "parameters": {
         "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
         "toEmail": "={{ $json.to }}",
@@ -148,56 +158,43 @@
           "appendAttribution": false
         }
       },
-      "id": "36b132e4-6321-4556-ac99-90a7bb6f520c",
-      "name": "Email HTML (A)",
-      "webhookId": "__PRIVATE_36b132e4_6321_4556_ac99_90a7bb6f520c_WEBHOOK_ID__",
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        3296,
-        -496
-      ],
       "credentials": {
         "smtp": {
           "id": "__EXISTING_SMTP_CREDENTIAL_ID__",
           "name": "SMTP abdel@maison-mb.fr"
         }
-      },
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
-        "toEmail": "={{ $json.to }}",
-        "subject": "={{ $json.subject }}",
-        "emailFormat": "text",
-        "text": "={{ $json.text }}",
-        "options": {
-          "appendAttribution": false
-        }
-      },
       "id": "210cea12-e930-4e1f-941e-8189483e0002",
       "name": "Email texte (B)",
       "webhookId": "__PRIVATE_210cea12_e930_4e1f_941e_8189483e0002_WEBHOOK_ID__",
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
+      "onError": "continueRegularOutput",
       "position": [
         3296,
         -304
       ],
+      "parameters": {
+        "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "both",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "html": "={{ $json.html }}"
+      },
       "credentials": {
         "smtp": {
           "id": "__EXISTING_SMTP_CREDENTIAL_ID__",
           "name": "SMTP abdel@maison-mb.fr"
         }
-      },
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst b = $('Construire email').item.json;\nconst r = $json;\nconst ok = !r.error && (r.accepted || []).length > 0;\nif (b.test) return { json: { test: true, id: 0, ok, email: b.email, variante: b.variante } };\nreturn { json: ok ? { id: b.id, statut: 'relance', date_relance: today() } : { id: b.id, statut: 'erreur' } };\n"
-      },
       "id": "67a6cce7-9c5a-4b05-8da1-f7aace96bf6f",
       "name": "Résultat",
       "type": "n8n-nodes-base.code",
@@ -205,9 +202,21 @@
       "position": [
         3520,
         -400
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst b = $('Construire email').item.json;\nconst r = $json;\nconst ok = !r.error && (r.accepted || []).length > 0;\nif (b.test) return { json: { test: true, id: 0, ok, email: b.email, variante: b.variante } };\nreturn { json: ok ? { id: b.id, statut: 'relance', date_relance: today() } : { id: b.id, statut: 'erreur' } };\n"
+      }
     },
     {
+      "id": "b992e912-cd81-4f5d-b9f0-12c0ca267f34",
+      "name": "Test ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3744,
+        -400
+      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -231,17 +240,17 @@
           ]
         },
         "options": {}
-      },
-      "id": "b992e912-cd81-4f5d-b9f0-12c0ca267f34",
-      "name": "Test ?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        3744,
-        -400
-      ]
+      }
     },
     {
+      "id": "30df29c4-709d-49e1-a780-097b2c434df3",
+      "name": "Leads – MAJ",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3968,
+        -304
+      ],
       "parameters": {
         "operation": "update",
         "dataTableId": {
@@ -262,20 +271,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "30df29c4-709d-49e1-a780-097b2c434df3",
-      "name": "Leads – MAJ",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        3968,
-        -304
-      ]
+      }
     },
     {
-      "parameters": {
-        "amount": "={{ $(\"Résultat\").item.json.test ? 1 : Math.floor(120 + Math.random() * 180) }}"
-      },
       "id": "aaa7280d-ae79-4612-8994-f34a574461b2",
       "name": "Pause 2-5 min",
       "webhookId": "__PRIVATE_aaa7280d_ae79_4612_8994_f34a574461b2_WEBHOOK_ID__",
@@ -284,12 +282,12 @@
       "position": [
         4176,
         -400
-      ]
+      ],
+      "parameters": {
+        "amount": "={{ $(\"Résultat\").item.json.test ? 1 : Math.floor(120 + Math.random() * 180) }}"
+      }
     },
     {
-      "parameters": {
-        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst sel = $('Sélection').all().map(i => i.json);\nif (!sel.length) return [];\nconst allRows = $input.all().map(i=>i.json);const blocked=allRows.filter(r=>r.allowed===false).length;const rows=allRows.filter(r=>r.allowed!==false);\nconst ok = rows.filter(r => r.statut === 'relance' || (r.test && r.ok)).length;\nconst err = rows.length - ok;\nconst test = sel[0].test ? ' (اختبار)' : '';if(!rows.length)return []; \nconst msg = `🔁 متابعات النهارده${test}: ${ok}` + (err ? `\\n❌ أخطاء: ${err}` : '') + '\\n\\n' + sel.filter(s=>rows.some(r=>String(r.id)===String(s.id))).map(s => '• ' + s.email + ' (' + s.variante + ')').join('\\n');\nreturn [{ json: { message: msg.slice(0, 4000), journal: { date: nowP(), workflow: 'W4', resultat: err ? 'partiel' : 'ok', details: `relances ${ok}, erreurs ${err}${test ? ', test' : ''}` } } }];\n"
-      },
       "id": "264668a8-489c-4e3c-bbba-690ff7b8bdef",
       "name": "Résumé",
       "type": "n8n-nodes-base.code",
@@ -297,17 +295,12 @@
       "position": [
         2864,
         -816
-      ]
+      ],
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst sel = $('Sélection').all().map(i => i.json);\nif (!sel.length) return [];\nconst allRows = $input.all().map(i=>i.json);const blocked=allRows.filter(r=>r.allowed===false).length;const rows=allRows.filter(r=>r.allowed!==false);\nconst ok = rows.filter(r => r.statut === 'relance' || (r.test && r.ok)).length;\nconst err = rows.length - ok;\nconst test = sel[0].test ? ' (اختبار)' : '';if(!rows.length)return []; \nconst msg = `🔁 متابعات النهارده${test}: ${ok}` + (err ? `\\n❌ أخطاء: ${err}` : '') + '\\n\\n' + sel.filter(s=>rows.some(r=>String(r.id)===String(s.id))).map(s => '• ' + s.email + ' (' + s.variante + ')').join('\\n');\nreturn [{ json: { message: msg.slice(0, 4000), journal: { date: nowP(), workflow: 'W4', resultat: err ? 'partiel' : 'ok', details: `relances ${ok}, erreurs ${err}${test ? ', test' : ''}` } } }];\n"
+      }
     },
     {
-      "parameters": {
-        "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
-        "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
-        "additionalFields": {
-          "appendAttribution": false,
-          "parse_mode": "HTML"
-        }
-      },
       "id": "1352e522-a081-40c0-9335-dba7e2b02843",
       "name": "Telegram",
       "webhookId": "__PRIVATE_1352e522_a081_40c0_9335_dba7e2b02843_WEBHOOK_ID__",
@@ -317,6 +310,14 @@
         3088,
         -816
       ],
+      "parameters": {
+        "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
+        "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
       "credentials": {
         "telegramApi": {
           "id": "__EXISTING_TELEGRAMAPI_CREDENTIAL_ID__",
@@ -325,9 +326,6 @@
       }
     },
     {
-      "parameters": {
-        "jsCode": "return [{ json: $('Résumé').first().json.journal }];"
-      },
       "id": "f944ce94-a114-4011-95c2-cb5870e6a859",
       "name": "Ligne journal",
       "type": "n8n-nodes-base.code",
@@ -335,9 +333,20 @@
       "position": [
         3296,
         -816
-      ]
+      ],
+      "parameters": {
+        "jsCode": "return [{ json: $('Résumé').first().json.journal }];"
+      }
     },
     {
+      "id": "4cad971d-814e-4440-8a2f-9cdba6209429",
+      "name": "Journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3520,
+        -816
+      ],
       "parameters": {
         "dataTableId": {
           "__rl": true,
@@ -349,17 +358,19 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "4cad971d-814e-4440-8a2f-9cdba6209429",
-      "name": "Journal",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        3520,
-        -816
-      ]
+      }
     },
     {
+      "id": "9177e72b-b06a-4f3d-81fa-a61a0a854a72",
+      "name": "Commercial – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        1328,
+        496
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -368,19 +379,19 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "9177e72b-b06a-4f3d-81fa-a61a0a854a72",
-      "name": "Commercial – Queue",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        1328,
-        496
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
+      "id": "1bbac964-d393-47af-b5ce-9127ea791560",
+      "name": "Avant envoi – Leads",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        32,
+        704
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -389,19 +400,19 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "1bbac964-d393-47af-b5ce-9127ea791560",
-      "name": "Avant envoi – Leads",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        32,
-        704
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
+      "id": "1075dd05-1f57-4501-a6c9-b14ee787b162",
+      "name": "Avant envoi – Blacklist",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        288,
+        704
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -410,19 +421,19 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "1075dd05-1f57-4501-a6c9-b14ee787b162",
-      "name": "Avant envoi – Blacklist",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        288,
-        704
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
+      "id": "63c6fe67-f9ba-4424-8906-53db59db7526",
+      "name": "Avant envoi – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        544,
+        704
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -431,22 +442,9 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "63c6fe67-f9ba-4424-8906-53db59db7526",
-      "name": "Avant envoi – Queue",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        544,
-        704
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst b=$('Un par un').item.json;const leads=$('Avant envoi – Leads').all(0,$runIndex).map(i=>i.json);const bl=$('Avant envoi – Blacklist').all(0,$runIndex).map(i=>mail(i.json.email)).filter(Boolean);const q=$input.all().map(i=>i.json);const lead=leads.find(l=>String(l.id)===String(b.id));const hour=Number(paris().slice(11,13));const dow=new Date(day()+'T12:00:00Z').getUTCDay();let allowed=!!lead&&hour>=8&&hour<18&&dow>=1&&dow<=4&&!lead.date_reponse&&(lead.statut==='envoye'&&lead.date_envoi&&String(lead.date_envoi).slice(0,10)<=new Date(Date.parse(day()+'T12:00:00Z')-7*86400000).toISOString().slice(0,10)&&!lead.date_relance);const em=mail(lead?.email);const dm=em.split('@')[1]||'';allowed=allowed&&!bl.includes(em)&&!bl.some(x=>!FREE.has(x.split('@')[1])&&x.split('@')[1]===dm);const actionKey='send:followup:'+company(lead||b);allowed=allowed&&!q.some(t=>t.task_key===actionKey);\n// Revalidate the complete approval and delivery history; unknown grades fail closed.\nconst approvals=q.filter(t=>t.task_key==='prospect:'+company(lead||b));\nallowed=allowed&&approvals.length===1&&approvals[0].status==='approved'&&['HOT','WARM'].includes(approvals[0].priority);\nconst contactActions=q.filter(t=>{\n  if(t.type!=='action'&&!String(t.task_key||'').startsWith('send:'))return false;\n  const p=unpack(t);const contact=p.lead||{};\n  return ['send:outreach:','send:followup:'].some(prefix=>t.task_key===prefix+company(lead||b))||\n    [p.email,contact.email,p.result?.email].some(value=>mail(value)&&mail(value)===em)||\n    (p.company&&p.company===company(lead||b));\n});\nallowed=allowed&&!contactActions.some(t=>{const p=unpack(t);return String(t.task_key||'').startsWith('send:followup:')||p.kind==='followup'||t.status!=='done';});\n// Policy approvals are bound to the verified recipient and evidence lifetime; human approvals keep their existing contract.\nconst approvalPayload=unpack(approvals[0]||{});\nallowed=allowed&&Number(lead?.id)!==79;\nif(approvalPayload.qualification_policy&&approvalPayload.qualified_by!=='operator_chat')allowed=allowed&&mail(approvalPayload.email)===em&&Number.isFinite(Date.parse(approvalPayload.qualification_expires_at))&&Date.parse(approvalPayload.qualification_expires_at)>Date.now();\nif(!allowed)return [jq({allowed:false,reason:'Not eligible, already reserved/sent, replied, blacklist, or outside business window'})];const payload={lead:{...b,...lead,_action_key:actionKey},campaign:'partnership-2026',kind:'followup'};return [jq({allowed:true,ledger:row(actionKey,'action','HOT','W4','reserved',payload,'SMTP réservé ; ne pas réessayer automatiquement si état incertain','W4')})];"
-      },
       "id": "c1c5dec8-0ade-440c-8b5f-fa6e3d1020c3",
       "name": "Garde commerciale",
       "type": "n8n-nodes-base.code",
@@ -454,9 +452,20 @@
       "position": [
         816,
         704
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst b=$('Un par un').item.json;const leads=$('Avant envoi – Leads').all(0,$runIndex).map(i=>i.json);const bl=$('Avant envoi – Blacklist').all(0,$runIndex).map(i=>mail(i.json.email)).filter(Boolean);const q=$input.all().map(i=>i.json);const lead=leads.find(l=>String(l.id)===String(b.id));const hour=Number(paris().slice(11,13));const dow=new Date(day()+'T12:00:00Z').getUTCDay();let allowed=!!lead&&hour>=8&&hour<18&&dow>=1&&dow<=4&&!lead.date_reponse&&(lead.statut==='envoye'&&lead.date_envoi&&String(lead.date_envoi).slice(0,10)<=new Date(Date.parse(day()+'T12:00:00Z')-7*86400000).toISOString().slice(0,10)&&!lead.date_relance);const em=mail(lead?.email);const dm=em.split('@')[1]||'';allowed=allowed&&!bl.includes(em)&&!bl.some(x=>!FREE.has(x.split('@')[1])&&x.split('@')[1]===dm);const actionKey='send:followup:'+company(lead||b);allowed=allowed&&!q.some(t=>t.task_key===actionKey);\n// Revalidate the complete approval and delivery history; unknown grades fail closed.\nconst approvals=q.filter(t=>t.task_key==='prospect:'+company(lead||b));\nallowed=allowed&&approvals.length===1&&approvals[0].status==='approved'&&['HOT','WARM'].includes(approvals[0].priority);\nconst contactActions=q.filter(t=>{\n  if(t.type!=='action'&&!String(t.task_key||'').startsWith('send:'))return false;\n  const p=unpack(t);const contact=p.lead||{};\n  return ['send:outreach:','send:followup:'].some(prefix=>t.task_key===prefix+company(lead||b))||\n    [p.email,contact.email,p.result?.email].some(value=>mail(value)&&mail(value)===em)||\n    (p.company&&p.company===company(lead||b));\n});\nallowed=allowed&&!contactActions.some(t=>{const p=unpack(t);return String(t.task_key||'').startsWith('send:followup:')||p.kind==='followup'||t.status!=='done';});\n// Policy approvals are bound to the verified recipient and evidence lifetime; human approvals keep their existing contract.\nconst approvalPayload=unpack(approvals[0]||{});\nallowed=allowed&&Number(lead?.id)!==79;\nallowed=allowed&&typeof lead?.message_id==='string'&&lead.message_id.trim().length>0; // A follow-up requires recorded SMTP/message proof.\n\nif(approvalPayload.qualification_policy&&approvalPayload.qualified_by!=='operator_chat')allowed=allowed&&mail(approvalPayload.email)===em&&Number.isFinite(Date.parse(approvalPayload.qualification_expires_at))&&Date.parse(approvalPayload.qualification_expires_at)>Date.now();\nif(!allowed)return [jq({allowed:false,reason:'Not eligible, already reserved/sent, replied, blacklist, or outside business window'})];const payload={lead:{...b,...lead,_action_key:actionKey},campaign:'partnership-2026',kind:'followup'};return [jq({allowed:true,ledger:row(actionKey,'action','HOT','W4','reserved',payload,'SMTP réservé ; ne pas réessayer automatiquement si état incertain','W4')})];"
+      }
     },
     {
+      "id": "fbe9240f-adb2-41e1-a2f8-a688915526f1",
+      "name": "Envoi autorisé ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        704
+      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -480,20 +489,9 @@
           "combinator": "and"
         },
         "options": {}
-      },
-      "id": "fbe9240f-adb2-41e1-a2f8-a688915526f1",
-      "name": "Envoi autorisé ?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        1072,
-        704
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn $input.all().map(i=>jq(i.json.ledger));"
-      },
       "id": "b83dd1a7-81ab-4a1f-9473-427691f6f9a6",
       "name": "Réservation commerciale",
       "type": "n8n-nodes-base.code",
@@ -501,31 +499,12 @@
       "position": [
         1328,
         704
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn $input.all().map(i=>jq(i.json.ledger));"
+      }
     },
     {
-      "parameters": {
-        "operation": "upsert",
-        "dataTableId": {
-          "__rl": true,
-          "value": "aqPFAT3TBwLGhlIj",
-          "mode": "id"
-        },
-        "matchType": "allConditions",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "task_key",
-              "keyValue": "={{ $json.task_key }}"
-            }
-          ]
-        },
-        "columns": {
-          "mappingMode": "autoMapInputData",
-          "value": null
-        },
-        "options": {}
-      },
       "id": "e22eb515-a291-4c61-be2d-06d80ce928d0",
       "name": "Action – réserver",
       "type": "n8n-nodes-base.dataTable",
@@ -533,37 +512,7 @@
       "position": [
         32,
         928
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).lead);"
-      },
-      "id": "bd3d5db7-db30-4a8b-b960-5f1bcbf4e221",
-      "name": "Restaurer lead autorisé",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        288,
-        928
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst result=$json;const b=$('Construire email').item.json;const ok=result.statut==='relance';return jq(row(b._action_key,'action','HOT','W4',ok?'done':'uncertain',{lead_id:b.id,email:b.email,company:company(b),kind:'followup',result,message_id:result.message_id||'',execution:$execution.id},ok?'Terminé — ne pas renvoyer':'Vérifier la livraison avant toute nouvelle tentative','W4'));"
-      },
-      "id": "e047d61e-9b70-431c-b9db-0e9582bd9e7f",
-      "name": "Action – résultat",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        544,
-        928
-      ]
-    },
-    {
+      ],
       "parameters": {
         "operation": "upsert",
         "dataTableId": {
@@ -585,7 +534,37 @@
           "value": null
         },
         "options": {}
-      },
+      }
+    },
+    {
+      "id": "bd3d5db7-db30-4a8b-b960-5f1bcbf4e221",
+      "name": "Restaurer lead autorisé",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        928
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).lead);"
+      }
+    },
+    {
+      "id": "e047d61e-9b70-431c-b9db-0e9582bd9e7f",
+      "name": "Action – résultat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        928
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst result=$json;const b=$('Construire email').item.json;const ok=result.statut==='relance';return jq(row(b._action_key,'action','HOT','W4',ok?'done':'uncertain',{lead_id:b.id,email:b.email,company:company(b),kind:'followup',result,message_id:result.message_id||'',execution:$execution.id},ok?'Terminé — ne pas renvoyer':'Vérifier la livraison avant toute nouvelle tentative','W4'));"
+      }
+    },
+    {
       "id": "5fb9e63e-a2cb-40b0-9f1d-384a93b3a485",
       "name": "Action – enregistrer",
       "type": "n8n-nodes-base.dataTable",
@@ -593,13 +572,31 @@
       "position": [
         816,
         928
-      ]
+      ],
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).result);"
-      },
       "id": "ec3adec6-0394-4e52-bffd-fd02e86e52f2",
       "name": "Restaurer résultat commercial",
       "type": "n8n-nodes-base.code",
@@ -607,7 +604,11 @@
       "position": [
         1072,
         928
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).result);"
+      }
     }
   ],
   "connections": {
@@ -950,12 +951,12 @@
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
     "errorWorkflow": "4O2ZR1JpDOgJZOLw",
-    "timezone": "Europe/Paris"
+    "timezone": "Europe/Paris",
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+  "versionId": "970060cd-6c2a-4549-953d-b748ad959e6d",
   "meta": null,
   "nodeGroups": [],
   "id": "Ipqy6qKmAuXVz2vl",

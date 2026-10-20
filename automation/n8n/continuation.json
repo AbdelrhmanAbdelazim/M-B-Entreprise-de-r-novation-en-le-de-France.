@@ -137,6 +137,14 @@
       "production_workflow_changes": 0,
       "setup_task_id": 106,
       "status": "BLOCKED_MISSING_META_APP_CLIENT"
+    },
+    "commercial": {
+      "report": "commercial-email-release.json",
+      "render_checks": 6,
+      "report_checks": 4,
+      "offline_browser_layouts": 4,
+      "campaign_executed": false,
+      "approval_required": true
     }
   },
   "existing_table_roles": {
@@ -314,5 +322,9 @@
   "social_revision": {
     "path": "revisions/social-20261019/verification.json",
     "sha256": "c887d9024054a5a9d8c85f070a4a7e67dcf4ae595b6a8c3066ee298f4a074b85"
+  },
+  "commercial_revision": {
+    "path": "revisions/commercial-email-20261020/verification.json",
+    "sha256": "e4cc927be0f217a11d670280a74ade762a94e9a573cb02e49b2286265f762430"
   }
 }
