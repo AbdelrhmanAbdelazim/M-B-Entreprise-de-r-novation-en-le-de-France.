@@ -1,0 +1,112 @@
+{
+  "result": "OPERATOR_APPROVED_BLOCKED_BEFORE_DELIVERY",
+  "recorded_at_utc": "2026-10-20T11:10:49.426399+00:00",
+  "campaign_id": "mb-commercial-20261020-html",
+  "manifest_sha256": "160876fbfe41b26cbd7c127495f90df04952787d201eb9e39c6e2f7c310fc250",
+  "review_task_id": 145,
+  "explicit_operator_approval_received": true,
+  "approved_campaigns": 1,
+  "approved_maximum_initial_contacts": 14,
+  "substitutions_authorized": false,
+  "fresh_preflight": {
+    "checked_at_utc": "2026-10-20T11:09:50.201Z",
+    "manifest_sha256": "160876fbfe41b26cbd7c127495f90df04952787d201eb9e39c6e2f7c310fc250",
+    "approved_count": 14,
+    "eligible_count": 14,
+    "results": [
+      {
+        "lead_id": 84,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 85,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 87,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 88,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 67,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 69,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 73,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 77,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 78,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 81,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 82,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 83,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 89,
+        "eligible_at_check": true
+      },
+      {
+        "lead_id": 90,
+        "eligible_at_check": true
+      }
+    ],
+    "prior_daily_sends": 10,
+    "protected_execution444_count": 10,
+    "protected_lead79": true,
+    "transport_executed": false,
+    "requires_fresh_per_send_checks": true,
+    "blocked_by_live_URL_verification": true
+  },
+  "live_URL_verification": {
+    "result": "BLOCKED",
+    "reason": "Cloud CONNECT proxy403; maison-mb.fr/www.maison-mb.fr absent from enforced network allowlist",
+    "network_draft_revision": 6,
+    "saved_domain_additions": [
+      "maison-mb.fr",
+      "www.maison-mb.fr"
+    ],
+    "runtime_applied": false
+  },
+  "execution": {
+    "campaign_started": false,
+    "new_customer_messages_sent": 0,
+    "SMTP_accepted_new_campaign": 0,
+    "new_execution_id": null,
+    "report_sent": false,
+    "report_archived_in_Sent": false
+  },
+  "invariants": {
+    "all14_production_workflows_published_active": true,
+    "workflows_or_schedules_changed": false,
+    "existing_send_history_preserved": true,
+    "lead79_resent": false,
+    "execution444_resent": false
+  },
+  "other_execution_prerequisites": [
+    "Safe one-off W3 execution entry must still be implemented and verified; do not invoke the ordinary selector wholesale",
+    "Per-send fresh checks, no ambiguous SMTP retries",
+    "Report delivery and a safe IMAP APPEND/Sent verification interface are not yet implemented"
+  ],
+  "expires_at_utc": "2026-10-20T16:00:00Z"
+}

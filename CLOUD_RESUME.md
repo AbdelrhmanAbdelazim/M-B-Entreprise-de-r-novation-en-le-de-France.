@@ -1,3 +1,7 @@
+## Latest campaign consent — approved14, technical hold remains
+
+Read `automation/n8n/commercial-campaign-consent-20261020.json` and newest STATUS first. Explicit conversation consent is recorded against the exact manifest in live Queue145, retaining needs_review only as a technical hold. Do not ask for the same approval again, add recipients, or change the immutable approved manifest. Fresh14 eligibility/body-hash checks passed; no sends/report/archival occurred. Website CONNECT403 and unapplied additive domain draft still block the mandatory live-link gate. Review/save/apply the existing Cloud network draft, recheck HTTP links, then implement/verify a safe one-off W3 entry with unchanged schedules and no other-automation changes. Respect18:00 Paris20October expiry, daily cap30, no replacements, protected444/79 and fresh per-send checks. Do not rerun successful old tests or claim an IMAP Sent copy without actual APPEND/message verification.
+
 # Continue M&B Growth Engine from Codex Cloud / phone
 
 ## Latest commercial email release — HTML live, campaign145 awaits explicit consent

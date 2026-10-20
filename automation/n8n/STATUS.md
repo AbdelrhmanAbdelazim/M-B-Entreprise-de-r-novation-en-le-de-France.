@@ -1,6 +1,16 @@
 # n8n Growth Engine — Cloud handoff / STATUS
 
-## Latest release — commercial HTML harmonized; immediate campaign awaiting explicit approval
+## Latest continuation — exact14 campaign approved; delivery blocked by website network policy
+
+The operator explicitly approved **one campaign of the exact previously presented14 initial contacts**, conditional on live link validation and final duplicate/suppression checks. Approval is no longer missing. It is bound to manifest SHA256 `160876fbfe41b26cbd7c127495f90df04952787d201eb9e39c6e2f7c310fc250` in existing Growth Queue145 and was re-read after a compare-and-set payload update. No recipients or subjects were changed; no substitutions/additional sends are authorized. Task status remains needs_review as a technical hold, not a request for renewed email consent. See `commercial-campaign-consent-20261020.json`.
+
+Fresh read at 2026-10-20T11:09:50.201Z examined91 Leads,143 Queue rows and0 Blacklist rows; exact14 remained eligible and rendered body/subject/source hashes matched the frozen approved manifest. Execution444 remains W3’s latest run with its prior ten protected recipients; W4’s latest run remains452. Lead79 remains excluded. All14 production workflows remain Published/Active. These are current preflight observations, not a permanent send authorization regardless of later replies, reservations, expiry or blacklist changes.
+
+**No immediate campaign has started; new campaign SMTP accepted0, report sent0, Sent archive unverified.** Website HEAD again failed with CONNECT tunnel403; enforced Cloud revision2 still excludes maison-mb.fr/www.maison-mb.fr, while saved draft revision6 includes them. User must review/save the existing additive network draft in Cloud environment settings and publish/apply as the product requires; a draft save does not apply runtime access. Do not bypass the proxy or use hosted n8n as a network-policy workaround. Recheck all live URLs after the policy applies. Approval alone does not waive this condition.
+
+No workflows, credentials, schedules, other automations or previous delivery statuses were modified in this continuation. Only the campaign’s approval/technical-hold metadata changed. Before delivery, a safe one-off W3 entry still needs implementation/verification without altering its normal schedule or running the ordinary selector wholesale; no callable delivery path has been installed. Preserve dated expiry18:00 Paris20October, cap30, exact manifest and per-send fresh checks; never carry over the campaign silently. Native IMAP authentication succeeded previously, but no safe exposed APPEND/Sent-identification interface has been found; do not claim the report has been archived.
+
+## Prior release — commercial HTML harmonized; campaign was awaiting explicit approval
 
 Read `commercial-email-release.json` and `revisions/commercial-email-20261020/verification.json`. **Published/re-read:** W3 version79a240b8-0992-4383-8671-7c805790c33a and W4 version970060cd-6c2a-4549-953d-b748ad959e6d retain their IDs, credentials, settings, schedules, node IDs, webhooks, transport error behavior and connections. Only their email renderer and text-fallback format changed; W4's pre-send guard additionally requires a prior SMTP Message-ID before follow-up. W7/W0 were audited and left unchanged; all14 production graphs remain Published/Active. Current W0 execution433's unrelated Manager timeout was not modified. No workflow/node duplication, history deletion, status reset or transport test delivery occurred.
 
