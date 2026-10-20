@@ -98,7 +98,7 @@ class ReadOnlyProbeTests(unittest.TestCase):
 
 class OfflineAssemblyTests(unittest.TestCase):
     def copy_bundle(self, target):
-        for name in ['commercial-email.js', 'social-publishing.js', 'management.js', 'qualification.js', 'Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json', 'continuation.json', 'data-tables.json', 'My workflow.json', 'activation.json'] + [f'W{i}.json' for i in range(11)]:
+        for name in ['direct-social.js', 'metricool.js', 'commercial-email.js', 'social-publishing.js', 'management.js', 'qualification.js', 'Codex MCP.json', 'ChatGPT ingress.json', 'manifest.json', 'continuation.json', 'data-tables.json', 'My workflow.json', 'activation.json'] + [f'W{i}.json' for i in range(11)]:
             shutil.copyfile(ROOT / name, target / name)
         (target / 'pending').mkdir()
         for source in (ROOT / 'pending').glob('*.patch.json'):

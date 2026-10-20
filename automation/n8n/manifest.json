@@ -27,13 +27,13 @@
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
+      "version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
       "source_sha256": "950b4f14132607c309a84a90fb6fadcadcee38146c63e395dd94e8b747ece730",
-      "public_sha256": "208808c84518a70672be08041fcddac6e8319181b883c37987a24d4bfbf8614a",
+      "public_sha256": "ac32dca2a8dc823f1e43e96925e22dc2a397eac36abed4f59d847fcb93992b7e",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",

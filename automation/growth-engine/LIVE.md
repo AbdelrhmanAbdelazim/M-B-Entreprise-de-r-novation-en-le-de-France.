@@ -1,3 +1,7 @@
+## Direct-social queue/preflight successor —20 October2026
+
+Manager600→observer601 verified a new protected official-channel diagnostic against the real14 pending W10 drafts. Manager now prepares only blocked official-provider intents for future approved content; no NEW Metricool slot is created. Existing Metricool schedules/unknown holds and all15 active workflows are preserved. This is not an authenticated publisher: zero account permissions or platform publication has been verified, and no official HTTP transport is installed. Automatic review rejected new OAuth credential creation; none were created or bypassed. See ../n8n/DIRECT_SOCIAL.md and direct-social-connections.json for the exact app/account consent boundaries. Existing content/rights approval is still mandatory.
+
 ## W2 and video successor —20 October2026
 
 W2 now links future qualified website tasks to central Leads under needs_review, without outbound approval. Manager586→observer587 verified the actual protected internal **dry-run** path; no real customer insertion has yet been observed. All15 production workflows were reread Active/Published with unchanged timers. Only W2, Manager diagnostic, observer internal branch and W10 draft preparation changed. See ../n8n/inbound-video-release.json and ../n8n/inbound-video-live-state.json.

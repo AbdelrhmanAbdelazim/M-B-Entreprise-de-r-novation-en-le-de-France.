@@ -1,3 +1,9 @@
+## Latest direct-social preparation — PR21, publishing still BLOCKED
+
+Read automation/n8n/direct-social-release.json, DIRECT_SOCIAL.md and newest STATUS. Only Manager/observer changed; native600→601 verified protected `/social-preflight-safe`, current14 pending drafts,0 approved media,8 auth boundaries and permanent391473868 hold, with no models/transports/writes in the diagnostic.8 internal auth tasks183–190 were saved separately. All15 stay Published/Active; other13 versions/schedules and existing draft/post rows unchanged. No actual official HTTP publisher is installed or authorized. New Metricool slots are suppressed; existing provider reconciliation is retained. Never backfill/publish old drafts or retry unknown posts.
+
+Automatic review rejected creating new persistent publishing OAuth Credentials before explicit scope/account consent; NONE were created and no bypass attempted. Review-only settings in direct-social-connections.json, callback and official developer portals are prepared. Explicit Meta credential-creation confirmation and real company app/user OAuth are still needed; do not fabricate consent links, app IDs, permissions or tokens. Never ask for secrets in chat. Native schema availability does not mean connection. All existing11 credentials were reread unchanged. Full successor chain is in revisions/direct-social-20261020 with strict verification. The unrelated report593 dry_run bug is unchanged.
+
 ## Latest two-HOT operation — no workflow edits; report blocker discovered
 
 Read newest STATUS and automation/n8n/hot-prospects-review-20261020.json. Leads95/96 remain nouveau, prospect179/180 remain approved; exact live W3 type-specific HTML/text drafts and review proof are saved in those existing rows. Neither was sent by this operation. Native next cycle21October08:30 Paris must recheck eligibility/quota; do not manually send or duplicate a campaign. All15 active versions/settings are unchanged.

@@ -1,6 +1,6 @@
 {
   "result": "LIVE",
-  "captured_at_utc": "2026-10-20T15:51:14.396934+00:00",
+  "captured_at_utc": "2026-10-20T17:04:08.211436+00:00",
   "source_commit": "184da0b4235627513593abfa1f6d59c418493d4f",
   "branch": "automation/growth-engine-safe-2026-10",
   "inventory_count": 17,
@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
-      "active_version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
+      "version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
+      "active_version_id": "57548ccb-cf34-41a5-a539-e3451a73846a",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "inbound-video-release.json",
+  "latest_release": "direct-social-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
@@ -286,12 +286,14 @@
   "chatgpt_mcp_connection": "BLOCKED_PENDING_ACCOUNT_REGISTRATION_AND_OAUTH_CONSENT",
   "additional_improvement": {
     "id": "MyHbk1Xn67RftCnB",
-    "version_id": "976ea357-39cb-4e07-8e4f-b340412353f9",
-    "active_version_id": "976ea357-39cb-4e07-8e4f-b340412353f9",
+    "version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
+    "active_version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
     "active": true,
     "published": true,
     "schedule": "15 18 * * *",
     "timezone": "Europe/Paris",
-    "first_scheduled_email_not_yet_observed": true
+    "first_scheduled_email_not_yet_observed": false,
+    "first_scheduled_execution": "593",
+    "first_scheduled_email_smtp_executed": false
   }
 }

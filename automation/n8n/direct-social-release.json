@@ -1,0 +1,55 @@
+{
+  "result": "DIRECT_PREPARATION_LIVE_PUBLISHING_BLOCKED",
+  "captured_at_utc": "2026-10-20T17:04:08.211436+00:00",
+  "branch": "automation/growth-engine-safe-2026-10",
+  "PR": 21,
+  "verification": {
+    "path": "revisions/direct-social-20261020/verification.json",
+    "sha256": "9c59675a522ad4239b05b537d2a03605303d836db4c6fc7ac2190caecc8674b0"
+  },
+  "production_active": 15,
+  "unchanged_other_workflows": 13,
+  "old_schedules_credentials_webhooks_tables_W0_preserved": true,
+  "runtime": {
+    "manager_execution_id": "600",
+    "diagnostic_execution_id": "601",
+    "status": "success",
+    "external_platform_calls": 0,
+    "publish_requests": 0,
+    "model_calls": 0,
+    "diagnostic_data_writes": 0,
+    "content_drafts_observed": 14,
+    "approved_media_observed": 0,
+    "platforms_observed": 8,
+    "blocked_integration_task_ids": [
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190
+    ]
+  },
+  "new_credential_count": 0,
+  "credential_creation_auto_review_rejected": true,
+  "automatic_model_or_ad_spend": 0,
+  "actual_official_platform_permissions_verified": false,
+  "actual_platform_connections_verified": false,
+  "official_publish_transport_installed": false,
+  "new_Metricool_publication_intents_disabled": true,
+  "legacy_Metricool_read_reconciliation_retained": true,
+  "existing_drafts_and_publication_holds_unchanged": true,
+  "post391473868_no_resend": true,
+  "external_scheduled_post_states": "unknown; no authenticated Metricool API exposed",
+  "approval_and_rights_required": true,
+  "all_platforms_publishing_disabled": true,
+  "remaining": [
+    "Company-owned developer app and real OAuth/account consent for each platform",
+    "Exact account identities/scopes/Page credentials and API quotas must be read-verified after consent",
+    "Implement and verify official HTTP publishing adapter against actual authorized bindings; none installed or enabled here",
+    "Approve content and actual media rights; reconcile existing Metricool publication identities before provider switch",
+    "Automatic approval review rejected creating persistent publishing OAuth credentials; configuration-only alternative saved, no bypass"
+  ]
+}

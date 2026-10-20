@@ -342,5 +342,9 @@
   "inbound_video_revision": {
     "path": "revisions/inbound-video-20261020/verification.json",
     "sha256": "8694abba25496993c0619903b1aee3624f20d235f82265a8463bd1a92fbdcdc6"
+  },
+  "direct_social_revision": {
+    "path": "revisions/direct-social-20261020/verification.json",
+    "sha256": "9c59675a522ad4239b05b537d2a03605303d836db4c6fc7ac2190caecc8674b0"
   }
 }

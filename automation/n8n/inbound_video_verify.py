@@ -1,7 +1,7 @@
 """Verify immutable inbound/video successor without any remote operations."""
 import hashlib,json
 
-def verify(root,entry):
+def verify(root,entry,targets=None):
  path='revisions/inbound-video-20261020/verification.json'
  assert entry['path']==path
  def digest(p):return hashlib.sha256((root/p).read_bytes()).hexdigest()
@@ -14,8 +14,9 @@ def verify(root,entry):
  for name,p in proof['workflows'].items():
   assert p['before']=='revisions/inbound-video-20261020/'+name+'.before.json'
   assert p['after']==('revisions/inbound-video-20261020/AI Continuous Improvement.json' if name=='AI Continuous Improvement' else name+'.json')
-  assert digest(p['before'])==p['before_sha256'] and digest(p['after'])==p['after_sha256']
-  old=json.loads((root/p['before']).read_text());new=json.loads((root/p['after']).read_text())
+  after=(targets or {}).get(name,p['after'])
+  assert digest(p['before'])==p['before_sha256'] and digest(after)==p['after_sha256']
+  old=json.loads((root/p['before']).read_text());new=json.loads((root/after).read_text())
   assert old['id']==new['id']==p['id'] and old['versionId']==p['before_version_id'] and new['versionId']==p['published_version_id']
   assert new['active'] and old['settings']==new['settings'];a={n['name']:n for n in old['nodes']};b={n['name']:n for n in new['nodes']};assert set(a)<=set(b)
   allowed={'W2':{'Site – tâche commerciale'},'My workflow':{'Growth – diagnostic sûr ?','Growth – contexte isolé'},'W10':{'Contenu – calendrier'},'AI Continuous Improvement':set()}[name]

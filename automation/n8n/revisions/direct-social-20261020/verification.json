@@ -1,0 +1,50 @@
+{
+  "kind": "direct_social_preparation_only",
+  "cutover": "2026-10-20T16:53:42.608596+00:00",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before": "revisions/direct-social-20261020/My workflow.before.json",
+      "after": "My workflow.json",
+      "before_sha256": "208808c84518a70672be08041fcddac6e8319181b883c37987a24d4bfbf8614a",
+      "after_sha256": "ac32dca2a8dc823f1e43e96925e22dc2a397eac36abed4f59d847fcb93992b7e",
+      "before_version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
+      "published_version_id": "57548ccb-cf34-41a5-a539-e3451a73846a"
+    },
+    "AI Continuous Improvement": {
+      "id": "MyHbk1Xn67RftCnB",
+      "before": "revisions/direct-social-20261020/AI Continuous Improvement.before.json",
+      "after": "revisions/direct-social-20261020/AI Continuous Improvement.json",
+      "before_sha256": "c4e339150199a353031d23a55c4b6073de40de00f405f71d7585eff4e547ed6d",
+      "after_sha256": "6e37d870dfd88674b68fc0104557bde14939b454e02d51c56088835cb105e209",
+      "before_version_id": "976ea357-39cb-4e07-8e4f-b340412353f9",
+      "published_version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3"
+    }
+  },
+  "source": {
+    "path": "direct-social.js",
+    "sha256": "ffb668c8e00dc8f32d64c4da3fbe124df6624f0cccd0702d45eb5c3cb06939dc"
+  },
+  "runtime": {
+    "manager_execution_id": "600",
+    "diagnostic_execution_id": "601",
+    "status": "success",
+    "external_platform_calls": 0,
+    "publish_requests": 0,
+    "model_calls": 0,
+    "diagnostic_data_writes": 0,
+    "content_drafts_observed": 14,
+    "approved_media_observed": 0,
+    "platforms_observed": 8,
+    "blocked_integration_task_ids": [
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190
+    ]
+  }
+}

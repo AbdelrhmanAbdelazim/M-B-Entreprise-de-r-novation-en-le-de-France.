@@ -1,0 +1,225 @@
+{
+  "status": "BLOCKED_OFFICIAL_ACCOUNT_AUTHORIZATION",
+  "callback": "https://navajowhite-cormorant-668337.hostingersite.com/rest/oauth2-credential/callback",
+  "credential_mutations_performed": 0,
+  "credential_creation_auto_review_rejected": true,
+  "auto_review_reason": "Persistent publishing-scope credentials proposed before explicit scope consent/account OAuth; no creation command executed. Safe alternative is configuration-only review.",
+  "new_transport_installed": false,
+  "platforms": [
+    {
+      "channel": "facebook",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Meta for Developers",
+      "setup_url": "https://developers.facebook.com/apps/",
+      "required_scopes_for_review": [
+        "pages_show_list",
+        "pages_read_engagement",
+        "pages_manage_posts"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Company-owned Meta app + Page admin tasks + user OAuth, then securely provision target Page credential.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "instagram",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Meta for Developers",
+      "setup_url": "https://developers.facebook.com/apps/",
+      "required_scopes_for_review": [
+        "pages_show_list",
+        "pages_read_engagement",
+        "instagram_basic",
+        "instagram_content_publish"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Same company Meta app, professional Instagram linked to the selected Page, required permissions/app access and Page token binding.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "google_business_profile",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Google Cloud",
+      "setup_url": "https://console.cloud.google.com/apis/credentials",
+      "required_scopes_for_review": [
+        "https://www.googleapis.com/auth/business.manage"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Company Google OAuth application, approved GBP API access/enabled APIs and owner/manager consent for verified locations.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "tiktok",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "TikTok for Developers",
+      "setup_url": "https://developers.tiktok.com/",
+      "required_scopes_for_review": [
+        "user.info.basic",
+        "video.publish"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Content Posting API application/audit + creator consent; verify required per-post UX/privacy settings. No native OAuth adapter exposing client_key is installed.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "youtube_shorts",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Google Cloud",
+      "setup_url": "https://console.cloud.google.com/apis/credentials",
+      "required_scopes_for_review": [
+        "https://www.googleapis.com/auth/youtube.upload",
+        "https://www.googleapis.com/auth/youtube.readonly"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Company Google project with YouTube Data API and channel owner consent; unverified upload projects may remain private until audit, and API quota must be checked.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "linkedin",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "LinkedIn Developers",
+      "setup_url": "https://www.linkedin.com/developers/apps",
+      "required_scopes_for_review": [
+        "r_organization_admin",
+        "w_organization_social",
+        "r_organization_social"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Approved Community Management product/application and Page admin consent; requested scopes must actually be granted. Verify supported LinkedIn-Version before authenticated calls.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "pinterest",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Pinterest Developers",
+      "setup_url": "https://developers.pinterest.com/apps/",
+      "required_scopes_for_review": [
+        "boards:read",
+        "pins:read",
+        "pins:write"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Business developer application with approved access, account/board consent and verified public-board permissions.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    },
+    {
+      "channel": "threads",
+      "connected_verified": false,
+      "publish_permission_verified": false,
+      "publishing_enabled": false,
+      "credential_available": false,
+      "credential_created": false,
+      "portal": "Meta for Developers",
+      "setup_url": "https://developers.facebook.com/apps/",
+      "required_scopes_for_review": [
+        "threads_basic",
+        "threads_content_publish"
+      ],
+      "scope_granted": false,
+      "human_authorization_required": "Company Threads application/use case and Threads account consent; Facebook Login grants do not grant Threads permissions.",
+      "authorization_url": null,
+      "authorization_url_reason": "No registered client binding or native-generated OAuth state exists; never fabricate a consent link."
+    }
+  ],
+  "meta_oauth_review_configuration": {
+    "type": "oAuth2Api",
+    "name": "M&B Meta direct — awaiting company app OAuth",
+    "clientId": null,
+    "clientSecret": null,
+    "authUrl": "https://www.facebook.com/v26.0/dialog/oauth",
+    "accessTokenUrl": "https://graph.facebook.com/v26.0/oauth/access_token",
+    "scope": "pages_show_list,pages_read_engagement,pages_manage_posts,instagram_basic,instagram_content_publish",
+    "authentication": "body",
+    "allowedHttpRequestDomains": "domains",
+    "allowedDomains": "graph.facebook.com",
+    "ignoreSSLIssues": false,
+    "api_version_evidence": "Official facebook-nodejs-business-sdk main src/api.js reports VERSION v26.0, SDK26.0.2 at this inspection",
+    "do_not_create_or_start_oauth_without_explicit_scope_confirmation": true
+  },
+  "native_schemas_read": {
+    "googleBusinessProfileOAuth2Api": "available",
+    "youTubeOAuth2Api": "available",
+    "linkedInOAuth2Api": "available; generic scope restriction preferred over legacy defaults",
+    "oAuth2Api": "available",
+    "tikTokOAuth2Api": "404",
+    "pinterestOAuth2Api": "404",
+    "threadsOAuth2Api": "404"
+  },
+  "least_privilege_notes": [
+    "No ads/marketing-budget scopes requested",
+    "YouTube proposed scopes exclude partner/audit defaults in native credential",
+    "Use official OAuth and native CSRF state; no external account permission automatically granted",
+    "TikTok client_key is not interchangeable with generic client_id; no fake connector created",
+    "Page tokens must stay in encrypted credentials; never fetch access_token fields into saved execution output"
+  ],
+  "read_only_preflight_after_real_oauth": {
+    "meta": [
+      "GET /v26.0/me/permissions",
+      "GET /v26.0/me/accounts?fields=id,name,tasks,instagram_business_account{id,username}",
+      "Existing meta-preflight.js validates actual complete scope/Page/Instagram/quota evidence; safe app/token validation must not save token parameters"
+    ],
+    "google_business_profile": [
+      "GET https://mybusinessaccountmanagement.googleapis.com/v1/accounts",
+      "Discover authorized locations through Business Information API before any LocalPosts request"
+    ],
+    "youtube_shorts": [
+      "GET https://youtube.googleapis.com/youtube/v3/channels?part=id,snippet&mine=true"
+    ],
+    "linkedin": [
+      "Read organization access-control evidence through approved Community Management version; no member/organization IDs invented"
+    ],
+    "pinterest": [
+      "GET https://api.pinterest.com/v5/user_account",
+      "GET https://api.pinterest.com/v5/boards"
+    ],
+    "tiktok": [
+      "Official authenticated creator/account capability query only after native client_key OAuth support and granted scopes; no publish init used as a test"
+    ],
+    "threads": [
+      "Read account identity and own-container statuses using actual Threads grants before any threads_publish call"
+    ]
+  },
+  "documentation_sources_read": [
+    "https://github.com/facebook/facebook-nodejs-business-sdk/blob/main/src/api.js",
+    "https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/credentials/GoogleBusinessProfileOAuth2Api.credentials.ts",
+    "https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/credentials/YouTubeOAuth2Api.credentials.ts",
+    "https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/credentials/LinkedInOAuth2Api.credentials.ts",
+    "https://github.com/pinterest/api-description/blob/main/v5/openapi.yaml",
+    "https://github.com/linkedin-developers/linkedin-api-python-client",
+    "https://github.com/fbsamples/threads_api"
+  ]
+}
