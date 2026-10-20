@@ -1,0 +1,330 @@
+{
+  "base_commit": "883e99b9a859fef687f5ffe997e999328c43e384",
+  "recorded_at_utc": "2026-10-19T19:33:09.951826+00:00",
+  "branch": "codex/growth-engine-883e99b",
+  "live_state": {
+    "verified": true,
+    "N8N_BASE_URL_present": true,
+    "N8N_API_KEY_present": true,
+    "runtime_variable_state": "ready",
+    "secret_binding_state": "ready",
+    "authentication_acceptance": "confirmed_by_authenticated_inventory_and_definition_reads",
+    "last_authenticated_api_attempt": {
+      "result": "CONNECTED",
+      "inventory_count": 13,
+      "expected_matched": 12,
+      "captured_at_utc": "2026-10-19T10:50:49.200671+00:00"
+    },
+    "historical_observations": [
+      {
+        "stage": "before_runtime_binding",
+        "failure": "proxy CONNECT 403"
+      },
+      {
+        "stage": "network_restored_before_binding",
+        "root_http": 200,
+        "unauthenticated_inventory_http": 401
+      }
+    ],
+    "no_replacement_key_created": true,
+    "no_host_changes": true,
+    "live_deployment": "published_readback_verified",
+    "activation_report": "activation.json"
+  },
+  "production_changes": true,
+  "public_production_snapshots_changed": true,
+  "previous_successful_business_tests_repeated": false,
+  "new_verification": {
+    "javascript_regressions": {
+      "passed": 22,
+      "failed": 0
+    },
+    "python_patch_guards": {
+      "passed": 6,
+      "failed": 0
+    },
+    "targeted_baseline_failures": 17,
+    "baseline_note": "14 failures out of the first 15 regression cases; 3 further W2/W6 failures. The passing empty-search baseline and later positive controls are not defects.",
+    "cli": "W9 staged to ignored private-live with no remote operation",
+    "cloud_continuation_tools": {
+      "passed": 13,
+      "failed": 0,
+      "suite": "tests/test_cloud_handoff.py",
+      "transport": "in_memory_only",
+      "previous_28_tests_rerun": false
+    },
+    "production_activation": {
+      "passed": 20,
+      "failed": 0,
+      "live_readback_workflows": 12,
+      "mode": "isolated local VM; six draft/save/publish/read-back operations; no execution requests"
+    },
+    "post_activation_handoff": {
+      "new_publication_guard_tests": 4,
+      "affected_offline_assembly_checks": 4,
+      "failed": 0,
+      "artifact_validator": "passed_after_published_exports_changed",
+      "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
+    },
+    "qualification_release": {
+      "report": "qualification-release.json",
+      "tests_passed": 26,
+      "live_rows_upserted": 47,
+      "eligible": 26,
+      "next_cycle_selected": 10
+    },
+    "windsor_release": {
+      "report": "windsor-release.json",
+      "isolated_checks": 18,
+      "real_table_local_report_checks": 1,
+      "direct_provider_read_verified": false,
+      "deployed_consumers": 3
+    },
+    "metricool_release": {
+      "report": "metricool-release.json",
+      "isolated_checks": 16,
+      "internal_queue_upserts": 9,
+      "actual_provider_read_verified": false
+    },
+    "agents_release": {
+      "report": "agents-release.json",
+      "isolated_checks": 10,
+      "live_agent_execution": "364",
+      "live_manager_tools_execution": "365",
+      "exact_final_result_verified": true
+    },
+    "chatgpt_ingress": {
+      "report": "ingress-release.json",
+      "safe_internal_request_id_proof": true,
+      "manager_execution_id": "388",
+      "concurrent_identical_posts": 3,
+      "matched_queue_tasks": 1,
+      "events_posts": 1,
+      "result_verified": true,
+      "test_queue_rows_removed": 2,
+      "isolated_js_checks": 20,
+      "affected_python_checks": 15
+    },
+    "mcp": {
+      "report": "mcp-release.json",
+      "actual_chatgpt_test": "not_run_account_registration_and_consent_unavailable",
+      "native_oauth_challenge": 401,
+      "limited_key_admin_rejection": 401,
+      "limited_key_legacy_namespace_rejection": 403,
+      "original_12_versions_unchanged": true
+    },
+    "management": {
+      "report": "management-release.json",
+      "isolated_checks_passed": 13,
+      "captured_real_update_read_cases_passed": 8,
+      "captured_recruitment_replay_passed": 1,
+      "live_delivery_tests": 0,
+      "queue_row_corrections": 14
+    },
+    "social": {
+      "report": "social-release.json",
+      "safe_policy_tests": 10,
+      "private_runtime_replay": true,
+      "workflow_execution_requests": 0,
+      "internal_records_created": 2,
+      "integration_notice_updated": 1,
+      "platform_publish_calls": 0
+    },
+    "meta": {
+      "report": "meta-connection-release.json",
+      "isolated_checks_passed": 12,
+      "live_platform_calls": 0,
+      "production_workflow_changes": 0,
+      "setup_task_id": 106,
+      "status": "BLOCKED_MISSING_META_APP_CLIENT"
+    },
+    "commercial": {
+      "report": "commercial-email-release.json",
+      "render_checks": 6,
+      "report_checks": 4,
+      "offline_browser_layouts": 4,
+      "campaign_executed": false,
+      "approval_required": true
+    }
+  },
+  "existing_table_roles": {
+    "Task Queue": "Growth Queue: task rows",
+    "Prospects/Leads": "Leads plus Growth Queue prospect rows",
+    "Content Queue": "Growth Queue content and quality_review rows",
+    "Actions Log": "Growth Queue action reservations plus Journal"
+  },
+  "pending_revisions": [
+    {
+      "workflow": "W2",
+      "workflow_id": "YjzC3pFzYRR7d2an",
+      "path": "pending/W2.patch.json",
+      "sha256": "ed2a7962ea7191e553766325d56672526a23effcc6ff18f6e580fbf1e4c4e4c4",
+      "status": "deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 1,
+      "deployed_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+    },
+    {
+      "workflow": "W3",
+      "workflow_id": "RstxLOezyHrDIv7k",
+      "path": "pending/W3.patch.json",
+      "sha256": "16a593f723913b1587c5c2773c4a2b113dd99426ef84409cf2e9dadcde0695fb",
+      "status": "deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0,
+      "deployed_version_id": "98dabb4c-8012-4287-bcaa-4eb6a70607de",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W3.patch.json",
+        "sha256": "64676f80e1ee5176e0115a6bffbda3ca28554a8fb6fd457bfbef0804e9f557e9",
+        "before_sha256": "7fb0ca84f59671560e60942ba7a6aec0e55679ee2fa7df6b6cf6d4b4978aab12",
+        "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f"
+      }
+    },
+    {
+      "workflow": "W4",
+      "workflow_id": "Ipqy6qKmAuXVz2vl",
+      "path": "pending/W4.patch.json",
+      "sha256": "b24e52d4fe225179840fe26d0a19e2d61ecd5cafb063a08613d1488c058239c2",
+      "status": "deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0,
+      "deployed_version_id": "a347e53d-277e-4920-81b8-46f24aa1f408",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W4.patch.json",
+        "sha256": "c45294e6b3f12e945ba526f342ec43cf14208443c604f1a330af3c884c211646",
+        "before_sha256": "de410e92fbc912a55d9ed195b582f1cca2b9d4c19d944f70118f78a86963b0ec",
+        "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e"
+      }
+    },
+    {
+      "workflow": "W6",
+      "workflow_id": "xNbB0gcC1XPbXZ0z",
+      "path": "pending/W6.patch.json",
+      "sha256": "bf04a96d03436d30179b8ec73ee22fab3534c83c85e02ea69e8fe9778bc5b43a",
+      "status": "deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 4,
+      "deployed_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+    },
+    {
+      "workflow": "W7",
+      "workflow_id": "gc97zrWop11I70CG",
+      "path": "pending/W7.patch.json",
+      "sha256": "2d6a420cc5279e019bc4efc5cf732d0f133b83691921c5c9e2795eeee9786634",
+      "status": "deployed",
+      "changed_existing_nodes": 2,
+      "added_nodes": 0,
+      "deployed_version_id": "ffe48a91-eab6-48b6-bf7f-12ccaffbb7f5",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00",
+      "superseding_revision": {
+        "path": "revisions/qualification-20261019/W7.patch.json",
+        "sha256": "368054b7bea50ab7c6de340be8e0abd273b543f830ff22c35128f8f788e08601",
+        "before_sha256": "df0aed89224d44f536829b368705791a30505217c8136b16083b462b3dc23f58",
+        "published_version_id": "c713903d-dc06-4559-ac3d-c7a504707000"
+      }
+    },
+    {
+      "workflow": "W9",
+      "workflow_id": "9ttUYW3XcSztxwRu",
+      "path": "pending/W9.patch.json",
+      "sha256": "27d769ac915ccdb31b535a0b634218ad10a3d9a3d306edb535ed24a25b849a41",
+      "status": "deployed",
+      "changed_existing_nodes": 1,
+      "added_nodes": 1,
+      "deployed_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "deployed_at_utc": "2026-10-19T04:28:21.626683+00:00"
+    }
+  ],
+  "remaining_constraints": [
+    "No strict transactional exactly-once proof across concurrent Data Table read/upsert executions",
+    "Native Data Table operation execution and real delivery were not manually triggered; new configurations reuse verified existing schemas",
+    "Social publishing/CMS/Search Console remain unconnected; drafts only",
+    "Future production outputs depend on host health, provider quotas and approved qualified prospects"
+  ],
+  "offline_assembly": {
+    "report": "cloud-readiness.json",
+    "workflow_count": 12,
+    "pending_patch_count": 0,
+    "existing_table_count": 5,
+    "status": "published_verified_at_capture",
+    "different_checkout_path_tested": true,
+    "mac_required": false,
+    "live_workflow_execution": false,
+    "reviewed_patch_count": 6
+  },
+  "resume_entrypoint": "../../CLOUD_RESUME.md",
+  "production_revisions": [
+    {
+      "workflow": "W10",
+      "path": "revisions/windsor-20261019/W10.patch.json",
+      "sha256": "678628fad95cfc06b420ad0dc58e4cc3c706fe0de9f77016c6337763ff5f5d2f",
+      "before_sha256": "4041ccd863ef70504d6891ebeb31028185e440c754cef794066a00c0db7a9192",
+      "published_version_id": "ba899b2d-16ac-4964-8231-80d67a961244"
+    },
+    {
+      "workflow": "W8",
+      "path": "revisions/windsor-20261019/W8.patch.json",
+      "sha256": "53c4cc0bf5b127a21660c159d8a7ce1f8b8e6451280b122d34c83bb2b2c5a119",
+      "before_sha256": "125406d347327d48aca0029b70e08c69cdd11d012fb601e652c050343b32b167",
+      "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f"
+    },
+    {
+      "workflow": "W5",
+      "path": "revisions/windsor-20261019/W5.patch.json",
+      "sha256": "192b12818000c399555ab5182d53d7ce838531441c29180e59ebd969370c122d",
+      "before_sha256": "38e937f1aac4276785ffac7f837f0633e9c20c39ae07faf9f80618f59172a4eb",
+      "published_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3"
+    }
+  ],
+  "followup_revisions": [
+    {
+      "workflow": "My workflow",
+      "path": "revisions/metricool-20261019/My workflow.patch.json",
+      "sha256": "e7b483ad45893d203ae216698d39440d8abb594a31ef5adf422a8b00a0aaaf57",
+      "before_sha256": "a8f6fc705589426d31540680f89acd22540f0cf495b838b28a6c43ab14402694",
+      "published_version_id": "7b4e1226-9cf3-4a46-836e-e530c24aa980"
+    },
+    {
+      "workflow": "W10",
+      "path": "revisions/metricool-20261019/W10.patch.json",
+      "sha256": "71d5827f0626afd134b3d56e0ae06c5de88dadf98d7b86b504f2d1b8d5010a7b",
+      "before_sha256": "14acec9075f0d0ef8ba1af25e52b0b458affc9a8d28b09604436d61683e41be5",
+      "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf"
+    },
+    {
+      "workflow": "W5",
+      "path": "revisions/metricool-20261019/W5.patch.json",
+      "sha256": "ee2a19e6e914e7e6c9283f95e73a1cb69f15ebd8dd60909a7288685d805e24f3",
+      "before_sha256": "1bbd0b00ff6e0d0eb3a7dd478cfd2998b98997f6f44fbd49f6d5058bc37c8448",
+      "published_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff"
+    }
+  ],
+  "agents_revision": {
+    "path": "revisions/agents-20261019/verification.json",
+    "sha256": "05f05e09615774ef40da5af6cf0d1c7ec6552e305943e0498643c8b959837a52"
+  },
+  "ingress_revision": {
+    "path": "revisions/ingress-20261019/verification.json",
+    "sha256": "15cc45607e578842c478fb08cde754f19d6969c074313f8e281e63bb781f0f67"
+  },
+  "mcp_revision": {
+    "path": "revisions/mcp-20261019/verification.json",
+    "sha256": "ee16f26b55b9f2ebd840d3399faa84476561966cc755847eee3092f801cd5674"
+  },
+  "management_revision": {
+    "path": "revisions/management-20261019/verification.json",
+    "sha256": "99e468a6a5766b492b0cb0030c02230cffd21e7eb2fa0178abc63a4f5cf71e2d"
+  },
+  "social_revision": {
+    "path": "revisions/social-20261019/verification.json",
+    "sha256": "c887d9024054a5a9d8c85f070a4a7e67dcf4ae595b6a8c3066ee298f4a074b85"
+  },
+  "commercial_revision": {
+    "path": "revisions/commercial-email-20261020/verification.json",
+    "sha256": "e4cc927be0f217a11d670280a74ade762a94e9a573cb02e49b2286265f762430"
+  }
+}

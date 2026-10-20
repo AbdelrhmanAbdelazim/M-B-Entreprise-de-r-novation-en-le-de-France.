@@ -1,0 +1,133 @@
+{
+  "result": "HTML_HARMONIZATION_PUBLISHED_CAMPAIGN_AWAITING_OPERATOR_APPROVAL",
+  "captured_at_utc": "2026-10-20T11:00:56.095613+00:00",
+  "changed_workflows": [
+    "W3",
+    "W4"
+  ],
+  "workflows": {
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "before_sha256": "7927887183bb17a77d7dcfb76685cb05dbc4624d6d1cc05587ffe685025a0b1b",
+      "after_sha256": "3a98373b5f8c3bac80468ecf07bead62c19851c29318b0f217fcb6479138b3e2",
+      "before_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "published_version_id": "79a240b8-0992-4383-8671-7c805790c33a"
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "before_sha256": "13e4b4494ee247ea645a25fca705e5efbe31a1c6eeefa216615ac58b32f4e34b",
+      "after_sha256": "46801e81b9d6817dd7350fb140e6a96bd60b87c8ad74e623203fbf8c1809e752",
+      "before_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "published_version_id": "970060cd-6c2a-4549-953d-b748ad959e6d"
+    }
+  },
+  "root_cause": "Stored lead.variante B overwrote selected A during pre-send restoration; old W3 renderer then omitted HTML and dispatched text-only. New renderer always creates both parts/variantA; fallback transport also sends both.",
+  "implemented": [
+    "One shared navy/gold responsive table layout, existing two real images and validated repository links, CTA, signature, phone, PDF, plain text alternative",
+    "Audience-specific first-contact vs follow-up text; no previous-message claim in first contact",
+    "Follow-up requires a stored prior-send Message-ID; old legacy uncertain sends cannot be followed up automatically",
+    "Ynspir lead85 corrected from courtier to architecte using existing verified source title; no status, approval or delivery-history change"
+  ],
+  "tests": {
+    "new_pure_renderer_tests": 6,
+    "new_report_tests": 4,
+    "offline_chromium_layouts": 4,
+    "baseline_variant_loss_reproduced": true,
+    "SMTP_connection_test": "OK",
+    "IMAP_connection_test": "OK",
+    "real_customer_test_messages": 0,
+    "live_campaign_execution": false,
+    "actual_Gmail_Outlook_AppleMail_rendering_verified": false,
+    "affected_handoff_tests_passed": 15
+  },
+  "assets": {
+    "existing_workflow_urls_retained": true,
+    "repository_photos_verified": "Two JPEG1080x1350",
+    "repository_brochure_verified": "PDF1.4,2 pages",
+    "live_website_HTTP_verification": "BLOCKED: Cloud proxy403; additive domain draft saved, requires environment review/save/publish",
+    "environment_domain_draft": [
+      "maison-mb.fr",
+      "www.maison-mb.fr"
+    ],
+    "network_draft_saved_not_applied": true
+  },
+  "campaign": {
+    "campaign_id": "mb-commercial-20261020-html",
+    "manifest_sha256": "160876fbfe41b26cbd7c127495f90df04952787d201eb9e39c6e2f7c310fc250",
+    "private_manifest": "private-live/commercial-20261020/manifest.json",
+    "examined": 91,
+    "planned_first_contacts": 14,
+    "priority_lead_ids": [
+      84,
+      85,
+      87,
+      88
+    ],
+    "excluded": 77,
+    "exclusions": {
+      "already_contacted_or_suppressed": 43,
+      "execution444_smtp_accepted": 10,
+      "lead79_never_resend": 1,
+      "not_currently_approved_or_suppressed_or_conflicting": 23
+    },
+    "today_prior_accepted": 10,
+    "daily_total_cap_unchanged": 30,
+    "capacity_unused_after_completed_followup_cycle": 20,
+    "projected_total_commercial_sent_if_all14_accepted": 24,
+    "no_ordinary_selector_quota_reset_or_schedule_change": true,
+    "explicit_approval_received": false,
+    "new_customer_messages_sent": 0,
+    "live_immediate_campaign_trigger_installed": false,
+    "review_task_id": 145,
+    "no_new_W3_execution_after_preparation": true
+  },
+  "report": {
+    "to": "abdel@maison-mb.fr",
+    "subject": "M&B Rénovation — Rapport d’envoi commercial — 20/10/2026",
+    "builder": "commercial-report.js",
+    "draft_private": "private-live/commercial-20261020/report-draft.json",
+    "SMTP_sent": false,
+    "IMAP_sent_archive_verified": false,
+    "IMAP_limitation": "Connection test passed, but current exposed IMAP integration is an inbox trigger/test interface; no LIST/SPECIAL-USE/APPEND operation or accessible Cloud IMAP credential binding. Do not infer server denial or Sent archival. Credential values were never exported."
+  },
+  "safety": {
+    "new_workflows": 0,
+    "new_live_nodes": 0,
+    "schedules_credentials_webhooks_settings_preserved": true,
+    "history_deleted_or_status_reset": false,
+    "blacklist_or_suppression_relaxed": false,
+    "execution444_or_lead79_resent": false,
+    "report_or_test_email_sent": false,
+    "ads_or_spend": false
+  },
+  "approval_boundary": "Only the HTML repair has been published. Before any immediate real campaign, present exact recipients/subjects/count and obtain explicit operator approval. Re-read live recipient/history/quota/window checks after approval; no blanket replay of W3 or new recipients. Do not silently proceed if live URL validation or one-off execution safety remains blocked.",
+  "final_live_readback_at_utc": "2026-10-20T11:04:01.458688+00:00",
+  "final_workflow_states": {
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "active": true,
+      "published": true,
+      "version_id": "79a240b8-0992-4383-8671-7c805790c33a"
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "active": true,
+      "published": true,
+      "version_id": "970060cd-6c2a-4549-953d-b748ad959e6d"
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "active": true,
+      "published": true,
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf"
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "active": true,
+      "published": true,
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088"
+    }
+  },
+  "all_14_production_workflows_published_active": true,
+  "all_other_lead_fields_and_prior_sent_history_preserved": true
+}

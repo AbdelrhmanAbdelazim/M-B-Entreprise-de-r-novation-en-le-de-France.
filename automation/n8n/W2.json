@@ -104,7 +104,7 @@
     },
     {
       "parameters": {
-        "jsCode": "\nconst c = $('Normaliser').first().json;\nif (!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(c.email)) return [];\nconst text = `Bonjour ${c.nom},\n\nMerci pour votre demande de devis. Nous l'avons bien reçue et nous revenons vers vous sous 24 h.\n\nEn attendant, vous pouvez découvrir quelques-uns de nos chantiers : https://www.maison-mb.fr/realisations/\n\nBien cordialement,\nAbdelrahman\nGérant – M&B Rénovation\n07 53 30 65 59 · www.maison-mb.fr`;\nreturn [{ json: { to: c.email, subject: 'Votre demande de devis – M&B Rénovation', text } }];\n"
+        "jsCode": "\nconst c = $('Normaliser').first().json;\nif (!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(c.email)) return [];\nconst blacklist=$('Site – Blacklist fraîche').all().map(i=>String(i.json.email||'').trim().toLowerCase()).filter(Boolean);\nif(blacklist.includes(c.email))return [];\nconst text = `Bonjour ${c.nom},\n\nMerci pour votre demande de devis. Nous l'avons bien reçue et nous revenons vers vous sous 24 h.\n\nEn attendant, vous pouvez découvrir quelques-uns de nos chantiers : https://www.maison-mb.fr/realisations/\n\nBien cordialement,\nAbdelrahman\nGérant – M&B Rénovation\n07 53 30 65 59 · www.maison-mb.fr`;\nreturn [{ json: { to: c.email, subject: 'Votre demande de devis – M&B Rénovation', text } }];\n"
       },
       "id": "0df626d5-5db4-4c5c-8588-84c34e1c851c",
       "name": "Accusé ?",
@@ -322,6 +322,27 @@
         848,
         656
       ]
+    },
+    {
+      "id": "cc0b0230-9f30-48b6-854e-c0bf1be825f2",
+      "name": "Site – Blacklist fraîche",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        1600,
+        640
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "NE0QU8afBFipimhW",
+          "mode": "id"
+        },
+        "returnAll": true
+      }
     }
   ],
   "connections": {
@@ -383,7 +404,7 @@
       "main": [
         [
           {
-            "node": "Accusé ?",
+            "node": "Site – Blacklist fraîche",
             "type": "main",
             "index": 0
           }
@@ -477,6 +498,17 @@
           }
         ]
       ]
+    },
+    "Site – Blacklist fraîche": {
+      "main": [
+        [
+          {
+            "node": "Accusé ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -486,8 +518,8 @@
     "errorWorkflow": "4O2ZR1JpDOgJZOLw",
     "timezone": "Europe/Paris"
   },
-  "versionId": "3895d8e5-93a7-4636-bc7a-ec2848ac8f7c",
-  "meta": {},
+  "versionId": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+  "meta": null,
   "nodeGroups": [],
   "id": "YjzC3pFzYRR7d2an",
   "tags": []

@@ -1,0 +1,57 @@
+{
+  "schema": "mb.meta.connection.v1",
+  "status": "BLOCKED_MISSING_META_APP_CLIENT",
+  "login_flow": "Instagram API with Facebook Login; do not mix Instagram Login permission names",
+  "oauth_settings": {
+    "type": "oAuth2Api",
+    "data": {
+      "grantType": "authorizationCode",
+      "authUrl": "https://www.facebook.com/v26.0/dialog/oauth",
+      "accessTokenUrl": "https://graph.facebook.com/v26.0/oauth/access_token",
+      "scope": "pages_show_list,pages_read_engagement,pages_manage_posts,instagram_basic,instagram_content_publish",
+      "authentication": "body",
+      "authQueryParameters": "response_type=code",
+      "allowedHttpRequestDomains": "domains",
+      "allowedDomains": "graph.facebook.com",
+      "ignoreSSLIssues": false
+    },
+    "redirect_uri": "https://navajowhite-cormorant-668337.hostingersite.com/rest/oauth2-credential/callback",
+    "client_binding_required": [
+      "clientId",
+      "clientSecret"
+    ],
+    "authorization_url": null,
+    "state_owner": "native n8n OAuth credential flow; never invent state or client identifiers"
+  },
+  "credential_created": false,
+  "client_id_registered_in_exposed_runtime": false,
+  "client_secret_binding_exposed": false,
+  "oauth_consent_url": null,
+  "account_setup_url": "https://developers.facebook.com/apps/",
+  "required_human_prerequisite": "Register or make available the company-owned Meta application and bind its client configuration in hosted n8n through secure credential settings. App secrets must never be sent in chat.",
+  "consent_link_generation": "After a real client binding and registered redirect exist, obtain the authorization URL from native n8n OAuth; preserve its generated state. No placeholder consent link is supplied.",
+  "official_platform_permissions_verified": false,
+  "facebook_ready": false,
+  "instagram_ready": false,
+  "live_publishing_enabled": false,
+  "protected_post_id": "391473868",
+  "testing": {
+    "public_test_posts": false,
+    "write_probes": false,
+    "read_only_preflight": true,
+    "automatic_activation_from_fixture_evidence": false
+  },
+  "secure_token_handling": [
+    "Native n8n encrypted credentials only; never tokens in Growth Queue, query logs or Git",
+    "Do not fetch page access tokens as saved Manager execution outputs; its existing logging is preserved",
+    "Discovery does not request access_token fields; secure page credential provisioning is a separate blocked step",
+    "HTTP200 or granted scopes alone do not prove that a post was published"
+  ],
+  "remaining_production_steps_after_authorization": [
+    "Discover exact managed Page and linked Instagram identity from real complete API responses",
+    "Verify token validity/app identity/grants/page task/target Page credential/Instagram publishing limit using live read-only evidence",
+    "Implement and bind official transport against those verified encrypted credentials; no stub credential is deployed",
+    "Retain original scheduling and revision-bound human approval; future content only, immutable cross-provider reservations and uncertain-delivery holds",
+    "Activate eligible platforms independently and retain actual platform post IDs/readback; never test with public demo posts"
+  ]
+}

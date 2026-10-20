@@ -1,0 +1,219 @@
+{
+  "mode": "offline_only",
+  "handoff_status": "complete_for_cloud_continuation",
+  "live_deployment": "published_verified_at_capture",
+  "workflow_count": 12,
+  "pending_patch_count": 0,
+  "reviewed_patch_count": 6,
+  "deployed_patch_count": 6,
+  "additional_verified_production_revisions": 3,
+  "metricool_verified_followup_revisions": 3,
+  "additional_ingress_verified": true,
+  "additional_mcp_published_verified": true,
+  "management_revisions_verified": 5,
+  "social_safety_revision_verified": true,
+  "commercial_email_revisions_verified": 2,
+  "baseline_and_patch_provenance": "verified_for_local_assembly",
+  "mac_required_for_continuation": false,
+  "workflow_execution_performed": false,
+  "old_business_tests_repeated": false,
+  "workflows": [
+    {
+      "workflow": "My workflow",
+      "id": "cKUyJSLOF69uXGnO",
+      "published_version_at_handoff": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 114,
+      "candidate_nodes": 114,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "0 * * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W0",
+      "id": "4O2ZR1JpDOgJZOLw",
+      "published_version_at_handoff": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 4,
+      "candidate_nodes": 4,
+      "timezone": "Europe/Paris",
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W1",
+      "id": "EvDz4KtOEgIYKh7Q",
+      "published_version_at_handoff": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 33,
+      "candidate_nodes": 33,
+      "timezone": "Europe/Paris",
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W10",
+      "id": "63yycckNMI9mXnkz",
+      "published_version_at_handoff": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 36,
+      "candidate_nodes": 36,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "30 4 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W2",
+      "id": "YjzC3pFzYRR7d2an",
+      "published_version_at_handoff": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 17,
+      "candidate_nodes": 17,
+      "timezone": "Europe/Paris",
+      "retained_cron": [],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W3",
+      "id": "RstxLOezyHrDIv7k",
+      "published_version_at_handoff": "79a240b8-0992-4383-8671-7c805790c33a",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 29,
+      "candidate_nodes": 29,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "30 8 * * 1-4"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W4",
+      "id": "Ipqy6qKmAuXVz2vl",
+      "published_version_at_handoff": "970060cd-6c2a-4549-953d-b748ad959e6d",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 29,
+      "candidate_nodes": 29,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "30 9 * * 1-4"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W5",
+      "id": "yaiq1MmW8dw5SUg7",
+      "published_version_at_handoff": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 9,
+      "candidate_nodes": 9,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "0 8,18 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W6",
+      "id": "xNbB0gcC1XPbXZ0z",
+      "published_version_at_handoff": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 9,
+      "candidate_nodes": 9,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "0 9 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W7",
+      "id": "gc97zrWop11I70CG",
+      "published_version_at_handoff": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 47,
+      "candidate_nodes": 47,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "10 6,10,14,18 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W8",
+      "id": "uOuQs4E5H443sbKh",
+      "published_version_at_handoff": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 24,
+      "candidate_nodes": 24,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "30 7 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    },
+    {
+      "workflow": "W9",
+      "id": "9ttUYW3XcSztxwRu",
+      "published_version_at_handoff": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "last_recorded_active": true,
+      "current_live_state": "not_verified",
+      "pending_patch": false,
+      "baseline_nodes": 47,
+      "candidate_nodes": 47,
+      "timezone": "Europe/Paris",
+      "retained_cron": [
+        "*/15 8-20 * * *"
+      ],
+      "last_verified_live_state": "Published/Active at activation capture"
+    }
+  ],
+  "existing_tables": [
+    {
+      "name": "leads",
+      "id": "ns20LV2q6otiEP3X"
+    },
+    {
+      "name": "clients",
+      "id": "vJEJHMoNylbhv4Yo"
+    },
+    {
+      "name": "blacklist",
+      "id": "NE0QU8afBFipimhW"
+    },
+    {
+      "name": "journal",
+      "id": "FmcVgSV9fjQvXdYw"
+    },
+    {
+      "name": "Growth Queue",
+      "id": "aqPFAT3TBwLGhlIj"
+    }
+  ],
+  "next_step": "Use live_status.py for GET-only API comparison when access returns; never deploy sanitized exports"
+}

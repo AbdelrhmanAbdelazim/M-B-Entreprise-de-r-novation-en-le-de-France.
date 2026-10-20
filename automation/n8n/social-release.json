@@ -1,0 +1,178 @@
+{
+  "result": "SAFETY_FIX_PUBLISHED_OFFICIAL_PUBLISHING_BLOCKED",
+  "captured_at_utc": "2026-10-19T19:33:09.951826+00:00",
+  "base_commit": "f88f8efb1e1bb08acc9ecb6920b120408ca8d525",
+  "changed_workflows": [
+    "My workflow"
+  ],
+  "changed_nodes": [
+    "Coordination – plan"
+  ],
+  "published_manager_version": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+  "original_twelve_and_existing_ingress_mcp_active": true,
+  "workflow_created_or_deleted": false,
+  "existing_workflow_schedules_credentials_ids_tables_webhooks_error_routes_preserved": true,
+  "live_findings": {
+    "workflow_count_including_inactive": 15,
+    "production_active": 14,
+    "Social_Post_Fallback_found": false,
+    "all_workflow_definitions_inspected": true,
+    "exposed_credential_metadata_count": 9,
+    "usable_official_publishing_credentials_found": 0,
+    "usable_official_publishing_transports_found": 0,
+    "cloud_relevant_bindings": [
+      "N8N_BASE_URL",
+      "N8N_API_KEY"
+    ],
+    "variables_api_http_status": 403,
+    "variables_not_inspected_or_bypassed": true,
+    "Metricool_quota_error_source": "operator_report; no provider-authenticated quota response available in this runtime",
+    "post391473868_found_before_changes": false,
+    "platform_final_outcomes_verified": false,
+    "existing_content_drafts": 7,
+    "existing_approved_content_drafts": 0
+  },
+  "implemented": {
+    "permanent_incident_key": "publish:hold:metricool:391473868",
+    "incident_queue_id": 104,
+    "incident_status": "uncertain",
+    "provider_post_id": "391473868",
+    "no_resend": true,
+    "no_automatic_cancellation_or_retry": true,
+    "five_failed_platforms_operator_reported_not_inferred": true,
+    "matching_cross_provider_slots_held": true,
+    "Metricool_quota_publishing_block": true,
+    "no_upgrade_or_spend": true,
+    "future_content_cutover": "2026-10-19T19:31:39.404290+00:00",
+    "new_slots_require_new_content_and_post_cutover_revision_bound_approval_and_quality_review": true,
+    "old_draft_schedules_and_statuses_changed": false,
+    "native_publisher_installed": false,
+    "existing_integration_notice_updated_id": 77,
+    "official_publishing_blocker_queue_id": 105,
+    "read_confirmed_receipts_preserved": true
+  },
+  "platforms_ready_for_publishing": [],
+  "platform_checks": {
+    "Facebook": "BLOCKED: no usable official publishing credential or authorized transport exposed to this runtime",
+    "Instagram/Reels": "BLOCKED: no usable official publishing credential or authorized transport exposed to this runtime",
+    "Google Business Profile": "BLOCKED: no usable official publishing credential or authorized transport exposed to this runtime",
+    "TikTok": "BLOCKED: no usable official publishing credential or authorized transport exposed to this runtime"
+  },
+  "tests": {
+    "isolated_policy_checks_passed": 10,
+    "captured_real_queue_runtime_replay_passed": true,
+    "stable_repeated_replay": true,
+    "all_other_Manager_nodes_and_edges_unchanged": true,
+    "all_seven_content_rows_unchanged": true,
+    "live_workflow_execution_requests": 0,
+    "public_test_posts": 0,
+    "actual_platform_publish_successes": 0,
+    "no_platform_success_claimed": true,
+    "affected_handoff_tests_passed": 15,
+    "final_post_hold_and_all_seven_drafts_verified": true
+  },
+  "deployment_boundary": "Safety gates and internal no-resend reservation are LIVE. Independent official publishing is NOT LIVE; absent authorization/transport cannot be manufactured. User-reported Social Post Fallback is not present in this connected n8n inventory. No duplicate workflow created.",
+  "one_user_action": "Grant official publishing OAuth access for at least one existing company social account to hosted n8n through a secure connection. No account reconnection, Metricool upgrade, secret in chat or Windsor publishing assumption. A usable OAuth consent link/client binding is not available in this runtime, so no fabricated authorization URL is provided.",
+  "production_safety": {
+    "lead79_resent": false,
+    "customer_messages_or_telegram_tests": 0,
+    "public_posts": 0,
+    "advertising_changes": 0,
+    "paid_spend": 0,
+    "content_approval_granted": false,
+    "draft_backfill_published": false
+  },
+  "final_live_readback_at_utc": "2026-10-19T19:34:06.099092+00:00",
+  "final_live_inventory": {
+    "4O2ZR1JpDOgJZOLw": {
+      "name": "W0 – Erreurs (Telegram + journal)",
+      "active": true,
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "published_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088"
+    },
+    "63yycckNMI9mXnkz": {
+      "name": "W10 – Idées de contenu (vidéos)",
+      "active": true,
+      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "published_version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf"
+    },
+    "9ttUYW3XcSztxwRu": {
+      "name": "W9 – Après chantier (avis + parrainage)",
+      "active": true,
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84"
+    },
+    "CedAfsMxGSnrlG0y": {
+      "name": "M&B – ChatGPT Codex MCP",
+      "active": true,
+      "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+      "published_version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a"
+    },
+    "EvDz4KtOEgIYKh7Q": {
+      "name": "W1 – Réponses emails",
+      "active": true,
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c"
+    },
+    "Ipqy6qKmAuXVz2vl": {
+      "name": "W4 – Relance unique",
+      "active": true,
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "published_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e"
+    },
+    "JcFvUMfm9orHdKbu": {
+      "name": "M&B – ChatGPT production ingress",
+      "active": true,
+      "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+      "published_version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee"
+    },
+    "OyYa8UtfX7NuHbL7": {
+      "name": "Gemini + Claude Automation Workflow",
+      "active": false,
+      "version_id": "6f8819ed-c2f7-48e5-b3d9-48fb32182b2d",
+      "published_version_id": null
+    },
+    "RstxLOezyHrDIv7k": {
+      "name": "W3 – Envoi quotidien",
+      "active": true,
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "published_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f"
+    },
+    "YjzC3pFzYRR7d2an": {
+      "name": "W2 – Demandes du site web",
+      "active": true,
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "published_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60"
+    },
+    "cKUyJSLOF69uXGnO": {
+      "name": "My workflow",
+      "active": true,
+      "version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e",
+      "published_version_id": "f6022d17-6125-49d5-a8bc-43bfef54dc6e"
+    },
+    "gc97zrWop11I70CG": {
+      "name": "W7 – Recherche de leads",
+      "active": true,
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf"
+    },
+    "uOuQs4E5H443sbKh": {
+      "name": "W8 – Notifications pages SEO",
+      "active": true,
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "published_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f"
+    },
+    "xNbB0gcC1XPbXZ0z": {
+      "name": "W6 – Rappels échéances",
+      "active": true,
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "published_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c"
+    },
+    "yaiq1MmW8dw5SUg7": {
+      "name": "W5 – Rapport hebdomadaire",
+      "active": true,
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb"
+    }
+  }
+}

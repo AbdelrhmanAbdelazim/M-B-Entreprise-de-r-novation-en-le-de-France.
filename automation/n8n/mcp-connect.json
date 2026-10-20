@@ -1,0 +1,14 @@
+{
+  "name": "M&B Codex",
+  "mcp_server_url": "https://navajowhite-cormorant-668337.hostingersite.com/mcp/mb-codex",
+  "authentication": "OAuth",
+  "tools": [
+    "submit_codex_task",
+    "get_codex_task_status"
+  ],
+  "registered_in_chatgpt": false,
+  "state": "PENDING_USER_ACCOUNT_CONNECTION",
+  "oauth_discovery": "https://navajowhite-cormorant-668337.hostingersite.com/.well-known/oauth-authorization-server",
+  "protected_resource_metadata": "https://navajowhite-cormorant-668337.hostingersite.com/.well-known/oauth-protected-resource/mcp/mb-codex",
+  "contains_secret_values": false
+}

@@ -1,0 +1,963 @@
+{
+  "name": "W3 – Envoi quotidien",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 8 * * 1-4"
+            }
+          ]
+        }
+      },
+      "id": "080d76f7-c5f5-4973-9c15-d7539679554f",
+      "name": "Lun-jeu 8h30",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        -608
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "ns20LV2q6otiEP3X"
+        },
+        "returnAll": true
+      },
+      "id": "38df617f-88d8-4980-b749-6b9c6b9dc103",
+      "name": "Leads",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        1984,
+        -608
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "NE0QU8afBFipimhW"
+        },
+        "returnAll": true
+      },
+      "id": "ed50ca39-1583-4b0a-babd-ed5a472a3f03",
+      "name": "Blacklist",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        2208,
+        -608
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\nconst ORIGINAL_FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nlet test = false; try { test = !!$('Test (temporaire)').first().json.body.test; } catch (e) {}\nif (test) return []; // Test mode never produces real email recipients.\nconst dow = new Date(today() + 'T12:00:00Z').getUTCDay();\nif (dow === 0 || dow === 6) return [];\nconst leads = $('Leads').all().map(i => i.json).filter(r => r.id);\nconst bl = $('Blacklist').all().map(i => String(i.json.email || '').toLowerCase()).filter(Boolean);\nconst blMail = new Set(bl), blDom = new Set(bl.map(dom).filter(d => d && !FREE.has(d)));\nconst t = today();\n// relances prévues aujourd'hui (prioritaires dans la limite de 20/jour)\nconst j7 = new Date(t + 'T12:00:00Z'); j7.setUTCDate(j7.getUTCDate() - 7); const lim = j7.toISOString().slice(0, 10);\nconst dues = leads.filter(l => l.statut === 'envoye' && !l.date_reponse && !l.date_relance && l.date_envoi && l.date_envoi <= lim && !blMail.has(String(l.email).toLowerCase())).length;\nconst deja = leads.filter(l => l.date_envoi === t || l.date_relance === t).length;\n// 30 envois/jour au total : jusqu'à 20 relances prioritaires (W4), le reste en premiers envois\nconst quota = Math.max(0, 30 - deja - Math.min(dues, 20));\nconst next = 'A';   // test A/B arrêté : variante A (HTML) pour tous\nconst usedDom = new Set(leads.filter(l => l.date_envoi === t || l.date_relance === t).map(l => dom(l.email)));\nconst out = [];const seenEmail=new Set();const growth=$('Commercial – Queue').all().map(i=>i.json);\nconst rank=l=>growth.find(t=>t.task_key==='prospect:'+company(l))?.priority==='HOT'?0:1;\nfor (const l of [...leads].sort((a,b)=>rank(a)-rank(b))) {\n  if(Number(l.id)===79)continue; // Explicit no-resend incident protection.\n\n  if (out.length >= quota) break;\n  const e = String(l.email || '').toLowerCase(), d = dom(e);if(seenEmail.has(e))continue;seenEmail.add(e);\n  const approval=growth.find(t=>t.task_key==='prospect:'+company(l));if(!approval||approval.status!=='approved'||!['HOT','WARM'].includes(approval.priority))continue;if(growth.some(t=>t.task_key==='send:outreach:'+company(l)))continue;\n  if (l.statut !== 'nouveau' || !/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/.test(e)) continue;\n  if (blMail.has(e) || blDom.has(d)) continue;\n  if (!FREE.has(d) && usedDom.has(d)) continue;\n  usedDom.add(d);\n  out.push({ json: { id: l.id, email: e, type: l.type, variante: next } });\n}\nreturn out;\n"
+      },
+      "id": "9565e262-e2ec-4c79-ade8-66cefce1b095",
+      "name": "Sélection",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2416,
+        -608
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8a9bfb7e-44e6-4366-bad8-996a11e978ed",
+      "name": "Un par un",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2640,
+        -608
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst l = $json;\nconst pro = ['architecte', 'maitre_oeuvre', 'entreprise_generale'];\nlet subject = 'Collaboration second œuvre – Paris & Île-de-France';\nlet collab = \"Nous développons nos collaborations avec des architectes et maîtres d'œuvre sur leurs chantiers.\";\nif (l.type === 'agence') { subject = 'Remise en état de logements – Paris & Île-de-France'; collab = 'Nous développons nos collaborations avec des agences et gestionnaires pour la remise en état des logements entre deux locataires ou avant une vente.'; }\nif (l.type === 'syndic') { subject = 'Travaux en copropriété – Paris & Île-de-France'; collab = \"Nous développons nos collaborations avec des syndics et gestionnaires de copropriété : travaux en parties communes, remise en état après un dégât des eaux et rénovation d'appartements.\"; }\nif (l.type === 'courtier') { subject = 'Artisan second œuvre pour votre réseau – Île-de-France'; collab = \"Nous souhaitons rejoindre votre réseau d'artisans partenaires en Île-de-France.\"; }\nconst atouts = ['agence', 'syndic'].includes(l.type) ? ['Compte rendu avec photos avant/après envoyé après chaque intervention.', 'Intervention rapide entre deux locataires.'] : [];\nconst link = pro.includes(l.type) ? 'https://www.maison-mb.fr/sous-traitance-renovation/' : 'https://www.maison-mb.fr/realisations/';\nconst intro = \"M&B Rénovation est une entreprise de second œuvre intervenant à Paris et dans toute l'Île-de-France. Nous prenons en charge la rénovation d'appartements de bout en bout : salle de bain, électricité, plâtrerie, carrelage, peinture et parquet.\";\nconst offre = 'Je peux passer sur un de vos chantiers ou vous envoyer un chiffrage sur plans.';\nconst text = `Bonjour,\n\n${intro}\n\n${collab}${atouts.length ? '\\n\\n' + atouts.map(x => '• ' + x).join('\\n') : ''}\n\nQuelques avant/après de nos chantiers : ${link}\n\n${offre}\n\nAbdelrahman\nGérant – M&B Rénovation\n07 53 30 65 59 · www.maison-mb.fr\n\nSi ce message ne vous concerne pas, répondez simplement STOP.`;\nconst esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');\nconst P = s => `<p style=\"margin:0 0 16px 0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:24px;color:#2b2b2b;\">${s}</p>`;\nconst html = `<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>${esc(subject)}</title></head>\n<body style=\"margin:0;padding:0;background:#f4f1ea;\" bgcolor=\"#f4f1ea\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#f4f1ea\" style=\"background:#f4f1ea;\"><tr><td align=\"center\" style=\"padding:24px 12px;\">\n<table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"#ffffff\" style=\"width:600px;max-width:600px;background:#ffffff;\">\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:28px 24px;\">\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:38px;color:#c9a54a;letter-spacing:2px;\">M&amp;B</div>\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:20px;color:#c9a54a;letter-spacing:6px;\">RÉNOVATION</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#d9d4c7;padding-top:10px;\">Second œuvre · Paris &amp; Île-de-France</div>\n</td></tr>\n<tr><td style=\"padding:32px 36px 8px 36px;\">\n${P('Bonjour,')}${P(esc(intro))}${P(esc(collab))}${atouts.map(x => P('&#10003;&nbsp; ' + esc(x))).join('')}\n</td></tr>\n<tr><td style=\"padding:0 36px 8px 36px;\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>\n<td width=\"50%\" style=\"padding-right:6px;\"><img src=\"https://www.maison-mb.fr/images/realisations/chantier-moulures-cache-radiateurs.jpg\" width=\"258\" alt=\"Moulures et cache-radiateurs – réalisation M&amp;B Rénovation\" style=\"display:block;width:100%;max-width:258px;height:auto;border:0;\"></td>\n<td width=\"50%\" style=\"padding-left:6px;\"><img src=\"https://www.maison-mb.fr/images/realisations/avant-apres-douche.jpg\" width=\"258\" alt=\"Douche avant/après – réalisation M&amp;B Rénovation\" style=\"display:block;width:100%;max-width:258px;height:auto;border:0;\"></td>\n</tr></table>\n</td></tr>\n<tr><td style=\"padding:16px 36px 0 36px;\">\n${P('Quelques avant/après de nos chantiers :')}\n<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" style=\"margin:4px auto 22px auto;\"><tr><td align=\"center\" bgcolor=\"#c9a54a\" style=\"background:#c9a54a;\">\n<a href=\"${link}\" style=\"display:inline-block;padding:14px 30px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;letter-spacing:2px;color:#111a2b;text-decoration:none;\">VOIR NOS RÉALISATIONS</a></td></tr></table>\n${P(esc(offre))}\n</td></tr>\n<tr><td style=\"padding:8px 36px 28px 36px;\">\n<table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"border-left:3px solid #c9a54a;padding-left:14px;\">\n<div style=\"font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:26px;color:#111a2b;\">Abdelrahman</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#6b6b6b;\">Gérant – M&amp;B Rénovation</div>\n<div style=\"font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#6b6b6b;\"><a href=\"tel:+33753306559\" style=\"color:#6b6b6b;text-decoration:none;\">07 53 30 65 59</a> · <a href=\"https://www.maison-mb.fr\" style=\"color:#9a7a2e;text-decoration:none;\">www.maison-mb.fr</a></div>\n</td></tr></table>\n</td></tr>\n<tr><td align=\"center\" bgcolor=\"#111a2b\" style=\"background:#111a2b;padding:18px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#b8b2a3;\">\n<a href=\"https://www.maison-mb.fr/plaquette.pdf\" style=\"color:#c9a54a;text-decoration:none;\">Télécharger notre plaquette (PDF)</a><br>\nSi ce message ne vous concerne pas, répondez simplement STOP.\n</td></tr>\n</table></td></tr></table></body></html>`;\nreturn { json: { ...l, to: l.email, subject, text, html: l.variante === 'A' ? html : '' } };\n"
+      },
+      "id": "227faee3-67e8-4816-b736-9e541f237d47",
+      "name": "Construire email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2864,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a",
+              "leftValue": "={{ $json.variante }}",
+              "rightValue": "A",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d4fe3310-9240-40d0-996a-e3a384956e21",
+      "name": "Variante A ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3088,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "both",
+        "text": "={{ $json.text }}",
+        "html": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "5e18770f-90d0-483f-a433-affe5bb1451e",
+      "name": "Email HTML (A)",
+      "webhookId": "__PRIVATE_5e18770f_90d0_483f_a433_affe5bb1451e_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3296,
+        -496
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "__EXISTING_SMTP_CREDENTIAL_ID__",
+          "name": "SMTP abdel@maison-mb.fr"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "3320f42b-3b72-429e-85d5-9b24e97e083a",
+      "name": "Email texte (B)",
+      "webhookId": "__PRIVATE_3320f42b_3b72_429e_85d5_9b24e97e083a_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3296,
+        -304
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "__EXISTING_SMTP_CREDENTIAL_ID__",
+          "name": "SMTP abdel@maison-mb.fr"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst b = $('Construire email').item.json;\nconst r = $json;\nconst ok = !r.error && (r.accepted || []).length > 0;\nif (b.test) return { json: { test: true, id: 0, ok, email: b.email, variante: b.variante } };\nreturn { json: { id: b.id, statut: ok ? 'envoye' : 'erreur', variante: b.variante, date_envoi: today(), message_id: r.messageId || '', sujet: b.subject } };\n"
+      },
+      "id": "414027cb-3356-4fd4-ade7-f3c0c53c8ea8",
+      "name": "Résultat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3520,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "t",
+              "leftValue": "={{ $json.test === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "14238813-510b-4d21-8bea-034fc1ebb712",
+      "name": "Test ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3744,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "ns20LV2q6otiEP3X"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "f09a8a4b-1d7e-4361-94ef-5b706c2be58e",
+      "name": "Leads – MAJ",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3968,
+        -304
+      ]
+    },
+    {
+      "parameters": {
+        "amount": "={{ $(\"Résultat\").item.json.test ? 1 : Math.floor(120 + Math.random() * 180) }}"
+      },
+      "id": "0579fd9a-081f-46b8-b301-894f9499fcb6",
+      "name": "Pause 2-5 min",
+      "webhookId": "__PRIVATE_0579fd9a_081f_46b8_b301_894f9499fcb6_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4176,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst sel = $('Sélection').all().map(i => i.json);\nif (!sel.length) return [];\nconst allRows = $input.all().map(i=>i.json);const blocked=allRows.filter(r=>r.allowed===false).length;const rows=allRows.filter(r=>r.allowed!==false);\nconst ok = rows.filter(r => r.statut === 'envoye' || (r.test && r.ok));\nconst err = rows.length - ok.length;\nconst A = ok.filter(r => r.variante === 'A').length, B = ok.length - A;\nconst test = sel[0].test ? ' (اختبار)' : '';if(!rows.length)return []; \nconst msg = `📤 إرسال اليوم${test}: ${ok.length} إيميل\\n   • A (HTML): ${A}\\n   • B (نص): ${B}` + (err ? `\\n❌ أخطاء: ${err}` : '') + '\\n\\n' + sel.filter(s=>rows.some(r=>String(r.id)===String(s.id))).map(s => '• ' + s.email + ' (' + s.variante + ')').join('\\n');\nreturn [{ json: { message: msg.slice(0, 4000), journal: { date: nowP(), workflow: 'W3', resultat: err ? 'partiel' : 'ok', details: `envoyés ${ok.length} (A ${A} / B ${B}), erreurs ${err}${test ? ', test' : ''}` } } }];\n"
+      },
+      "id": "8cd7b3ed-6000-4648-ac17-d73fca733529",
+      "name": "Résumé",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2864,
+        -816
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
+        "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "f271964a-4e25-4e3a-a59d-0fcf9f988c14",
+      "name": "Telegram",
+      "webhookId": "__PRIVATE_f271964a_4e25_4e3a_a59d_0fcf9f988c14_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3088,
+        -816
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "__EXISTING_TELEGRAMAPI_CREDENTIAL_ID__",
+          "name": "Telegram M&B"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: $('Résumé').first().json.journal }];"
+      },
+      "id": "6f07e081-b205-4499-a07f-bb06d6adf2e6",
+      "name": "Ligne journal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3296,
+        -816
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "FmcVgSV9fjQvXdYw"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "4f534e93-1b58-405c-9882-92cf27b8f6e2",
+      "name": "Journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3520,
+        -816
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "bd4e7541-060e-45d2-b007-a1b379592e29",
+      "name": "Commercial – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1328,
+        496
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "ns20LV2q6otiEP3X",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "c63e4d58-4a0b-4f10-994a-5e78c3679b72",
+      "name": "Avant envoi – Leads",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        704
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "NE0QU8afBFipimhW",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "64174a65-259b-49a3-a59b-6d74b5137c44",
+      "name": "Avant envoi – Blacklist",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        704
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "99703f21-73bc-4181-9a3d-c33ea641b457",
+      "name": "Avant envoi – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        704
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst b=$('Un par un').item.json;const leads=$('Avant envoi – Leads').all(0,$runIndex).map(i=>i.json);const bl=$('Avant envoi – Blacklist').all(0,$runIndex).map(i=>mail(i.json.email)).filter(Boolean);const q=$input.all().map(i=>i.json);const lead=leads.find(l=>String(l.id)===String(b.id));const hour=Number(paris().slice(11,13));const dow=new Date(day()+'T12:00:00Z').getUTCDay();let allowed=!!lead&&hour>=8&&hour<18&&dow>=1&&dow<=4&&!lead.date_reponse&&(lead.statut==='nouveau'&&!lead.date_envoi);const em=mail(lead?.email);const dm=em.split('@')[1]||'';allowed=allowed&&!bl.includes(em)&&!bl.some(x=>!FREE.has(x.split('@')[1])&&x.split('@')[1]===dm);const actionKey='send:outreach:'+company(lead||b);allowed=allowed&&!q.some(t=>t.task_key===actionKey);const a=q.find(t=>t.task_key==='prospect:'+company(lead||b));allowed=allowed&&!!a&&a.status==='approved'&&a.priority!=='COLD';\n// Revalidate the complete approval and delivery history; unknown grades fail closed.\nconst approvals=q.filter(t=>t.task_key==='prospect:'+company(lead||b));\nallowed=allowed&&approvals.length===1&&approvals[0].status==='approved'&&['HOT','WARM'].includes(approvals[0].priority);\nconst contactActions=q.filter(t=>{\n  if(t.type!=='action'&&!String(t.task_key||'').startsWith('send:'))return false;\n  const p=unpack(t);const contact=p.lead||{};\n  return ['send:outreach:','send:followup:'].some(prefix=>t.task_key===prefix+company(lead||b))||\n    [p.email,contact.email,p.result?.email].some(value=>mail(value)&&mail(value)===em)||\n    (p.company&&p.company===company(lead||b));\n});\nallowed=allowed&&contactActions.length===0;\n// Policy approvals are bound to the verified recipient and evidence lifetime; human approvals keep their existing contract.\nconst approvalPayload=unpack(approvals[0]||{});\nallowed=allowed&&Number(lead?.id)!==79;\nif(approvalPayload.qualification_policy&&approvalPayload.qualified_by!=='operator_chat')allowed=allowed&&mail(approvalPayload.email)===em&&Number.isFinite(Date.parse(approvalPayload.qualification_expires_at))&&Date.parse(approvalPayload.qualification_expires_at)>Date.now();\nif(!allowed)return [jq({allowed:false,reason:'Not eligible, already reserved/sent, replied, blacklist, or outside business window'})];const payload={lead:{...b,...lead,_action_key:actionKey},campaign:'partnership-2026',kind:'outreach'};return [jq({allowed:true,ledger:row(actionKey,'action','HOT','W3','reserved',payload,'SMTP réservé ; ne pas réessayer automatiquement si état incertain','W3')})];"
+      },
+      "id": "48a2dc06-3a95-44fb-b28a-d0d18563a9f2",
+      "name": "Garde commerciale",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "48af38df-8474-4569-aeb3-c5ec49e1dfbe",
+              "leftValue": "={{ $json.allowed }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "76575772-0641-4a5c-a104-99e7922f2c3d",
+      "name": "Envoi autorisé ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn $input.all().map(i=>jq(i.json.ledger));"
+      },
+      "id": "4b81a6e3-035d-45b7-82d3-37495a9badee",
+      "name": "Réservation commerciale",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "a0f96ed2-62b8-40e9-8b68-7585b2d37cf4",
+      "name": "Action – réserver",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).lead);"
+      },
+      "id": "ada1aa79-9fce-49a3-ba9d-53282f50b72f",
+      "name": "Restaurer lead autorisé",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst result=$json;const b=$('Construire email').item.json;const ok=result.statut==='envoye';return jq(row(b._action_key,'action','HOT','W3',ok?'done':'uncertain',{lead_id:b.id,email:b.email,company:company(b),kind:'outreach',result,message_id:result.message_id||'',execution:$execution.id},ok?'Terminé — ne pas renvoyer':'Vérifier la livraison avant toute nouvelle tentative','W3'));"
+      },
+      "id": "66faad6a-1596-4ac9-b955-7f98feaed619",
+      "name": "Action – résultat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "ac5a1b6a-f8a9-4f46-8199-2879a4888fa7",
+      "name": "Action – enregistrer",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        816,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn jq(unpack($json).result);"
+      },
+      "id": "4d4bc7e7-e298-4753-85f0-59bb9b988689",
+      "name": "Restaurer résultat commercial",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        928
+      ]
+    }
+  ],
+  "connections": {
+    "Lun-jeu 8h30": {
+      "main": [
+        [
+          {
+            "node": "Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads": {
+      "main": [
+        [
+          {
+            "node": "Blacklist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Blacklist": {
+      "main": [
+        [
+          {
+            "node": "Commercial – Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sélection": {
+      "main": [
+        [
+          {
+            "node": "Un par un",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construire email": {
+      "main": [
+        [
+          {
+            "node": "Variante A ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email HTML (A)": {
+      "main": [
+        [
+          {
+            "node": "Résultat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email texte (B)": {
+      "main": [
+        [
+          {
+            "node": "Résultat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Résultat": {
+      "main": [
+        [
+          {
+            "node": "Action – résultat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads – MAJ": {
+      "main": [
+        [
+          {
+            "node": "Pause 2-5 min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pause 2-5 min": {
+      "main": [
+        [
+          {
+            "node": "Un par un",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Résumé": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Ligne journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ligne journal": {
+      "main": [
+        [
+          {
+            "node": "Journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Un par un": {
+      "main": [
+        [
+          {
+            "node": "Résumé",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Avant envoi – Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variante A ?": {
+      "main": [
+        [
+          {
+            "node": "Email HTML (A)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email texte (B)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test ?": {
+      "main": [
+        [
+          {
+            "node": "Pause 2-5 min",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Leads – MAJ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commercial – Queue": {
+      "main": [
+        [
+          {
+            "node": "Sélection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avant envoi – Leads": {
+      "main": [
+        [
+          {
+            "node": "Avant envoi – Blacklist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avant envoi – Blacklist": {
+      "main": [
+        [
+          {
+            "node": "Avant envoi – Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Avant envoi – Queue": {
+      "main": [
+        [
+          {
+            "node": "Garde commerciale",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Garde commerciale": {
+      "main": [
+        [
+          {
+            "node": "Envoi autorisé ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envoi autorisé ?": {
+      "main": [
+        [
+          {
+            "node": "Réservation commerciale",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Un par un",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Réservation commerciale": {
+      "main": [
+        [
+          {
+            "node": "Action – réserver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action – réserver": {
+      "main": [
+        [
+          {
+            "node": "Restaurer lead autorisé",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restaurer lead autorisé": {
+      "main": [
+        [
+          {
+            "node": "Construire email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action – résultat": {
+      "main": [
+        [
+          {
+            "node": "Action – enregistrer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action – enregistrer": {
+      "main": [
+        [
+          {
+            "node": "Restaurer résultat commercial",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restaurer résultat commercial": {
+      "main": [
+        [
+          {
+            "node": "Test ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "errorWorkflow": "4O2ZR1JpDOgJZOLw",
+    "timezone": "Europe/Paris"
+  },
+  "versionId": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+  "meta": null,
+  "nodeGroups": [],
+  "id": "RstxLOezyHrDIv7k",
+  "tags": []
+}

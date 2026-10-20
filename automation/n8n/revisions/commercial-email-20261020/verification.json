@@ -1,0 +1,20 @@
+{
+  "captured_at_utc": "2026-10-20T11:00:56.095613+00:00",
+  "source_sha256": "9e47c1eae968c27d66c1089741432c9fa0fdd043709ae2fdf434155adaa59f05",
+  "workflows": {
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "before_sha256": "7927887183bb17a77d7dcfb76685cb05dbc4624d6d1cc05587ffe685025a0b1b",
+      "after_sha256": "3a98373b5f8c3bac80468ecf07bead62c19851c29318b0f217fcb6479138b3e2",
+      "before_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "published_version_id": "79a240b8-0992-4383-8671-7c805790c33a"
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "before_sha256": "13e4b4494ee247ea645a25fca705e5efbe31a1c6eeefa216615ac58b32f4e34b",
+      "after_sha256": "46801e81b9d6817dd7350fb140e6a96bd60b87c8ad74e623203fbf8c1809e752",
+      "before_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "published_version_id": "970060cd-6c2a-4549-953d-b748ad959e6d"
+    }
+  }
+}

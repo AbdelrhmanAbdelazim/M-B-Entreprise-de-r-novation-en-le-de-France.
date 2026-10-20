@@ -2,6 +2,14 @@
   "name": "W7 – Recherche de leads",
   "nodes": [
     {
+      "id": "c1a15ecc-8107-4da3-94fc-5841d983822b",
+      "name": "Radar – 06h10 10h10 14h10 18h10",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        2608,
+        -1296
+      ],
       "parameters": {
         "rule": {
           "interval": [
@@ -11,26 +19,9 @@
             }
           ]
         }
-      },
-      "id": "c1a15ecc-8107-4da3-94fc-5841d983822b",
-      "name": "Radar – 06h10 10h10 14h10 18h10",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        2608,
-        -1296
-      ]
+      }
     },
     {
-      "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "mode": "id",
-          "value": "ns20LV2q6otiEP3X"
-        },
-        "returnAll": true
-      },
       "id": "9c255236-7feb-4dc6-9f2e-6df80ade4497",
       "name": "Leads",
       "type": "n8n-nodes-base.dataTable",
@@ -40,18 +31,18 @@
       "position": [
         2832,
         -1296
-      ]
-    },
-    {
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
           "__rl": true,
           "mode": "id",
-          "value": "NE0QU8afBFipimhW"
+          "value": "ns20LV2q6otiEP3X"
         },
         "returnAll": true
-      },
+      }
+    },
+    {
       "id": "15566e51-f087-4ce0-af96-4573d5b1a1af",
       "name": "Blacklist",
       "type": "n8n-nodes-base.dataTable",
@@ -61,12 +52,18 @@
       "position": [
         3056,
         -1296
-      ]
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "NE0QU8afBFipimhW"
+        },
+        "returnAll": true
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst jobs=$('Radar – Queue').all().map(i=>i.json);const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();if(slot===undefined)return [];const jobKey='radar:'+day()+':'+slot;const existing=jobs.find(r=>r.task_key===jobKey);if(existing&&['done','running','blocked'].includes(existing.status))return [];const used=$('Radar – Budget').all().filter(i=>i.json.workflow==='W7').reduce((s,i)=>s+Number((String(i.json.details||'').match(/oxylabs_credits=(\\d+)/)||[0,0])[1]),0);const dailyUsed=$('Radar – Budget').all().filter(i=>i.json.workflow==='W7'&&String(i.json.date||'').slice(0,10)===day()).reduce((s,i)=>s+Number((String(i.json.details||'').match(/oxylabs_credits=(\\d+)/)||[0,0])[1]),0);if(dailyUsed+2>8)return [];if(1000-used<202&&$('Radar – Budget').all().some(i=>String(i.json.workflow||'').startsWith('W7')&&String(i.json.date||'').slice(0,10)===day()&&String(i.json.details||'').includes('Oxylabs estimated credit reserve reached')))return [];if(1000-used<202)throw new Error('Oxylabs estimated credit reserve reached: '+(1000-used)+' remaining; recharge or verify budget before resuming.');\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\n// Budget Oxylabs : 1000 crédits au total → nombre fixe de recherches par exécution (1 exécution par semaine).\nconst MAX_RECHERCHES = 2;\nlet test = null; try { test = $('Test (temporaire)').first().json.body; } catch (e) {}\nconst T = [[\"syndic de copropriété travaux parties communes\", \"syndic\"], [\"agence immobilière gestion locative remise en état\", \"agence\"], [\"maître d’œuvre rénovation appartement\", \"maitre_oeuvre\"], [\"architecte rénovation intérieure\", \"architecte\"], [\"entreprise générale recherche sous-traitants rénovation\", \"entreprise_generale\"], [\"gestionnaire de biens dégât des eaux\", \"agence\"], [\"courtier en travaux\", \"courtier\"]];\nconst DEP = [['Paris','75'],['Hauts-de-Seine','92'],['Seine-Saint-Denis','93'],['Val-de-Marne','94'],['Yvelines','78'],['Essonne','91'],['Seine-et-Marne','77'],[\"Val-d'Oise\",'95']];\n// 20 arrondissements de Paris puis les communes d'Île-de-France de plus de 10 000 habitants, de la plus peuplée à la moins peuplée\nconst C = [[\"Paris 1er\", \"75\"], [\"Paris 2e\", \"75\"], [\"Paris 3e\", \"75\"], [\"Paris 4e\", \"75\"], [\"Paris 5e\", \"75\"], [\"Paris 6e\", \"75\"], [\"Paris 7e\", \"75\"], [\"Paris 8e\", \"75\"], [\"Paris 9e\", \"75\"], [\"Paris 10e\", \"75\"], [\"Paris 11e\", \"75\"], [\"Paris 12e\", \"75\"], [\"Paris 13e\", \"75\"], [\"Paris 14e\", \"75\"], [\"Paris 15e\", \"75\"], [\"Paris 16e\", \"75\"], [\"Paris 17e\", \"75\"], [\"Paris 18e\", \"75\"], [\"Paris 19e\", \"75\"], [\"Paris 20e\", \"75\"], [\"Saint-Denis\", \"93\"], [\"Boulogne-Billancourt\", \"92\"], [\"Montreuil\", \"93\"], [\"Argenteuil\", \"95\"], [\"Nanterre\", \"92\"], [\"Vitry-sur-Seine\", \"94\"], [\"Asnières-sur-Seine\", \"92\"], [\"Créteil\", \"94\"], [\"Colombes\", \"92\"], [\"Aubervilliers\", \"93\"], [\"Aulnay-sous-Bois\", \"93\"], [\"Versailles\", \"78\"], [\"Courbevoie\", \"92\"], [\"Rueil-Malmaison\", \"92\"], [\"Champigny-sur-Marne\", \"94\"], [\"Saint-Maur-des-Fossés\", \"94\"], [\"Noisy-le-Grand\", \"93\"], [\"Drancy\", \"93\"], [\"Cergy\", \"95\"], [\"Levallois-Perret\", \"92\"], [\"Issy-les-Moulineaux\", \"92\"], [\"Évry-Courcouronnes\", \"91\"], [\"Ivry-sur-Seine\", \"94\"], [\"Clichy\", \"92\"], [\"Antony\", \"92\"], [\"Le Blanc-Mesnil\", \"93\"], [\"Pantin\", \"93\"], [\"Villejuif\", \"94\"], [\"Neuilly-sur-Seine\", \"92\"], [\"Sarcelles\", \"95\"], [\"Clamart\", \"92\"], [\"Bobigny\", \"93\"], [\"Meaux\", \"77\"], [\"Maisons-Alfort\", \"94\"], [\"Chelles\", \"77\"], [\"Corbeil-Essonnes\", \"91\"], [\"Fontenay-sous-Bois\", \"94\"], [\"Saint-Ouen-sur-Seine\", \"93\"], [\"Épinay-sur-Seine\", \"93\"], [\"Sartrouville\", \"78\"], [\"Sevran\", \"93\"], [\"Massy\", \"91\"], [\"Gennevilliers\", \"92\"], [\"Bondy\", \"93\"], [\"Suresnes\", \"92\"], [\"Vincennes\", \"94\"], [\"Livry-Gargan\", \"93\"], [\"Rosny-sous-Bois\", \"93\"], [\"La Courneuve\", \"93\"], [\"Meudon\", \"92\"], [\"Montrouge\", \"92\"], [\"Melun\", \"77\"], [\"Choisy-le-Roi\", \"94\"], [\"Saint-Germain-en-Laye\", \"78\"], [\"Alfortville\", \"94\"], [\"Noisy-le-Sec\", \"93\"], [\"Bagneux\", \"92\"], [\"Puteaux\", \"92\"], [\"Mantes-la-Jolie\", \"78\"], [\"Bagnolet\", \"93\"], [\"Gagny\", \"93\"], [\"Garges-lès-Gonesse\", \"95\"], [\"Villepinte\", \"93\"], [\"Stains\", \"93\"], [\"Poissy\", \"78\"], [\"Neuilly-sur-Marne\", \"93\"], [\"Pontault-Combault\", \"77\"], [\"Tremblay-en-France\", \"93\"], [\"Franconville\", \"95\"], [\"Savigny-sur-Orge\", \"91\"], [\"Palaiseau\", \"91\"], [\"Romainville\", \"93\"], [\"Conflans-Sainte-Honorine\", \"78\"], [\"Châtillon\", \"92\"], [\"Athis-Mons\", \"91\"], [\"Bezons\", \"95\"], [\"Villeneuve-Saint-Georges\", \"94\"], [\"Châtenay-Malabry\", \"92\"], [\"Sainte-Geneviève-des-Bois\", \"91\"], [\"Le Perreux-sur-Marne\", \"94\"], [\"Trappes\", \"78\"], [\"Les Mureaux\", \"78\"], [\"Houilles\", \"78\"], [\"Villiers-sur-Marne\", \"94\"], [\"Thiais\", \"94\"], [\"Montigny-le-Bretonneux\", \"78\"], [\"Nogent-sur-Marne\", \"94\"], [\"Pontoise\", \"95\"], [\"Plaisir\", \"78\"], [\"Herblay-sur-Seine\", \"95\"], [\"Vigneux-sur-Seine\", \"91\"], [\"Goussainville\", \"95\"], [\"Ris-Orangis\", \"91\"], [\"L'Haÿ-les-Roses\", \"94\"], [\"Savigny-le-Temple\", \"77\"], [\"Cachan\", \"94\"], [\"Viry-Châtillon\", \"91\"], [\"Le Chesnay-Rocquencourt\", \"78\"], [\"Chatou\", \"78\"], [\"Malakoff\", \"92\"], [\"La Garenne-Colombes\", \"92\"], [\"Draveil\", \"91\"], [\"Villiers-le-Bel\", \"95\"], [\"Saint-Cloud\", \"92\"], [\"Villemomble\", \"93\"], [\"Guyancourt\", \"78\"], [\"Fresnes\", \"94\"], [\"Ermont\", \"95\"], [\"Clichy-sous-Bois\", \"93\"], [\"Bois-Colombes\", \"92\"], [\"Le Plessis-Robinson\", \"92\"], [\"Charenton-le-Pont\", \"94\"], [\"Montfermeil\", \"93\"], [\"Vanves\", \"92\"], [\"Yerres\", \"91\"], [\"Sucy-en-Brie\", \"94\"], [\"Rambouillet\", \"78\"], [\"Gonesse\", \"95\"], [\"Taverny\", \"95\"], [\"Bussy-Saint-Georges\", \"77\"], [\"Champs-sur-Marne\", \"77\"], [\"Limeil-Brévannes\", \"94\"], [\"Cormeilles-en-Parisis\", \"95\"], [\"Villeparisis\", \"77\"], [\"Sannois\", \"95\"], [\"Étampes\", \"91\"], [\"Grigny\", \"91\"], [\"Brétigny-sur-Orge\", \"91\"], [\"Élancourt\", \"78\"], [\"Eaubonne\", \"95\"], [\"Villeneuve-la-Garenne\", \"92\"], [\"Les Ulis\", \"91\"], [\"Les Pavillons-sous-Bois\", \"93\"], [\"Brunoy\", \"91\"], [\"Saint-Ouen-l'Aumône\", \"95\"], [\"Orly\", \"94\"], [\"Le Kremlin-Bicêtre\", \"94\"], [\"Fontenay-aux-Roses\", \"92\"], [\"Montgeron\", \"91\"], [\"Les Lilas\", \"93\"], [\"Dammarie-les-Lys\", \"77\"], [\"Combs-la-Ville\", \"77\"], [\"Roissy-en-Brie\", \"77\"], [\"Deuil-la-Barre\", \"95\"], [\"Maisons-Laffitte\", \"78\"], [\"Vélizy-Villacoublay\", \"78\"], [\"Torcy\", \"77\"], [\"Gif-sur-Yvette\", \"91\"], [\"Montigny-lès-Cormeilles\", \"95\"], [\"Mantes-la-Ville\", \"78\"], [\"Sèvres\", \"92\"], [\"Montereau-Fault-Yonne\", \"77\"], [\"Achères\", \"78\"], [\"Arcueil\", \"94\"], [\"Longjumeau\", \"91\"], [\"Neuilly-Plaisance\", \"93\"], [\"Saint-Michel-sur-Orge\", \"91\"], [\"Montmorency\", \"95\"], [\"Morsang-sur-Orge\", \"91\"], [\"Lagny-sur-Marne\", \"77\"], [\"Saint-Gratien\", \"95\"], [\"Saint-Cyr-l'École\", \"78\"], [\"Ozoir-la-Ferrière\", \"77\"], [\"Le Plessis-Trévise\", \"94\"], [\"Saint-Mandé\", \"94\"], [\"Bourg-la-Reine\", \"92\"], [\"Villeneuve-le-Roi\", \"94\"], [\"Sceaux\", \"92\"], [\"Carrières-sous-Poissy\", \"78\"], [\"Maurepas\", \"78\"], [\"Chaville\", \"92\"], [\"Joinville-le-Pont\", \"94\"], [\"La Celle-Saint-Cloud\", \"78\"], [\"Mitry-Mory\", \"77\"], [\"Chilly-Mazarin\", \"91\"], [\"Gentilly\", \"94\"], [\"Chevilly-Larue\", \"94\"], [\"Le Mée-sur-Seine\", \"77\"], [\"Juvisy-sur-Orge\", \"91\"], [\"Brie-Comte-Robert\", \"77\"], [\"Chennevières-sur-Marne\", \"94\"], [\"Moissy-Cramayel\", \"77\"], [\"Bry-sur-Marne\", \"94\"], [\"Éragny-sur-Oise\", \"95\"], [\"Bonneuil-sur-Marne\", \"94\"], [\"Soisy-sous-Montmorency\", \"95\"], [\"Osny\", \"95\"], [\"Limay\", \"78\"], [\"Jouy-le-Moutier\", \"95\"], [\"Garches\", \"92\"], [\"Boissy-Saint-Léger\", \"94\"], [\"Viroflay\", \"78\"], [\"Le Pré-Saint-Gervais\", \"93\"], [\"Les Clayes-sous-Bois\", \"78\"], [\"Marly-le-Roi\", \"78\"], [\"Bois-d'Arcy\", \"78\"], [\"Orsay\", \"91\"], [\"Mennecy\", \"91\"], [\"Coulommiers\", \"77\"], [\"Verneuil-sur-Seine\", \"78\"], [\"Saint-Leu-la-Forêt\", \"95\"], [\"Vauréal\", \"95\"], [\"Domont\", \"95\"], [\"Le Pecq\", \"78\"], [\"Noisiel\", \"77\"], [\"Le Bourget\", \"93\"], [\"Saint-Fargeau-Ponthierry\", \"77\"], [\"Montévrain\", \"77\"], [\"Fontainebleau\", \"77\"], [\"Le Vésinet\", \"78\"], [\"Montmagny\", \"95\"], [\"Lognes\", \"77\"], [\"Saint-Brice-sous-Forêt\", \"95\"], [\"Verrières-le-Buisson\", \"91\"], [\"Arnouville\", \"95\"], [\"Carrières-sur-Seine\", \"78\"], [\"Le Raincy\", \"93\"], [\"Montesson\", \"78\"], [\"Saint-Maurice\", \"94\"], [\"Valenton\", \"94\"], [\"Persan\", \"95\"], [\"Morangis\", \"91\"], [\"Lieusaint\", \"77\"], [\"Vaires-sur-Marne\", \"77\"], [\"Andrésy\", \"78\"], [\"Fleury-Mérogis\", \"91\"], [\"Fontenay-le-Fleury\", \"78\"], [\"Avon\", \"77\"], [\"Claye-Souilly\", \"77\"], [\"Nemours\", \"77\"], [\"Moret-Loing-et-Orvanne\", \"77\"], [\"Aubergenville\", \"78\"], [\"Louvres\", \"95\"], [\"Villetaneuse\", \"93\"], [\"L'Isle-Adam\", \"95\"], [\"La Queue-en-Brie\", \"94\"], [\"Triel-sur-Seine\", \"78\"], [\"Saint-Pierre-du-Perray\", \"91\"], [\"Villepreux\", \"78\"], [\"Dammartin-en-Goële\", \"77\"], [\"Dugny\", \"93\"], [\"Arpajon\", \"91\"], [\"Villecresnes\", \"94\"], [\"Provins\", \"77\"], [\"Saint-Germain-lès-Arpajon\", \"91\"], [\"Épinay-sous-Sénart\", \"91\"], [\"Vaux-le-Pénil\", \"77\"], [\"Enghien-les-Bains\", \"95\"], [\"Dourdan\", \"91\"], [\"Cesson\", \"77\"], [\"Ville-d'Avray\", \"92\"], [\"Croissy-sur-Seine\", \"78\"], [\"Ormesson-sur-Marne\", \"94\"], [\"Chanteloup-les-Vignes\", \"78\"], [\"Igny\", \"91\"], [\"Bondoufle\", \"91\"], [\"Épinay-sur-Orge\", \"91\"], [\"Voisins-le-Bretonneux\", \"78\"], [\"Fosses\", \"95\"], [\"Thorigny-sur-Marne\", \"77\"], [\"Serris\", \"77\"], [\"Villebon-sur-Yvette\", \"91\"], [\"La Ferté-sous-Jouarre\", \"77\"], [\"Beaumont-sur-Oise\", \"95\"], [\"Pierrelaye\", \"95\"]];\n// Un tour complet = 1) recherches par département (8 × 7 types), 2) une recherche par commune (type qui tourne d'un tour à l'autre).\nconst plan = (cycle) => {\n  const p = [];\n  for (const [dn, dc] of DEP) for (const [t, ty] of T) p.push({ query: `${t} ${dn}`, type: ty, ville: '', departement: dc });\n  C.forEach(([v, d], k) => { const [t, ty] = T[(k + cycle) % T.length]; p.push({ query: `${t} ${v}`, type: ty, ville: v, departement: d }); });\n  return p;\n};\nif (test && test.test) {\n  const t = T.find(x => x[1] === test.type) || T[0];\n  const dep = DEP.find(x => x[0] === test.departement);\n  return [{ json: { test: true, query: `${t[0]} ${dep ? dep[0] : test.ville}`, type: t[1], ville: dep ? '' : test.ville, departement: dep ? dep[1] : (test.dep || ''), max: 100 } }];\n}\nconst len = T.length * DEP.length + C.length;\nconst d = new Date(today() + 'T12:00:00Z'); const week = Math.max(0, Math.floor((d - new Date(Date.UTC(2026, 9, 12))) / (7 * 86400000)));\nconst out = [];\nfor (let k = 0; k < MAX_RECHERCHES; k++) {\n  const n = (Math.max(0,Math.floor((Date.parse(today())-Date.parse('2026-10-19'))/86400000))*4+[6,10,14,18].filter(h=>Number(new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(11,13))>=h).length-1)*MAX_RECHERCHES+k, cycle = Math.floor(n / len);\n  out.push({ json: { ...plan(cycle)[n % len], max: 100 } });\n}\nreturn out.map(x=>({json:{...x.json,max:25}}));\n"
-      },
       "id": "0ed62392-7b1b-4241-93af-118a1372bca6",
       "name": "Requêtes",
       "type": "n8n-nodes-base.code",
@@ -74,12 +71,12 @@
       "position": [
         3264,
         -1296
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst jobs=$('Radar – Queue').all().map(i=>i.json);const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();if(slot===undefined)return [];const jobKey='radar:'+day()+':'+slot;const existing=jobs.find(r=>r.task_key===jobKey);if(existing&&['done','running','blocked'].includes(existing.status))return [];const used=$('Radar – Budget').all().filter(i=>i.json.workflow==='W7').reduce((s,i)=>s+Number((String(i.json.details||'').match(/oxylabs_credits=(\\d+)/)||[0,0])[1]),0);const dailyUsed=$('Radar – Budget').all().filter(i=>i.json.workflow==='W7'&&String(i.json.date||'').slice(0,10)===day()).reduce((s,i)=>s+Number((String(i.json.details||'').match(/oxylabs_credits=(\\d+)/)||[0,0])[1]),0);if(dailyUsed+2>8)return [];if(1000-used<202&&$('Radar – Budget').all().some(i=>String(i.json.workflow||'').startsWith('W7')&&String(i.json.date||'').slice(0,10)===day()&&String(i.json.details||'').includes('Oxylabs estimated credit reserve reached')))return [];if(1000-used<202)throw new Error('Oxylabs estimated credit reserve reached: '+(1000-used)+' remaining; recharge or verify budget before resuming.');\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\n// Budget Oxylabs : 1000 crédits au total → nombre fixe de recherches par exécution (1 exécution par semaine).\nconst MAX_RECHERCHES = 2;\nlet test = null; try { test = $('Test (temporaire)').first().json.body; } catch (e) {}\nconst T = [[\"syndic de copropriété travaux parties communes\", \"syndic\"], [\"agence immobilière gestion locative remise en état\", \"agence\"], [\"maître d’œuvre rénovation appartement\", \"maitre_oeuvre\"], [\"architecte rénovation intérieure\", \"architecte\"], [\"entreprise générale recherche sous-traitants rénovation\", \"entreprise_generale\"], [\"gestionnaire de biens dégât des eaux\", \"agence\"], [\"courtier en travaux\", \"courtier\"]];\nconst DEP = [['Paris','75'],['Hauts-de-Seine','92'],['Seine-Saint-Denis','93'],['Val-de-Marne','94'],['Yvelines','78'],['Essonne','91'],['Seine-et-Marne','77'],[\"Val-d'Oise\",'95']];\n// 20 arrondissements de Paris puis les communes d'Île-de-France de plus de 10 000 habitants, de la plus peuplée à la moins peuplée\nconst C = [[\"Paris 1er\", \"75\"], [\"Paris 2e\", \"75\"], [\"Paris 3e\", \"75\"], [\"Paris 4e\", \"75\"], [\"Paris 5e\", \"75\"], [\"Paris 6e\", \"75\"], [\"Paris 7e\", \"75\"], [\"Paris 8e\", \"75\"], [\"Paris 9e\", \"75\"], [\"Paris 10e\", \"75\"], [\"Paris 11e\", \"75\"], [\"Paris 12e\", \"75\"], [\"Paris 13e\", \"75\"], [\"Paris 14e\", \"75\"], [\"Paris 15e\", \"75\"], [\"Paris 16e\", \"75\"], [\"Paris 17e\", \"75\"], [\"Paris 18e\", \"75\"], [\"Paris 19e\", \"75\"], [\"Paris 20e\", \"75\"], [\"Saint-Denis\", \"93\"], [\"Boulogne-Billancourt\", \"92\"], [\"Montreuil\", \"93\"], [\"Argenteuil\", \"95\"], [\"Nanterre\", \"92\"], [\"Vitry-sur-Seine\", \"94\"], [\"Asnières-sur-Seine\", \"92\"], [\"Créteil\", \"94\"], [\"Colombes\", \"92\"], [\"Aubervilliers\", \"93\"], [\"Aulnay-sous-Bois\", \"93\"], [\"Versailles\", \"78\"], [\"Courbevoie\", \"92\"], [\"Rueil-Malmaison\", \"92\"], [\"Champigny-sur-Marne\", \"94\"], [\"Saint-Maur-des-Fossés\", \"94\"], [\"Noisy-le-Grand\", \"93\"], [\"Drancy\", \"93\"], [\"Cergy\", \"95\"], [\"Levallois-Perret\", \"92\"], [\"Issy-les-Moulineaux\", \"92\"], [\"Évry-Courcouronnes\", \"91\"], [\"Ivry-sur-Seine\", \"94\"], [\"Clichy\", \"92\"], [\"Antony\", \"92\"], [\"Le Blanc-Mesnil\", \"93\"], [\"Pantin\", \"93\"], [\"Villejuif\", \"94\"], [\"Neuilly-sur-Seine\", \"92\"], [\"Sarcelles\", \"95\"], [\"Clamart\", \"92\"], [\"Bobigny\", \"93\"], [\"Meaux\", \"77\"], [\"Maisons-Alfort\", \"94\"], [\"Chelles\", \"77\"], [\"Corbeil-Essonnes\", \"91\"], [\"Fontenay-sous-Bois\", \"94\"], [\"Saint-Ouen-sur-Seine\", \"93\"], [\"Épinay-sur-Seine\", \"93\"], [\"Sartrouville\", \"78\"], [\"Sevran\", \"93\"], [\"Massy\", \"91\"], [\"Gennevilliers\", \"92\"], [\"Bondy\", \"93\"], [\"Suresnes\", \"92\"], [\"Vincennes\", \"94\"], [\"Livry-Gargan\", \"93\"], [\"Rosny-sous-Bois\", \"93\"], [\"La Courneuve\", \"93\"], [\"Meudon\", \"92\"], [\"Montrouge\", \"92\"], [\"Melun\", \"77\"], [\"Choisy-le-Roi\", \"94\"], [\"Saint-Germain-en-Laye\", \"78\"], [\"Alfortville\", \"94\"], [\"Noisy-le-Sec\", \"93\"], [\"Bagneux\", \"92\"], [\"Puteaux\", \"92\"], [\"Mantes-la-Jolie\", \"78\"], [\"Bagnolet\", \"93\"], [\"Gagny\", \"93\"], [\"Garges-lès-Gonesse\", \"95\"], [\"Villepinte\", \"93\"], [\"Stains\", \"93\"], [\"Poissy\", \"78\"], [\"Neuilly-sur-Marne\", \"93\"], [\"Pontault-Combault\", \"77\"], [\"Tremblay-en-France\", \"93\"], [\"Franconville\", \"95\"], [\"Savigny-sur-Orge\", \"91\"], [\"Palaiseau\", \"91\"], [\"Romainville\", \"93\"], [\"Conflans-Sainte-Honorine\", \"78\"], [\"Châtillon\", \"92\"], [\"Athis-Mons\", \"91\"], [\"Bezons\", \"95\"], [\"Villeneuve-Saint-Georges\", \"94\"], [\"Châtenay-Malabry\", \"92\"], [\"Sainte-Geneviève-des-Bois\", \"91\"], [\"Le Perreux-sur-Marne\", \"94\"], [\"Trappes\", \"78\"], [\"Les Mureaux\", \"78\"], [\"Houilles\", \"78\"], [\"Villiers-sur-Marne\", \"94\"], [\"Thiais\", \"94\"], [\"Montigny-le-Bretonneux\", \"78\"], [\"Nogent-sur-Marne\", \"94\"], [\"Pontoise\", \"95\"], [\"Plaisir\", \"78\"], [\"Herblay-sur-Seine\", \"95\"], [\"Vigneux-sur-Seine\", \"91\"], [\"Goussainville\", \"95\"], [\"Ris-Orangis\", \"91\"], [\"L'Haÿ-les-Roses\", \"94\"], [\"Savigny-le-Temple\", \"77\"], [\"Cachan\", \"94\"], [\"Viry-Châtillon\", \"91\"], [\"Le Chesnay-Rocquencourt\", \"78\"], [\"Chatou\", \"78\"], [\"Malakoff\", \"92\"], [\"La Garenne-Colombes\", \"92\"], [\"Draveil\", \"91\"], [\"Villiers-le-Bel\", \"95\"], [\"Saint-Cloud\", \"92\"], [\"Villemomble\", \"93\"], [\"Guyancourt\", \"78\"], [\"Fresnes\", \"94\"], [\"Ermont\", \"95\"], [\"Clichy-sous-Bois\", \"93\"], [\"Bois-Colombes\", \"92\"], [\"Le Plessis-Robinson\", \"92\"], [\"Charenton-le-Pont\", \"94\"], [\"Montfermeil\", \"93\"], [\"Vanves\", \"92\"], [\"Yerres\", \"91\"], [\"Sucy-en-Brie\", \"94\"], [\"Rambouillet\", \"78\"], [\"Gonesse\", \"95\"], [\"Taverny\", \"95\"], [\"Bussy-Saint-Georges\", \"77\"], [\"Champs-sur-Marne\", \"77\"], [\"Limeil-Brévannes\", \"94\"], [\"Cormeilles-en-Parisis\", \"95\"], [\"Villeparisis\", \"77\"], [\"Sannois\", \"95\"], [\"Étampes\", \"91\"], [\"Grigny\", \"91\"], [\"Brétigny-sur-Orge\", \"91\"], [\"Élancourt\", \"78\"], [\"Eaubonne\", \"95\"], [\"Villeneuve-la-Garenne\", \"92\"], [\"Les Ulis\", \"91\"], [\"Les Pavillons-sous-Bois\", \"93\"], [\"Brunoy\", \"91\"], [\"Saint-Ouen-l'Aumône\", \"95\"], [\"Orly\", \"94\"], [\"Le Kremlin-Bicêtre\", \"94\"], [\"Fontenay-aux-Roses\", \"92\"], [\"Montgeron\", \"91\"], [\"Les Lilas\", \"93\"], [\"Dammarie-les-Lys\", \"77\"], [\"Combs-la-Ville\", \"77\"], [\"Roissy-en-Brie\", \"77\"], [\"Deuil-la-Barre\", \"95\"], [\"Maisons-Laffitte\", \"78\"], [\"Vélizy-Villacoublay\", \"78\"], [\"Torcy\", \"77\"], [\"Gif-sur-Yvette\", \"91\"], [\"Montigny-lès-Cormeilles\", \"95\"], [\"Mantes-la-Ville\", \"78\"], [\"Sèvres\", \"92\"], [\"Montereau-Fault-Yonne\", \"77\"], [\"Achères\", \"78\"], [\"Arcueil\", \"94\"], [\"Longjumeau\", \"91\"], [\"Neuilly-Plaisance\", \"93\"], [\"Saint-Michel-sur-Orge\", \"91\"], [\"Montmorency\", \"95\"], [\"Morsang-sur-Orge\", \"91\"], [\"Lagny-sur-Marne\", \"77\"], [\"Saint-Gratien\", \"95\"], [\"Saint-Cyr-l'École\", \"78\"], [\"Ozoir-la-Ferrière\", \"77\"], [\"Le Plessis-Trévise\", \"94\"], [\"Saint-Mandé\", \"94\"], [\"Bourg-la-Reine\", \"92\"], [\"Villeneuve-le-Roi\", \"94\"], [\"Sceaux\", \"92\"], [\"Carrières-sous-Poissy\", \"78\"], [\"Maurepas\", \"78\"], [\"Chaville\", \"92\"], [\"Joinville-le-Pont\", \"94\"], [\"La Celle-Saint-Cloud\", \"78\"], [\"Mitry-Mory\", \"77\"], [\"Chilly-Mazarin\", \"91\"], [\"Gentilly\", \"94\"], [\"Chevilly-Larue\", \"94\"], [\"Le Mée-sur-Seine\", \"77\"], [\"Juvisy-sur-Orge\", \"91\"], [\"Brie-Comte-Robert\", \"77\"], [\"Chennevières-sur-Marne\", \"94\"], [\"Moissy-Cramayel\", \"77\"], [\"Bry-sur-Marne\", \"94\"], [\"Éragny-sur-Oise\", \"95\"], [\"Bonneuil-sur-Marne\", \"94\"], [\"Soisy-sous-Montmorency\", \"95\"], [\"Osny\", \"95\"], [\"Limay\", \"78\"], [\"Jouy-le-Moutier\", \"95\"], [\"Garches\", \"92\"], [\"Boissy-Saint-Léger\", \"94\"], [\"Viroflay\", \"78\"], [\"Le Pré-Saint-Gervais\", \"93\"], [\"Les Clayes-sous-Bois\", \"78\"], [\"Marly-le-Roi\", \"78\"], [\"Bois-d'Arcy\", \"78\"], [\"Orsay\", \"91\"], [\"Mennecy\", \"91\"], [\"Coulommiers\", \"77\"], [\"Verneuil-sur-Seine\", \"78\"], [\"Saint-Leu-la-Forêt\", \"95\"], [\"Vauréal\", \"95\"], [\"Domont\", \"95\"], [\"Le Pecq\", \"78\"], [\"Noisiel\", \"77\"], [\"Le Bourget\", \"93\"], [\"Saint-Fargeau-Ponthierry\", \"77\"], [\"Montévrain\", \"77\"], [\"Fontainebleau\", \"77\"], [\"Le Vésinet\", \"78\"], [\"Montmagny\", \"95\"], [\"Lognes\", \"77\"], [\"Saint-Brice-sous-Forêt\", \"95\"], [\"Verrières-le-Buisson\", \"91\"], [\"Arnouville\", \"95\"], [\"Carrières-sur-Seine\", \"78\"], [\"Le Raincy\", \"93\"], [\"Montesson\", \"78\"], [\"Saint-Maurice\", \"94\"], [\"Valenton\", \"94\"], [\"Persan\", \"95\"], [\"Morangis\", \"91\"], [\"Lieusaint\", \"77\"], [\"Vaires-sur-Marne\", \"77\"], [\"Andrésy\", \"78\"], [\"Fleury-Mérogis\", \"91\"], [\"Fontenay-le-Fleury\", \"78\"], [\"Avon\", \"77\"], [\"Claye-Souilly\", \"77\"], [\"Nemours\", \"77\"], [\"Moret-Loing-et-Orvanne\", \"77\"], [\"Aubergenville\", \"78\"], [\"Louvres\", \"95\"], [\"Villetaneuse\", \"93\"], [\"L'Isle-Adam\", \"95\"], [\"La Queue-en-Brie\", \"94\"], [\"Triel-sur-Seine\", \"78\"], [\"Saint-Pierre-du-Perray\", \"91\"], [\"Villepreux\", \"78\"], [\"Dammartin-en-Goële\", \"77\"], [\"Dugny\", \"93\"], [\"Arpajon\", \"91\"], [\"Villecresnes\", \"94\"], [\"Provins\", \"77\"], [\"Saint-Germain-lès-Arpajon\", \"91\"], [\"Épinay-sous-Sénart\", \"91\"], [\"Vaux-le-Pénil\", \"77\"], [\"Enghien-les-Bains\", \"95\"], [\"Dourdan\", \"91\"], [\"Cesson\", \"77\"], [\"Ville-d'Avray\", \"92\"], [\"Croissy-sur-Seine\", \"78\"], [\"Ormesson-sur-Marne\", \"94\"], [\"Chanteloup-les-Vignes\", \"78\"], [\"Igny\", \"91\"], [\"Bondoufle\", \"91\"], [\"Épinay-sur-Orge\", \"91\"], [\"Voisins-le-Bretonneux\", \"78\"], [\"Fosses\", \"95\"], [\"Thorigny-sur-Marne\", \"77\"], [\"Serris\", \"77\"], [\"Villebon-sur-Yvette\", \"91\"], [\"La Ferté-sous-Jouarre\", \"77\"], [\"Beaumont-sur-Oise\", \"95\"], [\"Pierrelaye\", \"95\"]];\n// Un tour complet = 1) recherches par département (8 × 7 types), 2) une recherche par commune (type qui tourne d'un tour à l'autre).\nconst plan = (cycle) => {\n  const p = [];\n  for (const [dn, dc] of DEP) for (const [t, ty] of T) p.push({ query: `${t} ${dn}`, type: ty, ville: '', departement: dc });\n  C.forEach(([v, d], k) => { const [t, ty] = T[(k + cycle) % T.length]; p.push({ query: `${t} ${v}`, type: ty, ville: v, departement: d }); });\n  return p;\n};\nif (test && test.test) {\n  const t = T.find(x => x[1] === test.type) || T[0];\n  const dep = DEP.find(x => x[0] === test.departement);\n  return [{ json: { test: true, query: `${t[0]} ${dep ? dep[0] : test.ville}`, type: t[1], ville: dep ? '' : test.ville, departement: dep ? dep[1] : (test.dep || ''), max: 100 } }];\n}\nconst len = T.length * DEP.length + C.length;\nconst d = new Date(today() + 'T12:00:00Z'); const week = Math.max(0, Math.floor((d - new Date(Date.UTC(2026, 9, 12))) / (7 * 86400000)));\nconst out = [];\nfor (let k = 0; k < MAX_RECHERCHES; k++) {\n  const n = (Math.max(0,Math.floor((Date.parse(today())-Date.parse('2026-10-19'))/86400000))*4+[6,10,14,18].filter(h=>Number(new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(11,13))>=h).length-1)*MAX_RECHERCHES+k, cycle = Math.floor(n / len);\n  out.push({ json: { ...plan(cycle)[n % len], max: 100 } });\n}\nreturn out.map(x=>({json:{...x.json,max:25}}));\n"
+      }
     },
     {
-      "parameters": {
-        "jsCode": "const FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst BAD = /pagesjaunes|houzz|facebook|instagram|linkedin|societe\\.com|pappers|infogreffe|verif\\.com|yelp|tripadvisor|google\\.|youtube|wikipedia|leboncoin|seloger|bienici|logic-immo|meilleursagents|travaux\\.com|habitatpresto|starofservice|mappy|118712|annuaire|kompass|manageo|indeed|welcometothejungle|batiweb|companeo|quotatis|ootravaux|hellowork|doctrine|trustpilot|lefigaro|leparisien|ouest-france|20minutes|apple\\.com|cylex|hoodspot|justacote|foncia\\.com|century21|laforet|orpi|guy-hoquet|stephaneplazaimmobilier|nexity|wixsite|business\\.site|pagesperso|mairie|gouv\\.fr|ville-|paris\\.fr/i;\nconst known = new Set($('Leads').all().map(i => dom(i.json.email)).concat($('Leads').all().map(i => String(i.json.site || '').toLowerCase().replace(/^www\\./, ''))).concat($('Blacklist').all().map(i => dom(i.json.email))).filter(x => x && !FREE.has(x)));\nconst seen = new Set(), out = [];\n$input.all().forEach((it, i) => {\n  const q = $('Requêtes').all()[i]?.json;\n  if (!q || it.json.error) return;\n  const body = it.json.body && typeof it.json.body === 'object' ? it.json.body : it.json;\n  for (const r of (body.data || [])) {\n    const mm = String(r.url || '').match(/^(https?):\\/\\/([^\\/?#:]+)/i); if (!mm) continue;\n    const host = mm[2].toLowerCase().replace(/^www\\./, '');\n    if (BAD.test(host) || seen.has(host) || (!q.test && known.has(host))) continue;\n    seen.add(host);\n    out.push({ json: { url: `https://${mm[2].toLowerCase()}/`, host, nom: String(r.title || host).replace(/\\s*[|–-].*$/, '').slice(0, 120), sigle: '', title: r.title || '', desc: r.description || '', type: q.type, ville: q.ville, departement: q.departement, test: !!q.test, origine: 'oxylabs' } });\n  }\n});\nreturn out.slice(0, 25);\n"
-      },
       "id": "6703acea-7aad-4058-99b3-427f9aa14399",
       "name": "URLs",
       "type": "n8n-nodes-base.code",
@@ -88,9 +85,22 @@
       "position": [
         4144,
         -1296
-      ]
+      ],
+      "parameters": {
+        "jsCode": "// A failed search is not evidence of zero commercial opportunities.\nconst sourceResponses=$input.all();\nconst sourceQueries=$('Requêtes').all();\nif(sourceResponses.length!==sourceQueries.length)throw new Error('W7_SEARCH_SOURCE_FAILED: response count mismatch; inspect source execution; no automatic replay');\nfor(let index=0;index<sourceResponses.length;index++){\n  const response=sourceResponses[index]?.json;\n  const body=response?.body&&typeof response.body==='object'?response.body:response;\n  const status=Number(response?.statusCode??200);\n  if(!response||response.error||!Number.isFinite(status)||status<200||status>=300||!body||body.error||!Array.isArray(body.data))\n    throw new Error('W7_SEARCH_SOURCE_FAILED: query '+(index+1)+'; inspect source execution; no automatic replay');\n}\nconst FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst BAD = /pagesjaunes|houzz|facebook|instagram|linkedin|societe\\.com|pappers|infogreffe|verif\\.com|yelp|tripadvisor|google\\.|youtube|wikipedia|leboncoin|seloger|bienici|logic-immo|meilleursagents|travaux\\.com|habitatpresto|starofservice|mappy|118712|annuaire|kompass|manageo|indeed|welcometothejungle|batiweb|companeo|quotatis|ootravaux|hellowork|doctrine|trustpilot|lefigaro|leparisien|ouest-france|20minutes|apple\\.com|cylex|hoodspot|justacote|foncia\\.com|century21|laforet|orpi|guy-hoquet|stephaneplazaimmobilier|nexity|wixsite|business\\.site|pagesperso|mairie|gouv\\.fr|ville-|paris\\.fr/i;\nconst known = new Set($('Leads').all().map(i => dom(i.json.email)).concat($('Leads').all().map(i => String(i.json.site || '').toLowerCase().replace(/^www\\./, ''))).concat($('Blacklist').all().map(i => dom(i.json.email))).filter(x => x && !FREE.has(x)));\nconst seen = new Set(), out = [];\n$input.all().forEach((it, i) => {\n  const q = $('Requêtes').all()[i]?.json;\n  if (!q || it.json.error) return;\n  const body = it.json.body && typeof it.json.body === 'object' ? it.json.body : it.json;\n  for (const r of (body.data || [])) {\n    const mm = String(r.url || '').match(/^(https?):\\/\\/([^\\/?#:]+)/i); if (!mm) continue;\n    const host = mm[2].toLowerCase().replace(/^www\\./, '');\n    if (BAD.test(host) || seen.has(host) || (!q.test && known.has(host))) continue;\n    seen.add(host);\n    out.push({ json: { url: `https://${mm[2].toLowerCase()}/`, host, nom: String(r.title || host).replace(/\\s*[|–-].*$/, '').slice(0, 120), sigle: '', title: r.title || '', desc: r.description || '', type: q.type, ville: q.ville, departement: q.departement, test: !!q.test, origine: 'oxylabs' } });\n  }\n});\nreturn out.slice(0, 25);\n"
+      }
     },
     {
+      "id": "a15b3794-8351-47f0-b588-eab3bdf28d4d",
+      "name": "Page d'accueil",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "position": [
+        3936,
+        -1296
+      ],
       "parameters": {
         "url": "={{ $json.url }}",
         "sendHeaders": true,
@@ -124,23 +134,9 @@
           },
           "timeout": 15000
         }
-      },
-      "id": "a15b3794-8351-47f0-b588-eab3bdf28d4d",
-      "name": "Page d'accueil",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "alwaysOutputData": true,
-      "position": [
-        3936,
-        -1296
-      ],
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "\nconst prev = $('URLs').item.json;\nif (!prev.url) return { json: { empty: true } };\nconst html = String($json.data || $json.body || (typeof $json === 'string' ? $json : '') || '');\nlet link = '';\nconst re = /<a[^>]+href=[\"']([^\"'#]+)[\"'][^>]*>([\\s\\S]{0,80}?)<\\/a>/gi; let m;\nwhile ((m = re.exec(html))) { if (/contact/i.test(m[1] + ' ' + m[2])) { link = m[1]; break; } }\nconst abs = (h, base) => { if (/^https?:\\/\\//i.test(h)) return h; if (h.startsWith('//')) return 'https:' + h; const root = base.match(/^https?:\\/\\/[^\\/]+/i)[0]; return h.startsWith('/') ? root + h : root + '/' + h.replace(/^\\.\\//, ''); };\nlink = link && !/^(mailto|tel|javascript):/i.test(link) ? abs(link, prev.url) : prev.url;\nif (link.startsWith('mailto:')) link = prev.url;\nreturn { json: { ...prev, home: html.slice(0, 300000), contactUrl: link } };\n"
-      },
       "id": "06b56661-6b45-4144-bb7f-da15e88d3d16",
       "name": "Lien contact",
       "type": "n8n-nodes-base.code",
@@ -148,9 +144,23 @@
       "position": [
         4144,
         -1296
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "\nconst prev = $('URLs').item.json;\nif (!prev.url) return { json: { empty: true } };\nconst html = String($json.data || $json.body || (typeof $json === 'string' ? $json : '') || '');\nlet link = '';\nconst re = /<a[^>]+href=[\"']([^\"'#]+)[\"'][^>]*>([\\s\\S]{0,80}?)<\\/a>/gi; let m;\nwhile ((m = re.exec(html))) { if (/contact/i.test(m[1] + ' ' + m[2])) { link = m[1]; break; } }\nconst abs = (h, base) => { if (/^https?:\\/\\//i.test(h)) return h; if (h.startsWith('//')) return 'https:' + h; const root = base.match(/^https?:\\/\\/[^\\/]+/i)[0]; return h.startsWith('/') ? root + h : root + '/' + h.replace(/^\\.\\//, ''); };\nlink = link && !/^(mailto|tel|javascript):/i.test(link) ? abs(link, prev.url) : prev.url;\nif (link.startsWith('mailto:')) link = prev.url;\nreturn { json: { ...prev, home: html.slice(0, 300000), contactUrl: link } };\n"
+      }
     },
     {
+      "id": "12efecca-9df2-42b3-8f5d-2614ae80f694",
+      "name": "Page contact",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "position": [
+        4368,
+        -1296
+      ],
       "parameters": {
         "url": "={{ $json.contactUrl }}",
         "sendHeaders": true,
@@ -184,23 +194,9 @@
           },
           "timeout": 15000
         }
-      },
-      "id": "12efecca-9df2-42b3-8f5d-2614ae80f694",
-      "name": "Page contact",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "alwaysOutputData": true,
-      "position": [
-        4368,
-        -1296
-      ],
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const norm = x => String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();\nconst FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst p = $('Lien contact').item.json;\nif (!p.url) return null;\nconst html2 = String($json.data || $json.body || '');\nconst all = p.home + ' ' + html2;\nconst clean = s => s.replace(/&#64;|\\[at\\]|\\(at\\)/gi, '@');\nconst found = new Set((clean(all).match(/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/gi) || []).map(e => e.toLowerCase().replace(/^mailto:/, '')));\nconst ok = [...found].filter(e => !/\\.(png|jpe?g|gif|svg|webp|css|js)$/.test(e) && !/no-?reply|example|sentry|wixpress|domain\\.|votre|email@|exemple|@2x/.test(e))\n  .filter(e => dom(e) === p.host || dom(e).endsWith('.' + p.host) || p.host.endsWith('.' + dom(e)) || FREE.has(dom(e)));\nif (!ok.length) return null;\nconst GEN = new Set(['sarl','sas','sasu','eurl','societe','cabinet','agence','atelier','studio','architecte','architectes','architecture','interieur','interieurs','design','immobilier','immobiliere','immobilieres','gestion','conseil','conseils','renovation','renovations','batiment','batiments','travaux','paris','france','groupe','entreprise','services','construction','constructions','general','generale','maitrise','oeuvre','syndic','administration','biens','transaction','transactions','habitat','maison','maisons','projets','project','projects','associes','associe','partners','agency','ingenierie','vente','ventes','location','locations','patrimoine','residence','logement','logements','concept','concepts','espace','espaces','decoration','agencement','bureau','etudes','etude','urbanisme','home','immo','compagnie','international','europe','developpement','realisation','realisations','amenagement','amenagements','gerance','foncier','fonciere','investissement','courtage','creation','creations','style','styles','global','solutions']);\nconst toks = [...new Set(norm(p.nom + ' ' + (p.sigle || '')).split(/[^a-z0-9]+/).filter(t => t.length >= 5 && !GEN.has(t)))];\nconst page = norm(p.home + ' ' + html2);\nconst head = norm((p.home.match(/<title[^>]*>([^<]*)/i) || [, ''])[1] + ' ' + p.home.replace(/<script[\\s\\S]*?<\\/script>|<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').slice(0, 4000));\nconst hostN = norm(p.host).replace(/[^a-z0-9]/g, '');\nconst inHost = toks.some(t => hostN.includes(t));\nconst inHead = toks.filter(t => head.includes(t)).length;\nconst inPage = toks.filter(t => page.includes(t)).length;\nconst verified = p.origine === 'oxylabs' ? true : toks.length ? (inHost && inPage >= 1) || inHead >= Math.min(2, toks.length) : false;\nif (!verified) return null;\nconst OTHER = /^(lyon|marseille|bordeaux|lille|nantes|toulouse|nice|montpellier|strasbourg|rennes|grenoble|toulon|dijon|angers|reims|tours|orleans|rouen|caen|metz|nancy|annecy|aix|cannes|biarritz)/;\nconst cityTok = norm(p.ville).replace(/[^a-z]/g, '');\nconst lp = e => e.split('@')[0].replace(/[^a-z]/g, '');\nconst ok2 = ok.filter(e => !OTHER.test(e.split('@')[0]));\nif (!ok2.length) return null;\nok.length = 0; ok.push(...ok2);\nok.sort((a, b) => (lp(b).includes(cityTok) ? 1 : 0) - (lp(a).includes(cityTok) ? 1 : 0) || (dom(a) === p.host ? 0 : 1) - (dom(b) === p.host ? 0 : 1) || (/^(contact|agence|info|bonjour|hello)/.test(a) ? 0 : 1) - (/^(contact|agence|info|bonjour|hello)/.test(b) ? 0 : 1));\nconst title = p.nom || ((p.home.match(/<title[^>]*>([^<]{0,150})/i) || [, p.title])[1]) || p.host;\nconst text = p.home.replace(/<script[\\s\\S]*?<\\/script>|<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').slice(0, 2500);\nconst prompt = `Tu aides M&B Rénovation (entreprise de second œuvre en Île-de-France) à trouver des partenaires prescripteurs.\nSite : ${p.url}\nTitre : ${title}\nEntreprise (annuaire officiel) : ${p.nom} – activité ${p.type} à ${p.ville}\nExtrait du site : ${text}\n\nRéponds UNIQUEMENT en JSON valide : {\"garder\": true|false, \"type\": \"architecte\"|\"maitre_oeuvre\"|\"entreprise_generale\"|\"agence\"|\"syndic\"|\"courtier\", \"entreprise\": \"nom de l'entreprise\", \"raison\": \"courte\"}\nRègles : garder = false si c'est un CONCURRENT (artisan ou entreprise de rénovation qui réalise elle-même tous les travaux pour des particuliers), un annuaire, un comparateur, un média, un franchiseur national ou un site hors Île-de-France. GARDER les architectes, architectes d'intérieur, décorateurs, maîtres d'œuvre, entreprises générales / contractants généraux qui sous-traitent, agences immobilières, gestionnaires, syndics et courtiers en travaux.`;\nreturn { json: { ...p, home: undefined, email: ok[0], entreprise_titre: title, prompt } };\n"
-      },
       "id": "ad2115f0-fe19-4741-a408-d9300cd4deb2",
       "name": "Emails",
       "type": "n8n-nodes-base.code",
@@ -209,14 +205,13 @@
       "position": [
         4592,
         -1296
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const norm = x => String(x || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();\nconst FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst p = $('Lien contact').item.json;\nif (!p.url) return null;\nconst html2 = String($json.data || $json.body || '');\nconst all = p.home + ' ' + html2;\nconst clean = s => s.replace(/&#64;|\\[at\\]|\\(at\\)/gi, '@');\nconst found = new Set((clean(all).match(/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/gi) || []).map(e => e.toLowerCase().replace(/^mailto:/, '')));\nconst ok = [...found].filter(e => !/\\.(png|jpe?g|gif|svg|webp|css|js)$/.test(e) && !/no-?reply|example|sentry|wixpress|domain\\.|votre|email@|exemple|@2x/.test(e))\n  .filter(e => dom(e) === p.host || dom(e).endsWith('.' + p.host) || p.host.endsWith('.' + dom(e)) || FREE.has(dom(e)));\nif (!ok.length) return null;\nconst GEN = new Set(['sarl','sas','sasu','eurl','societe','cabinet','agence','atelier','studio','architecte','architectes','architecture','interieur','interieurs','design','immobilier','immobiliere','immobilieres','gestion','conseil','conseils','renovation','renovations','batiment','batiments','travaux','paris','france','groupe','entreprise','services','construction','constructions','general','generale','maitrise','oeuvre','syndic','administration','biens','transaction','transactions','habitat','maison','maisons','projets','project','projects','associes','associe','partners','agency','ingenierie','vente','ventes','location','locations','patrimoine','residence','logement','logements','concept','concepts','espace','espaces','decoration','agencement','bureau','etudes','etude','urbanisme','home','immo','compagnie','international','europe','developpement','realisation','realisations','amenagement','amenagements','gerance','foncier','fonciere','investissement','courtage','creation','creations','style','styles','global','solutions']);\nconst toks = [...new Set(norm(p.nom + ' ' + (p.sigle || '')).split(/[^a-z0-9]+/).filter(t => t.length >= 5 && !GEN.has(t)))];\nconst page = norm(p.home + ' ' + html2);\nconst head = norm((p.home.match(/<title[^>]*>([^<]*)/i) || [, ''])[1] + ' ' + p.home.replace(/<script[\\s\\S]*?<\\/script>|<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').slice(0, 4000));\nconst hostN = norm(p.host).replace(/[^a-z0-9]/g, '');\nconst inHost = toks.some(t => hostN.includes(t));\nconst inHead = toks.filter(t => head.includes(t)).length;\nconst inPage = toks.filter(t => page.includes(t)).length;\nconst verified = p.origine === 'oxylabs' ? true : toks.length ? (inHost && inPage >= 1) || inHead >= Math.min(2, toks.length) : false;\nif (!verified) return null;\nconst OTHER = /^(lyon|marseille|bordeaux|lille|nantes|toulouse|nice|montpellier|strasbourg|rennes|grenoble|toulon|dijon|angers|reims|tours|orleans|rouen|caen|metz|nancy|annecy|aix|cannes|biarritz)/;\nconst cityTok = norm(p.ville).replace(/[^a-z]/g, '');\nconst lp = e => e.split('@')[0].replace(/[^a-z]/g, '');\nconst ok2 = ok.filter(e => !OTHER.test(e.split('@')[0]));\nif (!ok2.length) return null;\nok.length = 0; ok.push(...ok2);\nok.sort((a, b) => (lp(b).includes(cityTok) ? 1 : 0) - (lp(a).includes(cityTok) ? 1 : 0) || (dom(a) === p.host ? 0 : 1) - (dom(b) === p.host ? 0 : 1) || (/^(contact|agence|info|bonjour|hello)/.test(a) ? 0 : 1) - (/^(contact|agence|info|bonjour|hello)/.test(b) ? 0 : 1));\nconst title = p.nom || ((p.home.match(/<title[^>]*>([^<]{0,150})/i) || [, p.title])[1]) || p.host;\nconst text = p.home.replace(/<script[\\s\\S]*?<\\/script>|<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').slice(0, 2500);\nconst prompt = `Tu aides M&B Rénovation (entreprise de second œuvre en Île-de-France) à trouver des partenaires prescripteurs.\nSite : ${p.url}\nTitre : ${title}\nEntreprise (annuaire officiel) : ${p.nom} – activité ${p.type} à ${p.ville}\nExtrait du site : ${text}\n\nRéponds UNIQUEMENT en JSON valide : {\"garder\": true|false, \"type\": \"architecte\"|\"maitre_oeuvre\"|\"entreprise_generale\"|\"agence\"|\"syndic\"|\"courtier\", \"entreprise\": \"nom de l'entreprise\", \"raison\": \"courte\"}\nRègles : garder = false si c'est un CONCURRENT (artisan ou entreprise de rénovation qui réalise elle-même tous les travaux pour des particuliers), un annuaire, un comparateur, un média, un franchiseur national ou un site hors Île-de-France. GARDER les architectes, architectes d'intérieur, décorateurs, maîtres d'œuvre, entreprises générales / contractants généraux qui sous-traitent, agences immobilières, gestionnaires, syndics et courtiers en travaux.`;\nconst qualification_text = all.replace(/<script[\\s\\S]*?<\\/script>|<style[\\s\\S]*?<\\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').slice(0,18000);\nreturn { json: { ...p, home: undefined, qualification_text, email: ok[0], entreprise_titre: title, prompt } };\n"
+      }
     },
     {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $('Numéroter Claude : concurrent ?').item.json.prompt }}",
-        "batching": {}
-      },
       "id": "435583fd-72bd-4579-8152-60a006c931ca",
       "name": "Claude : concurrent ? (Claude secours)",
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
@@ -224,9 +219,22 @@
       "position": [
         5104,
         -1648
-      ]
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Numéroter Claude : concurrent ?').item.json.prompt }}",
+        "batching": {}
+      }
     },
     {
+      "id": "4c8999b7-24f3-49ae-88b2-80167dacee3a",
+      "name": "Claude Sonnet",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [
+        4816,
+        -1072
+      ],
       "parameters": {
         "model": {
           "__rl": true,
@@ -236,14 +244,6 @@
         },
         "options": {}
       },
-      "id": "4c8999b7-24f3-49ae-88b2-80167dacee3a",
-      "name": "Claude Sonnet",
-      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-      "typeVersion": 1.6,
-      "position": [
-        4816,
-        -1072
-      ],
       "credentials": {
         "anthropicApi": {
           "id": "__EXISTING_ANTHROPICAPI_CREDENTIAL_ID__",
@@ -252,9 +252,6 @@
       }
     },
     {
-      "parameters": {
-        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\nconst FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst items = $('Emails').all();\nconst known = new Set($('Leads').all().map(i => String(i.json.email || '').toLowerCase()).concat($('Blacklist').all().map(i => String(i.json.email || '').toLowerCase())));\nconst knownDom = new Set([...known].map(dom).filter(d => d && !FREE.has(d)));\nconst out = [], rejet = [];\n$input.all().forEach((it, i) => {\n  const p = (items[i] || {}).json; if (!p || !p.email) return;\n  const raw = String(it.json.text || '');\n  let r; try { r = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)); } catch (e) { rejet.push(p.host + ' (JSON)'); return; }\n  const d = dom(p.email);\n  if (!r.garder) { rejet.push(`${p.host} (${r.raison || 'rejeté'})`); return; }\n  if (known.has(p.email) || (!FREE.has(d) && knownDom.has(d))) { rejet.push(p.host + ' (déjà connu)'); return; }\n  known.add(p.email); if (!FREE.has(d)) knownDom.add(d);\n  out.push({ email: p.email, entreprise: String(r.entreprise || p.entreprise_titre).slice(0, 120), type: r.type || p.type, ville: p.ville, departement: p.departement, site: p.host, source: 'oxylabs', statut: 'nouveau' });\n});\nconst test = $('Requêtes').first().json.test === true;\nconst moteurs = $input.all().reduce((m, i) => (m[i.json.moteur || '?'] = (m[i.json.moteur || '?'] || 0) + 1, m), {});\nconst keep = out.slice(0, $('Requêtes').first().json.max || 100);\nreturn [{ json: { test, rows: keep, rejet, message: `🔎 بحث leads${test ? ' (اختبار — من غير حفظ)' : ''}: ${keep.length} جديد (OpenAI ${moteurs.openai || 0} / Gemini ${moteurs.gemini || 0} / Claude ${moteurs.claude || 0})\\n` + keep.slice(0, 25).map(k => `• ${k.entreprise.slice(0, 60)} — ${k.email}`).join('\\n') + (keep.length > 25 ? `\\n… +${keep.length - 25} autres` : '') + (rejet.length ? `\\n\\n🚫 مرفوض: ${rejet.length}\\n` + rejet.slice(0, 8).map(x => '• ' + x.slice(0, 90)).join('\\n') : '') } }];\n"
-      },
       "id": "b63a2bf1-78d2-405f-bd6b-75ce8029e99f",
       "name": "Final",
       "type": "n8n-nodes-base.code",
@@ -262,9 +259,22 @@
       "position": [
         5024,
         -1296
-      ]
+      ],
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\nconst FREE = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst dom = e => String(e || '').toLowerCase().split('@')[1] || '';\n\nconst items = $('Emails').all();\nconst known = new Set($('Leads').all().map(i => String(i.json.email || '').toLowerCase()).concat($('Blacklist').all().map(i => String(i.json.email || '').toLowerCase())));\nconst knownDom = new Set([...known].map(dom).filter(d => d && !FREE.has(d)));\nconst out = [], rejet = [], qualification_evidence = [];\n$input.all().forEach((it, i) => {\n  const p = (items[i] || {}).json; if (!p || !p.email) return;\n  const raw = String(it.json.text || '');\n  let r; try { r = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)); } catch (e) { rejet.push(p.host + ' (JSON)'); return; }\n  const d = dom(p.email);\n  if (!r.garder) { rejet.push(`${p.host} (${r.raison || 'rejeté'})`); return; }\n  if (known.has(p.email) || (!FREE.has(d) && knownDom.has(d))) { rejet.push(p.host + ' (déjà connu)'); return; }\n  known.add(p.email); if (!FREE.has(d)) knownDom.add(d);\n  qualification_evidence.push({email:p.email,site:p.host,garder:r.garder===true,email_observed:true,text:p.qualification_text||'',observed_at:new Date().toISOString(),source_url:p.url});\n  out.push({ email: p.email, entreprise: String(r.entreprise || p.entreprise_titre).slice(0, 120), type: r.type || p.type, ville: p.ville, departement: p.departement, site: p.host, source: 'oxylabs', statut: 'nouveau' });\n});\nconst test = $('Requêtes').first().json.test === true;\nconst moteurs = $input.all().reduce((m, i) => (m[i.json.moteur || '?'] = (m[i.json.moteur || '?'] || 0) + 1, m), {});\nconst keep = out.slice(0, $('Requêtes').first().json.max || 100);\nreturn [{ json: { test, rows: keep, qualification_evidence, rejet, message: `🔎 بحث leads${test ? ' (اختبار — من غير حفظ)' : ''}: ${keep.length} جديد (OpenAI ${moteurs.openai || 0} / Gemini ${moteurs.gemini || 0} / Claude ${moteurs.claude || 0})\\n` + keep.slice(0, 25).map(k => `• ${k.entreprise.slice(0, 60)} — ${k.email}`).join('\\n') + (keep.length > 25 ? `\\n… +${keep.length - 25} autres` : '') + (rejet.length ? `\\n\\n🚫 مرفوض: ${rejet.length}\\n` + rejet.slice(0, 8).map(x => '• ' + x.slice(0, 90)).join('\\n') : '') } }];\n"
+      }
     },
     {
+      "id": "055eab26-c1e2-429f-970a-0d9ab5a1db29",
+      "name": "Telegram",
+      "webhookId": "__PRIVATE_055eab26_c1e2_429f_970a_0d9ab5a1db29_WEBHOOK_ID__",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        5248,
+        -1296
+      ],
       "parameters": {
         "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
         "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
@@ -273,27 +283,14 @@
           "parse_mode": "HTML"
         }
       },
-      "id": "055eab26-c1e2-429f-970a-0d9ab5a1db29",
-      "name": "Telegram",
-      "webhookId": "__PRIVATE_055eab26_c1e2_429f_970a_0d9ab5a1db29_WEBHOOK_ID__",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        5248,
-        -1296
-      ],
       "credentials": {
         "telegramApi": {
           "id": "__EXISTING_TELEGRAMAPI_CREDENTIAL_ID__",
           "name": "Telegram M&B"
         }
-      },
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst f = $('Final').first().json;\nif (f.test) return [];\nreturn f.rows.map(r => ({ json: r }));\n"
-      },
       "id": "73c722a1-0346-40d6-881e-579c58f75a30",
       "name": "Nouveaux leads",
       "type": "n8n-nodes-base.code",
@@ -301,9 +298,20 @@
       "position": [
         5472,
         -1440
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst f = $('Final').first().json;\nif (f.test) return [];\nreturn f.rows.map(r => ({ json: r }));\n"
+      }
     },
     {
+      "id": "f23b2bb2-791b-465d-b277-4e81d906876b",
+      "name": "Leads – ajout",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        5696,
+        -1440
+      ],
       "parameters": {
         "dataTableId": {
           "__rl": true,
@@ -315,20 +323,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "f23b2bb2-791b-465d-b277-4e81d906876b",
-      "name": "Leads – ajout",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        5696,
-        -1440
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst f = $('Final').first().json;\nconst CREDITS_PAR_RECHERCHE = 1;   // à ajuster après mesure\nconst credits = $('Requêtes').all().length * CREDITS_PAR_RECHERCHE;\nreturn [{ json: { date: nowP(), workflow: 'W7', resultat: f.test ? 'test' : 'ok', details: `nouveaux leads ${f.rows.length}, rejetés ${f.rejet.length}, oxylabs_queries=${credits} (credits réservés avant recherche)` } }];\n"
-      },
       "id": "c128b703-d598-455e-91e7-62ff6c1303e0",
       "name": "Ligne journal",
       "type": "n8n-nodes-base.code",
@@ -336,9 +333,20 @@
       "position": [
         5472,
         -1136
-      ]
+      ],
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst f = $('Final').first().json;\nconst CREDITS_PAR_RECHERCHE = 1;   // à ajuster après mesure\nconst credits = $('Requêtes').all().length * CREDITS_PAR_RECHERCHE;\nreturn [{ json: { date: nowP(), workflow: 'W7', resultat: f.test ? 'test' : 'ok', details: `nouveaux leads ${f.rows.length}, rejetés ${f.rejet.length}, oxylabs_queries=${credits} (credits réservés avant recherche)` } }];\n"
+      }
     },
     {
+      "id": "37516474-eee3-40ac-9c2b-0c8508e6acab",
+      "name": "Journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        5696,
+        -1136
+      ],
       "parameters": {
         "dataTableId": {
           "__rl": true,
@@ -350,17 +358,18 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "37516474-eee3-40ac-9c2b-0c8508e6acab",
-      "name": "Journal",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        5696,
-        -1136
-      ]
+      }
     },
     {
+      "id": "51ef5485-c372-484f-acce-619885ad0092",
+      "name": "Oxylabs AI Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueRegularOutput",
+      "position": [
+        3488,
+        -1296
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://api-aistudio.oxylabs.io/search/instant",
@@ -384,26 +393,14 @@
           "timeout": 120000
         }
       },
-      "id": "51ef5485-c372-484f-acce-619885ad0092",
-      "name": "Oxylabs AI Search",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        3488,
-        -1296
-      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "__EXISTING_HTTPHEADERAUTH_CREDENTIAL_ID__",
           "name": "Oxylabs AI"
         }
-      },
-      "onError": "continueRegularOutput"
+      }
     },
     {
-      "parameters": {
-        "jsCode": "return $input.all().map((it, i) => ({ json: { ...it.json, _idx: i } }));"
-      },
       "id": "b25f14eb-ea32-4107-be38-a32935af0ded",
       "name": "Numéroter Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
@@ -411,9 +408,24 @@
       "position": [
         4688,
         -1792
-      ]
+      ],
+      "parameters": {
+        "jsCode": "return $input.all().map((it, i) => ({ json: { ...it.json, _idx: i } }));"
+      }
     },
     {
+      "id": "d43cade9-bbaf-4e50-8619-c1cb7a39f0fc",
+      "name": "Gemini Claude : concurrent ?",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput",
+      "position": [
+        4896,
+        -1792
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
@@ -432,30 +444,14 @@
           "timeout": 60000
         }
       },
-      "id": "d43cade9-bbaf-4e50-8619-c1cb7a39f0fc",
-      "name": "Gemini Claude : concurrent ?",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "retryOnFail": true,
-      "maxTries": 3,
-      "waitBetweenTries": 5000,
-      "position": [
-        4896,
-        -1792
-      ],
       "credentials": {
         "googlePalmApi": {
           "id": "__EXISTING_GOOGLEPALMAPI_CREDENTIAL_ID__",
           "name": "Google Gemini(PaLM) Api account"
         }
-      },
-      "onError": "continueErrorOutput"
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const t = ((($json.candidates || [])[0] || {}).content || {}).parts || [];\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: t.map(p => p.text || '').join(''), moteur: 'gemini' } };"
-      },
       "id": "7df10d35-432c-4a2f-a325-28309a3735df",
       "name": "Texte Gemini Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
@@ -463,13 +459,13 @@
       "position": [
         5104,
         -1904
-      ]
-    },
-    {
+      ],
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "return { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: String($json.text || ''), moteur: 'claude' } };"
-      },
+        "jsCode": "const t = ((($json.candidates || [])[0] || {}).content || {}).parts || [];\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: t.map(p => p.text || '').join(''), moteur: 'gemini' } };"
+      }
+    },
+    {
       "id": "45a6cb0e-b50f-4c28-875c-0bfb87b3805e",
       "name": "Texte Claude Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
@@ -477,10 +473,13 @@
       "position": [
         5328,
         -1648
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: String($json.text || ''), moteur: 'claude' } };"
+      }
     },
     {
-      "parameters": {},
       "id": "1ef61c32-6dee-4bc1-a58e-6176e08aa86a",
       "name": "Réunir Claude : concurrent ?",
       "type": "n8n-nodes-base.merge",
@@ -488,12 +487,10 @@
       "position": [
         5552,
         -1792
-      ]
+      ],
+      "parameters": {}
     },
     {
-      "parameters": {
-        "jsCode": "// Résultats dans l'ordre d'origine (Gemini d'abord, Claude si Gemini a échoué)\nreturn $input.all().map(i => i.json).sort((a, b) => a._idx - b._idx).map(r => ({ json: { text: r.text, moteur: r.moteur } }));"
-      },
       "id": "787e0cf0-378d-4255-b54a-7fdbd56731b6",
       "name": "Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
@@ -501,12 +498,12 @@
       "position": [
         5776,
         -1792
-      ]
+      ],
+      "parameters": {
+        "jsCode": "// Résultats dans l'ordre d'origine (Gemini d'abord, Claude si Gemini a échoué)\nreturn $input.all().map(i => i.json).sort((a, b) => a._idx - b._idx).map(r => ({ json: { text: r.text, moteur: r.moteur } }));"
+      }
     },
     {
-      "parameters": {
-        "options": {}
-      },
       "id": "0e652930-e038-48cc-b0e3-6c074dd3d629",
       "name": "Boucle résilience Claude : concurrent ?",
       "type": "n8n-nodes-base.splitInBatches",
@@ -514,9 +511,21 @@
       "position": [
         1984,
         16
-      ]
+      ],
+      "parameters": {
+        "options": {}
+      }
     },
     {
+      "id": "c6b2cfb0-e4d3-4b20-890f-2343d4ad0760",
+      "name": "OpenAI Claude : concurrent ?",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "onError": "continueErrorOutput",
+      "position": [
+        976,
+        208
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://api.openai.com/v1/chat/completions",
@@ -529,57 +538,44 @@
           "timeout": 60000
         }
       },
-      "id": "c6b2cfb0-e4d3-4b20-890f-2343d4ad0760",
-      "name": "OpenAI Claude : concurrent ?",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        976,
-        208
-      ],
       "credentials": {
         "openAiApi": {
           "id": "__EXISTING_OPENAIAPI_CREDENTIAL_ID__",
           "name": "OpenAI account"
         }
-      },
-      "onError": "continueErrorOutput"
+      }
     },
     {
-      "parameters": {
-        "mode": "runOnceForEachItem",
-        "jsCode": "const text = String($json.choices?.[0]?.message?.content || '');\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'openai' } };"
-      },
       "id": "48262074-12af-467b-9280-fba2b2eb96b0",
       "name": "Valider OpenAI Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
+      "onError": "continueErrorOutput",
       "position": [
         1232,
         208
       ],
-      "onError": "continueErrorOutput"
-    },
-    {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const text = String(($json.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join(''));\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'gemini' } };"
-      },
+        "jsCode": "const text = String($json.choices?.[0]?.message?.content || '');\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'openai' } };"
+      }
+    },
+    {
       "id": "38135c95-0ff4-44d7-abb7-aaf46b732267",
       "name": "Valider Gemini Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
+      "onError": "continueErrorOutput",
       "position": [
         1488,
         208
       ],
-      "onError": "continueErrorOutput"
-    },
-    {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const text = String($json.text || '');\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'claude' } };"
-      },
+        "jsCode": "const text = String(($json.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join(''));\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'gemini' } };"
+      }
+    },
+    {
       "id": "4889024f-de08-4d62-9ebd-2d3868250351",
       "name": "Valider Claude Claude : concurrent ?",
       "type": "n8n-nodes-base.code",
@@ -587,9 +583,23 @@
       "position": [
         1728,
         208
-      ]
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const text = String($json.text || '');\nconst start = text.indexOf('{');\nconst end = text.lastIndexOf('}');\nconst parsed = JSON.parse(text.slice(start, end + 1));\nif (!(parsed && typeof parsed === 'object' && !Array.isArray(parsed) && typeof parsed.garder === 'boolean')) throw new Error('Invalid model JSON');\nif (!(parsed.garder===false||(typeof parsed.entreprise==='string'&&parsed.entreprise.trim()&&['architecte','maitre_oeuvre','entreprise_generale','agence','syndic','courtier'].includes(parsed.type)))) throw new Error('Invalid task-specific model contract');\nreturn { json: { _idx: $('Numéroter Claude : concurrent ?').item.json._idx, text: JSON.stringify(parsed), moteur: 'claude' } };"
+      }
     },
     {
+      "id": "323d8f85-7a74-4a70-8ae7-0186248fcb16",
+      "name": "Radar – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        816,
+        880
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -598,19 +608,19 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "323d8f85-7a74-4a70-8ae7-0186248fcb16",
-      "name": "Radar – Queue",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        816,
-        880
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
+      "id": "e3293d80-d46c-402d-88ec-1ada7581b095",
+      "name": "Radar – Budget",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        -496,
+        1104
+      ],
       "parameters": {
         "operation": "get",
         "dataTableId": {
@@ -619,22 +629,9 @@
           "mode": "id"
         },
         "returnAll": true
-      },
-      "id": "e3293d80-d46c-402d-88ec-1ada7581b095",
-      "name": "Radar – Budget",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        -496,
-        1104
-      ],
-      "alwaysOutputData": true,
-      "executeOnce": true
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst q=$input.first().json;const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();return [jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','running',{queries:$input.all().length},'Recherche bornée en cours','W7'))];"
-      },
       "id": "590f182c-0d94-44aa-a1e4-9a9f7514e216",
       "name": "Radar – réserver",
       "type": "n8n-nodes-base.code",
@@ -642,9 +639,20 @@
       "position": [
         -224,
         1104
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst q=$input.first().json;const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();return [jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','running',{queries:$input.all().length},'Recherche bornée en cours','W7'))];"
+      }
     },
     {
+      "id": "8c38625b-ca90-4bf3-9541-8df9454e57f4",
+      "name": "Radar – réservation",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        1104
+      ],
       "parameters": {
         "operation": "upsert",
         "dataTableId": {
@@ -666,20 +674,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "8c38625b-ca90-4bf3-9541-8df9454e57f4",
-      "name": "Radar – réservation",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        32,
-        1104
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn $('Requêtes').all().map(i=>({json:i.json}));"
-      },
       "id": "c8478265-d5f4-400c-9052-d22419cdfc55",
       "name": "Radar – requêtes restaurées",
       "type": "n8n-nodes-base.code",
@@ -687,12 +684,12 @@
       "position": [
         304,
         1104
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn $('Requêtes').all().map(i=>({json:i.json}));"
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn [jq({date:paris(),workflow:'W7',resultat:'reserved',details:'oxylabs_credits='+$('Requêtes').all().length+'; execution='+$execution.id+'; reservation avant requêtes'})];"
-      },
       "id": "37a0bff8-0b47-4097-8ef6-9509c38ef51d",
       "name": "Radar – crédits réservés",
       "type": "n8n-nodes-base.code",
@@ -700,9 +697,20 @@
       "position": [
         560,
         1104
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn [jq({date:paris(),workflow:'W7',resultat:'reserved',details:'oxylabs_credits='+$('Requêtes').all().length+'; execution='+$execution.id+'; reservation avant requêtes'})];"
+      }
     },
     {
+      "id": "23e224d4-4207-45da-9789-9b8b28189ec9",
+      "name": "Radar – budget journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        816,
+        1104
+      ],
       "parameters": {
         "dataTableId": {
           "__rl": true,
@@ -714,17 +722,17 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "23e224d4-4207-45da-9789-9b8b28189ec9",
-      "name": "Radar – budget journal",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        816,
-        1104
-      ]
+      }
     },
     {
+      "id": "4a14a659-d940-47e7-9705-a09ebac2ee60",
+      "name": "Radar – URLs présentes ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -496,
+        1328
+      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -748,17 +756,17 @@
           "combinator": "and"
         },
         "options": {}
-      },
-      "id": "4a14a659-d940-47e7-9705-a09ebac2ee60",
-      "name": "Radar – URLs présentes ?",
+      }
+    },
+    {
+      "id": "d4349f8e-4082-4d78-9d71-dcb4fe2290e2",
+      "name": "Radar – email présent ?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -496,
+        -224,
         1328
-      ]
-    },
-    {
+      ],
       "parameters": {
         "conditions": {
           "options": {
@@ -782,20 +790,9 @@
           "combinator": "and"
         },
         "options": {}
-      },
-      "id": "d4349f8e-4082-4d78-9d71-dcb4fe2290e2",
-      "name": "Radar – email présent ?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -224,
-        1328
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();return [jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','done',{new_leads:0,queries:$('Requêtes').all().length},'Aucun nouveau contact vérifiable ; prochaine rotation','W7'))];"
-      },
       "id": "303b3abf-9516-4424-bf3e-5f94ebca3e76",
       "name": "Radar – sans résultat",
       "type": "n8n-nodes-base.code",
@@ -803,9 +800,20 @@
       "position": [
         32,
         1328
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();return [jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','done',{new_leads:0,queries:$('Requêtes').all().length},'Aucun nouveau contact vérifiable ; prochaine rotation','W7'))];"
+      }
     },
     {
+      "id": "f5b230f7-1937-4e8a-a8bd-5795ecece916",
+      "name": "Radar – clôture vide",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        304,
+        1328
+      ],
       "parameters": {
         "operation": "upsert",
         "dataTableId": {
@@ -827,20 +835,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "f5b230f7-1937-4e8a-a8bd-5795ecece916",
-      "name": "Radar – clôture vide",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        304,
-        1328
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn [jq({date:paris(),workflow:'W7',resultat:'ok',details:'Cycle radar terminé sans nouveau contact vérifiable ; crédits déjà réservés avant recherche'})];"
-      },
       "id": "42e2d031-b520-406f-98e2-e3a30ec3c4f0",
       "name": "Radar – journal vide",
       "type": "n8n-nodes-base.code",
@@ -848,9 +845,20 @@
       "position": [
         560,
         1328
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nreturn [jq({date:paris(),workflow:'W7',resultat:'ok',details:'Cycle radar terminé sans nouveau contact vérifiable ; crédits déjà réservés avant recherche'})];"
+      }
     },
     {
+      "id": "78177ff5-0fdc-40b7-87dc-8bd23a1cc1a8",
+      "name": "Radar – Journal vide",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        816,
+        1328
+      ],
       "parameters": {
         "dataTableId": {
           "__rl": true,
@@ -862,20 +870,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "78177ff5-0fdc-40b7-87dc-8bd23a1cc1a8",
-      "name": "Radar – Journal vide",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        816,
-        1328
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst f=$('Final').first().json;const src=$('Emails').all().map(i=>i.json);const existing=$('Radar – Queue').all().map(i=>i.json);const out=[];for(const l of f.rows||[]){const key='prospect:'+company(l);if(existing.some(t=>t.task_key===key))continue;const p=src.find(x=>mail(x.email)===mail(l.email))||{};const evidence=String(p.prompt||'');const need=/(recherch(?:e|ons)|besoin|appel.{0,4}offres|consultation).{0,100}(sous.?trait|artisan|entreprise|travaux|r[eé]nov)|(sous.?trait|artisan).{0,80}(recherch|partenair)/i.exec(evidence);const score=Math.min(100,55+(FREE.has(mail(l.email).split('@')[1])?0:15)+(l.departement?10:0)+(need?25:0));const grade=need&&score>=85?'HOT':score>=65?'WARM':'COLD';out.push(jq(row(key,'prospect',grade,'W3',grade==='HOT'?'approved':'needs_review',{email:l.email,company:company(l),entreprise:l.entreprise,type:l.type,source:l.source,discovered_at:iso(),score,grade,evidence:need?need[0]:'Profil pertinent sans demande de travaux explicite',site:l.site},grade==='HOT'?'Outreach qualifié pendant les heures ouvrées':'Qualification humaine avant tout premier contact','W7')));}const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();out.push(jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','done',{new_leads:f.rows?.length||0,queries:$('Requêtes').all().length},'Prochaine rotation','W7')));return out;"
-      },
       "id": "93a8792f-adab-4bc5-8a10-56fab3d4cf41",
       "name": "Radar – tâches prospects",
       "type": "n8n-nodes-base.code",
@@ -883,9 +880,20 @@
       "position": [
         -496,
         1536
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\n\n// Embedded unchanged in W7 Code nodes. Pure policy: no network or delivery transport.\n// HOT partnership fit is distinct from an evidenced, currently advertised work request.\nfunction qualifyProspects(leads, blacklist, queue, evidence, timestamp) {\n  const now = new Date(timestamp), iso = now.toISOString();\n  const policy = 'partner-fit-v1';\n  const lower = x => String(x || '').toLowerCase().trim();\n  const norm = x => lower(x).normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n  const free = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\n  const host = x => lower(x).replace(/^https?:\\/\\//, '').replace(/^www\\./, '').split('/')[0];\n  const company = l => { const d = host(l.site || l.domain || lower(l.email).split('@')[1]); return free.has(d) ? lower(l.email) : d; };\n  const unpack = t => { try { return JSON.parse(t.payload || '{}'); } catch { return {}; } };\n  const columns = ['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\n  const fields = r => Object.fromEntries(columns.map(k => [k, String(r[k] ?? '')]));\n  const rows = [], decisions = [];\n  for (const l of leads.filter(l => l.statut === 'nouveau' || Number(l.id) === 79)) {\n    const email = lower(l.email), domain = email.split('@')[1] || '', key = 'prospect:' + company(l);\n    const existing = queue.filter(t => t.task_key === key), old = existing[0], oldp = unpack(old || {});\n    const decision = {lead_id:l.id, task_key:key, grade:'COLD', status:'held', reason:''};\n    const deny = reason => { decision.reason = reason; };\n    if (Number(l.id) === 79) deny('protected_lead_79');\n    else if (l.date_envoi || l.date_reponse || l.date_relance || l.unsubscribe || l.blacklist) deny('contact_already_processed_or_stopped');\n    else if (!/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9.-]+\\.[a-z]{2,}$/.test(email) || /^(no-?reply|postmaster|abuse)@/.test(email)) deny('invalid_contact');\n    else if (blacklist.some(b => { const e = lower(b.email); return e && (e === email || (!free.has(domain) && e.split('@')[1] === domain)); })) deny('blacklist_or_unsubscribe');\n    else if (leads.some(other => String(other.id) !== String(l.id) && (lower(other.email) === email || company(other) === company(l)))) deny('duplicate_contact_or_company');\n    else if (queue.some(t => { const p = unpack(t); return (t.type === 'action' || String(t.task_key).startsWith('send:')) && (['send:outreach:','send:followup:'].some(prefix => t.task_key === prefix + company(l)) || [p.email,p.lead?.email,p.result?.email].some(e => lower(e) && lower(e) === email) || p.company === company(l)); })) deny('prior_or_uncertain_contact_action');\n    if (existing.length > 1) { decision.reason = 'conflicting_prospect_records'; decisions.push(decision); continue; }\n    // Human decisions are authoritative. Only the original W7 review state or this policy is automatic.\n    const managed = !old || (old.source === 'W7' && old.status === 'needs_review' && !oldp.qualified_by && (oldp.qualification_policy === policy || old.next_action === 'Qualification humaine avant tout premier contact')) || (oldp.qualification_policy === policy && !oldp.qualified_by && ['approved','needs_review','held'].includes(old.status) && (old.next_action === 'W3: prochain cycle ouvré ; vérifications fraîches obligatoires' || old.next_action.startsWith('Revue humaine : ')));\n    if (!managed) { decisions.push({...decision, status:old.status, grade:old.priority, reason:decision.reason || 'preserved_existing_decision'}); continue; }\n    const e = evidence.find(e => lower(e.email) === email && host(e.site) === company(l)) || oldp.qualification_evidence;\n    const text = norm(e?.text), age = e ? now - new Date(e.observed_at) : NaN;\n    const local = /\\bparis\\b|ile[ -]de[ -]france|\\b(?:75|77|78|91|92|93|94|95)\\d{3}\\b/.test(text);\n    const role = /architect|maitri[sz]e d.?oeuvre|maitre d.?oeuvre|syndic|gestion locative|agence immobiliere|gestionnaire de biens|courtage.*travaux/.test(text);\n    const interior = /renovat|rehabilit|appartement|amenagement interieur|chantier|parties communes|degats des eaux|travaux/.test(text);\n    const contractor = /sous[ -]?trait|entreprises partenaires|reseau d.artisans/.test(text);\n    const relevant = ['architecte','maitre_oeuvre','agence','syndic','courtier','gestionnaire'].includes(l.type) || (l.type === 'entreprise_generale' && contractor);\n    const evidenceOK = e?.garder === true && e.email_observed === true && lower(e.email) === email && host(e.site) === company(l) && Number.isFinite(age) && age >= 0 && age <= 14 * 86400000;\n    const professional = domain === company(l) || domain.endsWith('.' + company(l));\n    const requestedWork = e?.work_request?.verified===true && e.work_request.source_url===e.source_url && Date.parse(e.work_request.valid_until)>=now.getTime() && /(?:recherch(?:e|ons)|besoin|appel.{0,4}offres|consultation).{0,100}(?:sous.?trait|artisan|entreprise|travaux|renov)|(?:sous.?trait|artisan).{0,80}(?:recherch|partenair)/.test(text);\n    if (!decision.reason) {\n      if (e?.garder === false || !relevant) deny('irrelevant_or_competitor');\n      else if (!evidenceOK) { decision.grade = 'WARM'; decision.status = 'needs_review'; deny('missing_or_stale_verified_source'); }\n      else if (professional && local && role && interior) { decision.grade = 'HOT'; decision.status = 'approved'; decision.reason = 'verified_local_renovation_partner_fit'; }\n      else { decision.grade = 'WARM'; decision.status = 'needs_review'; deny('uncertain_location_contact_or_project_fit'); }\n    }\n    const score = decision.grade === 'HOT' ? (requestedWork ? 100 : 90) : decision.grade === 'WARM' ? 60 : 0;\n    const payload = {...oldp, email, company:company(l), entreprise:l.entreprise, site:l.site, type:l.type,\n      ville:l.ville || '', departement:l.departement || '', location:[l.ville,l.departement].filter(Boolean).join(' '),\n      source:l.source, source_url:e?.source_url || '', discovered_at:oldp.discovered_at || l.createdAt || iso,\n      grade:decision.grade, score, opportunity_type:requestedWork ? 'evidenced_work_request' : 'b2b_partnership',\n      qualification_policy:policy, qualified_at:iso, qualification_expires_at:evidenceOK ? new Date(new Date(e.observed_at).getTime() + 14 * 86400000).toISOString() : null,\n      qualification_reason:decision.reason, qualification_evidence:e || null,\n      evidence:decision.reason, auto_approved:decision.status === 'approved'};\n    // Stable decisions produce no repeat writes; evidence expiry and safety changes still take effect.\n    if (old && oldp.qualification_policy === policy && old.status === decision.status && old.priority === decision.grade && oldp.qualification_reason === decision.reason && oldp.score===score && oldp.opportunity_type===payload.opportunity_type && JSON.stringify(oldp.qualification_evidence) === JSON.stringify(e || null)) { decisions.push(decision); continue; }\n    rows.push(fields({task_key:key,type:'prospect',priority:decision.grade,source:'W7',owner:'W3',status:decision.status,\n      created_at:old?.created_at || iso,last_action:iso,due_at:old?.due_at || iso,payload:JSON.stringify(payload),\n      next_action:decision.status === 'approved' ? 'W3: prochain cycle ouvré ; vérifications fraîches obligatoires' : 'Revue humaine : ' + decision.reason}));\n    decisions.push(decision);\n  }\n  return {rows, decisions};\n}\n\nconst f=$('Final').first().json;if(f.test===true)return [];\nconst result=qualifyProspects(f.rows||[],$('Blacklist').all().map(i=>i.json),$('Radar – Queue').all().map(i=>i.json),f.qualification_evidence||[],iso());\nconst out=result.rows.map(jq);const slot=[6,10,14,18].filter(h=>Number(paris().slice(11,13))>=h).pop();out.push(jq(row('radar:'+day()+':'+slot,'radar_run','WARM','W7','done',{new_leads:f.rows?.length||0,queries:$('Requêtes').all().length},'Prochaine rotation','W7')));return out;"
+      }
     },
     {
+      "id": "da3b212c-d0dc-4cfe-81d0-4388d86265e5",
+      "name": "Radar – Queue MAJ",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        1536
+      ],
       "parameters": {
         "operation": "upsert",
         "dataTableId": {
@@ -907,20 +915,9 @@
           "value": null
         },
         "options": {}
-      },
-      "id": "da3b212c-d0dc-4cfe-81d0-4388d86265e5",
-      "name": "Radar – Queue MAJ",
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1.1,
-      "position": [
-        -224,
-        1536
-      ]
+      }
     },
     {
-      "parameters": {
-        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst rows=$('Radar – tâches prospects').all().map(i=>i.json).filter(r=>r.type==='prospect'&&r.priority==='HOT');if(!rows.length)return [];return [jq({message:'🔥 '+rows.length+' opportunité(s) HOT en file commerciale :\\n'+rows.map(r=>unpack(r).entreprise+' — '+unpack(r).email).slice(0,8).join('\\n')})];"
-      },
       "id": "9eef31cb-452d-4a8d-8e5d-04b3246a2a3d",
       "name": "Radar – alerte HOT",
       "type": "n8n-nodes-base.code",
@@ -928,7 +925,55 @@
       "position": [
         32,
         1536
-      ]
+      ],
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst rows=$('Radar – tâches prospects').all().map(i=>i.json).filter(r=>r.type==='prospect'&&r.priority==='HOT');if(!rows.length)return [];return [jq({message:'🔥 '+rows.length+' opportunité(s) HOT en file commerciale :\\n'+rows.map(r=>unpack(r).entreprise+' — '+unpack(r).email).slice(0,8).join('\\n')})];"
+      }
+    },
+    {
+      "id": "9d7d3237-a696-438e-9d51-714b5b0f38ce",
+      "name": "Qualification – backlog",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1030,
+        1200
+      ],
+      "parameters": {
+        "jsCode": "// Embedded unchanged in W7 Code nodes. Pure policy: no network or delivery transport.\n// HOT partnership fit is distinct from an evidenced, currently advertised work request.\nfunction qualifyProspects(leads, blacklist, queue, evidence, timestamp) {\n  const now = new Date(timestamp), iso = now.toISOString();\n  const policy = 'partner-fit-v1';\n  const lower = x => String(x || '').toLowerCase().trim();\n  const norm = x => lower(x).normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n  const free = new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\n  const host = x => lower(x).replace(/^https?:\\/\\//, '').replace(/^www\\./, '').split('/')[0];\n  const company = l => { const d = host(l.site || l.domain || lower(l.email).split('@')[1]); return free.has(d) ? lower(l.email) : d; };\n  const unpack = t => { try { return JSON.parse(t.payload || '{}'); } catch { return {}; } };\n  const columns = ['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\n  const fields = r => Object.fromEntries(columns.map(k => [k, String(r[k] ?? '')]));\n  const rows = [], decisions = [];\n  for (const l of leads.filter(l => l.statut === 'nouveau' || Number(l.id) === 79)) {\n    const email = lower(l.email), domain = email.split('@')[1] || '', key = 'prospect:' + company(l);\n    const existing = queue.filter(t => t.task_key === key), old = existing[0], oldp = unpack(old || {});\n    const decision = {lead_id:l.id, task_key:key, grade:'COLD', status:'held', reason:''};\n    const deny = reason => { decision.reason = reason; };\n    if (Number(l.id) === 79) deny('protected_lead_79');\n    else if (l.date_envoi || l.date_reponse || l.date_relance || l.unsubscribe || l.blacklist) deny('contact_already_processed_or_stopped');\n    else if (!/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9.-]+\\.[a-z]{2,}$/.test(email) || /^(no-?reply|postmaster|abuse)@/.test(email)) deny('invalid_contact');\n    else if (blacklist.some(b => { const e = lower(b.email); return e && (e === email || (!free.has(domain) && e.split('@')[1] === domain)); })) deny('blacklist_or_unsubscribe');\n    else if (leads.some(other => String(other.id) !== String(l.id) && (lower(other.email) === email || company(other) === company(l)))) deny('duplicate_contact_or_company');\n    else if (queue.some(t => { const p = unpack(t); return (t.type === 'action' || String(t.task_key).startsWith('send:')) && (['send:outreach:','send:followup:'].some(prefix => t.task_key === prefix + company(l)) || [p.email,p.lead?.email,p.result?.email].some(e => lower(e) && lower(e) === email) || p.company === company(l)); })) deny('prior_or_uncertain_contact_action');\n    if (existing.length > 1) { decision.reason = 'conflicting_prospect_records'; decisions.push(decision); continue; }\n    // Human decisions are authoritative. Only the original W7 review state or this policy is automatic.\n    const managed = !old || (old.source === 'W7' && old.status === 'needs_review' && !oldp.qualified_by && (oldp.qualification_policy === policy || old.next_action === 'Qualification humaine avant tout premier contact')) || (oldp.qualification_policy === policy && !oldp.qualified_by && ['approved','needs_review','held'].includes(old.status) && (old.next_action === 'W3: prochain cycle ouvré ; vérifications fraîches obligatoires' || old.next_action.startsWith('Revue humaine : ')));\n    if (!managed) { decisions.push({...decision, status:old.status, grade:old.priority, reason:decision.reason || 'preserved_existing_decision'}); continue; }\n    const e = evidence.find(e => lower(e.email) === email && host(e.site) === company(l)) || oldp.qualification_evidence;\n    const text = norm(e?.text), age = e ? now - new Date(e.observed_at) : NaN;\n    const local = /\\bparis\\b|ile[ -]de[ -]france|\\b(?:75|77|78|91|92|93|94|95)\\d{3}\\b/.test(text);\n    const role = /architect|maitri[sz]e d.?oeuvre|maitre d.?oeuvre|syndic|gestion locative|agence immobiliere|gestionnaire de biens|courtage.*travaux/.test(text);\n    const interior = /renovat|rehabilit|appartement|amenagement interieur|chantier|parties communes|degats des eaux|travaux/.test(text);\n    const contractor = /sous[ -]?trait|entreprises partenaires|reseau d.artisans/.test(text);\n    const relevant = ['architecte','maitre_oeuvre','agence','syndic','courtier','gestionnaire'].includes(l.type) || (l.type === 'entreprise_generale' && contractor);\n    const evidenceOK = e?.garder === true && e.email_observed === true && lower(e.email) === email && host(e.site) === company(l) && Number.isFinite(age) && age >= 0 && age <= 14 * 86400000;\n    const professional = domain === company(l) || domain.endsWith('.' + company(l));\n    const requestedWork = e?.work_request?.verified===true && e.work_request.source_url===e.source_url && Date.parse(e.work_request.valid_until)>=now.getTime() && /(?:recherch(?:e|ons)|besoin|appel.{0,4}offres|consultation).{0,100}(?:sous.?trait|artisan|entreprise|travaux|renov)|(?:sous.?trait|artisan).{0,80}(?:recherch|partenair)/.test(text);\n    if (!decision.reason) {\n      if (e?.garder === false || !relevant) deny('irrelevant_or_competitor');\n      else if (!evidenceOK) { decision.grade = 'WARM'; decision.status = 'needs_review'; deny('missing_or_stale_verified_source'); }\n      else if (professional && local && role && interior) { decision.grade = 'HOT'; decision.status = 'approved'; decision.reason = 'verified_local_renovation_partner_fit'; }\n      else { decision.grade = 'WARM'; decision.status = 'needs_review'; deny('uncertain_location_contact_or_project_fit'); }\n    }\n    const score = decision.grade === 'HOT' ? (requestedWork ? 100 : 90) : decision.grade === 'WARM' ? 60 : 0;\n    const payload = {...oldp, email, company:company(l), entreprise:l.entreprise, site:l.site, type:l.type,\n      ville:l.ville || '', departement:l.departement || '', location:[l.ville,l.departement].filter(Boolean).join(' '),\n      source:l.source, source_url:e?.source_url || '', discovered_at:oldp.discovered_at || l.createdAt || iso,\n      grade:decision.grade, score, opportunity_type:requestedWork ? 'evidenced_work_request' : 'b2b_partnership',\n      qualification_policy:policy, qualified_at:iso, qualification_expires_at:evidenceOK ? new Date(new Date(e.observed_at).getTime() + 14 * 86400000).toISOString() : null,\n      qualification_reason:decision.reason, qualification_evidence:e || null,\n      evidence:decision.reason, auto_approved:decision.status === 'approved'};\n    // Stable decisions produce no repeat writes; evidence expiry and safety changes still take effect.\n    if (old && oldp.qualification_policy === policy && old.status === decision.status && old.priority === decision.grade && oldp.qualification_reason === decision.reason && oldp.score===score && oldp.opportunity_type===payload.opportunity_type && JSON.stringify(oldp.qualification_evidence) === JSON.stringify(e || null)) { decisions.push(decision); continue; }\n    rows.push(fields({task_key:key,type:'prospect',priority:decision.grade,source:'W7',owner:'W3',status:decision.status,\n      created_at:old?.created_at || iso,last_action:iso,due_at:old?.due_at || iso,payload:JSON.stringify(payload),\n      next_action:decision.status === 'approved' ? 'W3: prochain cycle ouvré ; vérifications fraîches obligatoires' : 'Revue humaine : ' + decision.reason}));\n    decisions.push(decision);\n  }\n  return {rows, decisions};\n}\n\nreturn qualifyProspects($('Leads').all().map(i=>i.json),$('Blacklist').all().map(i=>i.json),$('Radar – Queue').all().map(i=>i.json),[],new Date().toISOString()).rows.map(json=>({json}));"
+      }
+    },
+    {
+      "id": "af7e9157-59cc-485f-a4ea-d548e303e2e8",
+      "name": "Qualification – Queue MAJ",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        1200
+      ],
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      }
     }
   ],
   "connections": {
@@ -1226,6 +1271,11 @@
             "node": "Radar – Budget",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Qualification – backlog",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1408,17 +1458,28 @@
           }
         ]
       ]
+    },
+    "Qualification – backlog": {
+      "main": [
+        [
+          {
+            "node": "Qualification – Queue MAJ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
     "errorWorkflow": "4O2ZR1JpDOgJZOLw",
-    "timezone": "Europe/Paris"
+    "timezone": "Europe/Paris",
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "08a11820-5bf1-4d58-9312-af2934ee62fd",
-  "meta": {},
+  "versionId": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+  "meta": null,
   "nodeGroups": [],
   "id": "gc97zrWop11I70CG",
   "tags": []

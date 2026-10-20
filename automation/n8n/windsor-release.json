@@ -1,0 +1,147 @@
+{
+  "result": "LIVE_ENGINE_ANALYTICS_CONSUMERS_PUBLISHED_FEED_BLOCKED",
+  "captured_at_utc": "2026-10-19T10:29:01.196583+00:00",
+  "base_commit": "14ec2992e293e4eef133a3dc4f6750a7199b6469",
+  "changed_workflows": [
+    "W5",
+    "W8",
+    "W10"
+  ],
+  "workflow_versions": {
+    "W6": {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active_version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active": true,
+      "published": true
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "active_version_id": "cde0525e-baf8-473d-972b-d52a07a60e58",
+      "active": true,
+      "published": true
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "active": true,
+      "published": true
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active_version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active": true,
+      "published": true
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "active": true,
+      "published": true
+    },
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active": true,
+      "published": true
+    },
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active_version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active": true,
+      "published": true
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "active_version_id": "ba899b2d-16ac-4964-8231-80d67a961244",
+      "active": true,
+      "published": true
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active_version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active": true,
+      "published": true
+    },
+    "W8": {
+      "id": "uOuQs4E5H443sbKh",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active_version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active": true,
+      "published": true
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "active": true,
+      "published": true
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "active_version_id": "ba444533-d493-4bd0-8685-1b01ffe01cf3",
+      "active": true,
+      "published": true
+    }
+  },
+  "windsor": {
+    "sources_operator_confirmed": [
+      "search_console",
+      "ga4",
+      "gbp",
+      "google_ads",
+      "meta_ads",
+      "instagram"
+    ],
+    "direct_live_data_read_verified": false,
+    "analytics_rows_imported": 0,
+    "n8n_credential_or_query_found": false,
+    "cloud_secret_or_variable_found": false,
+    "callable_tool_found": false,
+    "ingestion_state": "blocked_existing_Windsor_read_connection_not_exposed_to_this_session",
+    "automatic_ingestion_installed": false,
+    "consumer_state": "published_and_ready_for_validated_snapshots",
+    "export_bridge": "windsor_import.py; offline by default; existing Queue analytics-only upsert with --apply"
+  },
+  "safe_tests": {
+    "isolated_consumer_checks": 10,
+    "import_contract_and_fake_transport_checks": 8,
+    "real_table_local_report_without_delivery": 1,
+    "failed": 0,
+    "real_provider_or_delivery_calls": 0,
+    "earlier_unrelated_business_tests_repeated": false,
+    "publication_provenance_checks": 2,
+    "affected_portable_handoff_check": 1
+  },
+  "existing_drafts_metadata_updated": 7,
+  "integration_access_tasks_created": 1,
+  "send_ledger_unchanged": true,
+  "lead79_protection_unchanged": true,
+  "workflow_execution_requested": false,
+  "advertising_changes_or_spend": false,
+  "schedules_credentials_webhooks_tables_ids_preserved": true,
+  "preflight_and_postflight": {
+    "watchdog_routing": "confirmed_all_eleven_to_W0_no_self_reference",
+    "manager_and_specialist_primary_fallbacks": "confirmed_from_live_graph",
+    "smtp_guard_bypass": "none_reachable_from_triggers",
+    "existing_table_schemas": "confirmed_no_new_tables",
+    "transactional_exactly_once": "not_proven_read_then_upsert_is_not_atomic"
+  },
+  "remaining_blockers": [
+    "Existing Windsor read access must be exposed to n8n/Cloud before real data retrieval and automatic ingestion can be implemented/verified.",
+    "Analytics access is not publishing permission; social posts remain drafts and require a separate authorized write connection.",
+    "No paid advertising activation/budget change is authorized.",
+    "Next scheduled executions of the modified consumers have not yet been observed."
+  ],
+  "queue_metadata_and_access_task_native_API_responses_verified": 8,
+  "draft_content_quality_notes_status_and_budgets_preserved": true
+}

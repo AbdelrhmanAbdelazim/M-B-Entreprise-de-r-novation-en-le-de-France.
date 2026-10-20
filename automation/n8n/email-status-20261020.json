@@ -1,0 +1,95 @@
+{
+  "captured_at_utc": "2026-10-20T10:32:39.352379+00:00",
+  "result": "W3_TODAY_SMTP_ACCEPTANCE_VERIFIED_RECIPIENT_DELIVERY_NOT_GLOBALLY_VERIFIED",
+  "workflow_id": "RstxLOezyHrDIv7k",
+  "workflow_version": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+  "published_active": true,
+  "execution_id": "444",
+  "mode": "trigger",
+  "started_at_utc": "2026-10-20T06:30:00.837Z",
+  "stopped_at_utc": "2026-10-20T07:03:16.423Z",
+  "schedule": "30 8 * * 1-4",
+  "timezone": "Europe/Paris",
+  "first_contacts_recorded_today": 10,
+  "smtp_accepted_recipients": 10,
+  "smtp_rejected_recipients": 0,
+  "smtp_receipt": "All ten node outputs report250 2.0.0 Ok: queued; distinct message IDs match retained lead/action logs",
+  "lead_ids": [
+    49,
+    51,
+    52,
+    53,
+    55,
+    56,
+    59,
+    60,
+    62,
+    65
+  ],
+  "recorded_message_ids_count": 10,
+  "delivery_action_rows_done_today": 10,
+  "inbound_proof": {
+    "execution_id": "445",
+    "received_at_utc": "2026-10-20T06:36:03.181Z",
+    "matched_sent_lead_id": 49,
+    "subject_has_auto_prefix": true,
+    "auto_submitted_header_present": true,
+    "human_interest_inferred": false,
+    "all_other_mailbox_delivery_inferred": false
+  },
+  "four_previously_requested_partners": {
+    "lead_ids": [
+      84,
+      85,
+      87,
+      88
+    ],
+    "recorded_first_contact_today": false,
+    "why_not_in_todays_batch": "Selected ten earlier eligible records filled the calculated initial-contact quota; not an SMTP failure for these unsent records"
+  },
+  "quota_observation": {
+    "existing_daily_total_cap": 30,
+    "initial_quota_in_this_execution": 10,
+    "reserved_followup_allowance": 20,
+    "followup_selection_actual_count": 0,
+    "quota_or_schedule_changes_made": false,
+    "note": "W3 conservatively reserves follow-up allowance before W4 eligibility; no cap/routing relaxation or catch-up run was made."
+  },
+  "W4": {
+    "execution_id": "452",
+    "published_active": true,
+    "status": "success",
+    "selected": 0,
+    "started_at_utc": "2026-10-20T07:30:00.386Z"
+  },
+  "management_report": {
+    "workflow": "W5",
+    "execution_id": "441",
+    "started_at_utc": "2026-10-20T06:00:00.860Z",
+    "status": "success",
+    "telegram_response_ok": true,
+    "email_report_inferred": false
+  },
+  "separate_watchdog_observation": {
+    "execution_id": "433",
+    "source_execution_id": "432",
+    "source_workflow": "My workflow",
+    "last_node": "Formater",
+    "error": "Task request timed out",
+    "related_to_W3_execution444": false,
+    "repair_attempted_in_this_incident": false
+  },
+  "limits": [
+    "SMTP queued is acceptance by outbound server, not proof of delivery to every recipient inbox.",
+    "No SMTP-provider mailbox audit or sent-folder inspection was performed; no assumption is made about where the operator looked.",
+    "Operator clarification was requested for outreach vs management reports vs a particular message."
+  ],
+  "safety": {
+    "workflow_changes": 0,
+    "manual_executions": 0,
+    "test_or_recovery_emails": 0,
+    "lead79_resent": false,
+    "budgets_or_ads_changed": false,
+    "customer_addresses_or_email_bodies_exported": false
+  }
+}

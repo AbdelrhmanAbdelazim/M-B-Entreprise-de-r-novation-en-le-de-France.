@@ -1,0 +1,151 @@
+{
+  "name": "M&B – ChatGPT Codex MCP",
+  "nodes": [
+    {
+      "id": "9cda8dd5-a803-433e-ba26-074910724266",
+      "name": "M&B Codex MCP",
+      "webhookId": "__PRIVATE_9cda8dd5_a803_433e_ba26_074910724266_WEBHOOK_ID__",
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "authentication": "n8nOAuth2",
+        "requireExecuteAccess": true,
+        "includeUserInOutput": false,
+        "path": "mb-codex",
+        "instructions": "Use submit_codex_task for technical instructions, then get_codex_task_status with the returned request_id until the real final result is available. Acceptance is not completion. Preserve IDs on retries. Never claim a workflow/repository change without evidence. Never bypass delivery approvals or spend on ads."
+      }
+    },
+    {
+      "id": "a6f6c1af-49ba-48d0-9179-a96c656b9ee8",
+      "name": "submit_codex_task",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        0
+      ],
+      "parameters": {
+        "toolDescription": "Submit one technical task to the M&B Manager/Codex Growth Queue. Returns an enqueue acknowledgement and request_id. Read get_codex_task_status to verify actual completion; never treat accepted as executed. Reuse request_id for retries. No customer test messages, public demo posts or ads. Agent currently has no external GitHub/shell tools.",
+        "method": "POST",
+        "url": "https://navajowhite-cormorant-668337.hostingersite.com/webhook/mb-chatgpt/v1/commands",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 20000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json",
+              "neverError": true
+            }
+          }
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ (()=>{const request_id=$fromAI('request_id','Optional mcp- prefixed request ID; reuse for retries; leave empty for deterministic ID','string','');return JSON.stringify({task:$fromAI('task','Technical instruction without secrets or customer sends','string'),source:'chatgpt',route:'technical',...(request_id?{request_id}:{})});})() }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "__EXISTING_HTTPHEADERAUTH_CREDENTIAL_ID__",
+          "name": "M&B MCP bridge — technical task scope"
+        }
+      }
+    },
+    {
+      "id": "89e89c43-8f5a-4fec-b4fd-b51445d8503f",
+      "name": "get_codex_task_status",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        260
+      ],
+      "parameters": {
+        "toolDescription": "Get the actual stored status/result/error for one request_id returned by submit_codex_task. Only done plus nonempty result proves completion. Never retrieve unrelated requests; only mcp- namespace is allowed.",
+        "method": "GET",
+        "url": "https://navajowhite-cormorant-668337.hostingersite.com/webhook/mb-chatgpt/v1/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 20000,
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json",
+              "neverError": true
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "request_id",
+              "value": "={{ $fromAI('request_id','Exact mcp- request_id returned by submit_codex_task','string') }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "__EXISTING_HTTPHEADERAUTH_CREDENTIAL_ID__",
+          "name": "M&B MCP bridge — technical task scope"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "submit_codex_task": {
+      "ai_tool": [
+        [
+          {
+            "node": "M&B Codex MCP",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_codex_task_status": {
+      "ai_tool": [
+        [
+          {
+            "node": "M&B Codex MCP",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "saveExecutionProgress": false,
+    "saveManualExecutions": false,
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "errorWorkflow": "4O2ZR1JpDOgJZOLw",
+    "timezone": "Europe/Paris",
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+  "meta": null,
+  "nodeGroups": [],
+  "id": "CedAfsMxGSnrlG0y",
+  "tags": []
+}

@@ -1,0 +1,271 @@
+{
+  "captured_at_utc": "2026-10-19T19:21:13.405849+00:00",
+  "result": "PUBLISHED_VERIFIED",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before_sha256": "f26dab9d106c5700ca9e5f94c6d36ee28d8ebeb52e08dda3d30213a875ce9720",
+      "after_sha256": "d4d389d7a1a6db89d7e1ba35f5cd1200af432df851d72f8e6663d8f3d8477840",
+      "before_version_id": "812f1e24-1b98-4972-8225-1a8e0d4a707b",
+      "published_version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8"
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "before_sha256": "a23f183f8af0eff3a05be41dcb912a8977d41c57d400627d41e5598d5f69e8fa",
+      "after_sha256": "82445509a90db89928f1868ec49ce205e40dd0757a26ddf32bc0734131c2c1bf",
+      "before_version_id": "c713903d-dc06-4559-ac3d-c7a504707000",
+      "published_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf"
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "before_sha256": "282231dd9ba8969104f70b5a4d63407e25a3ee4dc796ef605f294e9f456dabf4",
+      "after_sha256": "5e971ac50ea6135ce0135df3454af4449fe9762cb200f5559be375d4fe178554",
+      "before_version_id": "b59a50e4-b38f-4835-86a4-fbc2912c8945",
+      "published_version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c"
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "before_sha256": "8ab15287385ab46d96836f2ab697705726b6f5d8df106dc05b17584f4410e077",
+      "after_sha256": "5c0b163a47d4b13992925086f840f5d3d7fb5c469d63ff44cd45f6ef3aa14e83",
+      "before_version_id": "f8e8a67c-ff9e-43cc-a9ec-95c5047f54ff",
+      "published_version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84"
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "before_sha256": "fb811ff70b5180e32272929562a397d542237baa7375dfa88798f7901c71504c",
+      "after_sha256": "e6eb2367aa3f5b66cf23bc51dbe07789239326373a73953c69e0e05bc1bbb588",
+      "before_version_id": "97c0dbb1-0d76-4427-8305-f661e38240ff",
+      "published_version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb"
+    }
+  },
+  "all_14_published_active": true,
+  "customer_delivery_tests": 0,
+  "telegram_delivery_tests": 0,
+  "workflow_execution_requests": 0,
+  "test_methods": [
+    "13 targeted isolated tests, including baseline queue reproduction and legacy client commands",
+    "8 read command/Arabic alias replays using an actual captured authorized Telegram update and fresh paginated real tables; transports disabled",
+    "1 actual captured candidature classification replay; transports disabled",
+    "GET published definitions after every publication and independent final readback",
+    "30 affected handoff/provenance/client checks passed; no business/provider live tests replayed"
+  ],
+  "root_causes": [
+    "Telegram W9 handled only client commands; Manager queue commands were confined to its private chat path. Executions421/422 prove /queue took client help.",
+    "Task33 job application was classified interesse -> inbound_sales/HOT.",
+    "Public marketing terms were incorrectly sufficient for evidenced_work_request labels.",
+    "Private Manager /done had an unconditional completion mutation; now persisted execution evidence is required.",
+    "New task detail sender strings contain angle brackets, requiring escaping for existing Telegram HTML mode."
+  ],
+  "fixed": [
+    "Owner sender AND private-chat identity, no forwarded/via-bot commands, before any admin/client table read or mutation",
+    "Telegram /queue /task ID /clients /hot /status /report /approve /reject /done; old /termine /avis /statut /nouveau retained",
+    "Compare-and-set task updates; duplicate update journal check; no success acknowledgement before saved-row verification",
+    "Strict completion proof, no reservation reset, no lead79/prior-contact/blacklist approval bypass",
+    "Bounded Arabic read aliases and Arabic-Indic IDs; no inferred natural-language approval or sending",
+    "Recruitment normalization and separate inbound_hr review route; task33/inbox corrected without reply",
+    "Twelve unsupported public work-request labels corrected; prospect status/priority/approval/delivery dates retained",
+    "Daily/weekly W5 report explicitly distinguishes HOT fit from confirmed interest"
+  ],
+  "task33": {
+    "id": 33,
+    "original_type": "inbound_sales",
+    "current_type": "inbound_hr",
+    "priority": "WARM",
+    "status": "needs_review",
+    "owner": "Manager",
+    "subject": "Candidature alternance",
+    "meaning": "Student work-study/job application, not a customer renovation project",
+    "reply_sent": false,
+    "private_sender_and_draft_not_exported": true
+  },
+  "prospects": [
+    {
+      "email": "contact@rheanov.com",
+      "lead_id": 84,
+      "task_id": 98,
+      "recorded_sent_at": null,
+      "recorded_reply_at": null,
+      "recorded_followup_at": null,
+      "lead_status": "nouveau",
+      "queue_status": "approved",
+      "duplicate_email_rows": 1,
+      "qualification": "HOT partner fit / prior auto-approved policy, not inbound interest",
+      "new_approval_granted_by_this_release": false
+    },
+    {
+      "email": "contact@ynspir.com",
+      "lead_id": 85,
+      "task_id": 99,
+      "recorded_sent_at": null,
+      "recorded_reply_at": null,
+      "recorded_followup_at": null,
+      "lead_status": "nouveau",
+      "queue_status": "approved",
+      "duplicate_email_rows": 1,
+      "qualification": "HOT partner fit / prior auto-approved policy, not inbound interest",
+      "new_approval_granted_by_this_release": false
+    },
+    {
+      "email": "contact@123syndic.com",
+      "lead_id": 87,
+      "task_id": 101,
+      "recorded_sent_at": null,
+      "recorded_reply_at": null,
+      "recorded_followup_at": null,
+      "lead_status": "nouveau",
+      "queue_status": "approved",
+      "duplicate_email_rows": 1,
+      "qualification": "HOT partner fit / prior auto-approved policy, not inbound interest",
+      "new_approval_granted_by_this_release": false
+    },
+    {
+      "email": "contact@door-in.fr",
+      "lead_id": 88,
+      "task_id": 102,
+      "recorded_sent_at": null,
+      "recorded_reply_at": null,
+      "recorded_followup_at": null,
+      "lead_status": "nouveau",
+      "queue_status": "approved",
+      "duplicate_email_rows": 1,
+      "qualification": "HOT partner fit / prior auto-approved policy, not inbound interest",
+      "new_approval_granted_by_this_release": false
+    }
+  ],
+  "observed_counts": {
+    "growth_rows": 101,
+    "prospect_rows": 54,
+    "leads_table_rows": 88,
+    "clients_table_rows": 0,
+    "recorded_first_contacts_2026_10_19": 10,
+    "recorded_reply_dates": 0,
+    "content_drafts_needing_review": 7
+  },
+  "provider_access": {
+    "source_accounts": "operator-confirmed connected through Windsor/Metricool; not denied",
+    "runtime_credentials_or_cloud_bindings_exposed": false,
+    "provider_http_transports_found": false,
+    "actual_analytics_snapshots": 0,
+    "channels": [
+      "Search Console",
+      "GA4",
+      "Google Business Profile",
+      "Google Ads",
+      "Meta Ads",
+      "Instagram",
+      "Metricool"
+    ],
+    "actual_provider_reads": "BLOCKED: no usable provider credential/binding/endpoint/callable tool exposed to this runtime; no numbers fabricated"
+  },
+  "remaining_limits": [
+    "New Telegram code was not invoked by impersonating a real Telegram sender or manually starting the production workflow; existing unchanged bot transport had prior successful real updates. Await next genuine owner command for transport-level confirmation.",
+    "Natural Arabic is a bounded read-command vocabulary, not an unrestricted Telegram AI conversation. Sensitive mutations require explicit slash commands.",
+    "/status reads current Journal/Queue observations and says it is not a live probe of every external API.",
+    "Metricool/Windsor authenticated data access and public publishing remain unverified/unavailable; drafts only.",
+    "Ordinary ChatGPT MCP registration/consent and hosted Agent external mutation tools remain ungranted."
+  ],
+  "production_safety": {
+    "schedules_ids_credentials_webhooks_tables_retained": true,
+    "new_workflows": 0,
+    "workflow_deletions": 0,
+    "lead79_resent": false,
+    "paid_spend": 0,
+    "public_posts": 0,
+    "sensitive_operations_require_operator_or_existing_approved_policy": true
+  },
+  "preserved_schedules": {
+    "W5": "0 8,18 * * * (Monday08 also weekly report)",
+    "Manager": "0 * * * *",
+    "W7": "10 6,10,14,18 * * *",
+    "W3": "existing weekday08:30",
+    "timezone": "Europe/Paris"
+  },
+  "final_live_readback_at_utc": "2026-10-19T19:24:28.699282+00:00",
+  "final_live_inventory": {
+    "W6": {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active": true,
+      "published": true
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "version_id": "92490adb-39cd-4f52-a057-5ef884cf6af8",
+      "active": true,
+      "published": true
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "active": true,
+      "published": true
+    },
+    "W0": {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active": true,
+      "published": true
+    },
+    "W1": {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "active": true,
+      "published": true
+    },
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "active": true,
+      "published": true
+    },
+    "W3": {
+      "id": "RstxLOezyHrDIv7k",
+      "version_id": "f3a154ea-7bc2-4e0b-9db8-fc51e8f2e84f",
+      "active": true,
+      "published": true
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "version_id": "e65127da-239c-4e04-acc1-14f1fc640bbf",
+      "active": true,
+      "published": true
+    },
+    "W4": {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "version_id": "0ba6e6cf-5e48-419a-9b0d-ce3ccba1844e",
+      "active": true,
+      "published": true
+    },
+    "W8": {
+      "id": "uOuQs4E5H443sbKh",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active": true,
+      "published": true
+    },
+    "W9": {
+      "id": "9ttUYW3XcSztxwRu",
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "active": true,
+      "published": true
+    },
+    "W5": {
+      "id": "yaiq1MmW8dw5SUg7",
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "active": true,
+      "published": true
+    },
+    "ChatGPT ingress": {
+      "id": "JcFvUMfm9orHdKbu",
+      "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+      "active": true,
+      "published": true
+    },
+    "Codex MCP": {
+      "id": "CedAfsMxGSnrlG0y",
+      "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+      "active": true,
+      "published": true
+    }
+  },
+  "handoff_provenance_checks_passed": 30
+}
