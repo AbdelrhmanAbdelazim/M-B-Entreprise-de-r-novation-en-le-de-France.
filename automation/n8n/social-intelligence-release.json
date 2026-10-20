@@ -1,0 +1,820 @@
+{
+  "result": "READONLY_CONNECTIONS_AND_SOCIAL_INTELLIGENCE_LIVE_OUTBOUND_SOCIAL_BLOCKED",
+  "branch": "automation/growth-engine-safe-2026-10",
+  "PR": 21,
+  "continued_from_commit": "521bbaf3a83ef81176e8c5c1aa26d0b4b3df1b40",
+  "captured_at_utc": "2026-10-20T20:46:01.157551+00:00",
+  "verification": {
+    "path": "revisions/social-intelligence-20261020/verification.json",
+    "sha256": "4e7512ffb2de7d7ec2d562cc4b31e2d5ebf5902b0f30069b0c8392c3a922d4d4"
+  },
+  "live_state": {
+    "captured_at_utc": "2026-10-20T20:46:01.157551+00:00",
+    "production_active_published": 15,
+    "definitions": 17,
+    "changed_workflows": 5,
+    "unchanged_other_definitions": 12,
+    "all_schedules_credentials_webhooks_settings_W0_preserved": true,
+    "credential_mutations": 0,
+    "existing_leads_exactly_unchanged": true,
+    "lead_count": 96,
+    "old_content_publications_and_closed_campaign_unchanged": true,
+    "new_boamp_review_rows": [
+      196,
+      197,
+      198,
+      199,
+      200
+    ],
+    "post391473868_held": true,
+    "workflow_states": [
+      {
+        "id": "4O2ZR1JpDOgJZOLw",
+        "name": "W0 – Erreurs (Telegram + journal)",
+        "active": true,
+        "versionId": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+        "activeVersionId": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "63yycckNMI9mXnkz",
+        "name": "W10 – Idées de contenu (vidéos)",
+        "active": true,
+        "versionId": "aad5d3bb-9010-4eea-b43d-8a2bb20d4c29",
+        "activeVersionId": "aad5d3bb-9010-4eea-b43d-8a2bb20d4c29",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 4 * * *"
+        ]
+      },
+      {
+        "id": "9ttUYW3XcSztxwRu",
+        "name": "W9 – Après chantier (avis + parrainage)",
+        "active": true,
+        "versionId": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+        "activeVersionId": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "*/15 8-20 * * *"
+        ]
+      },
+      {
+        "id": "CedAfsMxGSnrlG0y",
+        "name": "M&B – ChatGPT Codex MCP",
+        "active": true,
+        "versionId": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+        "activeVersionId": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "EvDz4KtOEgIYKh7Q",
+        "name": "W1 – Réponses emails",
+        "active": true,
+        "versionId": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+        "activeVersionId": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "Ipqy6qKmAuXVz2vl",
+        "name": "W4 – Relance unique",
+        "active": true,
+        "versionId": "970060cd-6c2a-4549-953d-b748ad959e6d",
+        "activeVersionId": "970060cd-6c2a-4549-953d-b748ad959e6d",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 9 * * 1-4"
+        ]
+      },
+      {
+        "id": "JcFvUMfm9orHdKbu",
+        "name": "M&B – ChatGPT production ingress",
+        "active": true,
+        "versionId": "6f138850-9144-4db3-bae8-1fbd9205b704",
+        "activeVersionId": "6f138850-9144-4db3-bae8-1fbd9205b704",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "MyHbk1Xn67RftCnB",
+        "name": "M&B — AI Continuous Improvement",
+        "active": true,
+        "versionId": "68a0a59a-3ecb-4884-bd3a-a12a97291e66",
+        "activeVersionId": "68a0a59a-3ecb-4884-bd3a-a12a97291e66",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "15 18 * * *"
+        ]
+      },
+      {
+        "id": "OyYa8UtfX7NuHbL7",
+        "name": "Gemini + Claude Automation Workflow",
+        "active": false,
+        "versionId": "6f8819ed-c2f7-48e5-b3d9-48fb32182b2d",
+        "activeVersionId": null,
+        "timezone": null,
+        "cron": []
+      },
+      {
+        "id": "RstxLOezyHrDIv7k",
+        "name": "W3 – Envoi quotidien",
+        "active": true,
+        "versionId": "79a240b8-0992-4383-8671-7c805790c33a",
+        "activeVersionId": "79a240b8-0992-4383-8671-7c805790c33a",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 8 * * 1-4"
+        ]
+      },
+      {
+        "id": "YjzC3pFzYRR7d2an",
+        "name": "W2 – Demandes du site web",
+        "active": true,
+        "versionId": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+        "activeVersionId": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "cKUyJSLOF69uXGnO",
+        "name": "My workflow",
+        "active": true,
+        "versionId": "905009bc-9e1f-4317-ae6c-5c9b7e26904f",
+        "activeVersionId": "905009bc-9e1f-4317-ae6c-5c9b7e26904f",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 * * * *"
+        ]
+      },
+      {
+        "id": "gc97zrWop11I70CG",
+        "name": "W7 – Recherche de leads",
+        "active": true,
+        "versionId": "0dff808d-fdb3-495e-9379-def786464971",
+        "activeVersionId": "0dff808d-fdb3-495e-9379-def786464971",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "10 6,10,14,18 * * *"
+        ]
+      },
+      {
+        "id": "pSmkSOKAzuIs0jRW",
+        "name": "M&B campaign145 isolated temporary transport 20261020",
+        "active": false,
+        "versionId": "93340e7f-d4a2-42a8-9b90-b4777e925286",
+        "activeVersionId": null,
+        "timezone": "Europe/Paris",
+        "cron": []
+      },
+      {
+        "id": "uOuQs4E5H443sbKh",
+        "name": "W8 – Notifications pages SEO",
+        "active": true,
+        "versionId": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+        "activeVersionId": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "30 7 * * *"
+        ]
+      },
+      {
+        "id": "xNbB0gcC1XPbXZ0z",
+        "name": "W6 – Rappels échéances",
+        "active": true,
+        "versionId": "6942ea57-1672-4f77-9fae-73105fb0213c",
+        "activeVersionId": "6942ea57-1672-4f77-9fae-73105fb0213c",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 9 * * *"
+        ]
+      },
+      {
+        "id": "yaiq1MmW8dw5SUg7",
+        "name": "W5 – Rapport hebdomadaire",
+        "active": true,
+        "versionId": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+        "activeVersionId": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+        "timezone": "Europe/Paris",
+        "cron": [
+          "0 8,18 * * *"
+        ]
+      }
+    ]
+  },
+  "runtime": {
+    "provider_manager_execution_id": "618",
+    "provider_readonly_execution_id": "619",
+    "first_intelligence_manager_execution_id": "622",
+    "first_intelligence_execution_id": "623",
+    "bounded_result_manager_execution_id": "626",
+    "bounded_result_execution_id": "627",
+    "legacy_model_audit_manager_execution_id": "630",
+    "legacy_model_audit_execution_id": "631",
+    "legacy_audit_model_attempts": 4,
+    "legacy_audit_model_successes": 3,
+    "legacy_audit_billed_cost": null,
+    "legacy_audit_smtp_or_telegram_sends": 0,
+    "native_zero_model_test": {
+      "status": "verified_read_only_audit",
+      "execution_id": "638",
+      "runtime_execution_mode": "production",
+      "dry_run": true,
+      "transport_executed": false,
+      "model_calls": [],
+      "report_schedule_executed": false
+    },
+    "boamp_actual_review_rows": [
+      196,
+      197,
+      198,
+      199,
+      200
+    ],
+    "boamp_source_execution_id": "627",
+    "BOAMP_total_work_matches_at_probe": 44,
+    "sample_examined": 10,
+    "after_scope_geo_and_suitability_filters": 5,
+    "customer_sends": 0,
+    "test_telegram_sends": 0,
+    "renders": 0,
+    "generation_requests": 0,
+    "public_posts": 0,
+    "ads_spend": 0,
+    "subscriptions_purchased": 0,
+    "zero_model_manager_execution_id": "637"
+  },
+  "provider_evidence": {
+    "observed_at_utc": "2026-10-20T19:46:02.216Z",
+    "execution_id": "619",
+    "read_only": true,
+    "publish_requests": 0,
+    "generation_requests": 0,
+    "meta": {
+      "user_identity_read": true,
+      "graph_object_type": null,
+      "token_identity_kind_verified": false,
+      "token_debug_inspected": false,
+      "granular_asset_grants_verified": false,
+      "expiry_verified": false,
+      "permissions_complete": true,
+      "permissions": [
+        {
+          "permission": "pages_show_list",
+          "status": "granted"
+        },
+        {
+          "permission": "pages_read_engagement",
+          "status": "granted"
+        },
+        {
+          "permission": "public_profile",
+          "status": "granted"
+        }
+      ],
+      "pages_complete": true,
+      "accessible_page_count": 0,
+      "company_page_candidates": [],
+      "page": null,
+      "page_selection_reason": "no_unique_company_page",
+      "required_scopes": {
+        "facebook": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "missing_scopes": {
+        "facebook": [
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "facebook_publishing_scope_granted": false,
+      "instagram_publishing_scope_granted": false,
+      "page_create_content_task": false,
+      "target_page_credential_verified": false,
+      "publisher_enabled": false
+    },
+    "creatomate": {
+      "credential_present": true,
+      "render_id": null,
+      "authentication_verified": true,
+      "plan": null,
+      "credits": null,
+      "official_project_read_succeeded": true,
+      "project_id": null,
+      "project_name": "Default Project",
+      "plan_verified": false,
+      "credits_verified": false,
+      "documented_auth_test_source": "https://github.com/Creatomate/n8n-nodes-creatomate/blob/main/credentials/CreatomateApi.credentials.ts",
+      "response_schema_fields": [
+        "name"
+      ],
+      "render_enabled": false,
+      "verification_reason": "Authenticated official project-data GET; no render. Plan/credits only if explicitly present in response."
+    },
+    "runway": {
+      "credential_present": true,
+      "authentication_verified": false,
+      "api_credits": null,
+      "tier": null,
+      "generation_enabled": false,
+      "spend_authorized": false,
+      "authentication_diagnostic": "unauthorized_unspecified",
+      "official_api_origin": "https://api.dev.runwayml.com",
+      "authorization_transport": "existing native httpHeaderAuth; encrypted header value not inspected"
+    },
+    "requests": [
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/permissions",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/accounts",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "runway",
+        "method": "GET",
+        "path": "/v1/organization",
+        "http_status": 401,
+        "provider_error_code": null,
+        "success": false,
+        "transport_failed": false
+      },
+      {
+        "service": "creatomate",
+        "method": "GET",
+        "path": "/v1/projects/data",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "boamp",
+        "method": "GET",
+        "path": "/api/explore/v2.1/catalog/datasets/boamp",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      }
+    ],
+    "runtime_execution_mode": "production",
+    "telegram": {
+      "credential_present": true,
+      "owner_chat_read_verified": true,
+      "chat_type": "private",
+      "method": "getChat",
+      "messages_sent": 0,
+      "bot_token_exported": false
+    },
+    "public_boamp": {
+      "dataset_read_verified": true,
+      "dataset_id": "boamp",
+      "title": "BOAMP",
+      "publisher": null,
+      "fields": [
+        {
+          "name": "idweb",
+          "type": "text"
+        },
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "contractfolderid",
+          "type": "text"
+        },
+        {
+          "name": "objet",
+          "type": "text"
+        },
+        {
+          "name": "filename",
+          "type": "text"
+        },
+        {
+          "name": "famille",
+          "type": "text"
+        },
+        {
+          "name": "code_departement",
+          "type": "text"
+        },
+        {
+          "name": "code_departement_prestation",
+          "type": "text"
+        },
+        {
+          "name": "famille_libelle",
+          "type": "text"
+        },
+        {
+          "name": "dateparution",
+          "type": "date"
+        },
+        {
+          "name": "datefindiffusion",
+          "type": "date"
+        },
+        {
+          "name": "datelimitereponse",
+          "type": "datetime"
+        },
+        {
+          "name": "nomacheteur",
+          "type": "text"
+        },
+        {
+          "name": "titulaire",
+          "type": "text"
+        },
+        {
+          "name": "perimetre",
+          "type": "text"
+        },
+        {
+          "name": "type_procedure",
+          "type": "text"
+        },
+        {
+          "name": "soustype_procedure",
+          "type": "text"
+        },
+        {
+          "name": "procedure_libelle",
+          "type": "text"
+        },
+        {
+          "name": "procedure_categorise",
+          "type": "text"
+        },
+        {
+          "name": "nature",
+          "type": "text"
+        },
+        {
+          "name": "sousnature",
+          "type": "text"
+        },
+        {
+          "name": "nature_libelle",
+          "type": "text"
+        },
+        {
+          "name": "sousnature_libelle",
+          "type": "text"
+        },
+        {
+          "name": "nature_categorise",
+          "type": "text"
+        },
+        {
+          "name": "nature_categorise_libelle",
+          "type": "text"
+        },
+        {
+          "name": "criteres",
+          "type": "text"
+        },
+        {
+          "name": "marche_public_simplifie",
+          "type": "text"
+        },
+        {
+          "name": "marche_public_simplifie_label",
+          "type": "text"
+        },
+        {
+          "name": "etat",
+          "type": "text"
+        },
+        {
+          "name": "descripteur_code",
+          "type": "text"
+        },
+        {
+          "name": "dc",
+          "type": "text"
+        },
+        {
+          "name": "descripteur_libelle",
+          "type": "text"
+        },
+        {
+          "name": "type_marche",
+          "type": "text"
+        },
+        {
+          "name": "type_marche_facette",
+          "type": "text"
+        },
+        {
+          "name": "type_avis",
+          "type": "text"
+        },
+        {
+          "name": "annonce_lie",
+          "type": "text"
+        },
+        {
+          "name": "annonces_anterieures",
+          "type": "text"
+        },
+        {
+          "name": "source_schema",
+          "type": "text"
+        },
+        {
+          "name": "gestion",
+          "type": "text"
+        },
+        {
+          "name": "donnees",
+          "type": "text"
+        },
+        {
+          "name": "url_avis",
+          "type": "text"
+        }
+      ],
+      "records_read": false
+    },
+    "rendering_enabled": false,
+    "publishing_enabled": false
+  },
+  "zero_model_execution_trace_proof": {
+    "execution_id": "638",
+    "status": "success",
+    "executed_nodes": [
+      "Improvement – diagnostic interne",
+      "Intelligence – diagnostic sûr ?",
+      "Social – diagnostic sûr ?",
+      "CRM – requête interne ?",
+      "Contexte sûr",
+      "Improvement – horaire vérifié ?",
+      "Mesures – Leads",
+      "Mesures – Queue",
+      "Mesures – Clients",
+      "Mesures – Journal",
+      "Mesures factuelles",
+      "Improvement – diagnostic sans modèles ?",
+      "Improvement – audit zéro modèle"
+    ],
+    "model_nodes_executed": 0,
+    "SMTP_nodes_executed": 0,
+    "Telegram_nodes_executed": 0,
+    "provider_HTTP_nodes_executed": 0
+  },
+  "new_boamp_opportunities": [
+    {
+      "idweb": "26-101741",
+      "title": "Réhabilitation / rénovation énergétique du groupe scolaire Marc Bloch",
+      "buyer": "Mairie De Savigny Le Temple",
+      "departments": [
+        "77"
+      ],
+      "published_at": "2026-10-20",
+      "response_deadline": "2026-11-13T12:00:00+00:00",
+      "source_url": "https://www.boamp.fr/pages/avis/?q=idweb:26-101741",
+      "opportunity_priority": "HIGH",
+      "queue_row_id": 196,
+      "approval_status": "needs_review"
+    },
+    {
+      "idweb": "26-101338",
+      "title": "Réhabilitation du bâtiment SERAMY et pôle Mère-enfant Lot CFO/CFA",
+      "buyer": "GHSIF ETABLISSEMENT SUPPORT DU GHTSUD77",
+      "departments": [
+        "77"
+      ],
+      "published_at": "2026-10-20",
+      "response_deadline": "2026-11-20T11:00:00+00:00",
+      "source_url": "https://www.boamp.fr/pages/avis/?q=idweb:26-101338",
+      "opportunity_priority": "HIGH",
+      "queue_row_id": 197,
+      "approval_status": "needs_review"
+    },
+    {
+      "idweb": "26-101557",
+      "title": "Accord-cadre relatif à la réalisation de travaux et de maintenances des installations de plomberie, de production et de distribution d'eau chaude sanitaire et de chauffage pour le Crédit Municipal de",
+      "buyer": "Crédit Municipal de Paris",
+      "departments": [
+        "75"
+      ],
+      "published_at": "2026-10-19",
+      "response_deadline": "2026-11-09T12:00:00+00:00",
+      "source_url": "https://www.boamp.fr/pages/avis/?q=idweb:26-101557",
+      "opportunity_priority": "HIGH",
+      "queue_row_id": 198,
+      "approval_status": "needs_review"
+    },
+    {
+      "idweb": "26-99657",
+      "title": "Travaux d’entretien, de réparation et de rénovation des bâtiments communaux",
+      "buyer": "VILLE DE JOUY LE MOUTIER",
+      "departments": [
+        "95"
+      ],
+      "published_at": "2026-10-14",
+      "response_deadline": "2026-11-16T12:00:00+00:00",
+      "source_url": "https://www.boamp.fr/pages/avis/?q=idweb:26-99657",
+      "opportunity_priority": "HIGH",
+      "queue_row_id": 199,
+      "approval_status": "needs_review"
+    },
+    {
+      "idweb": "26-99428",
+      "title": "Habillages acoustiques - rénovation partielle de la salle de commission 6242",
+      "buyer": "Assemblée nationale",
+      "departments": [
+        "75"
+      ],
+      "published_at": "2026-10-14",
+      "response_deadline": "2026-11-16T12:00:00+00:00",
+      "source_url": "https://www.boamp.fr/pages/avis/?q=idweb:26-99428",
+      "opportunity_priority": "HIGH",
+      "queue_row_id": 200,
+      "approval_status": "needs_review"
+    }
+  ],
+  "saved_rows_actual_and_unique": true,
+  "new_Leads_created": 0,
+  "new_CRM_tables_created": 0,
+  "new_workflows_created": 0,
+  "credentials_created_or_modified": 0,
+  "google_workspace": {
+    "credential_metadata_available": false,
+    "clients_currently_present": 0,
+    "OAuth_prepared_review_only": true,
+    "drive_uploads": 0,
+    "calendar_events": 0,
+    "new_spreadsheets": 0
+  },
+  "current_business_fit_candidates": [
+    {
+      "lead_id": 93,
+      "company": "Bourgeois Expertise",
+      "source_url": "https://www.bourgeois-expertise.fr/",
+      "observed_at": "2026-10-20T12:11:23.071Z",
+      "opportunity_priority": "HIGH",
+      "expressed_interest_proven": false,
+      "pre_send_candidate": true
+    },
+    {
+      "lead_id": 95,
+      "company": "ACSR",
+      "source_url": "https://syndic-redressement.fr/",
+      "observed_at": "2026-10-20T16:11:55.995Z",
+      "opportunity_priority": "HIGH",
+      "expressed_interest_proven": false,
+      "pre_send_candidate": true
+    },
+    {
+      "lead_id": 96,
+      "company": "Gestion locative Seine",
+      "source_url": "https://solidarimmo.fr/",
+      "observed_at": "2026-10-20T16:11:55.995Z",
+      "opportunity_priority": "HIGH",
+      "expressed_interest_proven": false,
+      "pre_send_candidate": true
+    }
+  ],
+  "models_actually_called_in_legacy_diagnostic631": [
+    {
+      "stage": "analysis",
+      "provider": "gemini",
+      "ok": false,
+      "usage": null
+    },
+    {
+      "stage": "analysis",
+      "provider": "openai",
+      "ok": true,
+      "usage": {
+        "prompt_tokens": 980,
+        "completion_tokens": 125,
+        "total_tokens": 1105,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      }
+    },
+    {
+      "stage": "writing",
+      "provider": "claude",
+      "ok": true,
+      "usage": {
+        "input_tokens": 1895,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 218,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      }
+    },
+    {
+      "stage": "review",
+      "provider": "openai",
+      "ok": true,
+      "usage": {
+        "prompt_tokens": 1361,
+        "completion_tokens": 122,
+        "total_tokens": 1483,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "audio_tokens": 0,
+          "accepted_prediction_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      }
+    }
+  ],
+  "legacy_model_diagnostic_cost": null,
+  "legacy_diagnostic_issue": "Existing dry-run ran model stages before transport-off gate. Recorded actual usage; added early exit. New native638 proves zero models/HTTP/delivery. No inference of zero billed cost for631.",
+  "tests": {
+    "new_integration_projection_cases": 6,
+    "new_social_policy_cases": 8,
+    "native_Code_compile": "passed",
+    "actual96_lead_backlog_decision_comparison": "unchanged key/status/priority",
+    "report_provenance_guard_fixture_cases": 4,
+    "new_successor_cases": 3,
+    "affected_provider_predecessor_cases": 3,
+    "affected_cloud_handoff_cases": 13,
+    "new_native_guard_execution": "638",
+    "all_passed": true,
+    "old_business_delivery_tests_repeated": false
+  },
+  "schedules": {
+    "W7": "10 6,10,14,18 * * * Europe/Paris; existing2 Oxylabs queries unchanged; one free BOAMP GET/cycle,10 raw records maximum, bounded offsets0/10/20/30",
+    "owner_report": "15 18 * * * Europe/Paris; Monday includes weekly comparison; unchanged timer",
+    "provider_read_monitor": "once per legitimate scheduled observer run; not internal/manual",
+    "W3": "30 8 * * 1-4 Europe/Paris; unchanged",
+    "W4": "30 9 * * 1-4 Europe/Paris; unchanged",
+    "W10": "30 4 * * * Europe/Paris; unchanged"
+  },
+  "remaining": [
+    "Meta actual Page selection/role/granular token assets cannot be established from empty /me/accounts and opaque native binding; no new scopes requested. Verify existing business integration Page selection/access first.",
+    "Missing Meta publish scopes on existing Facebook Graph route: pages_manage_posts, instagram_basic, instagram_content_publish; do not switch to Instagram Login scope names or request until Page problem is understood.",
+    "Runway official organization API401; header/key/org cause not conclusively distinguishable through opaque Header Auth; secure UI verification required.",
+    "Google company OAuth client/consent unavailable; no folder upload, Calendar write or Sheets reporting connected.",
+    "Creatomate auth verified via official free project read; plan/credits and per-video rights/HTTP/cost approval remain unverified; render transport stays off.",
+    "Official social-wide search, social replies and publishing unavailable without channel-specific authorized API/account scope. No unofficial social scraping integration added.",
+    "No new per-prospect Claude→OpenAI delivery pipeline inserted into W3/W4; preserve approved templates, daily caps and gate.",
+    "First actual scheduled owner report after mode repair is pending; native638 is a zero-delivery diagnostic, not SMTP evidence.",
+    "BOAMP records without verified contact remain source-grounded review opportunities, not fabricated central Leads or automatically approved outreach.",
+    "Metricool historical publication states still unknown;391473868 hold and four prior schedules untouched."
+  ]
+}

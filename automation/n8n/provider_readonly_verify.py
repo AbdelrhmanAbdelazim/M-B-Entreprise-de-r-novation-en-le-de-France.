@@ -1,7 +1,7 @@
 """Verify native read-only credential probes and transport-free future video guards."""
 import hashlib,json
 
-def verify(root,entry):
+def verify(root,entry,targets=None):
  path='revisions/provider-readonly-20261020/verification.json'
  def sha(p):return hashlib.sha256((root/p).read_bytes()).hexdigest()
  assert entry['path']==path and entry['sha256']==sha(path)
@@ -14,8 +14,9 @@ def verify(root,entry):
  docs={}
  for name,p in proof['workflows'].items():
   assert p['before']=='revisions/provider-readonly-20261020/'+name+'.before.json' and p['after']==name+'.json'
-  assert sha(p['before'])==p['before_sha256'] and sha(p['after'])==p['after_sha256']
-  a=json.loads((root/p['before']).read_text());b=json.loads((root/p['after']).read_text());docs[name]=(a,b)
+  after=(targets or {}).get(name,p['after'])
+  assert sha(p['before'])==p['before_sha256'] and sha(after)==p['after_sha256']
+  a=json.loads((root/p['before']).read_text());b=json.loads((root/after).read_text());docs[name]=(a,b)
   assert a['id']==b['id']==p['id'] and a['versionId']==p['before_version_id'] and b['versionId']==p['published_version_id'] and b['active']
   assert a['settings']==b['settings'] and b['settings']['errorWorkflow']=='4O2ZR1JpDOgJZOLw'
   old={n['name']:n for n in a['nodes']};new={n['name']:n for n in b['nodes']}

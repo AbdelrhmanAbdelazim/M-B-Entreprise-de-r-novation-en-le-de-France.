@@ -21,7 +21,7 @@
         "pages_manage_posts"
       ],
       "scope_granted": false,
-      "human_authorization_required": "Company-owned Meta app + Page admin tasks + user OAuth, then securely provision target Page credential.",
+      "human_authorization_required": "First inspect company Page access and assets selected in existing Facebook business integration without adding scopes. After Page read succeeds, review the appropriate missing publishing scopes using existing company app.",
       "authorization_url": null,
       "authorization_url_reason": "Existing credential authenticates the user, but actual API returns no Pages and publishing scopes are missing. Use native credential UI to review/re-authorize; no synthetic OAuth state or account permission grant.",
       "credential_slot_name": "M&B Meta direct — awaiting company app OAuth",
@@ -39,7 +39,11 @@
       "company_page_id": null,
       "accessible_page_count": 0,
       "linked_instagram_id": null,
-      "credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z"
+      "credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z",
+      "granular_asset_grants_verified": false,
+      "token_type_verified": false,
+      "page_selection_cause": "unresolved: actual complete Page list empty; no token debug or protected account UI access",
+      "business_integration_settings_url": "https://www.facebook.com/settings/?tab=business_tools"
     },
     {
       "channel": "instagram",
@@ -57,7 +61,7 @@
         "instagram_content_publish"
       ],
       "scope_granted": false,
-      "human_authorization_required": "Same company Meta app, professional Instagram linked to the selected Page, required permissions/app access and Page token binding.",
+      "human_authorization_required": "First inspect company Page access and assets selected in existing Facebook business integration without adding scopes. After Page read succeeds, review the appropriate missing publishing scopes using existing company app.",
       "authorization_url": null,
       "authorization_url_reason": "Existing credential authenticates the user, but actual API returns no Pages and publishing scopes are missing. Use native credential UI to review/re-authorize; no synthetic OAuth state or account permission grant.",
       "credential_slot_name": "M&B Meta direct — awaiting company app OAuth",
@@ -76,7 +80,11 @@
       "company_page_id": null,
       "accessible_page_count": 0,
       "linked_instagram_id": null,
-      "credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z"
+      "credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z",
+      "granular_asset_grants_verified": false,
+      "token_type_verified": false,
+      "page_selection_cause": "unresolved: actual complete Page list empty; no token debug or protected account UI access",
+      "business_integration_settings_url": "https://www.facebook.com/settings/?tab=business_tools"
     },
     {
       "channel": "google_business_profile",
@@ -262,6 +270,7 @@
   "meta_empty_credential_persisted_verified": true,
   "meta_empty_credential_ui_url": "https://navajowhite-cormorant-668337.hostingersite.com/home/credentials/ybI0FqlXSaLQle1z",
   "auto_review_rejection_resolution": "Historical rejection retained for the prior multi-platform proposal. User explicitly approved this single empty Meta credential; creation succeeded. No other platform credential creation is authorized by that approval.",
-  "latest_readonly_execution_id": "614",
-  "current_operation_credential_mutations": 0
+  "latest_readonly_execution_id": "619",
+  "current_operation_credential_mutations": 0,
+  "scope_requests_this_operation": 0
 }

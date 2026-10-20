@@ -1,0 +1,47 @@
+{
+  "status": "BLOCKED_MISSING_GOOGLE_OAUTH",
+  "evidence": "Fresh native credential metadata audit on 2026-10-20: no Drive, Calendar, Sheets or generic Google OAuth binding; Gemini API credential is not Google Workspace OAuth.",
+  "credentials_created": 0,
+  "external_writes_enabled": false,
+  "proposed_connection": {
+    "reuse_company_oauth_app_if_present": true,
+    "single_reusable_http_oauth_credential_type": "oAuth2Api",
+    "authorization_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token",
+    "callback": "https://navajowhite-cormorant-668337.hostingersite.com/rest/oauth2-credential/callback",
+    "scopes_for_review_only": [
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/calendar.events.owned",
+      "https://www.googleapis.com/auth/spreadsheets.readonly"
+    ],
+    "client_binding_present": false,
+    "oauth_started": false,
+    "consent_url_generated": false,
+    "reason": "No company OAuth client binding or native OAuth state; do not fabricate a consent URL or request secrets in chat. Configure and authorize only through the company's Google/n8n interfaces."
+  },
+  "drive": {
+    "connected_verified": false,
+    "folder_identity": "mb:client:{existing Clients id}",
+    "folder_layout": "M&B Renovation/Projets/Client-{id}",
+    "only_real_client_links": true,
+    "rights_and_document_review_required": true,
+    "uploads_performed": 0
+  },
+  "calendar": {
+    "connected_verified": false,
+    "proposals_only": true,
+    "attendees": [],
+    "sendUpdates": "none",
+    "status_before_human_date_approval": "draft_only; no Calendar API event created",
+    "customer_appointment_confirmed": false,
+    "events_created": 0
+  },
+  "sheets": {
+    "connected_verified": false,
+    "purpose": "optional approved reporting only",
+    "crm_owner": "existing native Leads / Clients / Growth Queue",
+    "new_crm_created": false,
+    "spreadsheets_created": 0
+  },
+  "human_authorization_portal": "https://console.cloud.google.com/apis/credentials"
+}

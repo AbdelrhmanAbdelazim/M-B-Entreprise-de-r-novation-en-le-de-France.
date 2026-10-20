@@ -350,5 +350,9 @@
   "provider_readonly_revision": {
     "path": "revisions/provider-readonly-20261020/verification.json",
     "sha256": "c52166e98b5c178c643a514cca944e6ad4d0202df6574f617ce4a500fead0342"
+  },
+  "social_intelligence_revision": {
+    "path": "revisions/social-intelligence-20261020/verification.json",
+    "sha256": "4e7512ffb2de7d7ec2d562cc4b31e2d5ebf5902b0f30069b0c8392c3a922d4d4"
   }
 }

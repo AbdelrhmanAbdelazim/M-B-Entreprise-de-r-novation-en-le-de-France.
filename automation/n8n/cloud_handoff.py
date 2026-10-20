@@ -31,11 +31,16 @@ def collect(root=ROOT):
     followups = continuation.get('followup_revisions', [])
     if followups and (len(followups) != 3 or {r['workflow'] for r in followups} != {'My workflow','W5','W10'}):
         raise ValueError('Metricool follow-up revision inventory is incomplete or unexpected')
+    intelligence = continuation.get('social_intelligence_revision')
+    intelligence_names = set()
+    if intelligence:
+        from social_intelligence_verify import verify as verify_intelligence
+        intelligence_names = set(verify_intelligence(root,intelligence)['workflows'])
     provider = continuation.get('provider_readonly_revision')
     provider_names = set()
     if provider:
         from provider_readonly_verify import verify as verify_provider
-        provider_names = set(verify_provider(root,provider)['workflows'])
+        provider_names = set(verify_provider(root,provider, {n:'revisions/social-intelligence-20261020/'+n+'.before.json' for n in ['My workflow','ChatGPT ingress','W10']} if intelligence else None)['workflows'])
     direct = continuation.get('direct_social_revision')
     direct_names = set()
     if direct:
@@ -66,7 +71,7 @@ def collect(root=ROOT):
     management_names = set()
     if management:
         from management_verify import verify as verify_management
-        management_names = set(verify_management(root, management, 'revisions/social-20261019/My workflow.before.json' if social else 'My workflow.json')['workflows'])
+        management_names = set(verify_management(root, management, 'revisions/social-20261019/My workflow.before.json' if social else 'My workflow.json',{'W7':'revisions/social-intelligence-20261020/W7.before.json'} if intelligence else None)['workflows'])
     mcp = continuation.get('mcp_revision')
     if mcp:
         from mcp_verify import verify as verify_mcp
@@ -188,20 +193,20 @@ def collect(root=ROOT):
             if isinstance(reference, dict) and reference.get('value') not in table_ids:
                 raise ValueError('Workflow references a table absent from the central-table handoff')
     activation = load(root / 'activation.json') if (root / 'activation.json').exists() else None
-    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'} and len(additional) != 3:
+    if activation and activation.get('latest_release') in {'windsor-release.json','metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'} and len(additional) != 3:
         raise ValueError('Windsor publication evidence requires all three additional revisions')
-    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'} and len(followups) != 3:
+    if activation and activation.get('latest_release') in {'metricool-release.json','agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'} and len(followups) != 3:
         raise ValueError('Metricool publication evidence requires all three follow-up revisions')
-    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'} and not agents:
+    if activation and activation.get('latest_release') in {'agents-release.json','ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'} and not agents:
         raise ValueError('Agents release provenance is required')
-    if activation and activation.get('latest_release') in {'ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'}:
+    if activation and activation.get('latest_release') in {'ingress-release.json','mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'}:
         if not ingress:
             raise ValueError('Ingress release provenance is required')
         actual = load(root / 'ChatGPT ingress.json')
         recorded = activation.get('additional_ingress', {})
         if not recorded.get('active') or not recorded.get('published') or recorded.get('id') != actual['id'] or recorded.get('version_id') != actual['versionId'] or recorded.get('active_version_id') != actual['versionId']:
             raise ValueError('Ingress publication evidence differs from its export')
-    if activation and activation.get('latest_release') in {'mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'}:
+    if activation and activation.get('latest_release') in {'mcp-release.json','management-release.json','social-release.json','commercial-email-release.json','growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'}:
         if not mcp:
             raise ValueError('MCP publication provenance is required')
         actual = load(root / 'Codex MCP.json')
@@ -214,10 +219,12 @@ def collect(root=ROOT):
         raise ValueError('Social safety successor requires verified social and management provenance')
     if activation and activation.get('latest_release') == 'commercial-email-release.json' and (not commercial or not social or not management):
         raise ValueError('Commercial publication requires the full verified predecessor chain')
-    if activation and activation.get('latest_release') in {'growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json'} and (not growth or not commercial or not social or not management):
+    if activation and activation.get('latest_release') in {'growth-release.json','inbound-video-release.json','direct-social-release.json','provider-readonly-release.json','social-intelligence-release.json'} and (not growth or not commercial or not social or not management):
         raise ValueError('Growth successor requires the full verified predecessor chain')
     if activation and activation.get('latest_release') == 'provider-readonly-release.json' and (not provider or not direct or not inbound or not mcp):
         raise ValueError('Provider successor requires verified provider/direct/inbound/MCP provenance')
+    if activation and activation.get('latest_release') == 'social-intelligence-release.json' and (not intelligence or not provider or not direct or not inbound):
+        raise ValueError('Social intelligence requires full pinned predecessor provenance')
     published = bool(activation and activation.get('result') == 'LIVE' and deployed_count == len(PATCHED))
     if published:
         for entry in reports:
@@ -242,6 +249,7 @@ def collect(root=ROOT):
             'inbound_video_revisions_verified': len(inbound_names),
             'direct_social_revisions_verified': len(direct_names),
             'provider_readonly_revisions_verified': len(provider_names),
+            'social_intelligence_revisions_verified': len(intelligence_names),
             'baseline_and_patch_provenance': 'verified_for_local_assembly',
             'mac_required_for_continuation': False, 'workflow_execution_performed': False,
             'old_business_tests_repeated': False, 'workflows': reports,

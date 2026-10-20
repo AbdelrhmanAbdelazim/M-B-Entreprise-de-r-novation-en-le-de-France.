@@ -1,5 +1,5 @@
 {
-  "status": "PREPARATION_LIVE_CONNECTIONS_PARTIALLY_VERIFIED",
+  "status": "CREATOMATE_READ_VERIFIED_RENDERING_BLOCKED",
   "rendering_enabled": false,
   "publishing_enabled": false,
   "automatic_spending_authorized": false,
@@ -9,8 +9,8 @@
     "header_name": "Authorization",
     "credential_value_format": "Bearer <existing project API key; enter in encrypted n8n UI only>",
     "credential_configured": "user_reports_key_saved; metadata binding exists; key not inspected",
-    "account_plan": "unverified: no known documented free plan/credits API",
-    "connection_verified": false,
+    "account_plan": "unverified",
+    "connection_verified": true,
     "render_endpoint": "POST https://api.creatomate.com/v1/renders",
     "status_endpoint": "GET https://api.creatomate.com/v1/renders/{verified_render_id}",
     "request_schema": {
@@ -26,8 +26,9 @@
     ],
     "on_uncertain_submission": "hold; never retry render creation without provider reconciliation",
     "credential_available": true,
-    "readonly_verification": "Skipped: no existing render ID in current Content Queue; no render created.",
-    "readonly_transport_installed": true
+    "readonly_verification": "Native619: official GET /v1/projects/data HTTP200 and project name Default Project; no render.",
+    "readonly_transport_installed": true,
+    "credits": null
   },
   "runway": {
     "credential_available": true,
@@ -45,7 +46,8 @@
     "generation_request_schema": "not bound; optional generation remains disabled",
     "readonly_http_status": 401,
     "credit_balance": null,
-    "readonly_transport_installed": true
+    "readonly_transport_installed": true,
+    "authentication_diagnostic": "unauthorized_unspecified"
   },
   "documentation_checked": [
     "https://github.com/Creatomate/creatomate-node/blob/main/src/Client.ts",
@@ -56,7 +58,7 @@
   "site_asset_access": "current Cloud policy blocks website origins; file existence verified locally only",
   "transport_implemented": false,
   "mp4_generated": false,
-  "latest_readonly_execution_id": "614",
-  "latest_readonly_at_utc": "2026-10-20T19:27:19.517Z",
+  "latest_readonly_execution_id": "619",
+  "latest_readonly_at_utc": "2026-10-20T19:46:02.216Z",
   "read_only_credential_probe_transport_implemented": true
 }

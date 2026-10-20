@@ -1,0 +1,438 @@
+{
+  "kind": "social_intelligence_integrations_successor",
+  "workflows": {
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before": "revisions/social-intelligence-20261020/My workflow.before.json",
+      "after": "My workflow.json",
+      "before_sha256": "f8138c58d1868e97fa3065be3557d6a70ede20c947815066d3c25a973381b01e",
+      "after_sha256": "bf046da6153b4abe291353b5b73f6fe4d7cc3f9855fc106bbb18576256c63231",
+      "before_version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
+      "published_version_id": "905009bc-9e1f-4317-ae6c-5c9b7e26904f"
+    },
+    "ChatGPT ingress": {
+      "id": "JcFvUMfm9orHdKbu",
+      "before": "revisions/social-intelligence-20261020/ChatGPT ingress.before.json",
+      "after": "ChatGPT ingress.json",
+      "before_sha256": "deeacec370d9dd5f091d2ae5f4deaf8579ed4bc40d5622e26b6f510378858e73",
+      "after_sha256": "b675a983ec4538894583c4181d5503eb6d8af99ba2d5472a1deb89c19945a9a1",
+      "before_version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
+      "published_version_id": "6f138850-9144-4db3-bae8-1fbd9205b704"
+    },
+    "W7": {
+      "id": "gc97zrWop11I70CG",
+      "before": "revisions/social-intelligence-20261020/W7.before.json",
+      "after": "W7.json",
+      "before_sha256": "82445509a90db89928f1868ec49ce205e40dd0757a26ddf32bc0734131c2c1bf",
+      "after_sha256": "e995468ea821743184229168fff7d586a5d0e42d40a186851bf4ca5f2f9e97ee",
+      "before_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "published_version_id": "0dff808d-fdb3-495e-9379-def786464971"
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "before": "revisions/social-intelligence-20261020/W10.before.json",
+      "after": "W10.json",
+      "before_sha256": "d1383f9eff868353eadbef60dd47faa0d3a042221bd202e6e3a2bf415ce880c3",
+      "after_sha256": "e87497cc731a0bd3545432ff0ab0bf5c6eabd4d728562b22828402dc9e2244f0",
+      "before_version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
+      "published_version_id": "aad5d3bb-9010-4eea-b43d-8a2bb20d4c29"
+    },
+    "AI Continuous Improvement": {
+      "id": "MyHbk1Xn67RftCnB",
+      "before": "revisions/social-intelligence-20261020/AI Continuous Improvement.before.json",
+      "after": "revisions/social-intelligence-20261020/AI Continuous Improvement.json",
+      "before_sha256": "6e37d870dfd88674b68fc0104557bde14939b454e02d51c56088835cb105e209",
+      "after_sha256": "c7f9e8b80892e03c3f23a18e2b5030aa6478b05fa49a0be378f0c3842df5970e",
+      "before_version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
+      "published_version_id": "68a0a59a-3ecb-4884-bd3a-a12a97291e66"
+    }
+  },
+  "sources": {
+    "integration-diagnostics": {
+      "path": "revisions/social-intelligence-20261020/integration-diagnostics-source.js",
+      "sha256": "4021c22ebe5869db9e078dc2f5d084b6e3a85d58d152cf1aa341920340126152"
+    },
+    "social-intelligence": {
+      "path": "revisions/social-intelligence-20261020/social-intelligence-source.js",
+      "sha256": "5f258759a764c5d04001e4ec7a0d81fbee0126c0b78b43d4b2cfef0bbbfd8564"
+    },
+    "workspace-embedded": {
+      "path": "revisions/social-intelligence-20261020/workspace-embedded-source.js",
+      "sha256": "4d15fa1448842f5de6f96b6447dceccc489114fb77b32bc12dcff2424f1bd607"
+    }
+  },
+  "provider_evidence": {
+    "observed_at_utc": "2026-10-20T19:46:02.216Z",
+    "execution_id": "619",
+    "read_only": true,
+    "publish_requests": 0,
+    "generation_requests": 0,
+    "meta": {
+      "user_identity_read": true,
+      "graph_object_type": null,
+      "token_identity_kind_verified": false,
+      "token_debug_inspected": false,
+      "granular_asset_grants_verified": false,
+      "expiry_verified": false,
+      "permissions_complete": true,
+      "permissions": [
+        {
+          "permission": "pages_show_list",
+          "status": "granted"
+        },
+        {
+          "permission": "pages_read_engagement",
+          "status": "granted"
+        },
+        {
+          "permission": "public_profile",
+          "status": "granted"
+        }
+      ],
+      "pages_complete": true,
+      "accessible_page_count": 0,
+      "company_page_candidates": [],
+      "page": null,
+      "page_selection_reason": "no_unique_company_page",
+      "required_scopes": {
+        "facebook": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "pages_show_list",
+          "pages_read_engagement",
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "missing_scopes": {
+        "facebook": [
+          "pages_manage_posts"
+        ],
+        "instagram": [
+          "instagram_basic",
+          "instagram_content_publish"
+        ]
+      },
+      "facebook_publishing_scope_granted": false,
+      "instagram_publishing_scope_granted": false,
+      "page_create_content_task": false,
+      "target_page_credential_verified": false,
+      "publisher_enabled": false
+    },
+    "creatomate": {
+      "credential_present": true,
+      "render_id": null,
+      "authentication_verified": true,
+      "plan": null,
+      "credits": null,
+      "official_project_read_succeeded": true,
+      "project_id": null,
+      "project_name": "Default Project",
+      "plan_verified": false,
+      "credits_verified": false,
+      "documented_auth_test_source": "https://github.com/Creatomate/n8n-nodes-creatomate/blob/main/credentials/CreatomateApi.credentials.ts",
+      "response_schema_fields": [
+        "name"
+      ],
+      "render_enabled": false,
+      "verification_reason": "Authenticated official project-data GET; no render. Plan/credits only if explicitly present in response."
+    },
+    "runway": {
+      "credential_present": true,
+      "authentication_verified": false,
+      "api_credits": null,
+      "tier": null,
+      "generation_enabled": false,
+      "spend_authorized": false,
+      "authentication_diagnostic": "unauthorized_unspecified",
+      "official_api_origin": "https://api.dev.runwayml.com",
+      "authorization_transport": "existing native httpHeaderAuth; encrypted header value not inspected"
+    },
+    "requests": [
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/permissions",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "meta",
+        "method": "GET",
+        "path": "/v26.0/me/accounts",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "runway",
+        "method": "GET",
+        "path": "/v1/organization",
+        "http_status": 401,
+        "provider_error_code": null,
+        "success": false,
+        "transport_failed": false
+      },
+      {
+        "service": "creatomate",
+        "method": "GET",
+        "path": "/v1/projects/data",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      },
+      {
+        "service": "boamp",
+        "method": "GET",
+        "path": "/api/explore/v2.1/catalog/datasets/boamp",
+        "http_status": 200,
+        "provider_error_code": null,
+        "success": true,
+        "transport_failed": false
+      }
+    ],
+    "runtime_execution_mode": "production",
+    "telegram": {
+      "credential_present": true,
+      "owner_chat_read_verified": true,
+      "chat_type": "private",
+      "method": "getChat",
+      "messages_sent": 0,
+      "bot_token_exported": false
+    },
+    "public_boamp": {
+      "dataset_read_verified": true,
+      "dataset_id": "boamp",
+      "title": "BOAMP",
+      "publisher": null,
+      "fields": [
+        {
+          "name": "idweb",
+          "type": "text"
+        },
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "contractfolderid",
+          "type": "text"
+        },
+        {
+          "name": "objet",
+          "type": "text"
+        },
+        {
+          "name": "filename",
+          "type": "text"
+        },
+        {
+          "name": "famille",
+          "type": "text"
+        },
+        {
+          "name": "code_departement",
+          "type": "text"
+        },
+        {
+          "name": "code_departement_prestation",
+          "type": "text"
+        },
+        {
+          "name": "famille_libelle",
+          "type": "text"
+        },
+        {
+          "name": "dateparution",
+          "type": "date"
+        },
+        {
+          "name": "datefindiffusion",
+          "type": "date"
+        },
+        {
+          "name": "datelimitereponse",
+          "type": "datetime"
+        },
+        {
+          "name": "nomacheteur",
+          "type": "text"
+        },
+        {
+          "name": "titulaire",
+          "type": "text"
+        },
+        {
+          "name": "perimetre",
+          "type": "text"
+        },
+        {
+          "name": "type_procedure",
+          "type": "text"
+        },
+        {
+          "name": "soustype_procedure",
+          "type": "text"
+        },
+        {
+          "name": "procedure_libelle",
+          "type": "text"
+        },
+        {
+          "name": "procedure_categorise",
+          "type": "text"
+        },
+        {
+          "name": "nature",
+          "type": "text"
+        },
+        {
+          "name": "sousnature",
+          "type": "text"
+        },
+        {
+          "name": "nature_libelle",
+          "type": "text"
+        },
+        {
+          "name": "sousnature_libelle",
+          "type": "text"
+        },
+        {
+          "name": "nature_categorise",
+          "type": "text"
+        },
+        {
+          "name": "nature_categorise_libelle",
+          "type": "text"
+        },
+        {
+          "name": "criteres",
+          "type": "text"
+        },
+        {
+          "name": "marche_public_simplifie",
+          "type": "text"
+        },
+        {
+          "name": "marche_public_simplifie_label",
+          "type": "text"
+        },
+        {
+          "name": "etat",
+          "type": "text"
+        },
+        {
+          "name": "descripteur_code",
+          "type": "text"
+        },
+        {
+          "name": "dc",
+          "type": "text"
+        },
+        {
+          "name": "descripteur_libelle",
+          "type": "text"
+        },
+        {
+          "name": "type_marche",
+          "type": "text"
+        },
+        {
+          "name": "type_marche_facette",
+          "type": "text"
+        },
+        {
+          "name": "type_avis",
+          "type": "text"
+        },
+        {
+          "name": "annonce_lie",
+          "type": "text"
+        },
+        {
+          "name": "annonces_anterieures",
+          "type": "text"
+        },
+        {
+          "name": "source_schema",
+          "type": "text"
+        },
+        {
+          "name": "gestion",
+          "type": "text"
+        },
+        {
+          "name": "donnees",
+          "type": "text"
+        },
+        {
+          "name": "url_avis",
+          "type": "text"
+        }
+      ],
+      "records_read": false
+    },
+    "rendering_enabled": false,
+    "publishing_enabled": false
+  },
+  "runtime": {
+    "provider_manager_execution_id": "618",
+    "provider_readonly_execution_id": "619",
+    "first_intelligence_manager_execution_id": "622",
+    "first_intelligence_execution_id": "623",
+    "bounded_result_manager_execution_id": "626",
+    "bounded_result_execution_id": "627",
+    "legacy_model_audit_manager_execution_id": "630",
+    "legacy_model_audit_execution_id": "631",
+    "legacy_audit_model_attempts": 4,
+    "legacy_audit_model_successes": 3,
+    "legacy_audit_billed_cost": null,
+    "legacy_audit_smtp_or_telegram_sends": 0,
+    "native_zero_model_test": {
+      "status": "verified_read_only_audit",
+      "execution_id": "638",
+      "runtime_execution_mode": "production",
+      "dry_run": true,
+      "transport_executed": false,
+      "model_calls": [],
+      "report_schedule_executed": false
+    },
+    "boamp_actual_review_rows": [
+      196,
+      197,
+      198,
+      199,
+      200
+    ],
+    "boamp_source_execution_id": "627",
+    "BOAMP_total_work_matches_at_probe": 44,
+    "sample_examined": 10,
+    "after_scope_geo_and_suitability_filters": 5,
+    "customer_sends": 0,
+    "test_telegram_sends": 0,
+    "renders": 0,
+    "generation_requests": 0,
+    "public_posts": 0,
+    "ads_spend": 0,
+    "subscriptions_purchased": 0,
+    "zero_model_manager_execution_id": "637"
+  },
+  "rollback": "Republish pinned before_version_id on the same native workflow ID; do not import redacted exports."
+}

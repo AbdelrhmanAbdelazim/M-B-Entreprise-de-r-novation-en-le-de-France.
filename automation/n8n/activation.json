@@ -88,8 +88,8 @@
       "name": "My workflow",
       "active": true,
       "published": true,
-      "version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
-      "active_version_id": "d52c5f35-d223-441d-9d10-bd5566579b2a",
+      "version_id": "905009bc-9e1f-4317-ae6c-5c9b7e26904f",
+      "active_version_id": "905009bc-9e1f-4317-ae6c-5c9b7e26904f",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -102,8 +102,8 @@
       "name": "W7 – Recherche de leads",
       "active": true,
       "published": true,
-      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
-      "active_version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "version_id": "0dff808d-fdb3-495e-9379-def786464971",
+      "active_version_id": "0dff808d-fdb3-495e-9379-def786464971",
       "patched": true,
       "timezone": "Europe/Paris",
       "cron": [
@@ -166,8 +166,8 @@
       "name": "W10 – Idées de contenu (vidéos)",
       "active": true,
       "published": true,
-      "version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
-      "active_version_id": "fbaec34d-c724-4145-82d0-c1070c63329f",
+      "version_id": "aad5d3bb-9010-4eea-b43d-8a2bb20d4c29",
+      "active_version_id": "aad5d3bb-9010-4eea-b43d-8a2bb20d4c29",
       "patched": false,
       "timezone": "Europe/Paris",
       "cron": [
@@ -264,7 +264,7 @@
     "archived_patch_files": "unchanged; strict old-version preconditions intentionally refuse reapplication"
   },
   "initial_activation_at_utc": "2026-10-19T04:28:21.626683+00:00",
-  "latest_release": "provider-readonly-release.json",
+  "latest_release": "social-intelligence-release.json",
   "agent_integration_safe_executions": [
     "364",
     "365"
@@ -273,8 +273,8 @@
     "id": "JcFvUMfm9orHdKbu",
     "active": true,
     "published": true,
-    "version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44",
-    "active_version_id": "d7ab50b1-d757-45ce-a7db-c61e59ac6f44"
+    "version_id": "6f138850-9144-4db3-bae8-1fbd9205b704",
+    "active_version_id": "6f138850-9144-4db3-bae8-1fbd9205b704"
   },
   "additional_mcp": {
     "id": "CedAfsMxGSnrlG0y",
@@ -286,14 +286,16 @@
   "chatgpt_mcp_connection": "BLOCKED_PENDING_ACCOUNT_REGISTRATION_AND_OAUTH_CONSENT",
   "additional_improvement": {
     "id": "MyHbk1Xn67RftCnB",
-    "version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
-    "active_version_id": "dc0f33b7-0e1d-4600-aa5f-75a39e07e4a3",
+    "version_id": "68a0a59a-3ecb-4884-bd3a-a12a97291e66",
+    "active_version_id": "68a0a59a-3ecb-4884-bd3a-a12a97291e66",
     "active": true,
     "published": true,
     "schedule": "15 18 * * *",
     "timezone": "Europe/Paris",
     "first_scheduled_email_not_yet_observed": false,
     "first_scheduled_execution": "593",
-    "first_scheduled_email_smtp_executed": false
+    "first_scheduled_email_smtp_executed": false,
+    "production_report_mode_fix_published": true,
+    "next_real_scheduled_SMTP_verification": "pending; no manual owner test send"
   }
 }
