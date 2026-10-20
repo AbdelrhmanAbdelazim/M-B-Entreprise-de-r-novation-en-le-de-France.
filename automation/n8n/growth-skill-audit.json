@@ -1,0 +1,202 @@
+{
+  "captured_at_utc": "2026-10-20T15:57:48.433691+00:00",
+  "mode": "GET_ONLY",
+  "definitions_total": 17,
+  "published_active": 15,
+  "workflow_modifications": 0,
+  "executions_requested": 0,
+  "workflows": [
+    {
+      "name": "W0 – Erreurs (Telegram + journal)",
+      "id": "4O2ZR1JpDOgJZOLw",
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W10 – Idées de contenu (vidéos)",
+      "id": "63yycckNMI9mXnkz",
+      "version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 4 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W9 – Après chantier (avis + parrainage)",
+      "id": "9ttUYW3XcSztxwRu",
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "*/15 8-20 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "M&B – ChatGPT Codex MCP",
+      "id": "CedAfsMxGSnrlG0y",
+      "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W1 – Réponses emails",
+      "id": "EvDz4KtOEgIYKh7Q",
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W4 – Relance unique",
+      "id": "Ipqy6qKmAuXVz2vl",
+      "version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 9 * * 1-4"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "M&B – ChatGPT production ingress",
+      "id": "JcFvUMfm9orHdKbu",
+      "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "M&B — AI Continuous Improvement",
+      "id": "MyHbk1Xn67RftCnB",
+      "version_id": "976ea357-39cb-4e07-8e4f-b340412353f9",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "15 18 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W3 – Envoi quotidien",
+      "id": "RstxLOezyHrDIv7k",
+      "version_id": "79a240b8-0992-4383-8671-7c805790c33a",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 8 * * 1-4"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W2 – Demandes du site web",
+      "id": "YjzC3pFzYRR7d2an",
+      "version_id": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "My workflow",
+      "id": "cKUyJSLOF69uXGnO",
+      "version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 * * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W7 – Recherche de leads",
+      "id": "gc97zrWop11I70CG",
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "10 6,10,14,18 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W8 – Notifications pages SEO",
+      "id": "uOuQs4E5H443sbKh",
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 7 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W6 – Rappels échéances",
+      "id": "xNbB0gcC1XPbXZ0z",
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 9 * * *"
+      ],
+      "W0_routing_ok": true
+    },
+    {
+      "name": "W5 – Rapport hebdomadaire",
+      "id": "yaiq1MmW8dw5SUg7",
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "active": true,
+      "published": true,
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 8,18 * * *"
+      ],
+      "W0_routing_ok": true
+    }
+  ],
+  "skill": {
+    "path": ".agents/skills/mb-renovation-growth-operator/SKILL.md",
+    "sha256": "7bd6ab90bdaa73797c35114b05c3507f4ed146cfa58f1bec9c141178bbeced3a",
+    "uploaded_file_preserved_exactly": true,
+    "native_discovery": {
+      "native_codex_discovery": "PASS",
+      "model_or_thread_execution_started": false,
+      "skills": [
+        {
+          "name": "mb-renovation-growth-operator",
+          "path": ".agents/skills/mb-renovation-growth-operator/SKILL.md",
+          "scope": "repo",
+          "enabled": true,
+          "description": "Operate and improve M&B Rénovation's existing n8n lead-generation, email, content, social publishing and reporting workflows safely. Use when auditing, testing or extending the production marketing system, qualifying renovation inquiries, producing French customer communications, or preparing social video workflows."
+        }
+      ]
+    }
+  },
+  "prior_handoff_versions_match": true,
+  "compatibility_notes": ".agents/skills/mb-renovation-growth-operator/references/production-compatibility.md",
+  "email_or_post_or_render_requests": 0,
+  "new_model_calls": 0
+}

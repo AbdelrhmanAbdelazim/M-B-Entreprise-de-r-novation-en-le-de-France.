@@ -101,3 +101,9 @@ The ingress is authenticated; never publish the key, weaken the gate or turn on 
 ## Ordinary ChatGPT MCP connection
 
 The hosted MCP server and connection details are in `automation/n8n/mcp-connect.json`. Read `mcp-release.json`: server publication is verified, ordinary ChatGPT account registration/consent and an actual ChatGPT-origin task are still pending. Never change that status based only on a shell HTTP request or the historical ingress proof. When the user reports connecting the app, inspect the actual tool availability for `submit_codex_task` and `get_codex_task_status`; only a real invocation from the connected ChatGPT context can satisfy the client test. Do not impersonate account consent or promise to bypass ChatGPT write-tool approvals. The independent bridge credential stays encrypted in n8n; do not request, export or replace it.
+
+## M&B Growth Engine operator skill
+
+For tasks involving the M&B Growth Engine, use the repository skill [mb-renovation-growth-operator](.agents/skills/mb-renovation-growth-operator/SKILL.md), invocable as `$mb-renovation-growth-operator`. Read its [production compatibility notes](.agents/skills/mb-renovation-growth-operator/references/production-compatibility.md) alongside the latest STATUS/CLOUD_RESUME and live state. Apply it to CRM, email, social content, video and continuous improvement within the user's authorized task scope.
+
+Its example priorities, field names and follow-up intervals are not production schema or schedule changes. Preserve native IDs/contracts, Lead79 and closed campaign protections; do not infer atomic delivery, model connectivity, account permissions or publishing from this instruction file. Existing user authorizations take precedence; the skill neither grants new external permissions nor requires repeating approvals already valid for the same scope. Follow the latest documented working branch rather than an older historical handoff.
