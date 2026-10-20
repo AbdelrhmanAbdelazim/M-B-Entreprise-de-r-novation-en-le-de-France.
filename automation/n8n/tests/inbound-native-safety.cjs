@@ -1,0 +1,12 @@
+const fs=require('fs'),path=require('path'),assert=require('assert/strict');
+const root=path.resolve(__dirname,'..'),w=JSON.parse(fs.readFileSync(path.join(root,'revisions/inbound-video-20261020/AI Continuous Improvement.json')));
+const code=name=>w.nodes.find(n=>n.name===name).parameters.jsCode,run=(name,ctx)=>new Function(...Object.keys(ctx),code(name))(...Object.values(ctx));
+for(const n of w.nodes.filter(x=>x.type.endsWith('.code')))new Function(n.parameters.jsCode);
+assert.throws(()=>run('CRM – réservation',{$json:{dry_run:true,operation:'create'}}),/NO_WRITE/);
+assert.throws(()=>run('CRM – vérifier propriétaire',{$execution:{id:'700'},$input:{all:()=>[]},$:()=>({item:{json:{claim_key:'x'}}})}),/CONFLICT/);
+assert.throws(()=>run('CRM – garde création',{$input:{all:()=>[{json:{email:'a@b.fr'}}]},$:()=>({item:{json:{email:'a@b.fr'}}})}),/NO_DUPLICATE/);
+assert.throws(()=>run('CRM – preuve création',{$json:{},$:()=>({item:{json:{email:'a@b.fr'}}})}),/PROOF_MISMATCH/);
+assert.throws(()=>run('CRM – restaurer création',{$json:{}}),/UNCERTAIN_NO_RETRY/);
+assert.throws(()=>run('CRM – confirmé',{$json:{}}),/NOT_STORED/);
+assert.equal(run('CRM – lecture seule',{$json:{operation:'held',dry_run:true}})[0].json.data_write_executed,false);
+console.log('Native CRM syntax and seven write-failure/dedup/dry-run guards passed; no transports or database writes.');

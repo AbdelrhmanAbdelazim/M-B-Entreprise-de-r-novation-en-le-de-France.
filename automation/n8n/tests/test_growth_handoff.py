@@ -2,15 +2,16 @@ import json,pathlib,shutil,sys,tempfile,unittest
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from growth_verify import verify
 from cloud_handoff import collect
+TARGETS={n:'revisions/inbound-video-20261020/'+n+'.before.json' for n in ['My workflow','W10']}
 class GrowthHandoffTests(unittest.TestCase):
  def test_exact_two_workflow_successor_and_single_observer(self):
-  c=json.loads((ROOT/'continuation.json').read_text());p=verify(ROOT,c['growth_revision']);self.assertEqual(set(p['workflows']),{'W10','My workflow'});self.assertEqual(collect(ROOT)['growth_revisions_verified'],2)
+  c=json.loads((ROOT/'continuation.json').read_text());p=verify(ROOT,c['growth_revision'],TARGETS);self.assertEqual(set(p['workflows']),{'W10','My workflow'});self.assertEqual(collect(ROOT)['growth_revisions_verified'],2)
  def test_modified_graph_archive_or_sources_cannot_pass(self):
   entry=json.loads((ROOT/'continuation.json').read_text())['growth_revision']
   for f in ['My workflow.json','W10.json','revisions/growth-20261020/My workflow.before.json','revisions/growth-20261020/AI Continuous Improvement.json','revisions/growth-20261020/improvement-source.js','revisions/growth-20261020/content-source.js']:
    with self.subTest(file=f),tempfile.TemporaryDirectory() as tmp:
     p=pathlib.Path(tmp);shutil.copytree(ROOT/'revisions/growth-20261020',p/'revisions/growth-20261020')
-    for name in ['My workflow.json','W10.json']:shutil.copyfile(ROOT/name,p/name)
+    for name in ['My workflow','W10']:shutil.copyfile(ROOT/TARGETS[name],p/(name+'.json'))
     verify(p,entry);target=p/f;target.write_text(target.read_text()+' ')
     with self.assertRaises(AssertionError):verify(p,entry)
  def test_public_sources_match_frozen_deployed_code(self):

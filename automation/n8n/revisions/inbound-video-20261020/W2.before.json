@@ -1,0 +1,526 @@
+{
+  "name": "W2 – Demandes du site web",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "__PRIVATE_08bf747f_9336_487b_a563_83867f0a7b4e_WEBHOOK_PATH__",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "08bf747f-9336-487b-a563-83867f0a7b4e",
+      "name": "Formulaire site",
+      "webhookId": "__PRIVATE_08bf747f_9336_487b_a563_83867f0a7b4e_WEBHOOK_PATH__",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        -448
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\nconst nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst b = $('Formulaire site').first().json.body || {};\nconst s = v => String(v || '').trim().slice(0, 2000);\nconst c = { date: nowP(), nom: s(b.nom), telephone: s(b.telephone || b.tel), email: s(b.email).toLowerCase(), ville: s(b.ville), projet: s(b.projet), source: s(b.source) || 'site', statut: 'nouveau' };\nif (s(b.website)) return [];                        // pot de miel anti-robots\nif (!c.nom || (!c.telephone && !c.email)) return [];\nconst identity=mail(c.email)||c.telephone.replace(/\\D/g,'');const key='web:'+hash(identity+'|'+norm(c.ville)+'|'+norm(c.projet));const prior=$('Site – Queue').all().map(i=>i.json).find(t=>t.task_key===key);if(prior&&Date.now()-Date.parse(prior.created_at)<86400000)return [];const existing=$('Site – Clients').all().map(i=>i.json).find(x=>(c.email&&mail(x.email)===mail(c.email))||(!c.email&&String(x.telephone||'').replace(/\\D/g,'')===c.telephone.replace(/\\D/g,'')));if(existing){c.statut=existing.statut||c.statut;c.date=existing.date||c.date;c.projet=existing.projet&&existing.projet!==c.projet?String(existing.projet+' | '+c.projet).slice(-2000):c.projet;}return [{json:{...c,_task_key:key}}];\n"
+      },
+      "id": "6fb07507-9ec2-4e05-8bef-a0400c20ccad",
+      "name": "Normaliser",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        -448
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "vJEJHMoNylbhv4Yo"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "={{ $json.email ? 'email' : 'telephone' }}",
+              "keyValue": "={{ $json.email || $json.telephone }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "e99e6fa5-6e86-4dee-8cd2-ee234e7d6a7a",
+      "name": "Clients – ajout",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        -448
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst c = $('Normaliser').first().json;\nreturn [{ json: { message: `🏠 طلب جديد من الموقع\\n\\n👤 ${c.nom}\\n📞 ${c.telephone || '-'}\\n✉️ ${c.email || '-'}\\n📍 ${c.ville || '-'}\\n📝 ${c.projet || '-'}\\n\\nاتصل بيه في أقرب وقت 🙏` } }];\n"
+      },
+      "id": "25cb4b30-5c7a-4a40-89dc-78b155c2b8d0",
+      "name": "Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        -448
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "__PRIVATE_TELEGRAM_CHAT_ID__",
+        "text": "={{ String($json.message).replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\") }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "b9e56ef7-04a5-4df9-ac99-ca91e38284fa",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2672,
+        -448
+      ],
+      "webhookId": "__PRIVATE_b9e56ef7_04a5_4df9_ac99_ca91e38284fa_WEBHOOK_ID__",
+      "credentials": {
+        "telegramApi": {
+          "id": "__EXISTING_TELEGRAMAPI_CREDENTIAL_ID__",
+          "name": "Telegram M&B"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst c = $('Normaliser').first().json;\nif (!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(c.email)) return [];\nconst blacklist=$('Site – Blacklist fraîche').all().map(i=>String(i.json.email||'').trim().toLowerCase()).filter(Boolean);\nif(blacklist.includes(c.email))return [];\nconst text = `Bonjour ${c.nom},\n\nMerci pour votre demande de devis. Nous l'avons bien reçue et nous revenons vers vous sous 24 h.\n\nEn attendant, vous pouvez découvrir quelques-uns de nos chantiers : https://www.maison-mb.fr/realisations/\n\nBien cordialement,\nAbdelrahman\nGérant – M&B Rénovation\n07 53 30 65 59 · www.maison-mb.fr`;\nreturn [{ json: { to: c.email, subject: 'Votre demande de devis – M&B Rénovation', text } }];\n"
+      },
+      "id": "0df626d5-5db4-4c5c-8588-84c34e1c851c",
+      "name": "Accusé ?",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3120,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "Abdelrahman – M&B Rénovation <abdel@maison-mb.fr>",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "1d15972c-894a-4d4b-b898-8c38bcdebea9",
+      "name": "Accusé de réception",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3328,
+        -240
+      ],
+      "webhookId": "__PRIVATE_1d15972c_894a_4d4b_b898_8c38bcdebea9_WEBHOOK_ID__",
+      "credentials": {
+        "smtp": {
+          "id": "__EXISTING_SMTP_CREDENTIAL_ID__",
+          "name": "SMTP abdel@maison-mb.fr"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const nowP = () => new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,16);\nconst today = () => new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Paris'});\n\nconst c = $('Normaliser').first().json;\nreturn [{ json: { date: nowP(), workflow: 'W2', resultat: 'ok', details: `demande de ${c.nom} (${c.telephone || c.email})` } }];\n"
+      },
+      "id": "efee783e-0dfa-4cf3-b5bf-f0b39c0b1707",
+      "name": "Ligne journal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3552,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "FmcVgSV9fjQvXdYw"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "0a17cfac-ca27-477f-8d0a-e21acd2fe76d",
+      "name": "Journal",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3776,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "33e53e97-c56f-4b64-94de-a4fca4354cef",
+      "name": "Site – Queue",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        432
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "vJEJHMoNylbhv4Yo",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "bb72c280-d91b-44f8-83a8-0081fa932da2",
+      "name": "Site – Clients",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        432
+      ],
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst c=$('Normaliser').first().json;return [jq(row(c._task_key,'website_lead','HOT','W1','reserved',{email:c.email,phone:c.telephone,city:c.ville},'Réception du formulaire en cours','W2'))];"
+      },
+      "id": "bc20a7e7-5545-484e-a0a4-7e921c36adfc",
+      "name": "Site – réserver",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1376,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "96dabe50-fed2-47ec-84ab-97756f7f9117",
+      "name": "Site – réservation",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst c={...$('Normaliser').first().json};delete c._task_key;return [jq(c)];"
+      },
+      "id": "8d0d1f13-015e-4406-9468-c1d04b8a374b",
+      "name": "Site – restaurer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        336,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst iso=()=>new Date().toISOString();\nconst paris=()=>new Date().toLocaleString('sv-SE',{timeZone:'Europe/Paris'}).slice(0,19);\nconst day=()=>paris().slice(0,10);\nconst norm=v=>String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().trim();\nconst mail=v=>String(v||'').toLowerCase().trim();\nconst hash=s=>{let a=2166136261,b=5381;for(const c of String(s)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');};\nconst FREE=new Set(['gmail.com','yahoo.fr','yahoo.com','hotmail.fr','hotmail.com','outlook.fr','outlook.com','live.fr','orange.fr','wanadoo.fr','free.fr','sfr.fr','laposte.net','icloud.com','gmx.fr','neuf.fr','bbox.fr']);\nconst company=l=>{let d=String(l.site||l.domain||mail(l.email).split('@')[1]||'').toLowerCase().replace(/^https?:\\/\\//,'').replace(/^www\\./,'').split('/')[0];return FREE.has(d)?mail(l.email):d||mail(l.email);};\nconst unpack=r=>{try{return JSON.parse(r.payload||'{}');}catch{return {};}};\nconst columns=['task_key','type','priority','source','owner','status','created_at','last_action','next_action','due_at','payload'];\nconst fields=r=>Object.fromEntries(columns.map(k=>[k,String(r[k]??'')]));\nconst row=(key,type,priority,owner,status,payload,next,source='system',due=paris())=>fields({task_key:key,type,priority,owner,status,source,created_at:iso(),last_action:iso(),next_action:next,due_at:due,payload:JSON.stringify(payload)});\nconst jq=r=>({json:r});\n\nconst c=$('Normaliser').first().json;return [jq(row(c._task_key,'website_lead','HOT','W1','needs_review',{client_id:$json.id,email:c.email,phone:c.telephone,ville:c.ville,projet:c.projet},'Qualifier le besoin et préparer la réponse ; pas de cold outreach','W2'))];"
+      },
+      "id": "5f62bb09-fca5-49d0-bc12-f71101caff62",
+      "name": "Site – tâche commerciale",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "aqPFAT3TBwLGhlIj",
+          "mode": "id"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "task_key",
+              "keyValue": "={{ $json.task_key }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {}
+      },
+      "id": "b8174f59-82bc-412d-9689-a197706647ba",
+      "name": "Site – tâche sauvegardée",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        656
+      ]
+    },
+    {
+      "id": "cc0b0230-9f30-48b6-854e-c0bf1be825f2",
+      "name": "Site – Blacklist fraîche",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "position": [
+        1600,
+        640
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "NE0QU8afBFipimhW",
+          "mode": "id"
+        },
+        "returnAll": true
+      }
+    }
+  ],
+  "connections": {
+    "Formulaire site": {
+      "main": [
+        [
+          {
+            "node": "Site – Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normaliser": {
+      "main": [
+        [
+          {
+            "node": "Site – réserver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clients – ajout": {
+      "main": [
+        [
+          {
+            "node": "Message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Site – tâche commerciale",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ligne journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "Site – Blacklist fraîche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accusé ?": {
+      "main": [
+        [
+          {
+            "node": "Accusé de réception",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ligne journal": {
+      "main": [
+        [
+          {
+            "node": "Journal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – Queue": {
+      "main": [
+        [
+          {
+            "node": "Site – Clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – Clients": {
+      "main": [
+        [
+          {
+            "node": "Normaliser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – réserver": {
+      "main": [
+        [
+          {
+            "node": "Site – réservation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – réservation": {
+      "main": [
+        [
+          {
+            "node": "Site – restaurer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – restaurer": {
+      "main": [
+        [
+          {
+            "node": "Clients – ajout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – tâche commerciale": {
+      "main": [
+        [
+          {
+            "node": "Site – tâche sauvegardée",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Site – Blacklist fraîche": {
+      "main": [
+        [
+          {
+            "node": "Accusé ?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "errorWorkflow": "4O2ZR1JpDOgJZOLw",
+    "timezone": "Europe/Paris"
+  },
+  "versionId": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+  "meta": null,
+  "nodeGroups": [],
+  "id": "YjzC3pFzYRR7d2an",
+  "tags": []
+}

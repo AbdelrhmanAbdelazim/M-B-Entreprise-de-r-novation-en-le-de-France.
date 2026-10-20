@@ -1,3 +1,9 @@
+## W2 and video successor —20 October2026
+
+W2 now links future qualified website tasks to central Leads under needs_review, without outbound approval. Manager586→observer587 verified the actual protected internal **dry-run** path; no real customer insertion has yet been observed. All15 production workflows were reread Active/Published with unchanged timers. Only W2, Manager diagnostic, observer internal branch and W10 draft preparation changed. See ../n8n/inbound-video-release.json and ../n8n/inbound-video-live-state.json.
+
+W10 now prepares video source specifications and passes them to its existing OpenAI review task. No actual MP4/render/publishing connection is claimed. Creatomate's secure credential slot is empty; Runway API access is absent. Existing calendar/Metricool items and human approval remain untouched. See VIDEO.md. The prior release below is immutable historical context.
+
 # Verified live rollout —20 October2026
 
 This is a partial production rollout, not a claim that all marketing APIs or an autonomous sales funnel are connected. Read ../n8n/growth-release.json and ../n8n/STATUS.md for evidence.

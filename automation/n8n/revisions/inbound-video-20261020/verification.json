@@ -1,0 +1,69 @@
+{
+  "kind": "inbound_video_successor",
+  "captured_at_utc": "2026-10-20T15:51:14.396934+00:00",
+  "workflows": {
+    "W2": {
+      "id": "YjzC3pFzYRR7d2an",
+      "before": "revisions/inbound-video-20261020/W2.before.json",
+      "after": "W2.json",
+      "before_sha256": "b93df973296ce04cc20ac351fdf7579c789cd8514836ab5fe14d69ab2f1aff7e",
+      "after_sha256": "289c5faa0d750aa8e9c910170ff035cbd2e1273964588745b66d58e2b450dcec",
+      "before_version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "published_version_id": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a"
+    },
+    "My workflow": {
+      "id": "cKUyJSLOF69uXGnO",
+      "before": "revisions/inbound-video-20261020/My workflow.before.json",
+      "after": "My workflow.json",
+      "before_sha256": "a302ed095de850df8dc1dc3b4d5ba0252302108267201dde46298d73d27e4c10",
+      "after_sha256": "208808c84518a70672be08041fcddac6e8319181b883c37987a24d4bfbf8614a",
+      "before_version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+      "published_version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719"
+    },
+    "W10": {
+      "id": "63yycckNMI9mXnkz",
+      "before": "revisions/inbound-video-20261020/W10.before.json",
+      "after": "W10.json",
+      "before_sha256": "221c1a372da32e2bb562ff031b7f4644d580e93a48731342bb0bcbec81e2eeb2",
+      "after_sha256": "9e653dea2fcdcb1e8dad05304fadfc5235ee4910046b291e3551c6ecbdc26c17",
+      "before_version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+      "published_version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e"
+    },
+    "AI Continuous Improvement": {
+      "id": "MyHbk1Xn67RftCnB",
+      "before": "revisions/inbound-video-20261020/AI Continuous Improvement.before.json",
+      "after": "revisions/inbound-video-20261020/AI Continuous Improvement.json",
+      "before_sha256": "b733b6f01fb960190e6a09d7c7699139b84fe123623088f066b5043e1bdea6f7",
+      "after_sha256": "c4e339150199a353031d23a55c4b6073de40de00f405f71d7585eff4e547ed6d",
+      "before_version_id": "8ab02a43-de9f-4f0c-a81a-dd20241ce9bf",
+      "published_version_id": "976ea357-39cb-4e07-8e4f-b340412353f9"
+    }
+  },
+  "sources": {
+    "inbound": {
+      "path": "revisions/inbound-video-20261020/inbound-source.js",
+      "sha256": "da1e9ac5735b61bbf1699d0f0852d44578467da05fb6b4592ee038bc0114c32d"
+    },
+    "video": {
+      "path": "revisions/inbound-video-20261020/video-source.js",
+      "sha256": "4aab3a1ec7c7564d59cef65ec3f82221d9e4a141f6bbec215262c77cd7cd03fb"
+    }
+  },
+  "safe_runtime": {
+    "manager_execution_id": "586",
+    "crm_execution_id": "587",
+    "status": "success",
+    "fixture_only": true,
+    "lead_writes": 0,
+    "model_calls": 0,
+    "transports": 0,
+    "cases": [
+      "new",
+      "existing",
+      "duplicate",
+      "missing"
+    ],
+    "actual_new_customer_lead_insert_observed": false,
+    "write_failure_test": "isolated native Code-node guards only; no deliberate live failure"
+  }
+}

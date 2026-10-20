@@ -27,13 +27,13 @@
     "My workflow": {
       "id": "cKUyJSLOF69uXGnO",
       "name": "My workflow",
-      "version_id": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+      "version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
       "source_sha256": "950b4f14132607c309a84a90fb6fadcadcee38146c63e395dd94e8b747ece730",
-      "public_sha256": "a302ed095de850df8dc1dc3b4d5ba0252302108267201dde46298d73d27e4c10",
+      "public_sha256": "208808c84518a70672be08041fcddac6e8319181b883c37987a24d4bfbf8614a",
       "redacted_paths": [
         "/nodes/1/webhookId",
         "/nodes/25/credentials/openAiApi/id",
@@ -127,13 +127,13 @@
     "W2": {
       "id": "YjzC3pFzYRR7d2an",
       "name": "W2 – Demandes du site web",
-      "version_id": "b16b8abe-fac9-47f5-86f3-c047f7ffde60",
+      "version_id": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-19T04:28:21.626683+00:00",
       "source_sha256": "ad1f2f063c658e429d44140354a2f0087ef0fa479d9dc901ddda292d69c0c418",
-      "public_sha256": "b93df973296ce04cc20ac351fdf7579c789cd8514836ab5fe14d69ab2f1aff7e",
+      "public_sha256": "289c5faa0d750aa8e9c910170ff035cbd2e1273964588745b66d58e2b450dcec",
       "redacted_paths": [
         "/nodes/0/parameters/path",
         "/nodes/0/webhookId",
@@ -174,13 +174,13 @@
     "W10": {
       "id": "63yycckNMI9mXnkz",
       "name": "W10 – Idées de contenu (vidéos)",
-      "version_id": "be26cad4-fb7e-4a4e-be94-a4cd80a3e9ec",
+      "version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
       "last_verified_active": true,
       "last_verified_ui_state": "Published",
       "current_host_state": "connected; authenticated live published graph read-back verified",
       "actual_download_at_utc": "2026-10-20T14:27:08.693120+00:00",
       "source_sha256": "65d7e27d933a915606b50782c76d35da5711451265c53cbff21bd4e785c80f03",
-      "public_sha256": "221c1a372da32e2bb562ff031b7f4644d580e93a48731342bb0bcbec81e2eeb2",
+      "public_sha256": "9e653dea2fcdcb1e8dad05304fadfc5235ee4910046b291e3551c6ecbdc26c17",
       "redacted_paths": [
         "/nodes/13/credentials/googlePalmApi/id",
         "/nodes/19/credentials/openAiApi/id",

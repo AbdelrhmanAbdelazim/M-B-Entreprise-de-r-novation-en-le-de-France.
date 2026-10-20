@@ -1,0 +1,41 @@
+{
+  "status": "BLOCKED_AUTHORIZATION",
+  "rendering_enabled": false,
+  "publishing_enabled": false,
+  "automatic_spending_authorized": false,
+  "creatomate": {
+    "credential_name": "M&B Creatomate — API (awaiting secure input)",
+    "credential_type": "httpHeaderAuth",
+    "header_name": "Authorization",
+    "credential_value_format": "Bearer <existing project API key; enter in encrypted n8n UI only>",
+    "credential_configured": false,
+    "account_plan": "unknown; Google login does not expose API authorization or credit balance",
+    "connection_verified": false,
+    "render_endpoint": "POST https://api.creatomate.com/v1/renders",
+    "status_endpoint": "GET https://api.creatomate.com/v1/renders/{verified_render_id}",
+    "request_schema": {"source": "RenderScript object produced by mbVideoDraft; never submitted during this task"},
+    "preflight_required": ["authenticated read-only permission proof", "account credits/plan proof", "explicit no-spend authorization for any render", "company media rights and reachable asset URLs", "OpenAI quality review", "existing human publishing approval"],
+    "on_uncertain_submission": "hold; never retry render creation without provider reconciliation"
+  },
+  "runway": {
+    "credential_available": false,
+    "connection_verified": false,
+    "account_plan": "unknown",
+    "api_free_tier": "not verified for this account; no inference from consumer Google login",
+    "read_only_account_endpoint": "GET https://api.dev.runwayml.com/v1/organization",
+    "headers": ["Authorization", "X-Runway-Version"],
+    "version_binding": "resolve from current official API before first authenticated request",
+    "generation_enabled": false,
+    "credit_purchase_enabled": false,
+    "generation_request_schema": "not bound; optional generation remains disabled"
+  },
+  "documentation_checked": [
+    "https://github.com/Creatomate/creatomate-node/blob/main/src/Client.ts",
+    "https://github.com/Creatomate/creatomate-node/blob/main/src/Source.ts",
+    "https://github.com/runwayml/sdk-node/blob/main/src/resources/organization/organization.ts"
+  ],
+  "documentation_access_limit": "Direct service documentation domains blocked by current Cloud CONNECT policy; official SDK sources were read via permitted GitHub. No alternate relay used.",
+  "site_asset_access": "current Cloud policy blocks website origins; file existence verified locally only",
+  "transport_implemented": false,
+  "mp4_generated": false
+}

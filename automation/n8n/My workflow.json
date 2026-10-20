@@ -3379,7 +3379,7 @@
           "conditions": [
             {
               "id": "035067c1-c1c1-4805-9071-c22ce6bad39e",
-              "leftValue": "={{ $('ChatGPT – contexte Manager').first().json.task === '/growth-audit-safe' }}",
+              "leftValue": "={{ ['/growth-audit-safe','/growth-ingest-safe'].includes($('ChatGPT – contexte Manager').first().json.task) }}",
               "rightValue": true,
               "operator": {
                 "type": "boolean",
@@ -3403,7 +3403,7 @@
         3050
       ],
       "parameters": {
-        "jsCode": "return [{json:{audit_safe:true,request_id:$('ChatGPT – contexte Manager').first().json.request_id}}];"
+        "jsCode": "if($('ChatGPT – contexte Manager').first().json.task==='/growth-ingest-safe')return [{json:{\"crm_ingest\": true, \"source_workflow_id\": \"fixture\", \"crm_dry_run\": true, \"events\": [{\"id\": -1, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:new\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"fixture@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -2, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:known\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"known@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -3, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:duplicate\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"duplicate@example.test\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}, {\"id\": -4, \"type\": \"website_lead\", \"status\": \"needs_review\", \"task_key\": \"fixture:inbound:missing\", \"created_at\": \"2026-10-20T15:00:00Z\", \"payload\": \"{\\\"client_id\\\": -1, \\\"email\\\": \\\"\\\", \\\"ville\\\": \\\"Paris\\\", \\\"projet\\\": \\\"Je souhaite un devis r\\\\u00e9novation salle de bain\\\"}\"}]}}];\nreturn [{json:{audit_safe:true,request_id:$('ChatGPT – contexte Manager').first().json.request_id}}];"
       }
     },
     {
@@ -4903,7 +4903,7 @@
     "availableInMCP": false,
     "timezone": "Europe/Paris"
   },
-  "versionId": "357e8d48-f3cc-4e0c-b8b5-b092565e3abf",
+  "versionId": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
   "meta": {
     "templateCredsSetupCompleted": true
   },

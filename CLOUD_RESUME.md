@@ -1,3 +1,9 @@
+## Latest W2/video continuation — use PR21 branch, do not reapply
+
+Read automation/n8n/inbound-video-release.json and newest STATUS first. W2, Manager safe diagnostic, observer internal CRM branch and W10 draft preparation are published; all15 remain Active/Published. Native safe proof Manager586→CRM587 is **dry-run**, zero models/transports/writes. New inbound Leads are needs_review, never campaign-approved. No actual new website inquiry/Lead insertion has yet been observed; do not misstate this. W1/W3/W4/W7 and existing schedules are unchanged. Preserve client metadata in linked Queue, existing sent history, Lead79 and consumed14 campaign. Do not execute W2 webhook for a test because existing acknowledgement sends mail.
+
+Creatomate has only an encrypted empty Header Auth credential slot, no token/verified plan/transport. W10 produces a review-only RenderScript specification, not an MP4. Runway has no API binding and remains optional/disabled. No generation/publication/spend is authorized. See automation/growth-engine/VIDEO.md. Preserve immutable revisions/inbound-video-20261020 and earlier growth chain; never import redacted exports. Latest local tests and pending real-inquiry/API boundaries are in STATUS. Current branch automation/growth-engine-safe-2026-10; do not alter main or replay old campaigns.
+
 ## Latest growth rollout — use automation/growth-engine-safe-2026-10 / PR21
 
 Read automation/n8n/growth-release.json, latest STATUS and automation/growth-engine/LIVE.md first. Original14 remain Published/Active; new requested observer makes15 active of17 total. Only Manager/W10 changed; original schedules/credentials/webhooks/tables/W0 retained. Campaign145 was already SMTP-accepted14 + report527; reconciled/consumed, temporary sender inactive/unpublished andPOST404. Never retry it or Lead79. Older blocked-campaign entries below are historical.

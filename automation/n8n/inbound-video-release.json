@@ -1,0 +1,70 @@
+{
+  "result": "W2_BRIDGE_PUBLISHED_VIDEO_PREPARATION_ONLY",
+  "captured_at_utc": "2026-10-20T15:51:14.396934+00:00",
+  "branch": "automation/growth-engine-safe-2026-10",
+  "workflows_active": 15,
+  "definitions_total": 17,
+  "verification": {
+    "path": "revisions/inbound-video-20261020/verification.json",
+    "sha256": "8694abba25496993c0619903b1aee3624f20d235f82265a8463bd1a92fbdcdc6"
+  },
+  "runtime_test": {
+    "manager_execution_id": "586",
+    "crm_execution_id": "587",
+    "status": "success",
+    "fixture_only": true,
+    "lead_writes": 0,
+    "model_calls": 0,
+    "transports": 0,
+    "cases": [
+      "new",
+      "existing",
+      "duplicate",
+      "missing"
+    ],
+    "actual_new_customer_lead_insert_observed": false,
+    "write_failure_test": "isolated native Code-node guards only; no deliberate live failure"
+  },
+  "W2": {
+    "published": true,
+    "new_lead_status": "needs_review",
+    "new_lead_type": "inbound",
+    "campaign_authorization": false,
+    "existing_lead_contact_history_unchanged": true,
+    "new_real_inquiry_pending": true
+  },
+  "Creatomate": {
+    "credential_slot_created": true,
+    "credential_configured": false,
+    "connected": false,
+    "plan_verified": false,
+    "render_requested": false
+  },
+  "Runway": {
+    "credential_available": false,
+    "connected": false,
+    "API_free_tier_verified": false,
+    "generation_enabled": false
+  },
+  "W10": {
+    "video_draft_preparation_published": true,
+    "Claude_script_existing_route": true,
+    "OpenAI_review_existing_route": true,
+    "new_video_model_calls_tested": false,
+    "render_transport_implemented": false,
+    "mp4_generated": false,
+    "publish_enabled": false
+  },
+  "existing_schedules_changed": false,
+  "customer_test_messages": 0,
+  "test_posts": 0,
+  "paid_generation_requests": 0,
+  "old_campaign_replayed": false,
+  "protected_lead_79_preserved": true,
+  "remaining": [
+    "Real inbound insert awaits a legitimate new site request; no synthetic contact written",
+    "Creatomate API key/account plan/media rights and URLs not verified",
+    "Runway API authorization/credits/tier not available",
+    "No paid render or social publication authorized"
+  ]
+}

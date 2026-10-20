@@ -1,0 +1,163 @@
+{
+  "captured_at_utc": "2026-10-20T15:49:47.110428+00:00",
+  "workflow_count": 15,
+  "unrelated_workflow_versions_unchanged": true,
+  "W0_routing_preserved": true,
+  "workflows": [
+    {
+      "id": "4O2ZR1JpDOgJZOLw",
+      "name": "W0 – Erreurs (Telegram + journal)",
+      "active": true,
+      "published": true,
+      "version_id": "79290a33-c8ef-4cc4-845e-2f3434fd1088",
+      "timezone": "Europe/Paris",
+      "cron": []
+    },
+    {
+      "id": "63yycckNMI9mXnkz",
+      "name": "W10 – Idées de contenu (vidéos)",
+      "active": true,
+      "published": true,
+      "version_id": "4f7e94af-0891-4bb7-8ee2-7bfc14d9264e",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 4 * * *"
+      ]
+    },
+    {
+      "id": "9ttUYW3XcSztxwRu",
+      "name": "W9 – Après chantier (avis + parrainage)",
+      "active": true,
+      "published": true,
+      "version_id": "fb581faa-1892-47ac-a7f3-4032b92e2b84",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "*/15 8-20 * * *"
+      ]
+    },
+    {
+      "id": "CedAfsMxGSnrlG0y",
+      "name": "M&B – ChatGPT Codex MCP",
+      "active": true,
+      "published": true,
+      "version_id": "b768905d-596a-4dd0-995a-2fa1c12bf87a",
+      "timezone": "Europe/Paris",
+      "cron": []
+    },
+    {
+      "id": "EvDz4KtOEgIYKh7Q",
+      "name": "W1 – Réponses emails",
+      "active": true,
+      "published": true,
+      "version_id": "e6d7fe76-830d-457a-9885-6c5d9bc9d41c",
+      "timezone": "Europe/Paris",
+      "cron": []
+    },
+    {
+      "id": "Ipqy6qKmAuXVz2vl",
+      "name": "W4 – Relance unique",
+      "active": true,
+      "published": true,
+      "version_id": "970060cd-6c2a-4549-953d-b748ad959e6d",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 9 * * 1-4"
+      ]
+    },
+    {
+      "id": "JcFvUMfm9orHdKbu",
+      "name": "M&B – ChatGPT production ingress",
+      "active": true,
+      "published": true,
+      "version_id": "e6eba4b7-2b1f-4f3d-b1c9-a61e0a84dcee",
+      "timezone": "Europe/Paris",
+      "cron": []
+    },
+    {
+      "id": "MyHbk1Xn67RftCnB",
+      "name": "M&B — AI Continuous Improvement",
+      "active": true,
+      "published": true,
+      "version_id": "976ea357-39cb-4e07-8e4f-b340412353f9",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "15 18 * * *"
+      ]
+    },
+    {
+      "id": "RstxLOezyHrDIv7k",
+      "name": "W3 – Envoi quotidien",
+      "active": true,
+      "published": true,
+      "version_id": "79a240b8-0992-4383-8671-7c805790c33a",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 8 * * 1-4"
+      ]
+    },
+    {
+      "id": "YjzC3pFzYRR7d2an",
+      "name": "W2 – Demandes du site web",
+      "active": true,
+      "published": true,
+      "version_id": "26de4eee-a1e9-4ac7-ae93-40a9803a8f0a",
+      "timezone": "Europe/Paris",
+      "cron": []
+    },
+    {
+      "id": "cKUyJSLOF69uXGnO",
+      "name": "My workflow",
+      "active": true,
+      "published": true,
+      "version_id": "2be8b8e6-f0ea-4e6f-8280-6cf40f299719",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 * * * *"
+      ]
+    },
+    {
+      "id": "gc97zrWop11I70CG",
+      "name": "W7 – Recherche de leads",
+      "active": true,
+      "published": true,
+      "version_id": "5dbbd9a0-ba3b-49ab-9bea-625ac6c728cf",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "10 6,10,14,18 * * *"
+      ]
+    },
+    {
+      "id": "uOuQs4E5H443sbKh",
+      "name": "W8 – Notifications pages SEO",
+      "active": true,
+      "published": true,
+      "version_id": "0b74fb9f-33e0-47bc-b434-67af47ec170f",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "30 7 * * *"
+      ]
+    },
+    {
+      "id": "xNbB0gcC1XPbXZ0z",
+      "name": "W6 – Rappels échéances",
+      "active": true,
+      "published": true,
+      "version_id": "6942ea57-1672-4f77-9fae-73105fb0213c",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 9 * * *"
+      ]
+    },
+    {
+      "id": "yaiq1MmW8dw5SUg7",
+      "name": "W5 – Rapport hebdomadaire",
+      "active": true,
+      "published": true,
+      "version_id": "f823bf81-e1cc-4bda-ab8f-294600e2c2cb",
+      "timezone": "Europe/Paris",
+      "cron": [
+        "0 8,18 * * *"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 """Verify the exact growth successor and its archived observer; no remote operations."""
 import copy,hashlib,json
 
-def verify(root,entry):
+def verify(root,entry,targets=None):
  path='revisions/growth-20261020/verification.json'
  assert entry['path']==path and hashlib.sha256((root/path).read_bytes()).hexdigest()==entry['sha256']
  proof=json.loads((root/path).read_text());assert set(proof['workflows'])=={'My workflow','W10'}
@@ -9,7 +9,7 @@ def verify(root,entry):
  def edge(n):return {'node':n,'type':'main','index':0}
  def link(w,name,success,failure=None):w['connections'][name]={'main':[[edge(success)]]+([[edge(failure)]] if failure else [])}
  for name,p in proof['workflows'].items():
-  before='revisions/growth-20261020/'+name+'.before.json';after=name+'.json'
+  before='revisions/growth-20261020/'+name+'.before.json';after=(targets or {}).get(name,name+'.json')
   assert hashlib.sha256((root/before).read_bytes()).hexdigest()==p['before_sha256']
   assert hashlib.sha256((root/after).read_bytes()).hexdigest()==p['after_sha256']
   old,new=load(before),load(after);assert old['id']==new['id']==p['id'] and old['versionId']==p['before_version_id'] and new['versionId']==p['published_version_id']
