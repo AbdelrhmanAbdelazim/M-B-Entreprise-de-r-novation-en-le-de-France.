@@ -37,6 +37,9 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - n8n
+  - automation
+  - AGENTS.md
 
 # ---------------------------------------------------------------
 # Identité de l'entreprise : source unique, utilisée par le footer,
