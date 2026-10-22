@@ -37,6 +37,7 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  # Fichiers internes déplacés vers le dépôt privé mb-operations (22/10/2026)
   - n8n
   - automation
   - AGENTS.md
