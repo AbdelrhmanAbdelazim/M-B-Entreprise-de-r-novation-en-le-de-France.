@@ -2,7 +2,8 @@
 
 Préparé le 22/10/2026 par Claude Code, à partir de `n8n/SYSTEME.md` et des exports du 19/10 (`automation/n8n/`).
 **Mis à jour le 22/10/2026 vers 16 h** à partir des versions live (sauvegarde du 22/10 15:52, versions vérifiées identiques au live à 16 h).
-**Statut : rien n'est appliqué.** (Seul changement live, hors plan : W3 désactivé par le gérant le 22/10, voir journal.)
+**Statut au 22/10 (16 h 45) : corrections 3, 4, 5 et 6 appliquées** (voir journal de SYSTEME.md). **Correction 2 : à faire dans hPanel.** W3 reste désactivé jusqu'à la correction 2.
+> ⚠️ La correction 4 appliquée diffère du texte ci-dessous : le test STOP porte sur le texte propre de l'expéditeur, pas sur `e.prompt` entier (qui contient le mot « stop » et notre e-mail cité).
 - Chaque correction se fait l'une après l'autre, uniquement avec l'accord du gérant et en respectant les règles de SYSTEME.md (un seul agent à la fois, ligne « EN COURS » dans le journal).
 - Aucune intervention sur n8n, le VPS ou le DNS sans cet accord.
 
