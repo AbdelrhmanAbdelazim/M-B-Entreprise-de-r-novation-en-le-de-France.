@@ -83,6 +83,7 @@ social:
   facebook: "https://www.facebook.com/1028887100297504"
   instagram: "https://www.instagram.com/abdelrhman.08/"
   google_business: "https://www.google.com/search?kgmid=/g/11xw8dr7dl"
+  google_avis: "https://search.google.com/local/writereview?placeid=ChIJaeOt2oNz5kcRhXWyO3zlsKQ"
 
 # Mesure d'audience et publicité : chargées uniquement après « Accepter »
 # (bandeau cookies, _includes/consent-head.html)

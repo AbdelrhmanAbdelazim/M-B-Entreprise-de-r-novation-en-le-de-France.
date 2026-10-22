@@ -5,10 +5,10 @@ heading: "Merci pour votre confiance"
 description: "Vous avez confié vos travaux à M&B Rénovation ? Merci ! Partagez votre expérience en laissant un avis sur notre fiche Google."
 permalink: /avis/
 ---
-{%- assign avis_url = site.social.google_business -%}
+{%- assign avis_url = site.social.google_avis | default: site.social.google_business -%}
 Merci d'avoir confié vos travaux à **M&B Rénovation**. Votre avis compte beaucoup : il aide d'autres particuliers à nous faire confiance.
 
-Vous allez être redirigé vers notre fiche Google dans quelques secondes. Cliquez sur « Avis » puis « Rédiger un avis ».
+Vous allez être redirigé vers notre fiche Google dans quelques secondes. Le formulaire d’avis Google s’ouvre directement.
 
 <p><a class="btn-cta" id="avis-lien" href="{{ avis_url }}" rel="noopener"><i class="fa-brands fa-google"></i>&nbsp; Donner mon avis sur Google</a></p>
 
