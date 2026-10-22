@@ -9,7 +9,7 @@ layout: page
 {% include bloc-paiement.html %}
 
 <h2>Demandez votre devis</h2>
-<p>Visite technique et devis détaillé offerts. Écrivez-nous sur WhatsApp, 7j/7 : nous revenons vers vous rapidement.</p>
+<p>Visite technique et devis détaillé offerts. Écrivez-nous sur WhatsApp : réponse sous 24h ouvrées, devis détaillé sous 48h.</p>
 <p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ 'Bonjour M&B Rénovation, je souhaite un devis gratuit pour : ' | append: page.service_name | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
 <p>Ou par téléphone au <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a>, ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>.</p>
 

@@ -50,4 +50,4 @@ La baignoire reste appréciée des familles. La douche à l'italienne gagne de l
 
 Chez M&B Rénovation, vous avez un seul interlocuteur pour la plomberie, l'électricité, l'étanchéité, le carrelage et les finitions, un devis clair et un chantier suivi du début à la fin, avec la garantie décennale.
 
-**Un projet de salle de bain à Paris ou en Île-de-France ?** Envoyez-nous quelques photos sur WhatsApp au 07 53 30 65 59 : nous vous répondons par écrit sous 24 h.
+**Un projet de salle de bain à Paris ou en Île-de-France ?** Envoyez-nous quelques photos sur WhatsApp au 07 53 30 65 59 : nous vous répondons par écrit sous 24h ouvrées.

@@ -24,7 +24,7 @@ permalink: /sous-traitance-renovation/
 ## Notre fonctionnement
 
 - **Un seul interlocuteur** pour le chiffrage, le planning et le suivi du chantier.
-- **Réponse sous 24 h** et **devis détaillé par lot sous 48 h**.
+- **Réponse sous 24h ouvrées** et **devis détaillé par lot sous 48h**.
 - **Compte rendu avec photos avant/après envoyé après chaque intervention.**
 - **Intervention rapide entre deux locataires.**
 - **Assurance {{ c.insurance }}** auprès de {{ c.insurer }}, contrat n° {{ c.insurance_contract }}.
