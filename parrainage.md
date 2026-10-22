@@ -2,8 +2,8 @@
 layout: page
 title: "Parrainage"
 heading: "Parrainage : recommandez-nous à un proche"
-seo_title: "Parrainage – 100 € pour vous, 50 € pour votre proche | M&B Rénovation"
-description: "Recommandez M&B Rénovation à un proche : vous recevez 100 € et votre proche 50 € de remise sur son devis, pour des travaux à partir de 3 000 €."
+seo_title: "Parrainage : une remise pour vous et pour votre proche | M&B Rénovation"
+description: "Recommandez M&B Rénovation à un proche : vous bénéficiez d'une remise sur votre prochain chantier, et votre proche aussi sur le sien."
 permalink: /parrainage/
 ---
 {%- assign c = site.company -%}
@@ -17,13 +17,13 @@ Vous avez été satisfait de vos travaux avec **{{ c.brand }}** ? Recommandez-no
 
 1. **Vous parlez de nous** à un proche qui a un projet de rénovation en Île-de-France.
 2. **Votre proche nous contacte** sur WhatsApp en indiquant votre nom : « Bonjour, je viens de la part de … ».
-3. **Nous réalisons ses travaux**, après visite et devis détaillé gratuit. Votre proche bénéficie de **50 € de remise sur son devis**.
-4. **Une fois les travaux terminés et réglés**, vous recevez **100 €**, sous forme de remise sur vos prochains travaux ou de carte cadeau, au choix.
+3. **Nous réalisons ses travaux**, après visite et devis détaillé gratuit. Votre proche bénéficie d'**une remise sur son chantier**.
+4. **Une fois ses travaux terminés et réglés**, vous bénéficiez d'**une remise sur votre prochain chantier**.
 
 ## Conditions
 
-- Offre valable pour des travaux à partir de **3 000 €**.
-- La récompense est versée **une fois les travaux terminés et réglés**.
+- Les remises s'appliquent **une fois les travaux de votre proche terminés et réglés**.
+- Le montant de la remise est précisé sur le devis.
 - Votre proche doit indiquer votre nom lors de sa première prise de contact.
 
 ## Votre proche a un projet ?
