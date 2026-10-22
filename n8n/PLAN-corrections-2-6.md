@@ -1,16 +1,46 @@
 # Plan exact des corrections 2 à 6 (n8n)
 
 Préparé le 22/10/2026 par Claude Code, à partir de `n8n/SYSTEME.md` et des exports du 19/10 (`automation/n8n/`).
-**Statut : rien n'est appliqué.**
+**Mis à jour le 22/10/2026 vers 16 h** à partir des versions live (sauvegarde du 22/10 15:52, versions vérifiées identiques au live à 16 h).
+**Statut : rien n'est appliqué.** (Seul changement live, hors plan : W3 désactivé par le gérant le 22/10, voir journal.)
 - Chaque correction se fait l'une après l'autre, uniquement avec l'accord du gérant et en respectant les règles de SYSTEME.md (un seul agent à la fois, ligne « EN COURS » dans le journal).
 - Aucune intervention sur n8n, le VPS ou le DNS sans cet accord.
 
-## Étape 0 : lecture seule, dès que l'accès existe
+## État live au 22/10 (contrôle en lecture seule)
+
+- **17 workflows** : les 12 connus + 5 autres, absents de SYSTEME.md :
+  - actifs : `M&B – ChatGPT Codex MCP`, `M&B – ChatGPT production ingress`, `M&B — AI Continuous Improvement` (1 e-mail envoyé en 48 h) ;
+  - inactifs : `Gemini + Claude Automation Workflow`, `M&B campaign145 isolated temporary transport 20261020`.
+- **10 des 12 workflows** ont une version ≠ manifest (modifiés surtout le 20/10 au soir), sans ligne dans le journal.
+- **Nœuds visés par ce plan** (comparaison du code export 19/10 ↔ live) :
+
+| Correction | Nœud | Live |
+|---|---|---|
+| 3 | W9 `À envoyer` | identique : correctif valable tel quel |
+| 4 | W1 `Ajout blacklist ?` | identique : correctif valable tel quel |
+| 5 | W3 et W4 `Sélection` | modifié : l'adresse de test a déjà été retirée, il reste 2 lignes inutiles |
+| 5 | W7 `Requêtes` | modifié (BOAMP, preuves de source) : le bloc de test est toujours là |
+| 6 | W5, My workflow | noms inchangés |
+
+- **Incidents du 22/10** (heures de Paris) :
+  - 05:01 et 06:00 : runner des nœuds Code indisponible (My workflow) ; même erreur le 21/10 à 16:00 et 16:15 (W9) ;
+  - 06:10 : W7, échec de la source de recherche ;
+  - 07:30 et 08:00 : erreurs DNS (Telegram et pages du site injoignables) → W8 et W5 en échec, et **W0 lui-même en échec** (11 erreurs en 48 h : les alertes Telegram ne partent pas) ;
+  - 08:30 : W3 envoie 4 e-mails, puis échoue sur `Journal` (« Data table module is disabled ») → W3 désactivé par le gérant ;
+  - 09:30 : **W4 ne s'est pas exécuté** (actif, jeudi : une exécution était attendue) ;
+  - depuis au moins 15:30 : les Data tables fonctionnent de nouveau (W9, My workflow en succès).
+
+## Préalable : un seul agent à la fois
+
+- Les 3 workflows « ChatGPT / AI Continuous Improvement » actifs et les modifications du 20/10 montrent qu'un autre agent (Codex / ChatGPT) a travaillé sur n8n sans l'inscrire au journal.
+- **Avant toute correction**, le gérant confirme que cet agent est arrêté, et décide du sort de ces 3 workflows (les garder actifs ou non). Aucune action de Claude Code sur ces workflows sans cette décision.
+
+## Étape 0 : lecture seule (faite le 22/10)
 
 1. **Hostinger** (via MCP) : état du serveur qui héberge `navajowhite-cormorant-668337.hostingersite.com`.
    - à vérifier : en ligne ou non, CPU, RAM, disque, redémarrages récents ;
    - consultation uniquement.
-2. **n8n** : lancer `python3 n8n/verifier_n8n.py ~/MB-Renovation/.env.n8n`.
+2. **n8n** : lancer `N8N_BASE_URL=https://navajowhite-cormorant-668337.hostingersite.com N8N_API_KEY="$(cat ~/.n8n_api_key)" python3 n8n/verifier_n8n.py` (la clé reste dans `~/.n8n_api_key`, hors dépôt).
    - Le script ne fait que des requêtes GET.
    - Il donne la santé, la liste des workflows (actif, date de modification, version comparée au 19/10, doublons) et les exécutions des 48 dernières heures (erreurs et e-mails réellement envoyés).
 3. **Si une version diffère du manifest**, quelqu'un a modifié le workflow depuis le 19/10.
@@ -31,16 +61,24 @@ Préparé le 22/10/2026 par Claude Code, à partir de `n8n/SYSTEME.md` et des ex
 
 ## Correction 2 : santé du serveur (priorité haute)
 
-Le 19/10, le serveur répondait 500 (W0) et 504 (table Queue).
+Le 19/10, le serveur répondait 500 (W0) et 504 (table Queue). Le 22/10 : runner Code indisponible, erreurs DNS sortantes, module Data table désactivé pendant un moment, exécution planifiée de W4 manquée (voir « État live »). Tout cela pointe vers l'hébergement, pas vers les workflows.
 
-- **Diagnostic, en lecture seule** : étape 0.
-- **Causes à confirmer**, sans deviner : mémoire ou disque saturés, conteneur n8n arrêté, ou délai dépassé côté nginx.
+- **Hébergement** : offre Hostinger « AI automation apps » (pas un VPS). L'API Hostinger ne donne ni CPU, ni RAM, ni redémarrage, ni snapshot pour cette offre.
+  - Le gérant regarde dans **hPanel** : utilisation CPU / RAM / disque, redémarrages récents, sauvegardes disponibles.
+  - `/healthz` n'est pas exposé sur cet hôte (il renvoie la page de l'interface) : la santé se vérifie avec `verifier_n8n.py` (l'API répond).
+- **Causes à confirmer**, sans deviner : ressources saturées (le runner Code et le DNS lâchent ensemble), redémarrage du service, ou panne côté Hostinger.
 - **Action selon la cause, proposée au gérant avant toute exécution** :
-  - libérer de l'espace : purge des anciennes exécutions, avec `EXECUTIONS_DATA_PRUNE=true` et `EXECUTIONS_DATA_MAX_AGE=168` ;
-  - ou redémarrer le service n8n ;
-  - ou augmenter les ressources (offre Hostinger).
+  - purger les anciennes exécutions (`EXECUTIONS_DATA_PRUNE=true`, `EXECUTIONS_DATA_MAX_AGE=168`), si l'offre permet de régler ces variables ;
+  - ou redémarrer n8n depuis hPanel ;
+  - ou passer à une offre plus grande ;
+  - ou ouvrir un ticket Hostinger avec les heures des incidents ci-dessus.
   - Le redémarrage et le changement d'offre demandent un « oui » explicite.
-- **Vérification** : `/healthz` répond 200, et `verifier_n8n.py` liste les 12 workflows actifs, sans erreur depuis le correctif.
+- **Après correction** :
+  - vérifier les 4 e-mails W3 du 22/10 à 08:30 : présents dans Leads (statut mis à jour) malgré l'échec du `Journal` ? Sinon, les marquer à la main **avant** de réactiver W3, pour éviter un second envoi ;
+  - réactiver W3 avec l'accord du gérant ;
+  - surveiller la prochaine exécution de W4 (lundi 26/10 09:30) ;
+  - W0 : vérifier qu'une alerte Telegram arrive bien.
+- **Vérification** : `verifier_n8n.py` sans nouvelle erreur runner, DNS ou Data table pendant 48 h ; W3 et W4 exécutés à l'heure prévue.
 
 ## Correction 3 : W9 n'envoie plus d'e-mails le week-end
 
@@ -94,13 +132,18 @@ const STOP_RX = /(^|[^a-z])stop([^a-z]|$)|d[ée]sinscri|d[ée]sabonn|unsubscribe
 
 Le nœud `Test (temporaire)` n'existe plus. Le code qui l'appelle ne fait rien, mais il contient une adresse personnelle et pourrait se réactiver par erreur.
 
-| Workflow | Nœud | À supprimer |
-|---|---|---|
-| W3 – Envoi quotidien | `Sélection` | Le bloc depuis `let test = false; try { test = !!$('Test (temporaire)')…` jusqu'à la fin de `if (test) return [ … ];` |
-| W4 – Relance unique | `Sélection` | Même bloc |
-| W7 – Recherche de leads | `Requêtes` | La ligne `let test = null; try { test = $('Test (temporaire)').first().json.body; } catch (e) {}` et le bloc `if (test && test.test) { … return [ … ]; }`. Le reste ne change pas. |
+**Mise à jour live** : dans W3 et W4, l'adresse de test a déjà été retirée (le bloc renvoie maintenant `[]`). Il ne reste que 2 lignes sans effet. Dans W7, le bloc de test est toujours présent.
 
-**Vérification** : aucun texte `Test (temporaire)` ni l'adresse de test dans les 3 workflows. L'exécution planifiée suivante est un succès.
+| Workflow | Nœud | À supprimer (version live) |
+|---|---|---|
+| W3 – Envoi quotidien | `Sélection` | Les 2 lignes 20–21 : `let test = false; try { test = !!$('Test (temporaire)').first().json.body.test; } catch (e) {}` et `if (test) return []; // Test mode never produces real email recipients.` |
+| W4 – Relance unique | `Sélection` | Les mêmes 2 lignes (20–21) |
+| W7 – Recherche de leads | `Requêtes` | La ligne 77 `let test = null; try { test = $('Test (temporaire)').first().json.body; } catch (e) {}` et le bloc qui commence ligne 89 `if (test && test.test) { … return [ … ]; }`. Le reste ne change pas (dont les nouvelles fonctions BOAMP / `si…`). |
+
+- Ne pas toucher à la nouvelle ligne `if(Number(l.id)===79)continue;` de W3 et W4 : c'est une protection anti-renvoi.
+- W3 est désactivé : le modifier ne le réactive pas. La réactivation suit la correction 2.
+
+**Vérification** : aucun texte `Test (temporaire)` dans les 3 workflows. L'exécution planifiée suivante de W4 et W7 est un succès.
 
 ## Correction 6 : noms clairs (cosmétique)
 
@@ -114,5 +157,6 @@ Le nœud `Test (temporaire)` n'existe plus. Le code qui l'appelle ne fait rien, 
 
 ## Ordre conseillé
 
-2 → 3 → 4 → 5 → 6, une correction à la fois, avec vérification entre chaque.
-Durée estimée une fois l'accès ouvert : environ 1 h, hors éventuelle intervention Hostinger.
+Préalable (autre agent arrêté) → 2 → 3 → 4 → 5 → 6, une correction à la fois, avec vérification entre chaque.
+- Chaque modification part de la version live du moment (refaire `snapshot.py` juste avant, si une version a changé depuis le 22/10 15:52).
+- Durée estimée : environ 1 h, hors intervention Hostinger.
