@@ -5,6 +5,112 @@
 > - Aucun merge dans `main` sans l'accord explicite du gérant.
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
+
+## ⚠️ Correction demandée par le gérant (23/10, 2ᵉ message) : PRIORITAIRE
+
+Le gérant a demandé **uniquement le design, pas le contenu**. Règles à partir de maintenant :
+
+1. **Tout le contenu redevient exactement celui de `main`** :
+   - textes, titres et descriptions (y compris /realisations/, le bloc de paiement en plusieurs fois et ses montants) ;
+   - noms de services et de pages (« Menuiserie », « sur mesure ») ;
+   - textes de l'accueil d'origine, placés dans le nouveau design ;
+   - choix des photos des pages villes et de /entreprise/.
+2. **Ce qui reste de notre travail** :
+   - le design (couleurs, polices, espacements, ordre des sections, cartes, mobile) ;
+   - le déplacement des galeries photo de l'accueil vers /realisations/ et les pages projets ;
+   - la lightbox ;
+   - le WebP.
+3. **Aperçu** : un lien temporaire en noindex (Netlify ou autre) pour voir le site sur mobile ; à défaut, des captures mobiles.
+4. **Aucun merge sans accord.**
+
+Les règles « pas de prix ni de chiffres, pas de menuiserie, pas de sur mesure » du 1ᵉʳ message s'appliquaient au nouveau contenu. Le gérant ne veut pas qu'on modifie le contenu existant. Elles ne justifient donc aucune modification de texte.
+
+### Contenu modifié par rapport à `main` (branche `redesign-premium` @ c269b7b)
+
+Comparaison automatique du texte visible, des textes alternatifs des images, des meta et du JSON-LD, sur les 71 pages de `main`.
+**Statut : tout ce qui suit sera remis exactement comme sur `main`.**
+
+#### A. Sur toutes les pages (en-tête, pied de page, fenêtre devis)
+
+1. **Menu** :
+   - ajout de « Professionnels », « Zones », « Accueil » (mobile) et « Demander un devis » ;
+   - retrait de « Retour au site ».
+2. **Pied de page** :
+   - ajout d'une phrase (« Rénovation intérieure à Paris et en Île-de-France. Un seul interlocuteur… »), de « Contact / Navigation », « Avis clients », « Parrainage » et « WhatsApp » ;
+   - retrait de « © 2026 M&B Rénovation. L'excellence n'est pas un acte, c'est une habitude. »
+3. **Barre mobile** « WhatsApp / Demander un devis » ajoutée sur toutes les pages.
+4. **Fenêtre devis** : ajoutée sur toutes les pages (avant : accueil seulement), avec des textes modifiés.
+   - « Consultation Privée », « Étude de Projet », « Expertise gratuite… Aucun engagement. » deviennent « Étude de projet offerte », « Demander un devis », « … Sans engagement. » ;
+   - « Nom & Prénom » devient « Nom et prénom » ; « Votre Projet » devient « Votre projet » ;
+   - « Envoyer la Demande » devient « Envoyer la demande » ;
+   - « Contacter via WhatsApp » devient « Écrire sur WhatsApp » ;
+   - le texte de paiement « à partir de 3 000 €… en 3 fois » est remplacé par « projets éligibles, en plusieurs fois » ;
+   - les placeholders (Jean Dupont, 06 00 00 00 00…) sont retirés.
+5. **JSON-LD (données Google, toutes les pages)** : dans la description du site, « menuiserie » devient « pose de placards ».
+
+#### B. Bloc « Paiement en plusieurs fois sans frais » (accueil et 8 pages services)
+
+« Pour les projets à partir de 3 000 €, matériaux réglés à la signature, main-d'œuvre en 3 fois sans frais. » devient « Pour les projets éligibles : … en plusieurs fois sans frais. »
+
+#### C. Nom de service « Menuiserie »
+
+Remplacé par « Pose de placards » dans les listes de services (8 pages services, /services/, /entreprise/).
+
+#### D. Textes de pages
+
+- **/entreprise/** : « … peinture, menuiserie et rénovation complète » devient « … pose de placards … ». Photo `chantier-7.jpg` remplacée par `chantier-13.jpg` (page et image de partage).
+- **/services/renovation-complete/** :
+  - « Menuiserie intérieure sur mesure » devient « Pose de placards et de portes intérieures » ;
+  - texte alternatif « placard sur mesure » devient « placard intégré » ;
+  - image de partage `chantier-7.jpg` remplacée par `chantier-13.jpg`.
+- **Article « Rénover un appartement ancien… »** : « Menuiseries » devient « Pose de placards et portes » ; « … peinture et menuiserie » devient « … pose de placards ».
+- **Article « Plâtrerie et peinture… »** : « Cela garantit » devient « Cela assure ».
+- **Article « 3 erreurs salle de bain »** : « étanches à 100% » devient « totalement étanches » ; « sur-mesure » devient « personnalisé ».
+- **/renovation/evry-courcouronnes/** : « menuiseries intérieures à remplacer » devient « portes intérieures à remplacer ».
+- **/parrainage/** : la flèche du lien « Comment ça marche → » est retirée.
+
+#### E. Photos des 34 pages villes
+
+Les photos choisies ont été remplacées par d'autres, avec d'autres textes alternatifs. Des photos ont aussi été retirées sur Neuilly, Vincennes, Paris 12, Saint-Mandé, Savigny-le-Temple, Savigny-sur-Orge, Versailles et Asnières.
+
+#### F. /realisations/
+
+- Description et og:description sans « menuiserie sur mesure ».
+- H1 « Nos réalisations – M&B Rénovation Paris » devient « Nos réalisations ».
+- Phrase d'intro réécrite.
+- Sections « Avant / Après » et « Sur le chantier », avec leurs 27 photos et textes alternatifs, remplacées par 12 cartes de projets à titres et textes nouveaux.
+- Photos retirées : visage, reflet, meubles « sur mesure ».
+- Lien « Demander un devis » (WhatsApp) remplacé par un bouton qui ouvre la fenêtre devis.
+
+#### G. Accueil
+
+- **Retiré** :
+  - « L'Art de Sublimer Votre Intérieur » et le sous-titre ;
+  - les chiffres (10 / 24h / 100 % Projets Sur Mesure) ;
+  - « Nos Compétences / Expertise Globale » et les 4 cartes avec leurs listes (Bains & Eau, Lumière & Tech, Matières & Couleurs, Sols & Structure, dont « Pose de menuiseries ») ;
+  - « Découvrir nos services en détail » ;
+  - Portfolio « Pièces Rénovées » ;
+  - « L'Envers du Décor » ;
+  - « Avant / Après – Nos réalisations » ;
+  - « Méthodologie – Votre Sérénité, Étape par Étape » (Rencontre / Chiffrage / Réalisation / Garantie) ;
+  - « Avantages clients » (paiement + parrainage) ;
+  - « Commençons Ensemble – Votre Projet Mérite L'Excellence » ;
+  - le pied de page de l'accueil (phrase, réseaux, « Contact Privé », SIRET, assurance, citation) ;
+  - « Nos Actualités » (9 articles) ;
+  - le menu de l'accueil (Portfolio, L'Envers du Décor, Processus, Le Blog, Devis Gratuit, téléphone).
+- **Ajouté** :
+  - « L'exigence d'un atelier, la simplicité d'un seul interlocuteur » ;
+  - 6 cartes de services réécrites ;
+  - « Pourquoi M&B » (6 points, dont « Assuré en décennale ») ;
+  - « Projets choisis » ;
+  - section avis « 14 clients… » ;
+  - « Quatre étapes » réécrites ;
+  - « Parlons de votre rénovation ».
+
+#### H. Ajouté (nouvelles URL, pas dans `main`)
+
+12 pages `/realisations/<projet>/`, avec des titres et descriptions écrits par moi. Elles seront gardées, mais remplies avec les textes existants (légendes des photos du gérant et textes alternatifs de `_data/realisations.yml`).
+
 ## Statuts utilisés
 
 `brouillon` → `testé` → `en attente d'accord` → `mergé`
@@ -206,7 +312,8 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 
 ## En cours
 
-- Rien. **En attente de l'accord du gérant** avant tout merge.
+- Étape 7 : liste des contenus modifiés envoyée au gérant (testé : comparaison automatique du texte des 71 pages, script `textdiff.py` dans le scratchpad).
+- Étape 8 et suivantes : remettre le contenu de `main` (voir « Restant »).
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 
