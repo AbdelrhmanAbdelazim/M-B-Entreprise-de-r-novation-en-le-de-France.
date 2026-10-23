@@ -9,7 +9,45 @@
 ## 🟪 Reprise par Claude (24/10) : seul outil sur le site
 
 **Décision du gérant (23/10, soir) : un seul outil travaille sur le site, Claude.** Devin, Codex et Antigravity **arrêtent** tout travail sur ce dépôt.
-Design voulu : **le dernier travail d'Antigravity**, pas `redesign-premium`, ni l'aperçu A-C seul.
+Design voulu : **le dernier travail d'Antigravity**, pas `redesign-premium`, ni l'aperçu A-C seul. **Branche de travail : `antigravity/ac-final`.**
+
+### Étape 0 : retrouver le travail d'Antigravity : FAIT, confirmé par le gérant
+- Absent de GitHub (aucune branche, aucun commit, aucune PR Antigravity).
+- Trouvé sur le Mac, **non commité**, dans le worktree Codex `~/MB-Renovation/codex-ac-menu-galleries` (52 fichiers modifiés, 34 nouveaux, dernières modifications le 23/10 à 23 h 48).
+- Sauvegarde :
+  - branche `antigravity/ac-final` @ 0c7fd2d ;
+  - copie complète : `~/MB-Renovation/backups/antigravity-worktree-20261024/` ;
+  - `_redesign/preview-site/` (28 Mo de build) non commité.
+- Le worktree Codex a été détaché (HEAD détaché sur 0c7fd2d) pour libérer la branche. Rien n'y a été modifié.
+- Le gérant a confirmé que c'est le bon design (24/10).
+- Constat : les dernières modifications d'Antigravity mettent déjà son design en **production** : l'accueil `/` utilise `_includes/apercu/ac-content.html`, et l'en-tête, le menu complet et le pied de page sont unifiés sur toutes les pages. Son propre journal (plus bas) dit encore « aperçu seulement ».
+
+### Étape 1 : WhatsApp et formulaire : FAIT (24/10, commit 4de5722)
+- `index.html` : `sans_whatsapp` retiré.
+- `ac-content.html` :
+  - ligne **WhatsApp** dans « Contactez-nous » (« WhatsApp Direct », texte de main) ;
+  - bouton « Contacter via WhatsApp » sous le formulaire.
+- `js.html` :
+  - à l'envoi : ouverture de WhatsApp avec la demande pré-remplie (comme sur main) **et** copie vers n8n ;
+  - message de succès sans « équipe » : « Nous vous recontactons sous 24h ouvrées ».
+- `_data/apercu_accueil.yml` : sous-titre du formulaire remis comme sur main (Antigravity l'avait changé).
+- n8n, côté mb-operations :
+  - W2 envoie aussi un **email au gérant** ;
+  - accusé client « sous 24h ouvrées » ;
+  - W1 ignore les emails venant de @maison-mb.fr.
+- **Test réel depuis le formulaire du nouveau site** (build local) :
+  - W2 exécution 922 success : Telegram OK, email gérant accepté, accusé client accepté ;
+  - WhatsApp ouvert avec nom, téléphone, email, objet et projet (2ᵉ essai, sans envoi réseau) ;
+  - CORS du webhook autorisé pour https://www.maison-mb.fr ;
+  - lignes de test supprimées (Clients n° 1, Queue n° 276, Journal n° 113) ; Blacklist inchangée.
+- Build local : Jekyll 3.9.5 de Codex (`~/Documents/Codex/.../mb-site-build-gems`), commande `JEKYLL_NO_BUNDLER_REQUIRE=true GEM_HOME=… jekyll build`.
+
+### Restant (ordre du gérant)
+1. Comparer le texte de toutes les pages avec main et remettre le contenu de main, sauf ce que le gérant a fait retirer.
+2. Vérifier et terminer le design sur toutes les pages (services, villes, départements, blog, Réalisations, pages projets, entreprise…).
+3. Propositions pour les phrases « concepteur » (sans les modifier).
+4. Aperçu mobile au gérant : accueil, une page service, Réalisations.
+5. Après accord : contrôle complet, tag `site-avant-redesign` sur main 8909697, merge, vérification en ligne (retour au tag si gros problème).
 
 ### Reprise Antigravity demandée par le gérant — 23/10/2026
 - Branche propriétaire : `codex/ac-menu-galleries` ; base et dernier commit vérifié : `5c7f2def1f2d8dcb50ab798ad7c1465e905b466a` (`main` épinglé à `8909697d920da75f140e97dec29e16bc04d244f3`).
