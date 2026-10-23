@@ -49,7 +49,7 @@
 | 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | testé |
 | 4 | Nouvel accueil court | testé |
 | 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | testé |
-| 6 | PR vers `main` (sans merge) + captures envoyées au gérant | à faire |
+| 6 | PR vers `main` (sans merge) + captures envoyées au gérant | en attente d'accord |
 
 ## Mesure de départ (Lighthouse 12.2.1, performance, site construit localement)
 
@@ -202,13 +202,23 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 | /realisations/ | 100, LCP 1,5 s, 1 328 Ko | 98, LCP 2,2 s, **207 Ko** | 100, 3 230 Ko | 100, **237 Ko** |
 | /services/plomberie/ | 99, LCP 2,0 s, 108 Ko | 99, LCP 2,0 s, 138 Ko | 100 | 100 |
 
+- Étape 6 : PR brouillon n° 24 ouverte vers main, **non mergée**. Captures mobile et ordinateur envoyées au gérant.
+
 ## En cours
 
-- Étape 6 : PR vers main (sans merge) + captures envoyées au gérant.
+- Rien. **En attente de l'accord du gérant** avant tout merge.
 
-## Restant (dans l'ordre)
+## Restant (dans l'ordre, pour l'agent suivant)
 
-Étapes 1 à 6 du plan ci-dessus.
+1. Lire les réponses du gérant aux « Questions » ci-dessous et appliquer seulement ce qu'il accepte, sur `redesign-premium`, avec un commit par point.
+2. Relancer les contrôles de l'étape 5 :
+   - build github-pages (bundle isolé) ;
+   - liens et SEO comparés à main ;
+   - scan des mots interdits ;
+   - Playwright mobile et ordinateur ;
+   - Lighthouse.
+3. Merger la PR n° 24 **uniquement** après un « oui » explicite du gérant, puis vérifier le déploiement GitHub Pages.
+
 
 ## Questions pour le gérant (ne bloquent pas le travail)
 
@@ -227,4 +237,4 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 
 ## Dernier commit
 
-(mis à jour à chaque étape)
+1f53ee2 (étape 5) puis le commit de cette mise à jour ; PR brouillon : https://github.com/AbdelrhmanAbdelazim/M-B-Entreprise-de-r-novation-en-le-de-France./pull/24
