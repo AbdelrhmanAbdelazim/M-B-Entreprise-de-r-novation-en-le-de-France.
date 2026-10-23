@@ -29,20 +29,31 @@
     }
     function setMenu(open) {
         if (!menu) return;
+{% if page.detailed_menu %}
+        if (open && !menu.open) menu.showModal();
+        else if (!open && menu.open) menu.close();
+{% else %}
         menu.hidden = !open;
+{% endif %}
         menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
         body.classList.toggle('no-scroll', open);
     }
 
+{% if page.detailed_menu %}
+    menu.addEventListener('close', function () {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        if (!modal || modal.hidden) body.classList.remove('no-scroll');
+    });
+{% endif %}
     document.addEventListener('click', function (e) {
         var t = e.target;
         if (t.closest('[data-menu-close]')) setMenu(false);
         if (t.closest('[data-devis]')) { e.preventDefault(); openDevis(); return; }
         if (t.closest('[data-close]') || t === modal) closeDevis();
-        if (t.closest('#menuBtn')) setMenu(menu.hidden);
+        if (t.closest('#menuBtn')) setMenu({% if page.detailed_menu %}!menu.open{% else %}menu.hidden{% endif %});
     });
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { closeDevis(); setMenu(false); }
+        if (e.key === 'Escape') { {% if page.detailed_menu %}if (menu.open) e.preventDefault();{% endif %} closeDevis(); setMenu(false); }
         if (e.key === 'Tab' && modal && !modal.hidden) {
             var f = modal.querySelectorAll('button, a[href], input, textarea');
             var first = f[0], last = f[f.length - 1];

@@ -1,0 +1,41 @@
+<dialog class="full-menu" id="mobileMenu" aria-labelledby="menuTitle">
+    <div class="full-menu-head">
+        <h2 id="menuTitle">Menu</h2>
+        <button type="button" class="full-menu-close" data-menu-close aria-label="Fermer le menu" autofocus><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="full-menu-content">
+        <nav class="full-menu-primary" aria-label="Navigation principale">
+            <a href="/apercu/ac/" data-menu-close>Accueil</a>
+            <a href="/realisations/#portfolio" data-menu-close>Portfolio</a>
+            <a href="/realisations/#chantiers" data-menu-close>L’Envers du Décor</a>
+            <a href="/apercu/ac/#processus" data-menu-close>Processus</a>
+            <a href="/realisations/" data-menu-close>Réalisations</a>
+            <a href="/blog/" data-menu-close>Le Blog</a>
+        </nav>
+        <nav class="full-menu-details" aria-label="Toutes les rubriques">
+            <details>
+                <summary>Nos Services</summary>
+                <div class="menu-subnav">
+                    <a href="/services/" data-menu-close>Nos Services</a>
+                    {% for s in site.services %}<a href="{{ s.url }}" data-menu-close>{{ s.title }}</a>{% endfor %}
+                </div>
+            </details>
+            <details>
+                <summary>Zones d’intervention</summary>
+                <div class="menu-subnav">
+                    <a href="/zones-intervention/" data-menu-close>Paris et Île-de-France</a>
+                    {% assign deps = site.departements | sort: "code" %}{% for dep in deps %}<a href="{{ dep.url }}" data-menu-close>{{ dep.nom }} ({{ dep.code }})</a>{% endfor %}
+                </div>
+            </details>
+            <a href="/entreprise/" data-menu-close>L’entreprise</a>
+            <a href="/sous-traitance-renovation/" data-menu-close>Sous-traitance</a>
+            <a href="/avis/" data-menu-close>Donner mon avis</a>
+            <a href="/parrainage/" data-menu-close>Parrainage</a>
+            <button type="button" class="menu-devis" data-menu-close data-devis>{{ site.data.apercu_accueil.hero.btn }}</button>
+        </nav>
+    </div>
+    <nav class="full-menu-legal" aria-label="Informations légales">
+        <a href="/mentions-legales/" data-menu-close>Mentions légales</a>
+        <a href="/confidentialite/" data-menu-close>Confidentialité</a>
+    </nav>
+</dialog>

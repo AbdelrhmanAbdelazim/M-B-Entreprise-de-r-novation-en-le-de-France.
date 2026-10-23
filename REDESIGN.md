@@ -6,6 +6,17 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
+## Reprise Antigravity demandée par le gérant — 23/10/2026
+- Branche propriétaire : codex/ac-menu-galleries ; base et dernier commit vérifié : 5c7f2def.
+- État : **BROUILLON / NON TESTÉ EN NAVIGATEUR**, aucune fusion ni publication.
+- Devin a reçu la demande mais s’est arrêté pour quota gratuit épuisé. Codex a préparé une ébauche locale puis le gérant a demandé Antigravity ; Codex cesse les modifications de l’interface.
+- Décision : conserver le hero d’inspiration, remplacer les galeries de l’accueil par des entrées textuelles vers les pages existantes, et proposer un menu complet ivoire/charbon/champagne sur mobile et desktop. Raison : demande explicite du gérant, accès aux photos à la demande.
+- Fichiers et contrat de reprise : _redesign/ANTIGRAVITY-HANDOFF-AR.md ; référence visuelle _redesign/references/owner-menu-reference.jpg.
+- Réalisé : ébauche A-C uniquement ; syntaxe JS compilée par Liquid + node --check et git diff --check sans erreur.
+- En cours : Antigravity CLI officiel 1.4.6 téléchargé dans un outil local isolé (SHA512 vérifié), lancé en sandbox avec une seule consigne de reprise. Démarrage affichant « not signed in », puis écran initial ; ni authentification ni démarrage effectif de la tâche confirmés. Le contrôle automatique a rejeté une touche Enter susceptible de poursuivre l’authentification. Attente du gérant pour connexion/écran initial ; aucune approbation contournée. Codex ne reprend pas l’écriture de l’interface.
+- Restant dans l’ordre : terminer le build isolé Jekyll (i18n compatible Ruby 2.6), tester réellement 320/390/1366px et clavier/formulaire sans envoi, vérifier liens/photos/anciens aperçus, capturer, documenter, commit/push sur ce seul branch puis avis du gérant. Ne pas appliquer aux autres pages ni publier.
+- Aucun test navigateur ni contrôle de galerie complète ne peut être annoncé comme réussi à ce stade.
+
 ## 🟦 Reprise Devin (23/10/2026) : étape 15, branche `devin/redesign-directions`
 
 - Session : https://app.devin.ai/sessions/edaade99f0a54c9abeda9589798b669a

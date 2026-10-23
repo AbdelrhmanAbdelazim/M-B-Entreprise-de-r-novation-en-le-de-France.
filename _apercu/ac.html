@@ -5,6 +5,7 @@ direction: ac
 direction_nom: "Variante A-C · composition A, couleurs C, sans WA"
 theme_color: "#1C1E22"
 sans_whatsapp: true
+detailed_menu: true
 hero_inspiration: /_apercu/inspiration/mb-hero-inspiration-v1
 hero_inspiration_alt: "Illustration d'inspiration : salon haussmannien ivoire avec cheminée en marbre, moulures, parquet en point de Hongrie, canapé clair et fauteuil anthracite"
 sitemap: false
@@ -14,14 +15,10 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
 ---
 {%- assign d = site.data.apercu_accueil -%}
 <header class="site-head">
-    <nav class="head-nav" aria-label="Navigation principale">
-        {%- for l in d.nav.menu %}<a href="{{ l.href }}">{{ l.label }}</a>{% endfor %}
-    </nav>
-    <div class="head-actions">
-        <button type="button" class="btn head-devis" data-devis>{{ d.hero.btn }}</button>
-{% include apercu/menu.html %}
-    </div>
+    <button type="button" class="menu-trigger" id="menuBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileMenu"><span class="menu-lines" aria-hidden="true"><span></span><span></span></span>Menu</button>
+    <button type="button" class="btn head-devis" data-devis>{{ d.hero.btn }}</button>
 </header>
+{% include apercu/ac-menu.html %}
 
 <main id="contenu">
     <section class="hero">
@@ -39,7 +36,7 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
             <p class="hero-sub">{{ d.hero.sub }}</p>
             <div class="hero-actions">
                 <button type="button" class="btn btn--gold" data-devis>{{ d.hero.btn }}</button>
-                <a href="#portfolio" class="btn btn--line">{{ d.hero.ghost }}</a>
+                <a href="/realisations/" class="btn btn--line">{{ d.hero.ghost }}</a>
             </div>
         </div>
         <ul class="hero-stats wrap" id="stats">
@@ -47,22 +44,7 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
             <li><span class="stat-n">{{ s.n }}</span><span class="stat-l">{{ s.l }}</span></li>
             {%- endfor %}
         </ul>
-        <a class="hero-scroll" href="#portfolio"><span></span>{{ d.hero.scroll }}</a>
-    </section>
-
-    <section class="portfolio" id="portfolio" aria-labelledby="t-portfolio">
-        <div class="wrap sec-head">
-            <p class="eyebrow">{{ d.portfolio.eyebrow }}</p>
-            <h2 id="t-portfolio">{{ d.portfolio.title }}</h2>
-        </div>
-        <div class="pf-grid">
-            {%- for it in d.portfolio.items %}
-            <figure class="pf-item pf-item--{{ forloop.index }}">
-                {% if forloop.first %}{% include webp-img.html key=it.key alt=it.alt sizes="(min-width: 900px) 60vw, 100vw" %}{% else %}{% include webp-img.html key=it.key alt=it.alt sizes="(min-width: 900px) 40vw, 50vw" %}{% endif %}
-                <figcaption><h3>{{ it.h }}</h3><span>{{ it.s }}</span></figcaption>
-            </figure>
-            {%- endfor %}
-        </div>
+        <a class="hero-scroll" href="#services"><span></span>{{ d.hero.scroll }}</a>
     </section>
 
     <section class="services" id="services" aria-labelledby="t-services">
@@ -91,33 +73,24 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
         </div>
     </section>
 
-    <section class="chantiers" id="chantiers" aria-labelledby="t-chantiers">
-        <div class="wrap sec-head sec-head--center">
-            <p class="eyebrow">{{ d.chantiers.eyebrow }}</p>
-            <h2 id="t-chantiers">{{ d.chantiers.title }}</h2>
-            <p class="sec-intro">{{ d.chantiers.intro }}</p>
-        </div>
-        <ul class="film" tabindex="0" aria-label="{{ d.chantiers.title }}">
-            {%- for it in d.chantiers.items %}
-            <li class="film-item">
-                {% include webp-img.html key=it.key alt=it.alt sizes="(min-width: 900px) 25vw, 75vw" %}
-                <div class="film-cap"><h3>{{ it.h }}</h3><span>{{ it.s }}</span></div>
-            </li>
-            {%- endfor %}
-        </ul>
-    </section>
-
-    <section class="realisations" id="realisations" aria-labelledby="t-real">
+    <section class="work-entries" id="realisations" aria-labelledby="t-real">
         <div class="wrap">
             <div class="sec-head sec-head--center">
                 <p class="eyebrow">{{ d.realisations.eyebrow }}</p>
                 <h2 id="t-real">{{ d.realisations.title }}</h2>
                 <p class="sec-intro">{{ d.realisations.intro }}</p>
             </div>
-            <div class="real-grid">
-                {%- for it in d.realisations.items %}
-                <a href="/realisations/">{% include webp-img.html key=it.key alt=it.alt sizes="(min-width: 900px) 33vw, 50vw" %}</a>
-                {%- endfor %}
+            <div class="work-entry-grid">
+                <a class="work-entry" id="portfolio" href="/realisations/#portfolio">
+                    <span class="eyebrow">{{ d.portfolio.eyebrow }}</span>
+                    <span class="work-entry-title">{{ d.portfolio.title }}</span>
+                    <span class="work-entry-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="work-entry" id="chantiers" href="/realisations/#chantiers">
+                    <span class="eyebrow">{{ d.chantiers.eyebrow }}</span>
+                    <span class="work-entry-title">{{ d.chantiers.title }}</span>
+                    <span class="work-entry-arrow" aria-hidden="true">↗</span>
+                </a>
             </div>
             <p class="center"><a href="/realisations/" class="btn btn--gold">{{ d.realisations.cta }}</a></p>
         </div>
