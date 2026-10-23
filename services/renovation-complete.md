@@ -6,8 +6,8 @@ heading: "Rénovation complète à Paris et en Île-de-France"
 seo_title: "Rénovation complète d'appartement à Paris – Tous corps d'état | M&B Rénovation"
 description: "Rénovation complète d'appartement ou de maison à Paris et en Île-de-France, tous corps d'état : un interlocuteur unique, devis détaillé et garantie décennale."
 permalink: /services/renovation-complete/
-image: /chantier-13.jpg
-image_alt: "Appartement parisien entièrement rénové : parquet neuf, murs repeints et placard intégré"
+image: /chantier-7.jpg
+image_alt: "Appartement parisien entièrement rénové : parquet neuf, murs repeints et placard sur mesure"
 ---
 Rénover entièrement un appartement ou une maison implique de nombreux métiers et un ordre précis d'intervention. **M&B Rénovation** coordonne l'ensemble des travaux tous corps d'état : vous avez un seul interlocuteur, de la première visite à la remise des clés.
 
@@ -18,7 +18,7 @@ Rénover entièrement un appartement ou une maison implique de nombreux métiers
 - [Plâtrerie](/services/platrerie/), isolation et faux plafonds
 - [Carrelage](/services/carrelage/) et [sols](/services/sols/)
 - [Peinture](/services/peinture/) et finitions
-- [Pose de placards](/services/menuiserie/) et de portes intérieures
+- [Menuiserie](/services/menuiserie/) intérieure sur mesure
 - Salles de bains et cuisines
 
 ## Notre méthode en quatre étapes

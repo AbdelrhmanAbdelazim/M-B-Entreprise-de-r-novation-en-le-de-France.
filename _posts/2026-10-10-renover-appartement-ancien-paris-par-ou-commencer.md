@@ -42,7 +42,7 @@ L'ordre des étapes conditionne la qualité du résultat :
 2. Électricité et plomberie
 3. Plâtrerie, cloisons, reprise des murs et plafonds
 4. Carrelage et sols
-5. Pose de placards et portes
+5. Menuiseries
 6. Peinture et finitions
 
 Peindre avant de reprendre l'électricité, c'est risquer de tout abîmer ensuite.
@@ -57,6 +57,6 @@ Si vous habitez sur place, prévoyez une organisation pièce par pièce. Un chan
 
 ## Notre accompagnement
 
-M&B Rénovation rénove des appartements à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et pose de placards. Nous étudions votre projet, vous remettons un devis clair et détaillé, et suivons le chantier jusqu'à la dernière finition, avec la garantie décennale.
+M&B Rénovation rénove des appartements à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et menuiserie. Nous étudions votre projet, vous remettons un devis clair et détaillé, et suivons le chantier jusqu'à la dernière finition, avec la garantie décennale.
 
 **Vous préparez la rénovation d'un appartement ?** Écrivez-nous sur WhatsApp au 07 53 30 65 59 avec quelques photos : étude de projet offerte.

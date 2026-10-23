@@ -1,5 +1,5 @@
 title: "M&B Rénovation"
-description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et pose de placards. Garantie décennale."
+description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Garantie décennale."
 url: "https://www.maison-mb.fr"
 baseurl: ""
 
@@ -121,7 +121,7 @@ services:
     url: /services/sols/
   - title: "Peinture"
     url: /services/peinture/
-  - title: "Pose de placards"
+  - title: "Menuiserie"
     url: /services/menuiserie/
   - title: "Rénovation complète"
     url: /services/renovation-complete/

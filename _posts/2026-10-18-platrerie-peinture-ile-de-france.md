@@ -23,7 +23,7 @@ Qu'il s'agisse de créer de nouvelles cloisons, des faux plafonds, des coffrages
 
 ## 2. Peinture et finitions : Le choix des grands professionnels
 
-L'application d'une peinture professionnelle (marques reconnues comme Tollens ou Seigneurie) passe par un cycle strict : lessivage, impression (sous-couche), rebouchage des imperfections, ponçage, puis peinture finale. Cela assure une finition durable et homogène.
+L'application d'une peinture professionnelle (marques reconnues comme Tollens ou Seigneurie) passe par un cycle strict : lessivage, impression (sous-couche), rebouchage des imperfections, ponçage, puis peinture finale. Cela garantit une finition durable et homogène.
 
 ---
 

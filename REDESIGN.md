@@ -219,6 +219,7 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 - **« Menuiserie » dans `site.services`** : le libellé devient « Pose de placards ». L'URL `/services/menuiserie/` ne change pas.
 - **Pas d'animation d'apparition au défilement** : elle laissait le contenu invisible pour les outils qui ne font pas défiler la page (captures, certains robots).
 - **6ᵉ point « Assuré en décennale »** dans Pourquoi M&B : fait déjà présent sur le site (assureur dans `_config.yml`). À retirer si le gérant préfère seulement les 5 points demandés.
+- **WebP des montages** (`images/realisations/webp/<nom>-480|1080.webp`, 3,8 Mo contre 7,6 Mo en JPG) : même image, sans recadrage. Raison : vitesse, sans changer le choix des photos.
 - **Photos sans texte** : les projets utilisent les originaux propres (`chantier-N.jpg`) quand ils existent ; sinon le montage, découpé sous le bandeau. Raison : un rendu « cabinet d'architecture » et la suppression des légendes contenant « sur mesure ».
 - **Une seule source pour les projets** : `_data/projets.yml`. Pour ajouter un projet, ajouter une entrée puis lancer `python3 _scripts/projets.py`. Le dossier `_scripts` n'est pas publié (préfixe `_`).
 - **Collections** : les photos isolées ne sont pas présentées comme un même chantier. Elles sont regroupées par thème et la carte précise « Plusieurs chantiers ». Raison : ne pas inventer de projet.
@@ -313,7 +314,13 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 ## En cours
 
 - Étape 7 : liste des contenus modifiés envoyée au gérant (testé : comparaison automatique du texte des 71 pages, script `textdiff.py` dans le scratchpad).
-- Étape 8 et suivantes : remettre le contenu de `main` (voir « Restant »).
+- Étape 8 (testé : comparaison du texte de toutes les pages avec main → identique hors en-tête, pied de page et fenêtre devis ; JSON-LD identique sur toutes les pages) :
+  - remis depuis main : `_posts`, `entreprise.md`, `services/`, `_villes`, `_departements`, avis, parrainage, sous-traitance, zones, mentions, confidentialité, blog, `_data/realisations.yml`, ainsi que `legal-footer`, `cookie-banner`, `seo` et `consent-head` ;
+  - `_config.yml` : description du site et libellé « Menuiserie » remis ;
+  - blocs paiement et parrainage : texte de main mot pour mot (montants et icônes compris), seul le style change ;
+  - pages villes : mêmes photos et mêmes textes alternatifs que main, servies en WebP via `<picture>`, avec le JPG d'origine en secours ;
+  - `_data/photos_remplacement.yml` supprimé (fichier créé par nous).
+- Étape 9 (à faire) : en-tête, pied de page et fenêtre devis avec les textes de main.
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 

@@ -84,7 +84,23 @@ def cut(path, mode):
     sys.exit(f"découpe inconnue : {mode}")
 
 
+def montages_webp():
+    """Copies WebP (480 et 1080 px) des montages images/realisations/*.jpg, sans recadrage :
+    même image que l'original, utilisée par les pages villes via <picture>."""
+    src = os.path.join(ROOT, "images", "realisations")
+    out = os.path.join(src, "webp")
+    os.makedirs(out, exist_ok=True)
+    for f in sorted(os.listdir(src)):
+        if not f.lower().endswith(".jpg"):
+            continue
+        im = Image.open(os.path.join(src, f)).convert("RGB")
+        for w in (480, 1080):
+            h = round(im.height * w / im.width)
+            im.resize((w, h), Image.LANCZOS).save(os.path.join(out, f"{f[:-4]}-{w}.webp"), "WEBP", quality=80, method=6)
+
+
 def main():
+    montages_webp()
     projets = yaml.safe_load(open(os.path.join(ROOT, "_data", "projets.yml"), encoding="utf-8"))
     media = {}
     os.makedirs(os.path.join(ROOT, "_projets"), exist_ok=True)
