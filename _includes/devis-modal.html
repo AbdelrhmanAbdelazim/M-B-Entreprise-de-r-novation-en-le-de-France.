@@ -1,33 +1,33 @@
-{%- assign c = site.company -%}
+{%- comment -%} Fenêtre devis de l'accueil. Textes identiques à main ; seul le style change. {%- endcomment -%}
 <div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="devisTitle">
     <div class="modal-panel">
-        <button type="button" class="modal-close" data-modal-close aria-label="Fermer">&#10005;</button>
-        <div class="eyebrow">Étude de projet offerte</div>
-        <h2 id="devisTitle">Demander un devis</h2>
-        <p class="modal-sub">Réponse écrite sous 24h ouvrées, par WhatsApp ou e-mail. Sans engagement.</p>
+        <button type="button" class="modal-close" data-modal-close aria-label="Fermer">✕</button>
+        <div class="eyebrow">Consultation Privée</div>
+        <h2 id="devisTitle">Étude de Projet</h2>
+        <p class="modal-sub">Expertise gratuite. Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail). Aucun engagement.</p>
         <form id="leadForm">
             <div class="form-group">
-                <label class="form-label" for="nom">Nom et prénom</label>
-                <input type="text" id="nom" class="form-control" autocomplete="name" required>
+                <label class="form-label" for="nom">Nom & Prénom</label>
+                <input type="text" id="nom" class="form-control" placeholder="Jean Dupont" required>
             </div>
             <div class="form-group">
                 <label class="form-label" for="tel">Téléphone</label>
-                <input type="tel" id="tel" class="form-control" autocomplete="tel" inputmode="tel" required>
+                <input type="tel" id="tel" class="form-control" placeholder="06 00 00 00 00" required>
             </div>
             <div class="form-group">
                 <label class="form-label" for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" autocomplete="email">
+                <input type="email" id="email" class="form-control" placeholder="jean.dupont@email.fr">
             </div>
             <div class="form-group">
-                <label class="form-label" for="projet">Votre projet</label>
-                <textarea id="projet" class="form-control" placeholder="Type de travaux, commune, surface approximative…" required></textarea>
+                <label class="form-label" for="projet">Votre Projet</label>
+                <textarea id="projet" class="form-control" placeholder="Décrivez brièvement vos envies et le type de travaux envisagés..." required></textarea>
             </div>
-            <button type="submit" class="btn form-submit">Envoyer la demande</button>
-            <p class="form-note">Paiement en plusieurs fois sans frais possible pour les projets éligibles, modalités précisées dans le devis.</p>
+            <button type="submit" class="btn form-submit">Envoyer la Demande</button>
+            <p class="form-note"><strong>Paiement en plusieurs fois sans frais :</strong> pour les projets à partir de 3 000 €, matériaux réglés à la signature, main-d'œuvre en 3 fois sans frais. Sous réserve d'acceptation, modalités précisées dans le devis.</p>
             <p class="form-note">Vos informations servent uniquement à répondre à votre demande de devis. <a href="/confidentialite/">Politique de confidentialité</a></p>
         </form>
         <div class="modal-alt">
-            <a href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">{% include icon.html name="whatsapp" %}Écrire sur WhatsApp</a>
+            <a href="https://wa.me/33753306559" target="_blank"><i class="fa-brands fa-whatsapp fa-lg"></i> Contacter via WhatsApp</a>
         </div>
     </div>
 </div>

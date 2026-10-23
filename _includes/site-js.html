@@ -1,3 +1,4 @@
+{%- if page.lightbox %}
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
     <button type="button" class="lightbox-btn lightbox-close" aria-label="Fermer">&#10005;</button>
     <button type="button" class="lightbox-btn lightbox-prev" aria-label="Photo précédente">&#8249;</button>
@@ -5,6 +6,7 @@
     <button type="button" class="lightbox-btn lightbox-next" aria-label="Photo suivante">&#8250;</button>
     <p class="lightbox-caption"></p>
 </div>
+{%- endif %}
 <script>
 (function () {
     var body = document.body;
@@ -21,6 +23,7 @@
 
     /* Fenêtre devis */
     var modal = document.getElementById('contactModal'), lastFocus = null;
+    if (modal) {
     window.openModal = function () {
         setMenu(false);
         lastFocus = document.activeElement;
@@ -39,7 +42,9 @@
     });
 
     /* Formulaire → WhatsApp (+ copie vers n8n W2), comportement inchangé */
-    document.getElementById('leadForm').addEventListener('submit', function (e) {
+    }
+    var form = document.getElementById('leadForm');
+    if (form) form.addEventListener('submit', function (e) {
         e.preventDefault();
         var nom = document.getElementById('nom').value;
         var tel = document.getElementById('tel').value;
@@ -58,7 +63,9 @@
     });
 
     /* Lightbox : groupes [data-gallery], liens <a href="grande image"> */
-    var box = document.getElementById('lightbox'), big = box.querySelector('img'), cap = box.querySelector('.lightbox-caption');
+    var box = document.getElementById('lightbox');
+    if (box) {
+    var big = box.querySelector('img'), cap = box.querySelector('.lightbox-caption');
     var items = [], index = 0, opener = null;
     function show(i) {
         index = (i + items.length) % items.length;
@@ -91,9 +98,11 @@
         if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
     });
 
+    }
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') { if (box.classList.contains('is-open')) closeBox(); else if (modal.classList.contains('active')) window.closeModal(); else setMenu(false); }
-        if (box.classList.contains('is-open')) { if (e.key === 'ArrowLeft') show(index - 1); if (e.key === 'ArrowRight') show(index + 1); }
+        var lbOpen = box && box.classList.contains('is-open');
+        if (e.key === 'Escape') { if (lbOpen) closeBox(); else if (modal && modal.classList.contains('active')) window.closeModal(); else setMenu(false); }
+        if (lbOpen) { if (e.key === 'ArrowLeft') show(index - 1); if (e.key === 'ArrowRight') show(index + 1); }
     });
 
     /* Apparition douce au défilement */

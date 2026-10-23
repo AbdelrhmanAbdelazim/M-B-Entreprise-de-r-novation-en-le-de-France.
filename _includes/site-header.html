@@ -1,28 +1,42 @@
+{%- comment -%}
+  En-tête. Textes identiques à main :
+  - accueil (page.home) : logo, téléphone, « Devis Gratuit », menu mobile d'origine ;
+  - autres pages : Services, Réalisations, Blog, « Retour au site ».
+  Seul le style change. Les ancres Portfolio / L'Envers du Décor pointent vers /realisations/,
+  où les galeries de l'accueil ont été déplacées.
+{%- endcomment -%}
 {%- assign c = site.company -%}
-<a class="sr-only" href="#contenu">Aller au contenu</a>
+{%- if page.home %}
 <header class="site-header">
     <div class="container">
-        <a href="/" class="logo" aria-label="M&B Rénovation, accueil">M&amp;B <em>Rénovation</em></a>
-        <nav class="nav" aria-label="Navigation principale">
-            <a href="/services/"{% if page.url contains '/services/' %} aria-current="page"{% endif %}>Services</a>
-            <a href="/realisations/"{% if page.url contains '/realisations/' %} aria-current="page"{% endif %}>Réalisations</a>
-            <a href="/sous-traitance-renovation/"{% if page.url == '/sous-traitance-renovation/' %} aria-current="page"{% endif %}>Professionnels</a>
-            <a href="/zones-intervention/"{% if page.url contains '/zones-intervention/' or page.url contains '/renovation/' %} aria-current="page"{% endif %}>Zones</a>
-            <a href="/blog/"{% if page.url contains '/blog/' or page.collection == 'posts' %} aria-current="page"{% endif %}>Blog</a>
-        </nav>
+        <a href="#" class="logo">M&amp;B <em>Rénovation</em></a>
         <div class="header-actions">
-            <button type="button" class="btn btn--desktop" data-devis>Demander un devis</button>
+            <a href="tel:+33753306559" class="nav-tel">+33 7 53 30 65 59</a>
+            <button type="button" class="btn btn--desktop" data-devis>Devis Gratuit</button>
             <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
         </div>
     </div>
 </header>
-<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
-    <a href="/">Accueil</a>
+<nav class="mobile-nav" id="mobileNav">
     <a href="/services/">Services</a>
+    <a href="/realisations/#portfolio">Portfolio</a>
+    <a href="/realisations/#chantiers">L'Envers du Décor</a>
+    <a href="#processus">Processus</a>
     <a href="/realisations/">Réalisations</a>
-    <a href="/sous-traitance-renovation/">Professionnels</a>
-    <a href="/zones-intervention/">Zones d'intervention</a>
-    <a href="/blog/">Blog</a>
-    <button type="button" class="btn" data-devis>Demander un devis</button>
-    <p class="mobile-contact">Téléphone : <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a><br>E-mail : <a href="mailto:{{ c.email }}">{{ c.email }}</a></p>
+    <a href="/blog">Le Blog</a>
+    <button type="button" class="btn" data-devis>Devis Gratuit</button>
 </nav>
+<button type="button" class="fab" data-devis aria-label="Demander un devis"><i class="fa-solid fa-pen-nib"></i></button>
+{%- else %}
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">M&amp;B <em>Rénovation</em></a>
+        <nav class="nav nav--page">
+            <a href="/services/" class="nav-secondary">Services</a>
+            <a href="/realisations/">Réalisations</a>
+            <a href="/blog/" class="nav-secondary">Blog</a>
+            <a href="/" class="nav-back" aria-label="Retour au site"><i class="fa-solid fa-arrow-left"></i><span class="nav-back-label"> Retour au site</span></a>
+        </nav>
+    </div>
+</header>
+{%- endif %}

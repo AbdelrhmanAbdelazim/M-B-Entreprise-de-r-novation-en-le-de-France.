@@ -320,7 +320,14 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - blocs paiement et parrainage : texte de main mot pour mot (montants et icônes compris), seul le style change ;
   - pages villes : mêmes photos et mêmes textes alternatifs que main, servies en WebP via `<picture>`, avec le JPG d'origine en secours ;
   - `_data/photos_remplacement.yml` supprimé (fichier créé par nous).
-- Étape 9 (à faire) : en-tête, pied de page et fenêtre devis avec les textes de main.
+- Étape 9 (testé : texte identique à main sur 69 des 71 pages ; restent l'accueil et /realisations/) :
+  - `site-header.html` : sur l'accueil (`home: true`), en-tête de main (logo, téléphone, « Devis Gratuit », menu mobile d'origine, bouton flottant) ; sur les autres pages, en-tête simple de main (Services, Réalisations, Blog, « Retour au site ») ;
+  - `site-footer.html` : sur l'accueil, pied de page complet de main (réseaux, Navigation, Contact Privé, citation, « Nos Actualités ») ; ailleurs, pied simple de main ;
+  - `devis-modal.html` : textes de main mot pour mot. La fenêtre n'existe que sur l'accueil, comme dans main ;
+  - barre mobile « WhatsApp / Demander un devis » retirée ; mention « M&B Rénovation » retirée au-dessus des titres ;
+  - lightbox seulement sur les pages qui ont `lightbox: true` ;
+  - les liens Portfolio et L'Envers du Décor (menu et pied de l'accueil) pointent vers `/realisations/#portfolio` et `/realisations/#chantiers`, où ces galeries sont déplacées. Le texte des liens ne change pas.
+- Étape 10 (à faire) : accueil avec les textes de main dans le nouveau design, sans les galeries.
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 

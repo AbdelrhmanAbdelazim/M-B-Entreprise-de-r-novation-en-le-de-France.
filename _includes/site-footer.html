@@ -1,35 +1,74 @@
-{%- assign c = site.company -%}
+{%- comment -%} Pied de page. Textes identiques à main (accueil : pied complet + « Nos Actualités » ; autres pages : pied simple). Seul le style change. {%- endcomment -%}
+{%- if page.home %}
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
-            <div>
-                <a href="/" class="logo">M&amp;B <em>Rénovation</em></a>
-                <p class="footer-tagline">Rénovation intérieure à Paris et en Île-de-France. Un seul interlocuteur, du devis à la réception des travaux.</p>
-            </div>
-            <div>
-                <p class="footer-title">Contact</p>
-                <ul>
-                    <li><a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a></li>
-                    <li><a href="mailto:{{ c.email }}">{{ c.email }}</a></li>
-                    <li><a href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">WhatsApp</a></li>
-                    <li>{{ c.street }}, {{ c.postal_code }} {{ c.city }}</li>
-                </ul>
+            <div class="footer-brand">
+                <a href="#" class="logo">M&amp;B <em>Rénovation</em></a>
+                <p class="footer-tagline">Une entreprise de rénovation qui redéfinit les standards de qualité en Île-de-France. Nous créons des espaces qui vous ressemblent.</p>
+                <div class="footer-socials">
+                    <a href="{{ site.social.facebook }}" target="_blank" class="footer-social"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="{{ site.social.instagram }}" target="_blank" class="footer-social"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" class="footer-social"><i class="fa-brands fa-google"></i></a>
+                    <a href="https://pin.it/6WHDNJlqj" target="_blank" class="footer-social"><i class="fa-brands fa-pinterest-p"></i></a>
+                </div>
             </div>
             <div>
                 <p class="footer-title">Navigation</p>
                 <ul>
-                    <li><a href="/services/">Services</a></li>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="/services/">Nos Services</a></li>
+                    <li><a href="/realisations/#portfolio">Portfolio</a></li>
+                    <li><a href="/realisations/#chantiers">L'Envers du Décor</a></li>
+                    <li><a href="#processus">Notre Processus</a></li>
                     <li><a href="/realisations/">Réalisations</a></li>
-                    <li><a href="/avis/">Avis clients</a></li>
-                    <li><a href="/parrainage/">Parrainage</a></li>
-                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/blog">Le Blog</a></li>
+                    <li><a href="/sous-traitance-renovation/">Sous-traitance</a></li>
+                    <li><button type="button" class="footer-link-btn" data-devis>Demander un devis</button></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Contact Privé</p>
+                <ul class="footer-contacts">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>6 place Henri Frenay<br>75012 Paris</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+33753306559">+33 7 53 30 65 59</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:abdel@maison-mb.fr">abdel@maison-mb.fr</a></li>
+                    <li><i class="fa-solid fa-certificate"></i> <span>SIRET : 923 102 412 00015</span></li>
+                    <li><i class="fa-solid fa-shield-halved"></i> <span>Assurance : Entoria / Fidelidade</span></li>
                 </ul>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 M&B Rénovation. Tous droits réservés.</p>
+            <p><span>«</span> L'excellence n'est pas un acte, c'est une habitude. <span>»</span></p>
+        </div>
+    </div>
+    <section class="footer-news" id="blog-news">
+        <div class="container">
+            <h2>Nos Actualités</h2>
+            <div class="news-grid">
+                {% for post in site.posts %}
+                <div class="news-card">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.description }}</p>
+                    <a class="link-arrow" href="{{ post.url }}">Lire la suite →</a>
+                </div>
+                {% else %}
+                <p>Nos derniers projets et conseils arrivent bientôt...</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div class="container">
 {% include legal-footer.html %}
     </div>
 </footer>
-<div class="action-bar" aria-label="Contact rapide">
-    <a href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">{% include icon.html name="whatsapp" %}WhatsApp</a>
-    <button type="button" data-devis>Demander un devis</button>
-</div>
+{%- else %}
+<footer class="site-footer site-footer--simple">
+    <div class="container">
+        <a href="/" class="logo">M&amp;B <em>Rénovation</em></a>
+        <p class="footer-bottom">&copy; 2026 M&B Rénovation. L'excellence n'est pas un acte, c'est une habitude.</p>
+{% include legal-footer.html %}
+    </div>
+</footer>
+{%- endif %}
