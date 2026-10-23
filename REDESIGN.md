@@ -47,7 +47,7 @@
 | 1 | Photos : WebP (3 tailles), bandeaux texte retirés, avant/après séparés, données des projets | testé |
 | 2 | Feuille de style commune + gabarit `page.html` (toutes les pages) + en-tête, pied de page, fenêtre devis et lightbox communs | testé |
 | 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | testé |
-| 4 | Nouvel accueil court | à faire |
+| 4 | Nouvel accueil court | testé |
 | 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | à faire |
 | 6 | PR vers `main` (sans merge) + captures envoyées au gérant | à faire |
 
@@ -103,6 +103,16 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - Gardés aussi : les identifiants légaux et de contact (SIRET, téléphone, codes postaux, n° d'assurance), obligatoires.
 - **Description du site** (`_config.yml` → `description`, utilisée dans le JSON-LD et par défaut) : « menuiserie » devient « pose de placards ». Raison : règle « pas de menuiserie ».
 - **`_data/realisations.yml`** n'est plus utilisé par /realisations/. Il est gardé, non supprimé, en attendant l'accord du gérant.
+- **Accueil sans faux avis** : aucune citation inventée. On affiche la note réelle confirmée par le gérant (14 clients, 5/5) et un lien vers la fiche Google. Pour afficher 2 ou 3 vrais avis, le gérant doit fournir les textes, avec l'accord des clients.
+- **Retirés de l'accueil** :
+  - galerie et « L'Envers du Décor » (remplacés par 3 projets + la page Réalisations) ;
+  - écran de chargement, curseur personnalisé, barre de progression, parallaxe (lenteur) ;
+  - bandeau de chiffres « 10 ans / 24h / 100 % sur mesure » (chiffres et « sur mesure ») ;
+  - blocs paiement et parrainage (remplacés par un lien Parrainage) ;
+  - liste « Nos actualités » : les articles restent sur /blog/ et dans le sitemap.
+- **« Menuiserie » dans `site.services`** : le libellé devient « Pose de placards ». L'URL `/services/menuiserie/` ne change pas.
+- **Pas d'animation d'apparition au défilement** : elle laissait le contenu invisible pour les outils qui ne font pas défiler la page (captures, certains robots).
+- **6ᵉ point « Assuré en décennale »** dans Pourquoi M&B : fait déjà présent sur le site (assureur dans `_config.yml`). À retirer si le gérant préfère seulement les 5 points demandés.
 - **Photos sans texte** : les projets utilisent les originaux propres (`chantier-N.jpg`) quand ils existent ; sinon le montage, découpé sous le bandeau. Raison : un rendu « cabinet d'architecture » et la suppression des légendes contenant « sur mesure ».
 - **Une seule source pour les projets** : `_data/projets.yml`. Pour ajouter un projet, ajouter une entrée puis lancer `python3 _scripts/projets.py`. Le dossier `_scripts` n'est pas publié (préfixe `_`).
 - **Collections** : les photos isolées ne sont pas présentées comme un même chantier. Elles sont regroupées par thème et la carte précise « Plusieurs chantiers ». Raison : ne pas inventer de projet.
@@ -149,9 +159,18 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - `realisations.html` : réécrit en cartes (photo, type de travaux, titre, lieu). Même URL et même title. Description sans « menuiserie sur mesure ».
   - Bug corrigé : sur mobile, la légende de la lightbox recouvrait les boutons précédent / suivant.
 
+- Étape 4 (testé : captures mobile et desktop, 0 erreur JS, pas de débordement) — `index.html` réécrit (1 630 → environ 140 lignes), avec `layout: page` et `full_width`. Même seo_title, même description, même H1 (« Entreprise de rénovation · Paris & Île-de-France »). Sections :
+  1. grande photo + une phrase (« L'exigence d'un atelier, la simplicité d'un seul interlocuteur. ») + Demander un devis / Voir nos réalisations ;
+  2. Services : 6 cartes simples vers les pages services, puis Sols, Pose de placards et Tous les services ;
+  3. Pourquoi M&B (fond noir) : un seul interlocuteur, devis détaillé en 48h, durée écrite, chantier propre, 14 clients ont noté 5/5 (lien vers la fiche Google), assuré en décennale ;
+  4. 3 projets choisis + lien vers Réalisations ;
+  5. Avis : « 14 clients ont noté M&B Rénovation 5/5 sur Google » + Lire les avis sur Google / Laisser un avis ;
+  6. 4 étapes ;
+  7. Demander un devis + WhatsApp, puis liens Sous-traitance et Parrainage.
+
 ## En cours
 
-- Étape 4 : nouvel accueil court.
+- Étape 5 : contrôles complets (liens, SEO comparé à main, mots interdits, vitesse après).
 
 ## Restant (dans l'ordre)
 

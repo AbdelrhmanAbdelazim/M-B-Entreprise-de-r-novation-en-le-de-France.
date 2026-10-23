@@ -121,7 +121,7 @@ services:
     url: /services/sols/
   - title: "Peinture"
     url: /services/peinture/
-  - title: "Menuiserie"
+  - title: "Pose de placards"
     url: /services/menuiserie/
   - title: "Rénovation complète"
     url: /services/renovation-complete/
