@@ -44,7 +44,7 @@
 | # | Étape | Statut |
 |---|---|---|
 | 0 | Mesure de départ + ce fichier | testé |
-| 1 | Photos : WebP (3 tailles), bandeaux texte retirés, avant/après séparés, données des projets | à faire |
+| 1 | Photos : WebP (3 tailles), bandeaux texte retirés, avant/après séparés, données des projets | testé |
 | 2 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes + lightbox | à faire |
 | 3 | Nouvelle feuille de style commune (palette, polices) + nouvel accueil court | à faire |
 | 4 | Gabarit `page.html` (toutes les autres pages) aligné sur le nouveau style | à faire |
@@ -88,15 +88,29 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 
 ## Décisions
 
+- **Photos sans texte** : les projets utilisent les originaux propres (`chantier-N.jpg`) quand ils existent ; sinon le montage, découpé sous le bandeau. Raison : un rendu « cabinet d'architecture » et la suppression des légendes contenant « sur mesure ».
+- **Une seule source pour les projets** : `_data/projets.yml`. Pour ajouter un projet, ajouter une entrée puis lancer `python3 _scripts/projets.py`. Le dossier `_scripts` n'est pas publié (préfixe `_`).
+- **Collections** : les photos isolées ne sont pas présentées comme un même chantier. Elles sont regroupées par thème et la carte précise « Plusieurs chantiers ». Raison : ne pas inventer de projet.
+- **Photo écartée** : la vue « APRÈS » du montage carrelage, trop petite une fois la pastille retirée ; `chantier-2.jpg` montre déjà le résultat.
+
 - **Ville des projets** : aucune ville précise n'est connue. Les cartes affichent « Paris · Île-de-France », comme sur les montages d'origine. Le champ `ville` de chaque projet est prêt pour la vraie commune, à confirmer par le gérant (voir « Restant »).
 
 ## Fait
 
 - Étape 0 : mesure de départ, inventaire des photos, ce fichier.
+- Étape 1 (testé) :
+  - `_data/projets.yml` : 12 projets, dont 4 « collections » qui regroupent plusieurs chantiers du même thème.
+  - `_scripts/projets.py` génère :
+    - les images : `images/projets/<slug>/<n>-480|960|1600.webp` + `og.jpg`, soit 30 photos et 4,6 Mo pour toutes les tailles ;
+    - les pages : `_projets/<slug>.md` ;
+    - les dimensions : `_data/projets_media.yml`.
+  - Les bandeaux texte (marque, légende avec « sur mesure », téléphone) et les pastilles « AVANT / APRÈS » incrustées sont retirés par découpe.
+  - Les bandes noires des captures de téléphone sont rognées.
+  - Vérifié à l'œil sur planches contact : plus aucun texte incrusté, aucun visage.
 
 ## En cours
 
-- Étape 1.
+- Étape 2 : collection `_projets` + gabarit `projet.html` + nouvelle page /realisations/.
 
 ## Restant (dans l'ordre)
 
