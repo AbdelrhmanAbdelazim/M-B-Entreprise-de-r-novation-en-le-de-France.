@@ -265,3 +265,7 @@ select.form-control { appearance: auto; min-height: 48px; background-color: var(
  .full-menu-details { margin-top:0; }
  .work-entry-grid { grid-template-columns:1fr 1fr; gap:48px; }
 }
+
+/* WhatsApp (repris de main) dans Contact et sous le formulaire */
+.contact-wa svg, .contact-list .contact-icon svg[data-wa] { color: #25D366; }
+.contact-wa { margin-top: 18px; }

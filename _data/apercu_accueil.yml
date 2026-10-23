@@ -24,7 +24,7 @@ whatsapp: "https://wa.me/33753306559"
 modal:
   eyebrow: "Votre Projet"
   title: "Étude de Projet"
-  sub: "Expertise gratuite. Réponse écrite rapide par e-mail ou téléphone. Aucun engagement."
+  sub: "Expertise gratuite. Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail). Aucun engagement."
   fields:
     - { id: nom, label: "Nom & Prénom", type: text, placeholder: "Jean Dupont", required: true }
     - { id: tel, label: "Téléphone", type: tel, placeholder: "06 00 00 00 00", required: true }

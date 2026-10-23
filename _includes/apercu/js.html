@@ -349,6 +349,12 @@
             ].join('\n');
             var mailtoHref = 'mailto:' + FALLBACK_EMAIL + '?subject=' + encodeURIComponent(mailSubject) + '&body=' + encodeURIComponent(mailBody);
 
+{%- unless page.sans_whatsapp %}
+            // Comme sur main : WhatsApp s'ouvre tout de suite avec la demande pré-remplie (le visiteur appuie sur Envoyer),
+            // et une copie part vers n8n (W2 : Telegram + email au gérant + accusé de réception au client).
+            var waMsg = '*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ' + encodeURIComponent(nomVal) + '%0A📞 *Tél:* ' + encodeURIComponent(telVal) + '%0A✉️ *E-mail:* ' + encodeURIComponent(emailVal || '-') + '%0A🗂 *Objet:* ' + encodeURIComponent(typeOptionText) + '%0A📝 *Projet:* ' + encodeURIComponent(projetVal);
+            window.open('https://wa.me/33753306559?text=' + waMsg, '_blank');
+{%- endunless %}
             isSubmitting = true;
             cForm.setAttribute('aria-busy', 'true');
             if (submitBtn) submitBtn.disabled = true;
@@ -382,7 +388,7 @@
                 }
                 if (statusEl) {
                     statusEl.setAttribute('data-status', 'success');
-                    statusEl.textContent = 'Votre demande a bien été envoyée. Notre équipe vous recontacte dans les plus brefs délais.';
+                    statusEl.textContent = 'Votre demande a bien été envoyée. Nous vous recontactons sous 24h ouvrées.';
                 }
                 if (window.mbConsent && typeof window.mbConsent.track === 'function') {
                     window.mbConsent.track('lead');
