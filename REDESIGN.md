@@ -6,6 +6,23 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
+## 🟥 Demande de publication du gérant (23/10, soir) : ÉTAPE 1 (revue) FAITE, **ARRÊT AVANT LE MERGE**
+
+Demande : publier « le nouveau site » en fusionnant `redesign-premium` dans `main`, après revue, contrôle complet, tag `site-avant-redesign`, puis vérification en ligne. Règle du gérant : en cas de conflit avec ses propres modifications, **ses modifications passent avant, et on le prévient avant de continuer**.
+
+### Résultat de la revue (Claude, 23/10)
+- `redesign-premium` @ f893f03 part de main @ 8909697 ; main n'a pas bougé depuis, donc **aucun conflit Git**.
+- Contenu : remis comme main aux étapes 8 à 11 (audit de l'étape 14 : 0 lien cassé, canonical et JSON-LD partout). Différences voulues : design, WebP, galeries de l'accueil déplacées vers /realisations/ et 27 nouvelles pages projets (71 → 98 pages dans le sitemap).
+- **Conflit avec les décisions du gérant** :
+  1. Le design de cette branche (étapes 1 à 13) a été **refusé** par le gérant (« pas assez fastueux », demande n° 3).
+  2. La direction **choisie** par le gérant (A-C : composition A, couleurs C, sans WhatsApp, visuel d'inspiration, en-tête sans logo ni téléphone) n'existe qu'en **aperçu** (`_apercu/ac.html`) sur `devin/redesign-directions` @ 5c7f2de. Elle n'est **pas** appliquée à l'accueil réel ni aux autres pages.
+  3. `codex/ac-menu-galleries` @ 2b53db7 : ébauche A-C (menu complet, galeries à la demande), **non testée en navigateur** ; la reprise passait par Antigravity.
+- Conclusion : fusionner `redesign-premium` publierait le design refusé et ignorerait le choix A-C. **Aucun tag, aucun merge, aucune publication.** Décision demandée au gérant.
+
+### Restant
+1. Décision du gérant : (a) publier tel quel le design refusé, (b) appliquer d'abord A-C au vrai site, tester, puis publier, ou (c) attendre.
+2. Selon la décision : contrôle complet → tag `site-avant-redesign` sur main 8909697 → merge → vérification en ligne.
+
 ## 🔶 Demande n° 3 du gérant (23/10, 3ᵉ message) : PRIORITAIRE
 
 Le design de la branche (étapes 1 à 13) est **refusé : « pas assez fastueux »**.
