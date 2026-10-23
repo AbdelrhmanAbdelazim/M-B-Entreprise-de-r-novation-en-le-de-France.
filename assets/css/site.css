@@ -435,3 +435,17 @@ textarea.form-control { min-height: 110px; resize: vertical; }
     .stat-cell { padding: 44px 16px; }
     .stat-label { font-size: 0.72rem; }
 }
+
+/* ---------- Réalisations : sections de main, cartes photos, galeries déplacées ---------- */
+.realisations-section { padding: 28px 0 40px; }
+.realisations-section h2 { margin-bottom: 26px; }
+.project-grid--photos .frame { aspect-ratio: 4 / 5; }
+.gallery--captions .gallery-item img { aspect-ratio: 3 / 4; object-fit: cover; height: auto; }
+.gallery-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 16px; text-align: left; background: linear-gradient(180deg, rgba(18,17,16,0) 0%, rgba(18,17,16,0.78) 100%); color: var(--cream); }
+.gallery-caption h4 { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; color: var(--cream); }
+.gallery-caption span { display: block; margin-top: 2px; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-bright); }
+.gallery--projet .gallery-item img { height: auto; }
+@media (min-width: 1000px) { .gallery--captions { grid-template-columns: repeat(3, 1fr); } }
+.project-nav .link-arrow { text-transform: none; letter-spacing: 0.02em; font-size: 0.88rem; font-weight: 400; max-width: 48%; }
+.project-nav .link-arrow:last-child { text-align: right; margin-left: auto; }
+.hero-media img { height: 100%; }

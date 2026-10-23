@@ -1,0 +1,292 @@
+# Généré par _scripts/projets.py : ne pas modifier à la main.
+chantier-1.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-10.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-11.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-12.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-13.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-2.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-3.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-4.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 900
+  dir: /images/webp/
+chantier-5.jpg:
+  widths:
+  - 480
+  - 828
+  width: 828
+  height: 1502
+  dir: /images/webp/
+chantier-6.jpg:
+  widths:
+  - 480
+  - 828
+  width: 828
+  height: 1488
+  dir: /images/webp/
+chantier-7.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+chantier-8.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 900
+  dir: /images/webp/
+chantier-9.jpg:
+  widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  dir: /images/webp/
+realisations/avant-apres-carrelage-salle-de-bain.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-chambre.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-douche.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-plafond-salle-de-bain.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-salle-de-bain.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-sejour.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-apres-tableau-electrique.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/avant-pendant-piece-pierre.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-agencement-sur-mesure.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-couloir-parquet.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-credence-bleue.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-cuisine-ouverte.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-cuisine-sur-mesure.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-cuisine.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-electricite.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-moulures-cache-radiateurs.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-niche-arche.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-placard-sur-mesure.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-placard-vert.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-plafond-fissures.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-plafonds-electricite.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/chantier-tete-de-lit.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/equipe-sur-le-chantier.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/realisation-amenagement-showroom.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/realisation-bibliotheques-sur-mesure.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/realisation-peinture-parquet.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/
+realisations/realisation-sejour-parquet.jpg:
+  widths:
+  - 480
+  - 1080
+  width: 1080
+  height: 1350
+  dir: /images/realisations/webp/

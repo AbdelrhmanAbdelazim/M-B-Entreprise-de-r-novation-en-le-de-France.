@@ -1,0 +1,9 @@
+{%- comment -%}
+  Image WebP responsive d'une photo existante (même image que l'original).
+  Paramètres : key (« chantier-7.jpg » ou « realisations/<nom>.jpg »), alt, sizes, eager.
+  Dimensions : _data/webp_media.yml (généré par _scripts/projets.py).
+{%- endcomment -%}
+{%- assign m = site.data.webp_media[include.key] -%}
+{%- assign base = include.key | split: "/" | last | replace: ".jpg", "" | prepend: m.dir | append: "-" -%}
+{%- capture srcset -%}{% for w in m.widths %}{{ base }}{{ w }}.webp {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}{%- endcapture -%}
+<img src="{{ base }}{{ m.widths.last }}.webp" srcset="{{ srcset }}" sizes="{{ include.sizes | default: '100vw' }}" width="{{ m.width }}" height="{{ m.height }}" alt="{{ include.alt | escape }}"{% if include.eager %} fetchpriority="high" decoding="async"{% else %} loading="lazy" decoding="async"{% endif %}>

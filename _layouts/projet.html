@@ -1,73 +1,44 @@
 ---
 layout: page
 ---
-{%- assign p = site.data.projets | where: "slug", page.slug | first -%}
+{%- comment -%}
+  Page d'une photo de /realisations/ : photo d'origine + photos agrandies (avant / après séparés).
+  Aucun texte nouveau : titre et textes alternatifs = _data/realisations.yml (main) ;
+  « Cliquez sur une photo pour l'agrandir. » et « Demander un devis » = textes de /realisations/ sur main.
+{%- endcomment -%}
 {%- assign media = site.data.projets_media[page.slug] -%}
 {%- assign all = site.projets | sort: "order" -%}
-{%- assign avant = nil -%}{%- assign apres = nil -%}
-{%- for ph in p.photos -%}
-  {%- if ph.etiquette == "avant" and avant == nil -%}{%- assign avant = forloop.index0 -%}{%- endif -%}
-  {%- if ph.etiquette == "apres" and apres == nil -%}{%- assign apres = forloop.index0 -%}{%- endif -%}
-{%- endfor -%}
+{%- assign key = "realisations/" | append: page.slug | append: ".jpg" -%}
+{%- assign m0 = site.data.webp_media[key] -%}
 <header class="page-hero">
     <div class="container container--narrow">
-        <a class="eyebrow" href="/realisations/" style="text-decoration:none">Réalisations</a>
-        <h1>{{ p.titre }}</h1>
-        <p class="lead" style="margin-top:18px">{{ p.resume }}</p>
-        <dl class="project-facts">
-            <div><dt>Travaux</dt><dd>{{ p.type }}</dd></div>
-            <div><dt>Lieu</dt><dd>{{ p.ville }}</dd></div>
-            {%- if p.collection %}<div><dt>Format</dt><dd>Plusieurs chantiers</dd></div>{% endif %}
-        </dl>
+        <a class="eyebrow" href="/realisations/" style="text-decoration:none">{{ page.section }}</a>
+        <h1>{{ page.title }}</h1>
+        <div class="rule"></div>
     </div>
 </header>
 
 <section class="container" style="padding-bottom:80px">
-    {%- if avant != nil and apres != nil %}
-    <h2 class="sr-only">Avant / après</h2>
-    <div class="ba" data-gallery>
-        {%- for i in (0..1) %}{% if i == 0 %}{% assign k = avant %}{% else %}{% assign k = apres %}{% endif %}
-        {%- assign ph = p.photos[k] -%}{%- assign m = media[k] -%}
-        <a class="gallery-item" href="/images/projets/{{ page.slug }}/{{ k }}-{{ m.width }}.webp" data-alt="{{ ph.alt | escape }}">
-            {% include projet-img.html slug=page.slug n=k alt=ph.alt sizes="(min-width: 1180px) 570px, 50vw" eager=true %}
-            <span class="tag{% if i == 1 %} tag--apres{% endif %}">{% if i == 0 %}Avant{% else %}Après{% endif %}</span>
+    <div class="gallery gallery--projet" data-gallery>
+        <a class="gallery-item" href="{{ m0.dir }}{{ page.slug }}-{{ m0.width }}.webp" data-alt="{{ page.alt | escape }}">
+            {% include webp-img.html key=key alt=page.alt sizes="(min-width: 1180px) 570px, (min-width: 700px) 50vw, 100vw" eager=true %}
+        </a>
+        {%- for it in media %}{% assign k = forloop.index0 %}
+        <a class="gallery-item" href="/images/projets/{{ page.slug }}/{{ k }}-{{ it.width }}.webp" data-alt="{{ page.alt | escape }}">
+            {% include projet-img.html slug=page.slug n=k alt=page.alt sizes="(min-width: 1180px) 570px, (min-width: 700px) 50vw, 100vw" %}
+            {%- if it.etiquette == "avant" %}<span class="tag">Avant</span>{% elsif it.etiquette == "apres" %}<span class="tag tag--apres">Après</span>{% endif %}
         </a>
         {%- endfor %}
     </div>
-    {%- endif %}
+    <p style="margin-top:18px;font-size:0.9rem;color:var(--muted)">Cliquez sur une photo pour l'agrandir.</p>
 
-    {%- assign shown = 0 -%}
-    {%- capture rest -%}
-    {%- for ph in p.photos -%}{%- assign k = forloop.index0 -%}
-    {%- unless k == avant and apres != nil -%}{%- unless k == apres and avant != nil -%}{%- assign m = media[k] -%}
-        <a class="gallery-item" href="/images/projets/{{ page.slug }}/{{ k }}-{{ m.width }}.webp" data-alt="{{ ph.alt | escape }}">
-            {% include projet-img.html slug=page.slug n=k alt=ph.alt sizes="(min-width: 1180px) 570px, (min-width: 700px) 50vw, 100vw" eager=forloop.first %}
-            {%- if ph.etiquette == "avant" %}<span class="tag">Avant</span>{% elsif ph.etiquette == "apres" %}<span class="tag tag--apres">Après</span>{% elsif ph.etiquette == "en-cours" %}<span class="tag">En cours</span>{% endif %}
-        </a>
-    {%- endunless -%}{%- endunless -%}
-    {%- endfor -%}
-    {%- endcapture -%}
-    {%- assign rest_s = rest | strip -%}
-    {%- if rest_s != "" %}
-    <div class="gallery" data-gallery style="margin-top:14px">
-        {{ rest }}
-    </div>
-    {%- endif %}
+    <p style="margin-top:40px"><a class="btn-cta" href="https://wa.me/33753306559" target="_blank" rel="noopener">Demander un devis</a></p>
 
-    <p style="margin-top:18px;font-size:0.85rem;color:var(--muted)">Touchez une photo pour l'agrandir.</p>
-
-    <div class="card" style="margin-top:56px;text-align:center;padding:44px 24px">
-        <div class="eyebrow">Un projet similaire ?</div>
-        <h2 style="margin-top:12px">Parlons de votre rénovation</h2>
-        <p class="lead" style="margin:14px auto 26px">Visite technique et devis détaillé offerts. Un seul interlocuteur du devis à la réception.</p>
-        <button type="button" class="btn" data-devis>Demander un devis</button>
-    </div>
-
-    <nav class="project-nav" aria-label="Autres réalisations">
+    <nav class="project-nav" aria-label="Nos réalisations">
         {%- for d in all %}{% if d.slug == page.slug %}
         {%- assign prev = forloop.index0 | minus: 1 -%}{%- assign next = forloop.index0 | plus: 1 -%}
-        {%- if prev >= 0 %}<a class="link-arrow" href="{{ all[prev].url }}">← Précédent</a>{% else %}<a class="link-arrow" href="/realisations/">← Toutes les réalisations</a>{% endif %}
-        {%- if next < all.size %}<a class="link-arrow" href="{{ all[next].url }}">Suivant →</a>{% else %}<a class="link-arrow" href="/realisations/">Toutes les réalisations →</a>{% endif %}
+        {%- if prev >= 0 %}<a class="link-arrow" href="{{ all[prev].url }}">← {{ all[prev].title }}</a>{% else %}<span></span>{% endif %}
+        {%- if next < all.size %}<a class="link-arrow" href="{{ all[next].url }}">{{ all[next].title }} →</a>{% endif %}
         {%- endif %}{% endfor %}
     </nav>
 </section>

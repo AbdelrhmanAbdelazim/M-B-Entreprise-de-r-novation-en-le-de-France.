@@ -1,41 +1,120 @@
 ---
 layout: page
 full_width: true
+lightbox: true
 title: "Nos réalisations – M&B Rénovation Paris"
 seo_title: "Nos réalisations – M&B Rénovation Paris"
-description: "Photos de nos chantiers de rénovation à Paris et en Île-de-France : avant/après, salles de bain, cuisines, électricité, plâtrerie, peinture et sols."
+description: "Photos de nos chantiers de rénovation à Paris et en Île-de-France : avant/après, salles de bain, cuisines, menuiserie sur mesure, électricité, peinture."
 permalink: /realisations/
-image: /images/projets/salle-de-bain-complete/og.jpg
+image: /images/realisations/avant-apres-salle-de-bain.jpg
 ---
-{%- assign projets = site.projets | sort: "order" -%}
+{%- comment -%}
+  Textes identiques à main (titre, intro, sections et textes alternatifs de _data/realisations.yml, bouton).
+  Nouveau design : chaque photo est une carte qui ouvre sa page /realisations/<photo>/.
+  En bas : les galeries « Portfolio » et « L'Envers du Décor » déplacées depuis l'accueil, avec leurs légendes d'origine.
+{%- endcomment -%}
 <header class="page-hero">
     <div class="container">
-        <div class="eyebrow">Réalisations</div>
-        <h1>Nos réalisations</h1>
-        <p class="lead" style="margin-top:18px">Avant / après et chantiers en cours à Paris et en Île-de-France. Choisissez un projet pour voir toutes ses photos.</p>
+        <h1>{{ page.title }}</h1>
         <div class="rule"></div>
+        <p class="lead" style="margin-top:22px">Avant / après, réalisations terminées et coulisses de nos chantiers : voici en images le travail de M&amp;B Rénovation à Paris et en Île-de-France. Cliquez sur une photo pour l'agrandir.</p>
     </div>
 </header>
 
-<section class="container" style="padding-top:24px;padding-bottom:96px">
-    <div class="project-grid">
-        {%- for d in projets %}
-        {%- assign p = site.data.projets | where: "slug", d.slug | first -%}
-        {%- assign k = p.couverture | default: 0 -%}
-        {%- assign cover = p.photos[k] -%}
-        <a class="project-card" href="{{ d.url }}">
-            <div class="frame">
-                {% include projet-img.html slug=d.slug n=k alt=cover.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, (min-width: 700px) 46vw, 92vw" eager=forloop.first %}
-            </div>
-            <div class="meta">{{ p.type }}</div>
-            <h2 class="serif" style="font-size:1.5rem;margin-top:6px">{{ p.titre }}</h2>
-            <p class="multi">{{ p.ville }}{% if p.collection %} · Plusieurs chantiers{% endif %}</p>
+<div class="container" style="padding-bottom:40px">
+{% for section in site.data.realisations %}
+<section class="realisations-section">
+    <h2>{{ section.title }}</h2>
+    <div class="project-grid project-grid--photos">
+        {%- for photo in section.photos %}
+        {%- assign slug = photo.file | replace: ".jpg", "" -%}
+        {%- assign key = "realisations/" | append: photo.file %}
+        <a class="project-card" href="/realisations/{{ slug }}/" aria-label="{{ photo.alt | escape }}">
+            <div class="frame">{% include webp-img.html key=key alt=photo.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, (min-width: 700px) 46vw, 92vw" eager=forloop.first %}</div>
         </a>
         {%- endfor %}
     </div>
+</section>
+{% endfor %}
 
-    <div style="text-align:center;margin-top:80px">
-        <p class="lead" style="margin:0 auto 24px">Un projet de rénovation à Paris ou en Île-de-France ?</p>
-        <button type="button" class="btn" data-devis>Demander un devis</button>
+<div class="mb-gallery-cta" style="text-align:center;margin:56px 0">
+    <a class="btn-cta" href="https://wa.me/33753306559" target="_blank" rel="noopener">Demander un devis</a>
+</div>
+</div>
+
+<section class="section section--paper" id="portfolio">
+    <div class="container">
+        <div class="section-head section-head--center">
+            <div class="eyebrow">Portfolio</div>
+            <h2>Pièces Rénovées</h2>
+            <div class="rule"></div>
+        </div>
+        <div class="gallery gallery--captions" data-gallery>
+            <a class="gallery-item" href="/images/webp/chantier-7-{{ site.data.webp_media['chantier-7.jpg'].width }}.webp" data-alt="Pièce de vie entièrement rénovée à Paris : parquet, peinture et placard intégré">
+                {% include webp-img.html key="chantier-7.jpg" alt="Pièce de vie entièrement rénovée à Paris : parquet, peinture et placard intégré" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Espaces de Vie</h4><span>Rénovation Complète</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-13-{{ site.data.webp_media['chantier-13.jpg'].width }}.webp" data-alt="Finitions soignées : parquet et plinthes posés dans une chambre rénovée">
+                {% include webp-img.html key="chantier-13.jpg" alt="Finitions soignées : parquet et plinthes posés dans une chambre rénovée" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Finitions</h4><span>Détail &amp; Précision</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-6-{{ site.data.webp_media['chantier-6.jpg'].width }}.webp" data-alt="Salle de bains rénovée avec baignoire encastrée et paroi vitrée">
+                {% include webp-img.html key="chantier-6.jpg" alt="Salle de bains rénovée avec baignoire encastrée et paroi vitrée" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Salles de Bains</h4><span>Design &amp; Bien-être</span></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section--paper" id="chantiers">
+    <div class="container">
+        <div class="section-head section-head--center">
+            <div class="eyebrow">L'Envers du Décor</div>
+            <h2>La Rigueur de la Préparation</h2>
+            <p class="lead">La véritable qualité d'une rénovation de luxe se cache derrière les murs. Découvrez nos chantiers : préparation des supports, plâtrerie, réseaux et finitions.</p>
+            <div class="rule"></div>
+        </div>
+        <div class="gallery gallery--captions" data-gallery>
+            <a class="gallery-item" href="/images/webp/chantier-1-{{ site.data.webp_media['chantier-1.jpg'].width }}.webp" data-alt="Salle de bains en cours de rénovation : murs préparés et sol ragréé avant carrelage">
+                {% include webp-img.html key="chantier-1.jpg" alt="Salle de bains en cours de rénovation : murs préparés et sol ragréé avant carrelage" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Préparation des Supports</h4><span>Murs &amp; Sol avant Carrelage</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-2-{{ site.data.webp_media['chantier-2.jpg'].width }}.webp" data-alt="Receveur de douche et carreaux de ciment à motifs posés sur plaques hydrofuges">
+                {% include webp-img.html key="chantier-2.jpg" alt="Receveur de douche et carreaux de ciment à motifs posés sur plaques hydrofuges" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Placo Hydrofuge</h4><span>Douche &amp; Carreaux de Ciment</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-3-{{ site.data.webp_media['chantier-3.jpg'].width }}.webp" data-alt="Préparation du sol et des murs avant pose du revêtement, radiateur électrique déposé">
+                {% include webp-img.html key="chantier-3.jpg" alt="Préparation du sol et des murs avant pose du revêtement, radiateur électrique déposé" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Pose de Sols</h4><span>Nivellement &amp; Précision</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-4-{{ site.data.webp_media['chantier-4.jpg'].width }}.webp" data-alt="Pièce en rénovation : plafond en plaques de plâtre et gaines électriques en attente">
+                {% include webp-img.html key="chantier-4.jpg" alt="Pièce en rénovation : plafond en plaques de plâtre et gaines électriques en attente" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Plâtrerie &amp; Électricité</h4><span>Plafond &amp; Gaines en Attente</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-6-{{ site.data.webp_media['chantier-6.jpg'].width }}.webp" data-alt="Salle de bains terminée avec baignoire, paroi vitrée et carrelage gris">
+                {% include webp-img.html key="chantier-6.jpg" alt="Salle de bains terminée avec baignoire, paroi vitrée et carrelage gris" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Salle de Bains</h4><span>Baignoire &amp; Paroi Vitrée</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-7-{{ site.data.webp_media['chantier-7.jpg'].width }}.webp" data-alt="Appartement rénové avec parquet neuf, murs repeints et placard sur mesure">
+                {% include webp-img.html key="chantier-7.jpg" alt="Appartement rénové avec parquet neuf, murs repeints et placard sur mesure" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Rénovation Complète</h4><span>Parquet &amp; Peinture</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-8-{{ site.data.webp_media['chantier-8.jpg'].width }}.webp" data-alt="Plafond et moulures d&#x27;un appartement ancien en cours de restauration">
+                {% include webp-img.html key="chantier-8.jpg" alt="Plafond et moulures d'un appartement ancien en cours de restauration" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Restauration de l'Ancien</h4><span>Respect du Patrimoine</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-10-{{ site.data.webp_media['chantier-10.jpg'].width }}.webp" data-alt="Chambre rénovée avec placard coulissant sur mesure et parquet">
+                {% include webp-img.html key="chantier-10.jpg" alt="Chambre rénovée avec placard coulissant sur mesure et parquet" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Chambre Rénovée</h4><span>Placard &amp; Parquet</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-12-{{ site.data.webp_media['chantier-12.jpg'].width }}.webp" data-alt="Murs ratissés et poncés avant peinture, sols protégés">
+                {% include webp-img.html key="chantier-12.jpg" alt="Murs ratissés et poncés avant peinture, sols protégés" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Ratissage &amp; Ponçage</h4><span>Préparation Zéro Défaut</span></span>
+            </a>
+            <a class="gallery-item" href="/images/webp/chantier-13-{{ site.data.webp_media['chantier-13.jpg'].width }}.webp" data-alt="Pièce rénovée à Paris : parquet posé et finitions des murs">
+                {% include webp-img.html key="chantier-13.jpg" alt="Pièce rénovée à Paris : parquet posé et finitions des murs" sizes="(min-width: 1180px) 373px, (min-width: 700px) 46vw, 92vw" %}
+                <span class="gallery-caption"><h4>Finitions</h4><span>Parquet &amp; Murs</span></span>
+            </a>
+        </div>
     </div>
 </section>

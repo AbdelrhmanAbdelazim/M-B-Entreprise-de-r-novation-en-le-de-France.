@@ -333,7 +333,21 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - photo du haut : même photo (`chantier-10.jpg`) en WebP, même texte alternatif ;
   - **déplacé vers /realisations/** : la galerie Portfolio « Pièces Rénovées » (3 photos et légendes) et « L'Envers du Décor – La Rigueur de la Préparation » (10 photos et légendes) ;
   - les 6 vignettes de la section Avant / Après sont retirées de l'accueil (elles sont toutes sur /realisations/). Le titre, la phrase et le bouton « Voir toutes nos réalisations » de cette section restent.
-- Étape 11 (à faire) : /realisations/ avec le texte de main, puis les galeries Portfolio et L'Envers du Décor, et les pages projets avec des textes existants seulement.
+- Étape 11 (testé : comparaison du texte de toutes les pages avec main. Seuls l'accueil et /realisations/ diffèrent, et uniquement par le déplacement des galeries. 0 lien cassé, sitemap à 98 URL, soit 71 + 27 pages photo) :
+  - `realisations.html` : front matter, titre, intro, sections et textes alternatifs de `_data/realisations.yml`, bouton « Demander un devis » ; tout identique à main ;
+    - chaque photo (le montage d'origine, en WebP) est une carte qui ouvre `/realisations/<nom-du-fichier>/` ;
+    - en bas : sections `#portfolio` (Portfolio – Pièces Rénovées) et `#chantiers` (L'Envers du Décor), déplacées depuis l'accueil avec leurs légendes exactes, dans une lightbox.
+  - **27 pages photo** (`_projets/`, générées par `_scripts/projets.py`) :
+    - titre et description = texte alternatif de main ; intertitre = nom de la section ;
+    - photos : le montage d'origine, puis les moitiés avant / après découpées sous le bandeau, et les photos brutes quand elles existent (`DECOUPES` dans le script) ;
+    - textes réutilisés de main : « Cliquez sur une photo pour l'agrandir. » et « Demander un devis » ;
+    - liens précédent / suivant = titres des autres pages photo.
+  - Les 12 pages projets à textes inventés (étape 3) sont supprimées. Elles n'ont jamais été publiées.
+  - **Photos** :
+    - `equipe-sur-le-chantier.jpg` (visage) et `chantier-7.jpg` (reflet) sont remises, car elles sont sur main ;
+    - le gérant a demandé d'abord « pas de visages », puis « le même contenu que main ». **Question posée au gérant.**
+  - WebP : photos brutes dans `images/webp/` (1,5 Mo), montages dans `images/realisations/webp/` (3,8 Mo), pages photo dans `images/projets/` (5,4 Mo).
+- Étape 12 (à faire) : contrôles navigateur et vitesse, puis aperçu en noindex.
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 

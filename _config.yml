@@ -37,6 +37,7 @@ defaults:
     values:
       layout: projet
       full_width: true
+      lightbox: true
 
 plugins:
   - jekyll-sitemap

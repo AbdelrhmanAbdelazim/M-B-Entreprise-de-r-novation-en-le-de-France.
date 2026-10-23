@@ -1,26 +1,47 @@
 #!/usr/bin/env python3
-"""Génère les images WebP et les pages des projets à partir de _data/projets.yml.
+"""Images WebP et pages projets, à partir des données EXISTANTES du site.
 
 Usage (depuis la racine du dépôt) : python3 _scripts/projets.py
 
-- Les fichiers d'origine ne sont jamais modifiés ni renommés.
-- Images : images/projets/<slug>/<n>-<largeur>.webp (480, 960, 1600 px max,
-  jamais agrandies), plus <slug>/og.jpg (1200 px) pour le partage.
-  Les métadonnées EXIF ne sont pas recopiées.
-- Montages : les bandeaux texte du haut et du bas (marque, légende, téléphone)
-  et les pastilles « AVANT / APRÈS / CHANTIER EN COURS » sont retirés par découpe.
-- Pages : _projets/<slug>.md (front matter seulement ; le gabarit est
-  _layouts/projet.html). Dimensions : _data/projets_media.yml.
+Source du contenu : _data/realisations.yml (texte de main, non modifié).
+Ce script n'invente aucun texte : titre et description d'une page projet
+= texte alternatif de la photo dans _data/realisations.yml.
+
+Génère (fichiers d'origine jamais modifiés ni renommés, EXIF non recopié) :
+- images/webp/<chantier-N>-480|960|1200.webp : photos brutes chantier-*.jpg ;
+- images/realisations/webp/<nom>-480|1080.webp : montages entiers (même image) ;
+- images/projets/<slug>/<n>-<largeur>.webp : photos d'une page projet
+  (moitiés avant / après des montages, découpées sous le bandeau, ou photos brutes) ;
+- _data/webp_media.yml, _data/projets_media.yml : dimensions ;
+- _projets/<slug>.md : une page par photo de /realisations/ (slug = nom du fichier).
 """
 import os
+import shutil
 import sys
 
 import yaml
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WIDTHS = (480, 960, 1600)
 BADGE = 100  # hauteur retirée sous le bandeau pour enlever la pastille incrustée
+
+# Photos de chaque page projet : (fichier source, découpe, étiquette).
+# photo = fichier brut ; gauche/droite = moitié d'un montage côte à côte ; cadre = montage sans bandeaux.
+R = "images/realisations/"
+DECOUPES = {
+    "avant-apres-carrelage-salle-de-bain": [("chantier-1.jpg", "photo", "avant"), ("chantier-2.jpg", "photo", "apres")],
+    "avant-apres-chambre": [("chantier-9.jpg", "photo", "avant"), ("chantier-10.jpg", "photo", "apres")],
+    "avant-apres-douche": [(R + "avant-apres-douche.jpg", "gauche", "avant"), (R + "avant-apres-douche.jpg", "droite", "apres")],
+    "avant-apres-plafond-salle-de-bain": [(R + "avant-apres-plafond-salle-de-bain.jpg", "gauche", "avant"), (R + "avant-apres-plafond-salle-de-bain.jpg", "droite", "apres")],
+    "avant-apres-salle-de-bain": [("chantier-5.jpg", "photo", "avant"), ("chantier-6.jpg", "photo", "apres")],
+    "avant-apres-sejour": [("chantier-12.jpg", "photo", "avant"), ("chantier-13.jpg", "photo", "apres")],
+    "avant-apres-tableau-electrique": [(R + "avant-apres-tableau-electrique.jpg", "gauche", "avant"), (R + "avant-apres-tableau-electrique.jpg", "droite", "apres")],
+    "avant-pendant-piece-pierre": [(R + "avant-pendant-piece-pierre.jpg", "gauche", "avant"), (R + "avant-pendant-piece-pierre.jpg", "droite", "en-cours"), ("chantier-4.jpg", "photo", "en-cours")],
+    "chantier-electricite": [(R + "chantier-electricite.jpg", "cadre", ""), ("chantier-3.jpg", "photo", "")],
+    "chantier-cuisine": [(R + "chantier-cuisine.jpg", "cadre", ""), ("chantier-11.jpg", "photo", "")],
+    "chantier-plafond-fissures": [(R + "chantier-plafond-fissures.jpg", "cadre", ""), ("chantier-8.jpg", "photo", "")],
+    "chantier-plafonds-electricite": [(R + "chantier-plafonds-electricite.jpg", "cadre", ""), ("chantier-4.jpg", "photo", "")],
+}
 
 
 def navy(p):
@@ -29,7 +50,6 @@ def navy(p):
 
 
 def frame(im):
-    """Zone photo d'un montage : (haut, bas) sans les bandeaux bleu nuit."""
     w, h = im.size
     rows = [sum(navy(im.getpixel((x, y))) for x in range(0, w, 20)) / (w / 20) for y in range(h)]
     top = next(y for y in range(h) if rows[y] < 0.5)
@@ -42,13 +62,6 @@ def split_v(im, top, bot):
     cols = [sum(navy(im.getpixel((x, y))) for y in range(top + 20, bot - 20, 20)) / ((bot - top - 40) / 20) for x in range(w)]
     divs = [x for x in range(w // 3, 2 * w // 3) if cols[x] > 0.5]
     return (min(divs), max(divs)) if divs else (w // 2 - 3, w // 2 + 3)
-
-
-def split_h(im, top, bot):
-    w, _ = im.size
-    rows = [y for y in range(top + 50, bot - 50)
-            if sum(navy(im.getpixel((x, y))) for x in range(0, w, 20)) / (w / 20) > 0.6]
-    return (min(rows), max(rows)) if rows else ((top + bot) // 2 - 3, (top + bot) // 2 + 3)
 
 
 def trim_black(im, limit=14):
@@ -75,72 +88,66 @@ def cut(path, mode):
         return im.crop((0, top + BADGE, w, bot))
     if mode in ("gauche", "droite"):
         a, b = split_v(im, top, bot)
-        box = (0, top + BADGE, a, bot) if mode == "gauche" else (b + 1, top + BADGE, w, bot)
-        return im.crop(box)
-    if mode in ("haut", "bas"):
-        a, b = split_h(im, top, bot)
-        box = (0, top + BADGE, w, a) if mode == "haut" else (0, b + 1 + BADGE, w, bot)
-        return im.crop(box)
+        return im.crop((0, top + BADGE, a, bot) if mode == "gauche" else (b + 1, top + BADGE, w, bot))
     sys.exit(f"découpe inconnue : {mode}")
 
 
-def montages_webp():
-    """Copies WebP (480 et 1080 px) des montages images/realisations/*.jpg, sans recadrage :
-    même image que l'original, utilisée par les pages villes via <picture>."""
-    src = os.path.join(ROOT, "images", "realisations")
-    out = os.path.join(src, "webp")
-    os.makedirs(out, exist_ok=True)
-    for f in sorted(os.listdir(src)):
-        if not f.lower().endswith(".jpg"):
-            continue
-        im = Image.open(os.path.join(src, f)).convert("RGB")
-        for w in (480, 1080):
-            h = round(im.height * w / im.width)
-            im.resize((w, h), Image.LANCZOS).save(os.path.join(out, f"{f[:-4]}-{w}.webp"), "WEBP", quality=80, method=6)
+def save_sizes(im, prefix, widths, quality=78):
+    sizes = sorted(set([w for w in widths if w < im.width] + [min(im.width, widths[-1])]))
+    for w in sizes:
+        h = round(im.height * w / im.width)
+        im.resize((w, h), Image.LANCZOS).save(f"{prefix}-{w}.webp", "WEBP", quality=quality, method=6)
+    big = sizes[-1]
+    return {"widths": sizes, "width": big, "height": round(im.height * big / im.width)}
 
 
 def main():
-    montages_webp()
-    projets = yaml.safe_load(open(os.path.join(ROOT, "_data", "projets.yml"), encoding="utf-8"))
-    media = {}
-    os.makedirs(os.path.join(ROOT, "_projets"), exist_ok=True)
-    for order, p in enumerate(projets, 1):
-        slug = p["slug"]
-        out = os.path.join(ROOT, "images", "projets", slug)
-        os.makedirs(out, exist_ok=True)
-        items = []
-        for n, ph in enumerate(p["photos"]):
-            im = cut(ph["src"], ph["decoupe"])
-            sizes = [w for w in WIDTHS if w < im.width] + [min(im.width, WIDTHS[-1])]
-            sizes = sorted(set(sizes))
-            for w in sizes:
-                h = round(im.height * w / im.width)
-                im.resize((w, h), Image.LANCZOS).save(os.path.join(out, f"{n}-{w}.webp"), "WEBP", quality=78, method=6)
-            big = sizes[-1]
-            items.append({"widths": sizes, "width": big, "height": round(im.height * big / im.width)})
-            if n == p.get("couverture", 0):
-                og = im.copy()
-                og.thumbnail((1200, 1200))
-                og.save(os.path.join(out, "og.jpg"), "JPEG", quality=82, optimize=True, progressive=True)
-        media[slug] = items
-        fm = {
-            "layout": "projet",
-            "slug": slug,
-            "order": order,
-            "title": p["titre"],
-            "seo_title": f"{p['titre']} – Réalisation | M&B Rénovation",
-            "description": p["resume"],
-            "image": f"/images/projets/{slug}/og.jpg",
-            "permalink": f"/realisations/{slug}/",
-        }
-        with open(os.path.join(ROOT, "_projets", f"{slug}.md"), "w", encoding="utf-8") as f:
-            f.write("---\n# Généré par _scripts/projets.py depuis _data/projets.yml : ne pas modifier à la main.\n")
-            f.write(yaml.safe_dump(fm, allow_unicode=True, sort_keys=False))
-            f.write("---\n")
-    with open(os.path.join(ROOT, "_data", "projets_media.yml"), "w", encoding="utf-8") as f:
-        f.write("# Généré par _scripts/projets.py : ne pas modifier à la main.\n")
-        yaml.safe_dump(media, f, allow_unicode=True, sort_keys=False)
-    print(f"{len(projets)} projets, {sum(len(v) for v in media.values())} photos")
+    webp_media = {}
+    # Photos brutes chantier-*.jpg (accueil, galeries Portfolio / L'Envers du Décor)
+    os.makedirs(os.path.join(ROOT, "images", "webp"), exist_ok=True)
+    for f in sorted(os.listdir(ROOT)):
+        if f.startswith("chantier-") and f.endswith(".jpg"):
+            im = Image.open(os.path.join(ROOT, f)).convert("RGB")
+            webp_media[f] = dict(save_sizes(im, os.path.join(ROOT, "images", "webp", f[:-4]), (480, 960, 1200)), dir="/images/webp/")
+    # Montages entiers (même image que l'original)
+    src = os.path.join(ROOT, "images", "realisations")
+    os.makedirs(os.path.join(src, "webp"), exist_ok=True)
+    for f in sorted(os.listdir(src)):
+        if f.endswith(".jpg"):
+            im = Image.open(os.path.join(src, f)).convert("RGB")
+            webp_media["realisations/" + f] = dict(save_sizes(im, os.path.join(src, "webp", f[:-4]), (480, 1080), 80), dir="/images/realisations/webp/")
+
+    # Pages projets : une par photo de _data/realisations.yml
+    sections = yaml.safe_load(open(os.path.join(ROOT, "_data", "realisations.yml"), encoding="utf-8"))
+    shutil.rmtree(os.path.join(ROOT, "_projets"), ignore_errors=True)
+    shutil.rmtree(os.path.join(ROOT, "images", "projets"), ignore_errors=True)
+    os.makedirs(os.path.join(ROOT, "_projets"))
+    media, order = {}, 0
+    for sec in sections:
+        for ph in sec["photos"]:
+            order += 1
+            slug = ph["file"][:-4]
+            out = os.path.join(ROOT, "images", "projets", slug)
+            os.makedirs(out, exist_ok=True)
+            items = []
+            for n, (path, mode, label) in enumerate(DECOUPES.get(slug, [(R + ph["file"], "cadre", "")])):
+                m = save_sizes(cut(path, mode), os.path.join(out, str(n)), (480, 960, 1600))
+                m["etiquette"] = label
+                items.append(m)
+            media[slug] = items
+            titre = ph["alt"].replace(" – M&B Rénovation", "")
+            fm = {"layout": "projet", "slug": slug, "order": order, "section": sec["title"],
+                  "title": titre, "description": ph["alt"], "alt": ph["alt"],
+                  "image": "/images/realisations/" + ph["file"], "permalink": f"/realisations/{slug}/"}
+            with open(os.path.join(ROOT, "_projets", f"{slug}.md"), "w", encoding="utf-8") as fh:
+                fh.write("---\n# Généré par _scripts/projets.py depuis _data/realisations.yml : ne pas modifier à la main.\n")
+                fh.write(yaml.safe_dump(fm, allow_unicode=True, sort_keys=False))
+                fh.write("---\n")
+    for name, data in (("projets_media.yml", media), ("webp_media.yml", webp_media)):
+        with open(os.path.join(ROOT, "_data", name), "w", encoding="utf-8") as fh:
+            fh.write("# Généré par _scripts/projets.py : ne pas modifier à la main.\n")
+            yaml.safe_dump(data, fh, allow_unicode=True, sort_keys=False)
+    print(f"{order} pages projets, {len(webp_media)} images WebP de base")
 
 
 if __name__ == "__main__":

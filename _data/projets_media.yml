@@ -1,183 +1,298 @@
 # Généré par _scripts/projets.py : ne pas modifier à la main.
-salle-de-bain-carreaux-de-ciment:
+avant-apres-carrelage-salle-de-bain:
 - widths:
   - 480
   - 960
   - 1200
   width: 1200
   height: 1600
+  etiquette: avant
 - widths:
   - 480
   - 960
   - 1200
   width: 1200
   height: 1600
-chambre-murs-et-parquet:
+  etiquette: apres
+avant-apres-chambre:
 - widths:
   - 480
   - 960
   - 1200
   width: 1200
   height: 1600
+  etiquette: avant
 - widths:
   - 480
   - 960
   - 1200
   width: 1200
   height: 1600
-salle-de-bain-complete:
-- widths:
-  - 480
-  - 828
-  width: 828
-  height: 1472
-- widths:
-  - 480
-  - 828
-  width: 828
-  height: 1472
-sejour-murs-et-parquet:
-- widths:
-  - 480
-  - 960
-  - 1200
-  width: 1200
-  height: 1600
-- widths:
-  - 480
-  - 960
-  - 1200
-  width: 1200
-  height: 1600
-piece-en-pierre:
+  etiquette: apres
+avant-apres-douche:
 - widths:
   - 480
   - 536
   width: 536
   height: 1004
+  etiquette: avant
 - widths:
   - 480
   - 536
   width: 536
   height: 1004
+  etiquette: apres
+avant-apres-plafond-salle-de-bain:
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: avant
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: apres
+avant-apres-salle-de-bain:
+- widths:
+  - 480
+  - 828
+  width: 828
+  height: 1472
+  etiquette: avant
+- widths:
+  - 480
+  - 828
+  width: 828
+  height: 1472
+  etiquette: apres
+avant-apres-sejour:
+- widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  etiquette: avant
+- widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  etiquette: apres
+avant-apres-tableau-electrique:
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: avant
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: apres
+avant-pendant-piece-pierre:
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: avant
+- widths:
+  - 480
+  - 536
+  width: 536
+  height: 1004
+  etiquette: en-cours
 - widths:
   - 480
   - 960
   - 1600
   width: 1600
   height: 1200
-douche-faience:
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-plafond-salle-de-bain:
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-tableau-electrique:
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-- widths:
-  - 480
-  - 536
-  width: 536
-  height: 1004
-cuisines-et-faience:
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 998
-platrerie-peinture-et-sols:
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-placards-et-espaces:
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
-- widths:
-  - 480
-  - 960
-  - 1080
-  width: 1080
-  height: 1004
+  etiquette: en-cours
+realisation-amenagement-showroom:
 - widths:
   - 480
   - 960
   - 1080
   width: 1080
   height: 728
-chantiers-en-cours:
+  etiquette: ''
+realisation-bibliotheques-sur-mesure:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+realisation-peinture-parquet:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+realisation-sejour-parquet:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-agencement-sur-mesure:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-couloir-parquet:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-credence-bleue:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 998
+  etiquette: ''
+chantier-cuisine-ouverte:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-cuisine-sur-mesure:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-cuisine:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
 - widths:
   - 480
   - 960
   - 1200
   width: 1200
   height: 1600
+  etiquette: ''
+chantier-electricite:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+- widths:
+  - 480
+  - 960
+  - 1200
+  width: 1200
+  height: 1600
+  etiquette: ''
+chantier-moulures-cache-radiateurs:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-niche-arche:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-placard-sur-mesure:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-placard-vert:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+chantier-plafond-fissures:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
 - widths:
   - 480
   - 960
   - 1600
   width: 1600
   height: 1200
+  etiquette: ''
+chantier-plafonds-electricite:
 - widths:
   - 480
   - 960
-  - 1200
-  width: 1200
-  height: 1600
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
+- widths:
+  - 480
+  - 960
+  - 1600
+  width: 1600
+  height: 1200
+  etiquette: ''
+chantier-tete-de-lit:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1005
+  etiquette: ''
+equipe-sur-le-chantier:
+- widths:
+  - 480
+  - 960
+  - 1080
+  width: 1080
+  height: 1004
+  etiquette: ''
