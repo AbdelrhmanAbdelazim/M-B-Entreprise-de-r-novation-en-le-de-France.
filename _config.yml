@@ -1,5 +1,5 @@
 title: "M&B Rénovation"
-description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Garantie décennale."
+description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et pose de placards. Garantie décennale."
 url: "https://www.maison-mb.fr"
 baseurl: ""
 
@@ -16,6 +16,9 @@ collections:
   departements:
     output: true
     permalink: /renovation/departement/:name/
+  projets:
+    output: true
+    permalink: /realisations/:name/
 
 defaults:
   - scope:
@@ -28,6 +31,12 @@ defaults:
       type: departements
     values:
       layout: departement
+  - scope:
+      path: ""
+      type: projets
+    values:
+      layout: projet
+      full_width: true
 
 plugins:
   - jekyll-sitemap

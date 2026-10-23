@@ -46,7 +46,7 @@
 | 0 | Mesure de départ + ce fichier | testé |
 | 1 | Photos : WebP (3 tailles), bandeaux texte retirés, avant/après séparés, données des projets | testé |
 | 2 | Feuille de style commune + gabarit `page.html` (toutes les pages) + en-tête, pied de page, fenêtre devis et lightbox communs | testé |
-| 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | à faire |
+| 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | testé |
 | 4 | Nouvel accueil court | à faire |
 | 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | à faire |
 | 6 | PR vers `main` (sans merge) + captures envoyées au gérant | à faire |
@@ -101,6 +101,8 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 - **Chiffres retirés** : bloc paiement et note de la fenêtre devis (« projets à partir de 3 000 €, main-d'œuvre en 3 fois » devient « projets éligibles, en plusieurs fois »). Raison : règle « pas de prix ni de chiffres ».
   - Gardés : « 24h ouvrées » dans la fenêtre devis (texte du gérant du 23/10), « 48h » et « 14 clients 5/5 » (demandés).
   - Gardés aussi : les identifiants légaux et de contact (SIRET, téléphone, codes postaux, n° d'assurance), obligatoires.
+- **Description du site** (`_config.yml` → `description`, utilisée dans le JSON-LD et par défaut) : « menuiserie » devient « pose de placards ». Raison : règle « pas de menuiserie ».
+- **`_data/realisations.yml`** n'est plus utilisé par /realisations/. Il est gardé, non supprimé, en attendant l'accord du gérant.
 - **Photos sans texte** : les projets utilisent les originaux propres (`chantier-N.jpg`) quand ils existent ; sinon le montage, découpé sous le bandeau. Raison : un rendu « cabinet d'architecture » et la suppression des légendes contenant « sur mesure ».
 - **Une seule source pour les projets** : `_data/projets.yml`. Pour ajouter un projet, ajouter une entrée puis lancer `python3 _scripts/projets.py`. Le dossier `_scripts` n'est pas publié (préfixe `_`).
 - **Collections** : les photos isolées ne sont pas présentées comme un même chantier. Elles sont regroupées par thème et la carte précise « Plusieurs chantiers ». Raison : ne pas inventer de projet.
@@ -134,9 +136,22 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
     - `icon.html` : icônes SVG en ligne.
   - `bloc-paiement.html` et `bloc-parrainage.html` passent au nouveau style ; le bloc paiement n'a plus de montant ni de chiffre.
 
+- Étape 3 (testé : build OK ; captures mobile et desktop de /realisations/ et de 2 projets ; 0 erreur JS ; pas de débordement ; test automatique lightbox ouvrir / suivant / Échap OK ; fenêtre devis ouverte depuis la barre mobile, envoi qui ouvre WhatsApp) :
+  - `_config.yml` : collection `projets` (URL /realisations/<slug>/, gabarit `projet`).
+  - `_layouts/projet.html` :
+    - en-tête avec Travaux, Lieu et « Plusieurs chantiers » pour les collections ;
+    - avant / après côte à côte ;
+    - autres photos ;
+    - lightbox ;
+    - encart « Demander un devis » ;
+    - liens précédent / suivant.
+  - `_includes/projet-img.html` : `<img>` WebP avec srcset et sizes, largeur et hauteur fixées (pas de décalage de mise en page), chargement différé sauf la première image.
+  - `realisations.html` : réécrit en cartes (photo, type de travaux, titre, lieu). Même URL et même title. Description sans « menuiserie sur mesure ».
+  - Bug corrigé : sur mobile, la légende de la lightbox recouvrait les boutons précédent / suivant.
+
 ## En cours
 
-- Étape 3 : collection `_projets` + gabarit `projet.html` + nouvelle page /realisations/.
+- Étape 4 : nouvel accueil court.
 
 ## Restant (dans l'ordre)
 
