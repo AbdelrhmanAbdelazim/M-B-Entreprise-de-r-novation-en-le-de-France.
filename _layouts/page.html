@@ -15,7 +15,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     <link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%Y%m%d%H%M' }}">
     {%- if page.preload_image %}
-    <link rel="preload" as="image" href="{{ page.preload_image }}"{% if page.preload_srcset %} imagesrcset="{{ page.preload_srcset }}" imagesizes="100vw"{% endif %} fetchpriority="high">
+    <link rel="preload" as="image" href="{{ page.preload_image }}"{% if page.preload_srcset %} imagesrcset="{{ page.preload_srcset }}" imagesizes="{{ page.preload_sizes | default: '100vw' }}"{% endif %} fetchpriority="high">
     {%- endif %}
     <script>document.documentElement.classList.add('js');</script>
 </head>

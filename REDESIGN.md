@@ -347,7 +347,21 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
     - `equipe-sur-le-chantier.jpg` (visage) et `chantier-7.jpg` (reflet) sont remises, car elles sont sur main ;
     - le gérant a demandé d'abord « pas de visages », puis « le même contenu que main ». **Question posée au gérant.**
   - WebP : photos brutes dans `images/webp/` (1,5 Mo), montages dans `images/realisations/webp/` (3,8 Mo), pages photo dans `images/projets/` (5,4 Mo).
-- Étape 12 (à faire) : contrôles navigateur et vitesse, puis aperçu en noindex.
+- Étape 12 (testé) :
+  - **Playwright** sur 97 pages × 390 px et 1366 px : 0 erreur JS, 0 débordement.
+  - **Accueil** : menu mobile, fenêtre devis, validation et labels OK ; l'envoi ouvre WhatsApp.
+  - **/realisations/** : lightbox (ouvrir, suivant, Échap) OK.
+  - **Photos de /realisations/** : 2 colonnes dès le mobile et préchargement de la 1ʳᵉ image. Raison : avec une seule colonne, le mobile tombait à 79.
+  - **Vitesse (Lighthouse, même méthode qu'avant)** :
+
+| Page | main mobile | branche mobile | main ordinateur | branche ordinateur |
+|---|---|---|---|---|
+| / | 96, LCP 2,4 s, 204 Ko | **99, LCP 1,5 s, 96 Ko** | 99, LCP 0,6 s | **100, LCP 0,4 s** |
+| /realisations/ | 100, LCP 1,5 s, 1 328 Ko | 94, LCP 2,9 s, **483 Ko** | 100, 3 230 Ko | 100, **461 Ko** |
+| /services/plomberie/ | 99, LCP 2,0 s, 108 Ko | 99, LCP 2,1 s, 137 Ko | 100 | 100 |
+
+  Sur /realisations/ en mobile, main affichait d'abord le texte (photos chargées plus tard), alors que la branche affiche une photo en haut. D'où un LCP un peu plus long, mais un poids divisé par 2,7.
+- Étape 13 (à faire) : aperçu temporaire en noindex (Netlify), sinon captures mobiles.
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 

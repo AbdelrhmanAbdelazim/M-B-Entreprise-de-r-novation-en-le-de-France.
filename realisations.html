@@ -7,6 +7,9 @@ seo_title: "Nos réalisations – M&B Rénovation Paris"
 description: "Photos de nos chantiers de rénovation à Paris et en Île-de-France : avant/après, salles de bain, cuisines, menuiserie sur mesure, électricité, peinture."
 permalink: /realisations/
 image: /images/realisations/avant-apres-salle-de-bain.jpg
+preload_image: /images/realisations/webp/avant-apres-carrelage-salle-de-bain-480.webp
+preload_sizes: "(min-width: 1180px) 373px, (min-width: 1000px) 31vw, 46vw"
+preload_srcset: "/images/realisations/webp/avant-apres-carrelage-salle-de-bain-480.webp 480w, /images/realisations/webp/avant-apres-carrelage-salle-de-bain-1080.webp 1080w"
 ---
 {%- comment -%}
   Textes identiques à main (titre, intro, sections et textes alternatifs de _data/realisations.yml, bouton).
@@ -30,7 +33,7 @@ image: /images/realisations/avant-apres-salle-de-bain.jpg
         {%- assign slug = photo.file | replace: ".jpg", "" -%}
         {%- assign key = "realisations/" | append: photo.file %}
         <a class="project-card" href="/realisations/{{ slug }}/" aria-label="{{ photo.alt | escape }}">
-            <div class="frame">{% include webp-img.html key=key alt=photo.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, (min-width: 700px) 46vw, 92vw" eager=forloop.first %}</div>
+            <div class="frame">{% include webp-img.html key=key alt=photo.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, 46vw" eager=forloop.first %}</div>
         </a>
         {%- endfor %}
     </div>

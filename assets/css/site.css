@@ -449,3 +449,6 @@ textarea.form-control { min-height: 110px; resize: vertical; }
 .project-nav .link-arrow { text-transform: none; letter-spacing: 0.02em; font-size: 0.88rem; font-weight: 400; max-width: 48%; }
 .project-nav .link-arrow:last-child { text-align: right; margin-left: auto; }
 .hero-media img { height: 100%; }
+/* Réalisations : 2 colonnes de photos dès le mobile (images plus légères, chargement plus rapide) */
+.project-grid--photos { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 1000px) { .project-grid--photos { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
