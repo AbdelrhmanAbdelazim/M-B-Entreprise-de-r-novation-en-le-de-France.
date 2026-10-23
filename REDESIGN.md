@@ -39,7 +39,7 @@
 2. Seulement ensuite : appliquer la direction choisie à l'accueil réel, puis aux autres pages, avec son accord.
 
 ### Dernier SHA poussé
-- (mis à jour à chaque étape)
+- 15a 444ed67, 15b 2e6b04d, 15c/15d 465e1a6d7afea219179669d32aecd63db4a66a85 (voir git log pour ce commit-ci)
 
 ## 🔶 Demande n° 3 du gérant (23/10, 3ᵉ message) : PRIORITAIRE
 
