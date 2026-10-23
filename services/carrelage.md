@@ -4,7 +4,7 @@ title: "Carrelage"
 service_name: "Carrelage"
 heading: "Carrelage à Paris et en Île-de-France"
 seo_title: "Carreleur à Paris – Sols, murs et faïence | M&B Rénovation"
-description: "Carrelage à Paris et en Île-de-France : sols et murs, grands formats, carreaux de ciment, faïence de salle de bains, crédence de cuisine. Devis gratuit via WhatsApp."
+description: "Carrelage à Paris et en Île-de-France : sols et murs, grands formats, carreaux de ciment, faïence de salle de bains, crédence de cuisine. Devis gratuit et détaillé."
 permalink: /services/carrelage/
 image: /chantier-2.jpg
 image_alt: "Pose de carreaux de ciment à motifs autour d'un receveur de douche dans une salle de bains parisienne"

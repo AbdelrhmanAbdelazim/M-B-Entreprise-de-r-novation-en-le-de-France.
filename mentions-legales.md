@@ -2,7 +2,7 @@
 layout: page
 title: "Mentions légales"
 seo_title: "Mentions légales | M&B Rénovation"
-description: "Mentions légales du site maison-mb.fr : éditeur M&B Rénovation (EI, SIRET 923 102 412 00015), directeur de publication, hébergeur GitHub Inc. et assurance décennale."
+description: "Mentions légales du site maison-mb.fr : éditeur M&B Rénovation (EI, SIRET 923 102 412 00015), directeur de publication, hébergeur GitHub Inc. et médiateur de la consommation."
 permalink: /mentions-legales/
 ---
 {%- assign c = site.company -%}
@@ -26,9 +26,11 @@ permalink: /mentions-legales/
 
 Le site est hébergé par **GitHub Inc.** (service GitHub Pages), 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA – [github.com](https://github.com).
 
+{% if c.insurer and c.insurer != "" %}
 ## Assurance professionnelle
 
 {{ c.brand }} est assurée en **{{ c.insurance }}** auprès de **{{ c.insurer }}**, contrat n° **{{ c.insurance_contract }}**, couverture géographique : {{ c.insurance_coverage }}.
+{% endif %}
 
 ## Médiateur de la consommation
 

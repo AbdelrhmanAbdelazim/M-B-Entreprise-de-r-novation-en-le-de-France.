@@ -4,7 +4,7 @@ title: "Peinture"
 service_name: "Peinture"
 heading: "Peinture intérieure à Paris"
 seo_title: "Peintre à Paris – Peinture intérieure et préparation des murs | M&B Rénovation"
-description: "Peinture intérieure à Paris et en Île-de-France : préparation des murs, enduits, peinture des murs et plafonds, laque des boiseries, papiers peints. Devis gratuit via WhatsApp."
+description: "Peinture intérieure à Paris et en Île-de-France : préparation des murs, enduits, peinture des murs et plafonds, laque des boiseries, papiers peints. Devis gratuit et détaillé."
 permalink: /services/peinture/
 image: /chantier-9.jpg
 image_alt: "Murs et plafonds en préparation avant mise en peinture dans un appartement parisien, sols protégés par des bâches"

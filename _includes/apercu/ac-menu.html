@@ -1,3 +1,7 @@
+{%- assign menu_home = "/" -%}
+{%- if page.permalink == "/apercu/ac/" -%}
+  {%- assign menu_home = "/apercu/ac/" -%}
+{%- endif -%}
 <dialog class="full-menu" id="mobileMenu" aria-labelledby="menuTitle">
     <div class="full-menu-head">
         <h2 id="menuTitle">Menu</h2>
@@ -5,12 +9,15 @@
     </div>
     <div class="full-menu-content">
         <nav class="full-menu-primary" aria-label="Navigation principale">
-            <a href="/apercu/ac/" data-menu-close>Accueil</a>
+            <a href="{{ menu_home }}" data-menu-close>Accueil</a>
+            <a href="{{ menu_home }}#pourquoi" data-menu-close>Pourquoi M&amp;B</a>
+            <a href="{{ menu_home }}#formules" data-menu-close>Votre projet</a>
             <a href="/realisations/#portfolio" data-menu-close>Portfolio</a>
             <a href="/realisations/#chantiers" data-menu-close>L’Envers du Décor</a>
-            <a href="/apercu/ac/#processus" data-menu-close>Processus</a>
+            <a href="{{ menu_home }}#processus" data-menu-close>Processus</a>
             <a href="/realisations/" data-menu-close>Réalisations</a>
             <a href="/blog/" data-menu-close>Le Blog</a>
+            <a href="{{ menu_home }}#contact" data-menu-close data-contact-type="contact">Contactez-nous</a>
         </nav>
         <nav class="full-menu-details" aria-label="Toutes les rubriques">
             <details>
@@ -31,11 +38,14 @@
             <a href="/sous-traitance-renovation/" data-menu-close>Sous-traitance</a>
             <a href="/avis/" data-menu-close>Donner mon avis</a>
             <a href="/parrainage/" data-menu-close>Parrainage</a>
+            <a href="{{ menu_home }}#avantages" data-menu-close>Paiement par étapes</a>
+            <a href="{{ menu_home }}#contact" data-menu-close data-contact-type="contact">Contactez-nous</a>
             <button type="button" class="menu-devis" data-menu-close data-devis>{{ site.data.apercu_accueil.hero.btn }}</button>
         </nav>
     </div>
     <nav class="full-menu-legal" aria-label="Informations légales">
         <a href="/mentions-legales/" data-menu-close>Mentions légales</a>
         <a href="/confidentialite/" data-menu-close>Confidentialité</a>
+        <a href="{{ site.social.google_business }}" target="_blank" rel="noopener">Voir notre fiche Google</a>
     </nav>
 </dialog>

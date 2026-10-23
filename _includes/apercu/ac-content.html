@@ -1,0 +1,384 @@
+{%- assign d = site.data.apercu_accueil -%}
+{%- assign home_base = "/" -%}
+{%- if site.apercu_sans_envoi and page.url contains "/apercu/" -%}
+{%- assign home_base = "/apercu/ac/" -%}
+{%- endif -%}
+<header class="site-head">
+    <button type="button" class="menu-trigger" id="menuBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileMenu"><span class="menu-lines" aria-hidden="true"><span></span><span></span></span>Menu</button>
+    <button type="button" class="btn head-devis" data-devis>{{ d.hero.btn }}</button>
+</header>
+{% include apercu/ac-menu.html %}
+
+<main id="contenu">
+    <section class="hero">
+        {%- assign hi = page.hero_inspiration %}
+        <figure class="hero-media">
+            <picture>
+                <source type="image/avif" srcset="{{ hi }}-640.avif 640w, {{ hi }}-960.avif 960w, {{ hi }}-1280.avif 1280w, {{ hi }}-1672.avif 1672w" sizes="100vw">
+                <img src="{{ hi }}-1280.webp" srcset="{{ hi }}-640.webp 640w, {{ hi }}-960.webp 960w, {{ hi }}-1280.webp 1280w, {{ hi }}-1672.webp 1672w" sizes="100vw" width="1672" height="941" alt="{{ page.hero_inspiration_alt }}" fetchpriority="high" decoding="async">
+            </picture>
+            <figcaption class="hero-inspi">Visuel d'inspiration</figcaption>
+        </figure>
+        <div class="hero-content wrap">
+            <h1 class="eyebrow">{{ d.hero.eyebrow }}</h1>
+            <p class="hero-title">{{ d.hero.title1 }}<br><em>{{ d.hero.title2 }}</em></p>
+            <p class="hero-sub">{{ d.hero.sub }}</p>
+            <div class="hero-actions">
+                <button type="button" class="btn btn--gold" data-devis>{{ d.hero.btn }}</button>
+                <a href="/realisations/" class="btn btn--line">{{ d.hero.ghost }}</a>
+            </div>
+        </div>
+        <ul class="hero-stats wrap" id="stats">
+            {%- for s in d.stats %}
+            <li><span class="stat-n">{{ s.n }}</span><span class="stat-l">{{ s.l }}</span></li>
+            {%- endfor %}
+        </ul>
+        <a class="hero-scroll" href="#services"><span></span>{{ d.hero.scroll }}</a>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="t-services">
+        <div class="wrap">
+            <div class="sec-head sec-head--split">
+                <div>
+                    <p class="eyebrow">{{ d.services.eyebrow }}</p>
+                    <h2 id="t-services">{{ d.services.title }}</h2>
+                </div>
+                <p class="sec-intro">{{ d.services.intro }}</p>
+            </div>
+            <div class="svc-grid">
+                {%- for c in d.services.cards %}
+                <article class="svc">
+                    <span class="svc-num">{{ c.num }}</span>
+                    <span class="svc-icon-wrap" aria-hidden="true">
+                        {%- if c.icon == "fa-faucet-drip" -%}
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        {%- elsif c.icon == "fa-bolt" -%}
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        {%- elsif c.icon == "fa-paint-roller" -%}
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="6" rx="1"/><path d="M17 6h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-7a2 2 0 0 0-2 2v2"/><rect x="8" y="16" width="4" height="5" rx="1"/></svg>
+                        {%- else -%}
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>
+                        {%- endif -%}
+                    </span>
+                    <h3>{{ c.title }}</h3>
+                    <ul>{% for i in c.items %}<li>{{ i }}</li>{% endfor %}</ul>
+                </article>
+                {%- endfor %}
+            </div>
+            <p class="svc-links">{{ d.services.detail }}
+                {% for s in site.services %}<a href="{{ s.url }}">{{ s.title }}</a>{% unless forloop.last %} &nbsp;·&nbsp; {% endunless %}{% endfor %}
+            </p>
+            <p class="svc-pro">{{ d.services.pro }} <a href="{{ d.services.pro_href }}">{{ d.services.pro_link }}</a></p>
+        </div>
+    </section>
+
+    <section class="why-mb" id="pourquoi" aria-labelledby="t-pourquoi">
+        <div class="wrap">
+            <div class="sec-head sec-head--split">
+                <div>
+                    <p class="eyebrow">Nos engagements d'exécution</p>
+                    <h2 id="t-pourquoi">Pourquoi choisir<br><em>M&amp;B Rénovation&nbsp;?</em></h2>
+                </div>
+                <p class="sec-intro">Entreprise de rénovation intérieure tous corps d'état à Paris et en Île-de-France, nous assurons l'exécution complète de vos travaux avec méthode, soin des supports et suivi direct sur le chantier.</p>
+            </div>
+            <div class="why-grid">
+                <article class="why-card">
+                    <span class="why-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/><path d="M18 8h3m-1.5-1.5v3"/></svg>
+                    </span>
+                    <h3>Un interlocuteur unique</h3>
+                    <p>Un seul responsable coordonne l'ensemble des corps de métier (plomberie, électricité, plâtrerie, carrelage, sols, peinture et menuiserie), de la première visite technique jusqu'à la remise des clés.</p>
+                </article>
+                <article class="why-card">
+                    <span class="why-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/><path d="M8 9h2"/></svg>
+                    </span>
+                    <h3>Devis détaillé, poste par poste</h3>
+                    <p>Après visite sur place, chaque lot est chiffré par écrit avec le descriptif précis des préparations, fournitures et finitions retenues, pour une lecture claire et sans imprévu avant le début des travaux.</p>
+                </article>
+                <article class="why-card">
+                    <span class="why-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <h3>Protection &amp; préparation du chantier</h3>
+                    <p>Protection des parties communes, des sols et du mobilier, préparation rigoureuse des supports (ragréage, étanchéité sous carrelage, ratissage et ponçage) et maintien d'un chantier propre chaque jour.</p>
+                </article>
+                <article class="why-card">
+                    <span class="why-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/><path d="m8 14-3 3"/><path d="m19 10-3 3"/></svg>
+                    </span>
+                    <h3>Chantiers &amp; réalisations consultables</h3>
+                    <p>Nos réalisations terminées, nos comparatifs avant / après et les étapes de préparation en cours de chantier à Paris et en Île-de-France sont présentés en toute transparence.</p>
+                </article>
+            </div>
+            <div class="why-actions">
+                <a href="/realisations/" class="btn btn--gold">Consulter nos réalisations</a>
+                <a href="/realisations/#chantiers" class="btn btn--line">Voir la préparation des chantiers</a>
+                <a href="#processus" class="why-link">Découvrir notre méthodologie &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="formules" id="formules" aria-labelledby="t-formules">
+        <div class="wrap">
+            <div class="sec-head sec-head--center">
+                <p class="eyebrow">Votre projet sur mesure</p>
+                <h2 id="t-formules">Trois entrées selon<br><em>la nature de votre projet</em></h2>
+                <p class="sec-intro">Le périmètre des travaux, le prix et l’échéancier des paiements par étapes sont définis après la visite technique et précisés dans votre devis détaillé.</p>
+            </div>
+            <div class="formules-grid">
+                <article class="formule-card">
+                    <div class="formule-head">
+                        <span class="formule-tag">Peinture, finitions et sols selon les besoins</span>
+                        <h3>Rafraîchissement intérieur</h3>
+                        <p class="formule-sub"><strong>Pour qui&nbsp;:</strong> propriétaires ou locataires souhaitant remettre en état ou valoriser une pièce ou un appartement sans modifier l'agencement existant.</p>
+                    </div>
+                    <ul class="formule-list">
+                        <li>Protection préalable des sols, menuiseries et mobilier avant intervention</li>
+                        <li>Préparation des murs et plafonds selon l'état des supports : rebouchage, enduits, ratissage et ponçage</li>
+                        <li>Mise en peinture (finition mate, velours ou satinée), laque des boiseries et pose de papiers peints</li>
+                        <li>Dépose, ragréage, pose de parquet, stratifié ou sol vinyle et pose des plinthes</li>
+                    </ul>
+                    <div class="formule-foot">
+                        <p class="formule-meta">Services mobilisés : <a href="/services/peinture/">Peinture</a> &middot; <a href="/services/sols/">Sols</a></p>
+                        <p class="formule-note">Périmètre, prix et paiements par étapes définis après visite technique dans votre devis détaillé.</p>
+                        <button type="button" class="btn btn--gold formule-btn" data-devis data-formule="formule-rafraichissement">Parlons de votre projet</button>
+                    </div>
+                </article>
+
+                <article class="formule-card">
+                    <div class="formule-head">
+                        <span class="formule-tag">Périmètre défini après examen des lieux</span>
+                        <h3>Rénovation de salle de bains</h3>
+                        <p class="formule-sub"><strong>Pour qui&nbsp;:</strong> particuliers souhaitant rénover ou réaménager une salle de bains ou une pièce d'eau avec un interlocuteur unique coordonnant chaque métier.</p>
+                    </div>
+                    <ul class="formule-list">
+                        <li>Dépose des équipements existants et adaptation des alimentations et évacuations d'eau</li>
+                        <li>Supports hydrofuges et système d'étanchéité sous carrelage dans les zones humides</li>
+                        <li>Pose de douche à l'italienne, receveur ou baignoire, WC suspendu, meuble vasque et robinetterie</li>
+                        <li>Carrelage de sol, faïence murale, éclairage aux normes, ventilation et peintures de finition</li>
+                    </ul>
+                    <div class="formule-foot">
+                        <p class="formule-meta">Services mobilisés : <a href="/services/plomberie/">Plomberie</a> &middot; <a href="/services/carrelage/">Carrelage</a> &middot; <a href="/services/electricite/">Électricité</a></p>
+                        <p class="formule-note">Périmètre, prix et paiements par étapes définis après visite technique dans votre devis détaillé.</p>
+                        <button type="button" class="btn btn--gold formule-btn" data-devis data-formule="formule-salle-de-bains">Parlons de votre projet</button>
+                    </div>
+                </article>
+
+                <article class="formule-card">
+                    <div class="formule-head">
+                        <span class="formule-tag">Coordination et réalisation des étapes de rénovation</span>
+                        <h3>Rénovation complète</h3>
+                        <p class="formule-sub"><strong>Pour qui&nbsp;:</strong> projets de rénovation globale d'un appartement ou d'une maison nécessitant l'intervention coordonnée de plusieurs corps d'état.</p>
+                    </div>
+                    <ul class="formule-list">
+                        <li>Dépose, évacuation des gravats et protection soignée des parties communes</li>
+                        <li>Reprise des réseaux : électricité (mise aux normes NF C 15-100), plomberie et ventilation</li>
+                        <li>Plâtrerie, cloisons, isolation, faux plafonds et menuiserie intérieure</li>
+                        <li>Carrelage, revêtements de sols, pièces d'eau, peintures et finitions jusqu'à la livraison</li>
+                    </ul>
+                    <div class="formule-foot">
+                        <p class="formule-meta">Services mobilisés : <a href="/services/renovation-complete/">Rénovation complète</a> &middot; <a href="/services/platrerie/">Plâtrerie</a> &middot; <a href="/services/menuiserie/">Menuiserie</a></p>
+                        <p class="formule-note">Périmètre, prix et paiements par étapes définis après visite technique dans votre devis détaillé.</p>
+                        <button type="button" class="btn btn--gold formule-btn" data-devis data-formule="formule-renovation-complete">Parlons de votre projet</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="work-entries" id="realisations" aria-labelledby="t-real">
+        <div class="wrap">
+            <div class="sec-head sec-head--center">
+                <p class="eyebrow">{{ d.realisations.eyebrow }}</p>
+                <h2 id="t-real">{{ d.realisations.title }}</h2>
+                <p class="sec-intro">{{ d.realisations.intro }}</p>
+            </div>
+            <div class="work-entry-grid">
+                <a class="work-entry" id="portfolio" href="/realisations/#portfolio">
+                    <span class="eyebrow">{{ d.portfolio.eyebrow }}</span>
+                    <span class="work-entry-title">{{ d.portfolio.title }}</span>
+                    <span class="work-entry-arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="work-entry" id="chantiers" href="/realisations/#chantiers">
+                    <span class="eyebrow">{{ d.chantiers.eyebrow }}</span>
+                    <span class="work-entry-title">{{ d.chantiers.title }}</span>
+                    <span class="work-entry-arrow" aria-hidden="true">↗</span>
+                </a>
+            </div>
+            <p class="center"><a href="/realisations/" class="btn btn--gold">{{ d.realisations.cta }}</a></p>
+        </div>
+    </section>
+
+    <section class="processus" id="processus" aria-labelledby="t-proc">
+        <div class="wrap">
+            <div class="sec-head sec-head--center">
+                <p class="eyebrow">{{ d.processus.eyebrow }}</p>
+                <h2 id="t-proc">{{ d.processus.title1 }}<br><em>{{ d.processus.title2 }}</em></h2>
+            </div>
+            <ol class="timeline">
+                {%- for s in d.processus.steps %}
+                <li><span class="tl-num">{{ s.num }}</span><h3>{{ s.h }}</h3><p>{{ s.p }}</p></li>
+                {%- endfor %}
+            </ol>
+        </div>
+    </section>
+
+    <section class="avantages" id="avantages" aria-labelledby="t-av">
+        <div class="wrap">
+            <div class="sec-head sec-head--center">
+                <p class="eyebrow">{{ d.avantages.eyebrow }}</p>
+                <h2 id="t-av">Paiement par étapes<br><em>&amp; parrainage</em></h2>
+            </div>
+            <div class="av-grid">
+                <div class="av">
+                    <h3><span class="av-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></span> Paiements selon l’avancement des travaux</h3>
+                    <p>Le périmètre des travaux, le prix et l’échéancier des paiements par étapes sont définis après la visite technique et précisés dans votre devis détaillé. <small>Chaque règlement correspond à l’avancement réel du chantier, tel qu’arrêté par écrit avec vous dans le devis détaillé avant le début des travaux.</small></p>
+                </div>
+                <div class="av">
+                    <h3><span class="av-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span> {{ d.avantages.parrainage_title }}</h3>
+                    <p>{{ d.avantages.parrainage }} <small>Votre proche indique votre nom lors de son premier contact. Le montant de la remise est précisé sur le devis et s'applique une fois les travaux de votre proche terminés et réglés.</small></p>
+                    <a href="/parrainage/">{{ d.avantages.parrainage_link }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" aria-labelledby="t-cta">
+        <div class="wrap cta-inner">
+            <p class="eyebrow">{{ d.cta.eyebrow }}</p>
+            <h2 id="t-cta">{{ d.cta.title1 }}<br>{{ d.cta.title2 }}</h2>
+            <p>{{ d.cta.p }}</p>
+            <div class="hero-actions">
+                <button type="button" class="btn btn--gold" data-devis>{{ d.cta.btn }}</button>
+                <a href="#contact" class="btn btn--line" data-contact-type="contact">Contactez-nous</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-sec" id="contact" aria-labelledby="t-contact">
+        <div class="wrap contact-grid">
+            <div class="contact-info">
+                <p class="eyebrow">Votre projet &amp; vos questions</p>
+                <h2 id="t-contact">Contactez-nous</h2>
+                <p class="contact-hours">{{ site.company.hours }}</p>
+                <ul class="contact-list">
+                    <li>
+                        <span class="contact-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span>
+                        <div>
+                            <span class="contact-k">Téléphone</span>
+                            <a href="tel:{{ d.nav.tel_raw }}">{{ d.nav.tel }}</a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="contact-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+                        <div>
+                            <span class="contact-k">E-mail</span>
+                            <a href="mailto:{{ d.footer.email }}">{{ d.footer.email }}</a>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="contact-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg></span>
+                        <div>
+                            <span class="contact-k">Adresse</span>
+                            <span>{{ d.footer.address1 }}, {{ d.footer.address2 }} &middot; {{ site.company.area }}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="contact-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4zm-1.4 15.6L6.4 12.4l1.4-1.4 2.8 2.8 5.6-5.6 1.4 1.4-7 7z"/></svg></span>
+                        <div>
+                            <span class="contact-k">Identité légale</span>
+                            <span>{{ d.footer.siret }}{% if d.footer.assurance and d.footer.assurance != "" %}<br>{{ d.footer.assurance }}{% endif %}</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="contact-social-block">
+                    <p class="contact-k">Réseaux sociaux</p>
+                    <div class="socials contact-socials">{% include apercu/social.html %}</div>
+                </div>
+            </div>
+            <div class="contact-form-card">
+                <div class="eyebrow" id="contactFormEyebrow">Étude personnalisée</div>
+                <h3 class="contact-form-title" id="contactFormTitle">{{ d.modal.title }}</h3>
+                <p class="contact-form-sub">{{ d.modal.sub | replace: " (WhatsApp ou e-mail)", "" }}</p>
+                <div class="contact-type-pills" role="group" aria-label="Choisir le type de demande">
+                    <button type="button" class="type-pill is-active" data-type-pill="devis">Demander un devis</button>
+                    <button type="button" class="type-pill" data-type-pill="contact">Question / Contact</button>
+                    <button type="button" class="type-pill" data-type-pill="formule-rafraichissement">Rafraîchissement</button>
+                    <button type="button" class="type-pill" data-type-pill="formule-salle-de-bains">Salle de bains</button>
+                    <button type="button" class="type-pill" data-type-pill="formule-renovation-complete">Rénovation complète</button>
+                </div>
+                <form class="lead-form" id="contactForm" action="https://navajowhite-cormorant-668337.hostingersite.com/webhook/devis-maison-mb" method="post" novalidate>
+                    <div class="sr-only" aria-hidden="true">
+                        <label for="c-website">Votre site web (ne pas remplir)</label>
+                        <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="c-type">Objet de votre demande *</label>
+                        <select class="form-control" id="c-type" name="type_demande" required aria-required="true">
+                            <option value="devis" selected>Demander un devis</option>
+                            <option value="contact">Question générale / Contactez-nous</option>
+                            <option value="formule-rafraichissement">Projet : Rafraîchissement intérieur (peinture, finitions et sols)</option>
+                            <option value="formule-salle-de-bains">Projet : Rénovation de salle de bains</option>
+                            <option value="formule-renovation-complete">Projet : Rénovation complète</option>
+                        </select>
+                    </div>
+                    {%- for f in d.modal.fields %}
+                    <div class="form-group">
+                        <label class="form-label" for="c-{{ f.id }}">{{ f.label }}{% if f.required %} *{% endif %}</label>
+                        {%- if f.type == "textarea" %}
+                        <textarea class="form-control" id="c-{{ f.id }}" name="{{ f.id }}" placeholder="{{ f.placeholder }}"{% if f.required %} required{% endif %}></textarea>
+                        {%- else %}
+                        <input class="form-control" type="{{ f.type }}" id="c-{{ f.id }}" name="{{ f.id }}" placeholder="{{ f.placeholder }}"{% if f.required %} required{% endif %}>
+                        {%- endif %}
+                    </div>
+                    {%- endfor %}
+                    <button type="submit" class="form-submit">{{ d.modal.submit }}</button>
+                    <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
+                    <p class="form-note"><strong>Paiement par étapes :</strong> le périmètre des travaux, le prix et l’échéancier des paiements selon l’avancement des travaux sont définis après la visite technique et précisés dans votre devis détaillé.</p>
+                    <p class="form-note form-note--small">{{ d.modal.confid }} <a href="/confidentialite/">{{ d.modal.confid_link }}</a>.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-foot">
+    <div class="wrap foot-grid">
+        <div>
+            <a href="{{ home_base }}" class="foot-logo">{{ d.nav.logo }} <em>{{ d.nav.logo_em }}</em></a>
+            <p class="foot-tag">{{ d.footer.tagline }}</p>
+            <p class="foot-contact-cta"><a href="#contact" data-contact-type="contact">Contactez-nous &amp; Réseaux sociaux &rarr;</a></p>
+        </div>
+        <div>
+            <h2 class="foot-h">{{ d.footer.nav_title }}</h2>
+            <ul class="foot-nav">
+                {%- for l in d.footer.nav %}
+                {%- assign fhref = l.href -%}
+                {%- if fhref == "#" -%}{%- assign fhref = home_base -%}{%- elsif fhref == "#portfolio" -%}{%- assign fhref = "/realisations/#portfolio" -%}{%- elsif fhref == "#chantiers" -%}{%- assign fhref = "/realisations/#chantiers" -%}{%- elsif fhref == "/blog" -%}{%- assign fhref = "/blog/" -%}{%- endif -%}
+                <li><a href="{{ fhref }}">{{ l.label }}</a></li>
+                {%- endfor %}
+                <li><a href="#pourquoi">Pourquoi choisir M&amp;B</a></li>
+                <li><a href="#formules">Votre projet</a></li>
+                <li><a href="#avantages">Paiement par étapes &amp; parrainage</a></li>
+                <li><a href="#contact" data-contact-type="contact">Contactez-nous</a></li>
+                <li><button type="button" data-devis>{{ d.footer.nav_btn }}</button></li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="foot-h">Informations légales</h2>
+            <ul class="foot-contact">
+                <li><span class="foot-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span>{{ d.footer.address1 }}<br>{{ d.footer.address2 }}</span></li>
+                <li><span class="foot-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span><span>{{ d.footer.siret }}</span></li>
+                {% if d.footer.assurance and d.footer.assurance != "" %}<li><span class="foot-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><span>{{ d.footer.assurance }}</span></li>{% endif %}
+                <li><span class="foot-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span><a href="#contact" data-contact-type="contact">Nous écrire ou demander un devis</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="wrap foot-bottom">
+        <p>{{ d.footer.copyright }}</p>
+        <p><span>«</span> {{ d.footer.quote }} <span>»</span></p>
+    </div>
+    <div class="wrap">{% include apercu/blog.html %}</div>
+    <div class="wrap legal">{% include legal-footer.html %}</div>
+</footer>

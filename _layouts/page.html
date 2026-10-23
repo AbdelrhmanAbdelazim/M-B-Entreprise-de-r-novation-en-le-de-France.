@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="facebook-domain-verification" content="3yy041zr8m4aqm2idj7aye6gj6h4t2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#F5F0E6">
+    <meta name="theme-color" content="#1C1E22">
+{%- if site.apercu_sans_envoi %}
+    <meta name="robots" content="noindex, nofollow">
+    <script>window.mbConsent={get:function(){try{return localStorage.getItem('apercu-consent')}catch(e){return null}},accept:function(){try{localStorage.setItem('apercu-consent','accept')}catch(e){}},refuse:function(){try{localStorage.setItem('apercu-consent','refuse')}catch(e){}}};</script>
+{%- else %}
 {% include consent-head.html %}
+{%- endif %}
 {% include seo.html %}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%Y%m%d%H%M' }}">
     {%- if page.preload_image %}
     <link rel="preload" as="image" href="{{ page.preload_image }}"{% if page.preload_srcset %} imagesrcset="{{ page.preload_srcset }}" imagesizes="{{ page.preload_sizes | default: '100vw' }}"{% endif %} fetchpriority="high">
@@ -20,6 +24,7 @@
     <script>document.documentElement.classList.add('js');</script>
 </head>
 <body{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
+<a class="skip" href="#contenu">Aller au contenu</a>
 
 {% include site-header.html %}
 
@@ -45,7 +50,6 @@
 {%- endif %}
 
 {% include site-footer.html %}
-{%- if page.home %}{% include devis-modal.html %}{% endif %}
 {% include site-js.html %}
 {% include cookie-banner.html %}
 </body>

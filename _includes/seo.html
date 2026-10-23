@@ -22,7 +22,9 @@
     {%- endif %}
     <title>{{ seo_title }}</title>
     <meta name="description" content="{{ seo_description }}">
+    {%- unless site.apercu_sans_envoi %}
     <meta name="robots" content="index, follow">
+    {%- endunless %}
     <link rel="canonical" href="{{ seo_url }}">
 
     <link rel="icon" href="/favicon.ico" sizes="any">

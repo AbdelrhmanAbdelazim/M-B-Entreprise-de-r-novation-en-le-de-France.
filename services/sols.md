@@ -4,7 +4,7 @@ title: "Sols"
 service_name: "Revêtements de sols"
 heading: "Sols et parquets à Paris"
 seo_title: "Pose de parquet et de sols à Paris | M&B Rénovation"
-description: "Revêtements de sols à Paris et en Île-de-France : parquet massif, contrecollé ou stratifié, sols vinyles, ragréage, sous-couches acoustiques et plinthes. Devis gratuit via WhatsApp."
+description: "Revêtements de sols à Paris et en Île-de-France : parquet massif, contrecollé ou stratifié, sols vinyles, ragréage, sous-couches acoustiques et plinthes. Devis gratuit et détaillé."
 permalink: /services/sols/
 image: /chantier-13.jpg
 image_alt: "Chambre rénovée à Paris avec un parquet neuf et des plinthes blanches posées par M&B Rénovation"

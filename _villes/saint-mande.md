@@ -19,7 +19,7 @@ faq:
   - q: "Peut-on garder les moulures et les éléments anciens ?"
     a: "Oui, nous pouvons protéger et restaurer les moulures, reprendre les fissures des plafonds et repeindre en respectant le caractère du logement, tout en modernisant l'électricité ou la salle de bain."
   - q: "Comment se passe le premier contact ?"
-    a: "Vous nous envoyez quelques photos et une description par WhatsApp ou par e-mail. Nous organisons ensuite une visite sur place, puis nous vous remettons un devis détaillé et gratuit, sans engagement."
+    a: "Vous nous décrivez votre projet via notre formulaire de contact ou par e-mail. Nous organisons ensuite une visite sur place, puis nous vous remettons un devis détaillé et gratuit, sans engagement."
 voisins: [vincennes, paris-12, montreuil]
 ---
 ## Les logements à Saint-Mandé

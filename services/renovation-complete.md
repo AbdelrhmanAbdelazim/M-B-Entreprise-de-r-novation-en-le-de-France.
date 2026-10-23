@@ -4,7 +4,7 @@ title: "Rénovation complète"
 service_name: "Rénovation complète"
 heading: "Rénovation complète à Paris et en Île-de-France"
 seo_title: "Rénovation complète d'appartement à Paris – Tous corps d'état | M&B Rénovation"
-description: "Rénovation complète d'appartement ou de maison à Paris et en Île-de-France, tous corps d'état : un interlocuteur unique, devis détaillé et garantie décennale."
+description: "Rénovation complète d'appartement ou de maison à Paris et en Île-de-France, tous corps d'état : un interlocuteur unique, visite technique sur place et devis détaillé."
 permalink: /services/renovation-complete/
 image: /chantier-7.jpg
 image_alt: "Appartement parisien entièrement rénové : parquet neuf, murs repeints et placard sur mesure"
@@ -26,7 +26,7 @@ Rénover entièrement un appartement ou une maison implique de nombreux métiers
 1. **Rencontre** : visite technique offerte pour comprendre vos besoins, vos envies et les contraintes du logement.
 2. **Chiffrage** : devis détaillé et transparent, poste par poste, pour savoir précisément ce qui est inclus.
 3. **Réalisation** : travaux enchaînés dans le bon ordre, chantier protégé et propre chaque jour.
-4. **Garantie** : livraison avec l'attestation d'assurance décennale.
+4. **Livraison & Réception** : contrôle rigoureux des finitions et procès-verbal de réception.
 
 ## Pourquoi un interlocuteur unique
 

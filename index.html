@@ -1,131 +1,20 @@
 ---
-layout: page
-full_width: true
+layout: apercu
+permalink: /
 home: true
+direction: ac
+direction_nom: "Variante A-C · composition A, couleurs C, sans WA"
+theme_color: "#1C1E22"
+sans_whatsapp: true
+detailed_menu: true
+form_inline: true
+hero_inspiration: /images/inspiration/mb-hero-inspiration-v1
+hero_inspiration_alt: "Illustration d'inspiration : salon haussmannien ivoire avec cheminée en marbre, moulures, parquet en point de Hongrie, canapé clair et fauteuil anthracite"
+preload_image: /images/inspiration/mb-hero-inspiration-v1-1280.webp
+preload_srcset: "/images/inspiration/mb-hero-inspiration-v1-640.webp 640w, /images/inspiration/mb-hero-inspiration-v1-960.webp 960w, /images/inspiration/mb-hero-inspiration-v1-1280.webp 1280w, /images/inspiration/mb-hero-inspiration-v1-1672.webp 1672w"
+preload_sizes: "100vw"
 seo_title: "Entreprise de rénovation et artisan à Paris | Sous-traitance – M&B Rénovation"
-description: "Rénovation intérieure à Paris et en Île-de-France pour particuliers et professionnels : sous-traitance, devis gratuit et garantie décennale."
-preload_image: /images/webp/chantier-10-960.webp
-preload_srcset: "/images/webp/chantier-10-480.webp 480w, /images/webp/chantier-10-960.webp 960w, /images/webp/chantier-10-1200.webp 1200w"
+description: "Rénovation intérieure à Paris et en Île-de-France pour particuliers et professionnels : sous-traitance, visite technique sur place et devis détaillé gratuit."
+fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
 ---
-{%- comment -%}
-  Accueil : textes identiques à main, nouveau design (23/10/2026).
-  Seules les galeries photo (Portfolio, L'Envers du Décor, vignettes Avant / Après)
-  ont été déplacées vers /realisations/ (#portfolio, #chantiers), à la demande du gérant.
-  Photo du haut : même photo (chantier-10.jpg), servie en WebP.
-{%- endcomment -%}
-
-<header class="hero">
-    <div class="hero-media" id="heroImage">
-        {% include webp-img.html key="chantier-10.jpg" alt="Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure" sizes="100vw" eager=true %}
-    </div>
-    <div class="container hero-content">
-        <h1 class="eyebrow hero-eyebrow">Entreprise de rénovation &nbsp;·&nbsp; Paris & Île-de-France</h1>
-        <p class="hero-title">L'Art de Sublimer<br><em>Votre Intérieur</em></p>
-        <p class="hero-sub">Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, plâtrerie, carrelage, sols et peinture. Une signature unique pour votre habitat.</p>
-        <div class="hero-actions">
-            <button type="button" class="btn btn--gold" data-devis>Demander un devis</button>
-            <a href="/realisations/#portfolio" class="btn btn--light">Voir nos réalisations</a>
-        </div>
-        <a class="hero-scroll" href="#stats"><span class="hero-scroll-line"></span><span>Découvrir</span></a>
-    </div>
-</header>
-
-<div class="stats-band" id="stats">
-    <div class="container stats-grid">
-        <div class="stat-cell"><span class="stat-number">10</span><span class="stat-label">Ans de Garantie Décennale</span></div>
-        <div class="stat-cell"><span class="stat-number">24h</span><span class="stat-label">Réponse à Votre Demande</span></div>
-        <div class="stat-cell"><span class="stat-number">100%</span><span class="stat-label">Projets Sur Mesure</span></div>
-    </div>
-</div>
-
-<section class="section" id="services">
-    <div class="container">
-        <div class="section-head section-head--center">
-            <div class="eyebrow">Nos Compétences</div>
-            <h2>Expertise Globale</h2>
-            <p class="lead">Nous orchestrons chaque étape de votre projet avec une précision chirurgicale pour un résultat sans compromis.</p>
-            <div class="rule"></div>
-        </div>
-        <div class="grid grid--2 grid--4">
-            <div class="service-card">
-                <div><span class="svc-num">01</span><span class="svc-icon"><i class="fa-solid fa-faucet-drip"></i></span></div>
-                <h3>Bains & Eau</h3>
-                <ul class="svc-items"><li>Création salles de bains luxe</li><li>Robinetterie encastrée</li><li>Plomberie complète</li></ul>
-            </div>
-            <div class="service-card">
-                <div><span class="svc-num">02</span><span class="svc-icon"><i class="fa-solid fa-bolt"></i></span></div>
-                <h3>Lumière & Tech</h3>
-                <ul class="svc-items"><li>Électricité NF C 15-100</li><li>Tableau électrique & éclairage</li><li>Ventilation (VMC)</li></ul>
-            </div>
-            <div class="service-card">
-                <div><span class="svc-num">03</span><span class="svc-icon"><i class="fa-solid fa-paint-roller"></i></span></div>
-                <h3>Matières & Couleurs</h3>
-                <ul class="svc-items"><li>Peinture haute finition</li><li>Enduits décoratifs</li><li>Papiers peints panoramiques</li></ul>
-            </div>
-            <div class="service-card">
-                <div><span class="svc-num">04</span><span class="svc-icon"><i class="fa-solid fa-layer-group"></i></span></div>
-                <h3>Sols & Structure</h3>
-                <ul class="svc-items"><li>Parquets massifs & pose</li><li>Carrelages grands formats</li><li>Pose de menuiseries</li></ul>
-            </div>
-        </div>
-        <p class="services-more">
-            Découvrir nos services en détail :
-            {% for s in site.services %}<a href="{{ s.url }}">{{ s.title }}</a>{% unless forloop.last %} &nbsp;·&nbsp; {% endunless %}{% endfor %}
-        </p>
-        <p class="services-more">
-            Professionnels du bâtiment : <a href="/sous-traitance-renovation/">proposer un chantier en sous-traitance</a>
-        </p>
-    </div>
-</section>
-
-<section class="section section--ink" id="realisations">
-    <div class="container">
-        <div class="section-head section-head--center">
-            <div class="eyebrow">Avant / Après</div>
-            <h2>Nos réalisations</h2>
-            <p class="lead">Avant / après, réalisations terminées et coulisses de nos chantiers à Paris et en Île-de-France.</p>
-            <div class="rule"></div>
-        </div>
-        <p style="text-align:center"><a href="/realisations/" class="btn btn--gold">Voir toutes nos réalisations</a></p>
-    </div>
-</section>
-
-<section class="section section--paper" id="processus">
-    <div class="container">
-        <div class="section-head section-head--center">
-            <div class="eyebrow">Méthodologie</div>
-            <h2>Votre Sérénité,<br><em class="gold">Étape par Étape</em></h2>
-            <div class="rule"></div>
-        </div>
-        <div class="steps">
-            <div class="step"><span class="n">01</span><h3>Rencontre</h3><p>Visite technique offerte pour cerner vos désirs et contraintes. Nous écoutons avant de concevoir.</p></div>
-            <div class="step"><span class="n">02</span><h3>Chiffrage</h3><p>Devis détaillé et transparent sous 48h. Aucun coût caché. Aucune mauvaise surprise.</p></div>
-            <div class="step"><span class="n">03</span><h3>Réalisation</h3><p>Exécution soignée, avec protection complète du logement et propreté irréprochable chaque jour.</p></div>
-            <div class="step"><span class="n">04</span><h3>Garantie</h3><p>Livraison avec remise de l'attestation décennale Entoria / Fidelidade. 10 ans de tranquillité d'esprit.</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="avantages">
-    <div class="container container--narrow">
-        <div class="section-head section-head--center">
-            <div class="eyebrow">Avantages clients</div>
-            <h2>Des facilités pour<br><em class="gold">votre projet</em></h2>
-            <div class="rule"></div>
-        </div>
-{% include bloc-paiement.html %}
-{% include bloc-parrainage.html %}
-    </div>
-</section>
-
-<section class="section section--ink cta-final">
-    <div class="container">
-        <div class="eyebrow">Commençons Ensemble</div>
-        <h2>Votre Projet Mérite<br>L'Excellence</h2>
-        <p class="lead" style="margin:16px auto 0">Bénéficiez d'une étude de projet gratuite, avec un seul interlocuteur et une transparence totale.</p>
-        <div class="actions">
-            <button type="button" class="btn btn--gold" data-devis>Étude de Projet Offerte</button>
-            <a href="https://wa.me/33753306559" target="_blank" class="btn btn--light"><i class="fa-brands fa-whatsapp"></i>WhatsApp Direct</a>
-        </div>
-    </div>
-</section>
+{% include apercu/ac-content.html %}

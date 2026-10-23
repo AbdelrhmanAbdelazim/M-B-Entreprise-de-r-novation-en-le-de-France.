@@ -4,7 +4,7 @@ title: "Menuiserie"
 service_name: "Menuiserie"
 heading: "Menuiserie intérieure : pose de placards, rayonnages et portes"
 seo_title: "Menuiserie intérieure à Paris – Pose de placards, rayonnages et portes | M&B Rénovation"
-description: "Menuiserie intérieure à Paris et en Île-de-France : pose de placards, rayonnages et portes, habillages, plinthes et aménagements. Devis gratuit via WhatsApp."
+description: "Menuiserie intérieure à Paris et en Île-de-France : pose de placards, rayonnages et portes, habillages, plinthes et aménagements. Devis gratuit et détaillé."
 permalink: /services/menuiserie/
 image: /chantier-10.jpg
 image_alt: "Placard à portes coulissantes posé dans une chambre rénovée à Paris"

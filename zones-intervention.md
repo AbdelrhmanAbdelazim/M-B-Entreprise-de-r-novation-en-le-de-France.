@@ -6,6 +6,8 @@ seo_title: "Zones d'intervention – Rénovation en Île-de-France | M&B Rénova
 description: "Villes où M&B Rénovation intervient pour vos travaux de rénovation : Paris, Hauts-de-Seine, Val-de-Marne, Seine-Saint-Denis et toute l'Île-de-France."
 permalink: /zones-intervention/
 ---
+{%- assign z_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}{%- assign z_home = "/apercu/ac/" -%}{%- endif -%}
 **M&B Rénovation** est basée à Paris 12e et intervient dans toute l'Île-de-France : Paris, Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne, Yvelines, Essonne, Seine-et-Marne et Val-d'Oise. Voici les villes pour lesquelles nous détaillons nos services.
 
 ## Par département
@@ -26,4 +28,4 @@ permalink: /zones-intervention/
 {% endfor %}
 {% endfor %}
 
-Votre ville n'apparaît pas dans la liste ? Nous intervenons aussi ailleurs en Île-de-France : écrivez-nous sur [WhatsApp](https://wa.me/33753306559) ou à [{{ site.company.email }}](mailto:{{ site.company.email }}).
+Votre ville n'apparaît pas dans la liste ? Nous intervenons aussi ailleurs en Île-de-France : écrivez-nous via notre formulaire [Contactez-nous]({{ z_home }}#contact) ou à [{{ site.company.email }}](mailto:{{ site.company.email }}).

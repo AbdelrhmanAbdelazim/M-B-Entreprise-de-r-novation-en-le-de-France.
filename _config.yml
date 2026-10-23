@@ -1,5 +1,5 @@
 title: "M&B Rénovation"
-description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Garantie décennale."
+description: "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Devis détaillé sur mesure."
 url: "https://www.maison-mb.fr"
 baseurl: ""
 
@@ -52,6 +52,9 @@ exclude:
   - automation
   - AGENTS.md
   - REDESIGN.md
+  - _config.apercu.yml
+  - _redesign
+  - _scripts
 
 # ---------------------------------------------------------------
 # Identité de l'entreprise : source unique, utilisée par le footer,
@@ -75,14 +78,14 @@ company:
   phone: "+33 7 53 30 65 59"
   phone_raw: "+33753306559"
   email: "abdel@maison-mb.fr"
-  insurance: "RC Pro et décennale"
-  insurer: "Entoria / Fidelidade"
-  insurance_contract: "CRCD01-043750"
-  insurance_coverage: "France"
+  insurance: ""
+  insurer: ""
+  insurance_contract: ""
+  insurance_coverage: ""
   founding_date: "2023-02-20"
   founding_date_fr: "20/02/2023"
   area: "Paris et Île-de-France"
-  hours: "Lun–Ven 8h–19h, Sam 9h–13h, Dim fermé · Réponse sous 24h ouvrées · Devis détaillé sous 48h"
+  hours: "Lun–Ven 8h–19h, Sam 9h–13h, Dim fermé · Visite technique sur place et devis détaillé"
   annuaire_url: "https://annuaire-entreprises.data.gouv.fr/entreprise/923102412"
   mediator: "CM2C – Centre de la Médiation de la Consommation de Conciliateurs de justice"
   mediator_short: "CM2C"

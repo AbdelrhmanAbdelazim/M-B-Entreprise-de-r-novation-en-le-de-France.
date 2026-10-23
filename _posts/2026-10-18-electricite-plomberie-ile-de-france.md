@@ -46,6 +46,6 @@ Nos interventions comprennent :
 Ne laissez pas la technique au hasard pour votre projet de rénovation en Île-de-France.
 
 👉 **Contactez M&B Rénovation pour un diagnostic et un devis gratuit :**
-* **Téléphone / WhatsApp :** 07 53 30 65 59
+* **Téléphone :** 07 53 30 65 59
 * **Site web :** [www.maison-mb.fr](https://www.maison-mb.fr)
 

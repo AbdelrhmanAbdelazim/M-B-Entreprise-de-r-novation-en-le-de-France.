@@ -2,9 +2,11 @@
 layout: page
 ---
 {%- assign c = site.company -%}
+{%- assign post_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}{%- assign post_home = "/apercu/ac/" -%}{%- endif -%}
 {{ content }}
 
 <h2>Un projet de rénovation ?</h2>
-<p>Visite technique et devis détaillé offerts. Écrivez-nous sur WhatsApp : réponse sous 24h ouvrées, devis détaillé sous 48h.</p>
-<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ 'Bonjour M&B Rénovation, j’ai lu votre article « ' | append: page.title | append: ' » et je souhaite un devis gratuit pour : ' | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
+<p>Visite technique et devis détaillé offerts. Décrivez-nous votre projet via notre formulaire de contact : réponse sous 24h ouvrées, devis détaillé sous 48h.</p>
+<p><a class="btn-cta" href="{{ post_home }}#contact" data-contact-type="devis">Demander un devis gratuit</a></p>
 <p>Ou par téléphone au <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a>, ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>. Voir aussi <a href="/realisations/">nos réalisations en photos</a>.</p>

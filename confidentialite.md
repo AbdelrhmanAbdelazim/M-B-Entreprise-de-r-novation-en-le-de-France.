@@ -20,7 +20,7 @@ Le formulaire « Demander un devis » du site recueille :
 - votre adresse e-mail ;
 - votre message (description du projet).
 
-Ces informations ne sont pas enregistrées sur le site. Elles nous sont transmises par **WhatsApp** (un message pré-rempli s'ouvre et n'est envoyé que si vous le validez) ou par **e-mail** si vous nous écrivez directement. Lors d'un envoi par WhatsApp, le message transite par ce service, soumis à sa propre politique de confidentialité.
+Ces informations sont transmises de manière sécurisée lors de l'envoi du formulaire de contact ou par **e-mail** si vous nous écrivez directement à [{{ c.email }}](mailto:{{ c.email }}).
 
 ## Finalité
 
