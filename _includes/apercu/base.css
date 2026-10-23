@@ -35,6 +35,7 @@ section[id], div[id] { scroll-margin-top: 80px; }
 .mobilebar-devis { background: var(--btn-bg); color: var(--btn-ink); }
 .mobilebar-wa { background: var(--bar-bg); color: var(--bar-ink); }
 .mobilebar-wa i { font-size: 1.2rem; color: #25D366; }
+.mobilebar--solo { grid-template-columns: 1fr; }
 @media (min-width: 900px) { .mobilebar { display: none; } }
 
 /* Fenêtre devis + formulaire */

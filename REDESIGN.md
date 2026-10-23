@@ -17,9 +17,12 @@
 |---|---|---|
 | 15a Audit 14 confirmé et complété | **TESTÉ** | `_redesign/audit/AUDIT-15.md` |
 | 15b Étude directe des 5 entreprises | **TESTÉ** (observation ; Craft via archive seulement) | `_redesign/concurrents/ETUDE-CONCURRENTS.md` |
-| 15c Trois directions d'accueil (390 / 1366) | **TESTÉ** | `_redesign/directions/DIRECTIONS.md`, captures `_redesign/directions/captures/` |
-| 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | **TESTÉ** | `_redesign/directions/directions-tests.json` |
-| 16 Choix du gérant | **EN ATTENTE D'ACCORD** (rien d'autre ne sera fait avant) | |
+| 15c Trois directions d'accueil (390 / 1366) | **TESTÉ** | `_redesign/directions/DIRECTIONS.md`, captures v1 conservées dans `_redesign/directions/v1/captures/` |
+| 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | **TESTÉ** | `_redesign/directions/v1/directions-tests.json` |
+| 16 Choix du gérant | **CHOIX REÇU** (23/10) : composition A + couleurs C, sans WhatsApp, image d'inspiration en hero | voir 17 |
+| 17a Variante A-C (aperçu seulement), retrait WhatsApp, palette ivoire/charbon/or retenu | **TESTÉ** (hero provisoire sans image) | `_apercu/ac.html`, `_includes/apercu/ac.css`, `_redesign/directions/ac-tests.json`, captures `_redesign/directions/ac/captures-attente/` |
+| 17b Image d'inspiration en hero | **EN ATTENTE** de la pièce jointe préparée par Codex (aucune image générée ni achetée par Devin) | |
+| 17c Choix final sur la variante A-C | **EN ATTENTE D'ACCORD** | |
 
 ### Réalisé
 - 15a : site publié = main (70/70 pages HTML identiques), 0 lien ni ancre cassé, formulaire testé en interception (aucun envoi réel), axe-core : contraste (18) et liens sans nom (4) sur l'accueil de main. Détails et limites : `_redesign/audit/AUDIT-15.md`.
@@ -31,11 +34,23 @@
 - Aperçu privé : port local 4100 de la machine Devin exposé par l'aperçu Devin (connexion + droit d'écriture sur la session exigés) ; disponible seulement quand la machine est active. Captures permanentes dans le dépôt.
 - Contradictions signalées, non modifiées : « Nous écoutons avant de concevoir », « Nous créons des espaces qui vous ressemblent », « Création salles de bains luxe », « Design & Bien-être ».
 
+- 17a (décision du gérant, 23/10, prioritaire sur le perfectionnement de A/B/C) :
+  - Périmètre autorisé : **nouvelle preview seulement** `/apercu/ac/`. Pas de merge, pas d'accueil réel, pas de main, pas de n8n, pas de publication.
+  - A, B, C historiques conservés tels quels (le perfectionnement v2 commencé a été abandonné, non commité). Captures v1 déplacées dans `_redesign/directions/v1/`.
+  - Composition A (plein cadre, texte en bas à gauche, chiffres en pied de hero, portfolio, bande de chantiers, réalisations, processus, avantages, CTA) ; couleurs C : blanc / pierre #F4F1EB / ivoire #F7F4EE / charbon #1C1E22, or retenu #A88A4E (texte #7A5E26). Plus de boutons dorés : boutons charbon ou ivoire. Voile du hero limité à la moitié gauche (plus de voile noir plein).
+  - **WhatsApp retiré de cette variante uniquement** (drapeau de page `sans_whatsapp`) : en-tête, barre mobile (devis seul), CTA final, lien sous le formulaire, ouverture `wa.me` après soumission. A/B/C inchangés.
+  - « Demander un devis » et formulaire conservés, en mode aperçu sans envoi.
+  - Photo hero actuelle (chantier-10 + son alt) supprimée de cette variante, à la demande du gérant. La photo décorative du CTA final de A est aussi retirée (fond charbon uni).
+  - Image hero : emplacement prêt (`hero_inspiration` dans l'en-tête de `_apercu/ac.html`). Elle portera la mention « Image d'inspiration » et n'ira jamais dans le portfolio ou les chantiers.
+- Tests 17a (390 et 1366, réseau externe bloqué) : 0 débordement, 0 erreur JS, 1 h1, 0 saut de titre, menu ouvert puis fermé par Échap, focus sur « nom » à l'ouverture du devis, champs vides refusés (nom, tel, projet), envoi synthétique : statut « envoi désactivé », 0 requête externe, 0 `window.open`, 0 popup ; 0 lien wa.me, 0 icône WhatsApp ; axe-core wcag2a/aa : 0 violation (ce n'est pas une conformité globale).
+- Écarts de contenu avec main, **voulus par la décision du gérant** : absents « Contacter via WhatsApp », « WhatsApp Direct », lien `https://wa.me/33753306559`, alt de la photo hero chantier-10. JSON-LD identique.
+- À valider par le gérant (non modifié, contenu de main) : le sous-titre du formulaire dit encore « Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail) ». Nouveau texte ajouté pour la seule image d'inspiration : « Image d'inspiration ».
+
 ### En cours
-- 16 : **EN ATTENTE D'ACCORD** du gérant (choix A, B ou C, ou mélange précisé).
+- 17b : attente de l'image d'inspiration (Codex). Puis captures 390/1366, comparaison avec v1 au même viewport, tests, arrêt pour choix du gérant.
 
 ### Restant (dans l'ordre)
-1. Choix du gérant (A / B / C) et décisions sur les phrases signalées.
+1. Intégrer l'image d'inspiration reçue, tester, captures, puis choix final du gérant sur A-C ; décisions sur les phrases signalées et la mention « WhatsApp ou e-mail ».
 2. Seulement ensuite : appliquer la direction choisie à l'accueil réel, puis aux autres pages, avec son accord.
 
 ### Dernier SHA poussé

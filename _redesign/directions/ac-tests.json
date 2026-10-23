@@ -1,0 +1,121 @@
+{
+ "main_counts": {
+  "texts": 204,
+  "alts": 20,
+  "links": 67
+ },
+ "report": {
+  "ac": {
+   "390": {
+    "premier_ecran": {
+     "devis": [
+      "Demander un devis",
+      "Demander un devis"
+     ],
+     "whatsapp": [],
+     "tel": 0
+    },
+    "whatsapp_dom": {
+     "liens_wa": 0,
+     "icones": 0,
+     "mot_visible": []
+    },
+    "debordement": 0,
+    "h1": 1,
+    "sauts_titres": 0,
+    "cibles_lt24": [
+     "les 3 directions"
+    ],
+    "menu": {
+     "ouvert": "true",
+     "ferme_par_echap": true
+    },
+    "focus_apres_devis": "nom",
+    "vide_invalides": [
+     "nom",
+     "tel",
+     "projet"
+    ],
+    "statut": "Aperçu : envoi désactivé, aucune donnée transmise.",
+    "window_open": [],
+    "requetes_externes_bloquees": [],
+    "popups": [],
+    "erreurs_js": [],
+    "axe": []
+   },
+   "1366": {
+    "premier_ecran": {
+     "devis": [
+      "Devis Gratuit",
+      "Demander un devis"
+     ],
+     "whatsapp": [],
+     "tel": 1
+    },
+    "whatsapp_dom": {
+     "liens_wa": 0,
+     "icones": 0,
+     "mot_visible": []
+    },
+    "debordement": 0,
+    "h1": 1,
+    "sauts_titres": 0,
+    "cibles_lt24": [
+     "les 3 directions",
+     "Services",
+     "Portfolio",
+     "L'Envers du Décor",
+     "Processus",
+     "Réalisations",
+     "Le Blog",
+     "+33 7 53 30 65 59"
+    ],
+    "focus_apres_devis": "nom",
+    "vide_invalides": [
+     "nom",
+     "tel",
+     "projet"
+    ],
+    "statut": "Aperçu : envoi désactivé, aucune donnée transmise.",
+    "window_open": [],
+    "requetes_externes_bloquees": [],
+    "popups": [],
+    "erreurs_js": [],
+    "axe": []
+   },
+   "contenu": {
+    "textes_main_absents": [
+     "Contacter via WhatsApp",
+     "WhatsApp Direct"
+    ],
+    "textes_en_plus": [
+     "Aller au contenu"
+    ],
+    "alts_main_absents": [
+     "Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure"
+    ],
+    "alts_en_plus": [
+     "M&B Rénovation"
+    ],
+    "liens_main_absents": [
+     "https://wa.me/33753306559"
+    ],
+    "liens_en_plus": [
+     "#contenu"
+    ],
+    "head_differences": {
+     "canonical": [
+      "https://www.maison-mb.fr/",
+      "https://www.maison-mb.fr/apercu/ac/"
+     ],
+     "robots": [
+      "index, follow",
+      "noindex, nofollow | index, follow"
+     ]
+    },
+    "jsonld_identique": true,
+    "jsonld_brut_identique": true
+   }
+  }
+ }
+}
