@@ -21,7 +21,7 @@
 | 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | **TESTÉ** | `_redesign/directions/v1/directions-tests.json` |
 | 16 Choix du gérant | **CHOIX REÇU** (23/10) : composition A + couleurs C, sans WhatsApp, image d'inspiration en hero | voir 17 |
 | 17a Variante A-C (aperçu seulement), retrait WhatsApp, palette ivoire/charbon/or retenu | **TESTÉ** (hero provisoire sans image) | `_apercu/ac.html`, `_includes/apercu/ac.css`, `_redesign/directions/ac-tests.json`, captures `_redesign/directions/ac/captures-attente/` |
-| 17b Image d'inspiration en hero | **EN ATTENTE** de la pièce jointe préparée par Codex (aucune image générée ni achetée par Devin) | |
+| 17b Image d'inspiration en hero | **TESTÉ** | `_redesign/inspiration/PROVENANCE.md`, captures finales `_redesign/directions/ac/captures/`, tests `_redesign/directions/ac-tests.json` |
 | 17c Choix final sur la variante A-C | **EN ATTENTE D'ACCORD** | |
 
 ### Réalisé
@@ -46,11 +46,18 @@
 - Écarts de contenu avec main, **voulus par la décision du gérant** : absents « Contacter via WhatsApp », « WhatsApp Direct », lien `https://wa.me/33753306559`, alt de la photo hero chantier-10. JSON-LD identique.
 - À valider par le gérant (non modifié, contenu de main) : le sous-titre du formulaire dit encore « Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail) ». Nouveau texte ajouté pour la seule image d'inspiration : « Image d'inspiration ».
 
+- 17b (23/10) : visuel d'inspiration généré fourni par Codex intégré au hero A-C (`<picture>` AVIF + WebP, 640 à 1672 px, mention « Visuel d'inspiration », alt descriptif sans attribution à M&B). Portfolio réel intact. Desktop : image plein cadre, voile charbon limité à la moitié gauche et au pied. Mobile : image 16/10 au-dessus du texte (sujet non coupé, titre jamais sur la photo). Provenance : `_redesign/inspiration/PROVENANCE.md`.
+  - Sous-titre de la fenêtre devis, **dans A-C seulement** : « (WhatsApp ou e-mail) » retiré pour respecter « 0 texte WhatsApp visible » ; aucun mot ajouté. Réversible, à confirmer par le gérant.
+  - Tests refaits après intégration (390 et 1366, réseau externe bloqué) : 0 débordement, 0 erreur JS, 1 h1, 0 saut de titre ; menu ouvert/fermé par Échap ; clavier : lien d'évitement puis navigation, focus sur « nom » à l'ouverture du devis ; reduced-motion : défilement `auto`, transitions 0 s ; champs vides refusés ; envoi synthétique « envoi désactivé », 0 requête externe, 0 `window.open`, 0 popup ; **0 `wa.me` / `fa-whatsapp` dans le HTML rendu, 0 texte WhatsApp visible (fenêtre devis ouverte incluse)** ; axe wcag2a/aa : 0 violation (pas une conformité globale).
+  - Lighthouse 12 (local) : mobile perf 98, a11y 100, BP 100, LCP 2,0 s, CLS 0,017, 563 Ko ; desktop perf 99, LCP 0,8 s. SEO 69 = `noindex` voulu de l'aperçu.
+  - Écarts de contenu avec main (voulus) : textes WhatsApp, lien wa.me, alt hero chantier-10, sous-titre devis sans « (WhatsApp ou e-mail) » ; ajouts « Visuel d'inspiration » et son alt. JSON-LD identique.
+  - Comparaison avec v1 au même viewport : `_redesign/directions/ac/captures/comparaison-v1A-vs-AC-{390,1366}.jpg`.
+
 ### En cours
-- 17b : attente de l'image d'inspiration (Codex). Puis captures 390/1366, comparaison avec v1 au même viewport, tests, arrêt pour choix du gérant.
+- 17c : **EN ATTENTE D'ACCORD** du gérant sur la variante A-C. Rien d'autre (pas de merge, pas d'accueil réel, pas de publication).
 
 ### Restant (dans l'ordre)
-1. Intégrer l'image d'inspiration reçue, tester, captures, puis choix final du gérant sur A-C ; décisions sur les phrases signalées et la mention « WhatsApp ou e-mail ».
+1. Accord du gérant sur A-C ; décisions sur les phrases signalées et sur le sous-titre devis sans « WhatsApp ou e-mail ».
 2. Seulement ensuite : appliquer la direction choisie à l'accueil réel, puis aux autres pages, avec son accord.
 
 ### Dernier SHA poussé

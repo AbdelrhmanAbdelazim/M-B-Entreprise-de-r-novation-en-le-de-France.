@@ -5,8 +5,8 @@ direction: ac
 direction_nom: "Variante A-C · composition A, couleurs C, sans WA"
 theme_color: "#1C1E22"
 sans_whatsapp: true
-hero_inspiration: ""
-hero_inspiration_alt: ""
+hero_inspiration: /_apercu/inspiration/mb-hero-inspiration-v1
+hero_inspiration_alt: "Illustration d'inspiration : salon haussmannien ivoire avec cheminée en marbre, moulures, parquet en point de Hongrie, canapé clair et fauteuil anthracite"
 sitemap: false
 seo_title: "Entreprise de rénovation et artisan à Paris | Sous-traitance – M&B Rénovation"
 description: "Rénovation intérieure à Paris et en Île-de-France pour particuliers et professionnels : sous-traitance, devis gratuit et garantie décennale."
@@ -27,14 +27,14 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
 
 <main id="contenu">
     <section class="hero">
-        {%- if page.hero_inspiration != "" %}
+        {%- assign hi = page.hero_inspiration %}
         <figure class="hero-media">
-            <img src="{{ page.hero_inspiration }}" alt="{{ page.hero_inspiration_alt }}" fetchpriority="high" decoding="async">
-            <figcaption class="hero-inspi">Image d'inspiration</figcaption>
+            <picture>
+                <source type="image/avif" srcset="{{ hi }}-640.avif 640w, {{ hi }}-960.avif 960w, {{ hi }}-1280.avif 1280w, {{ hi }}-1672.avif 1672w" sizes="100vw">
+                <img src="{{ hi }}-1280.webp" srcset="{{ hi }}-640.webp 640w, {{ hi }}-960.webp 960w, {{ hi }}-1280.webp 1280w, {{ hi }}-1672.webp 1672w" sizes="100vw" width="1672" height="941" alt="{{ page.hero_inspiration_alt }}" fetchpriority="high" decoding="async">
+            </picture>
+            <figcaption class="hero-inspi">Visuel d'inspiration</figcaption>
         </figure>
-        {%- else %}
-        <div class="hero-media hero-media--attente" aria-hidden="true"></div>
-        {%- endif %}
         <div class="hero-content wrap">
             <h1 class="eyebrow">{{ d.hero.eyebrow }}</h1>
             <p class="hero-title">{{ d.hero.title1 }}<br><em>{{ d.hero.title2 }}</em></p>

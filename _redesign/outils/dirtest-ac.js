@@ -69,9 +69,16 @@ const diff = (a, b) => [...new Set(a)].filter(x => !new Set(b).has(x));
         const closed = await page.evaluate(() => document.getElementById('mobileMenu').hidden);
         r.menu = { ouvert: opened, ferme_par_echap: closed };
       }
+      await page.keyboard.press('Tab'); r.tab1 = await page.evaluate(() => document.activeElement.className || document.activeElement.tagName);
+      const seen = []; for (let i = 0; i < 14; i++) { await page.keyboard.press('Tab'); seen.push(await page.evaluate(() => (document.activeElement.textContent || document.activeElement.getAttribute('aria-label') || '').trim().slice(0, 24))); }
+      r.tab_sequence = seen; await page.evaluate(() => document.activeElement.blur());
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      r.reduced_motion = await page.evaluate(() => ({ scroll: getComputedStyle(document.documentElement).scrollBehavior, transition_btn: getComputedStyle(document.querySelector('.btn')).transitionDuration }));
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
       // formulaire
       await page.locator('[data-devis]:visible').first().click();
       await page.waitForTimeout(600);
+      r.whatsapp_visible_modal_ouvert = await page.evaluate(() => [...document.querySelectorAll('body *')].filter(e => e.children.length===0 && /whatsapp/i.test(e.textContent) && e.offsetParent).map(e => e.textContent.trim().slice(0,80)));
       r.focus_apres_devis = await page.evaluate(() => document.activeElement && document.activeElement.id);
       await page.click('#leadForm .form-submit');
       r.vide_invalides = await page.evaluate(() => [...document.querySelectorAll('#leadForm [aria-invalid=true]')].map(e => e.id));
@@ -80,6 +87,7 @@ const diff = (a, b) => [...new Set(a)].filter(x => !new Set(b).has(x));
       await page.waitForTimeout(500);
       r.statut = await page.textContent('#leadForm .form-status');
       r.window_open = await page.evaluate(() => window.__opened);
+      r.html_wa = await page.evaluate(() => (document.documentElement.outerHTML.match(/wa\.me|fa-whatsapp/gi) || []).length);
       r.requetes_externes_bloquees = ext; r.popups = popups; r.erreurs_js = errs;
       if (W === 390) { await page.keyboard.press('Escape'); }
       await page.evaluate(() => { const m = document.getElementById('devisModal'); if (m) m.hidden = true; document.body.classList.remove('no-scroll'); });
