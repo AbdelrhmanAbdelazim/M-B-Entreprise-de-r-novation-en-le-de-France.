@@ -41,6 +41,7 @@ exclude:
   - n8n
   - automation
   - AGENTS.md
+  - REDESIGN.md
 
 # ---------------------------------------------------------------
 # Identité de l'entreprise : source unique, utilisée par le footer,
