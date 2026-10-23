@@ -6,7 +6,12 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
-## Reprise Antigravity demandée par le gérant — 23/10/2026
+## 🟪 Reprise par Claude (24/10) : seul outil sur le site
+
+**Décision du gérant (23/10, soir) : un seul outil travaille sur le site, Claude.** Devin, Codex et Antigravity **arrêtent** tout travail sur ce dépôt.
+Design voulu : **le dernier travail d'Antigravity**, pas `redesign-premium`, ni l'aperçu A-C seul.
+
+### Reprise Antigravity demandée par le gérant — 23/10/2026
 - Branche propriétaire : `codex/ac-menu-galleries` ; base et dernier commit vérifié : `5c7f2def1f2d8dcb50ab798ad7c1465e905b466a` (`main` épinglé à `8909697d920da75f140e97dec29e16bc04d244f3`).
 - État : **TESTÉ EN NAVIGATEUR (WebKit natif macOS 320 / 390 / 1366 px) / EN ATTENTE D’ACCORD DU GÉRANT**, aucune fusion ni publication.
 - Devin a reçu la demande mais s’est arrêté pour quota gratuit épuisé. Codex a préparé une ébauche locale puis le gérant a demandé Antigravity ; Antigravity a repris, consolidé et testé la variante `A-C`.
