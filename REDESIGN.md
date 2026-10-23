@@ -48,7 +48,7 @@
 | 2 | Feuille de style commune + gabarit `page.html` (toutes les pages) + en-tête, pied de page, fenêtre devis et lightbox communs | testé |
 | 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | testé |
 | 4 | Nouvel accueil court | testé |
-| 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | à faire |
+| 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | testé |
 | 6 | PR vers `main` (sans merge) + captures envoyées au gérant | à faire |
 
 ## Mesure de départ (Lighthouse 12.2.1, performance, site construit localement)
@@ -168,9 +168,43 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   6. 4 étapes ;
   7. Demander un devis + WhatsApp, puis liens Sous-traitance et Parrainage.
 
+- Étape 5 (testé) :
+  - **SEO** :
+    - les 71 pages de main existent toujours, avec les mêmes URL ;
+    - titles et H1 identiques (sauf le H1 de /realisations/, « Nos réalisations ») ;
+    - descriptions identiques (sauf /realisations/, sans « menuiserie sur mesure ») ;
+    - 0 lien cassé, 0 doublon de title ou de description ;
+    - sitemap : 83 URL (71 + 12 projets) ;
+    - JSON-LD inchangé (description du site sans « menuiserie »).
+  - **Navigateur (Playwright, 82 pages × 390 px et 1366 px)** :
+    - 0 erreur JS, 0 débordement horizontal ;
+    - menu mobile, fenêtre devis (depuis le menu, l'en-tête et la barre mobile), validation des champs et labels OK ;
+    - l'envoi ouvre WhatsApp ;
+    - lightbox OK.
+    - Liens du pied de page agrandis pour le doigt.
+  - **Mots interdits (texte visible de toutes les pages construites)** : corrigés.
+    - `entreprise.md`, `services/renovation-complete.md` : « menuiserie (sur mesure) » devient « pose de placards » ; « placard sur mesure » devient « placard intégré » dans un texte alternatif.
+    - Article plâtrerie/peinture : « garantit » devient « assure ».
+    - Article erreurs salle de bain : « étanches à 100% » devient « totalement étanches » ; « sur-mesure » devient « personnalisé ».
+    - Article appartement ancien : « menuiserie(s) » devient « pose de placards (et portes) ».
+    - Évry : « menuiseries intérieures à remplacer » devient « portes intérieures à remplacer ».
+  - **Photos des pages villes** :
+    - les anciens montages (bandeau, légendes « sur mesure », téléphone) sont remplacés par les WebP propres via `_data/photos_remplacement.yml` ;
+    - les photos exclues (visage, meubles fabriqués, reflet) ne s'affichent plus ;
+    - les 34 fichiers villes ne sont pas modifiés.
+  - **Photo avec reflet d'une personne** (`chantier-7.jpg`) remplacée par `chantier-13.jpg` sur /entreprise/ et /services/renovation-complete/.
+
+## Vitesse avant / après (Lighthouse, même méthode)
+
+| Page | Avant mobile | Après mobile | Avant ordinateur | Après ordinateur |
+|---|---|---|---|---|
+| / | 96, LCP 2,4 s, 204 Ko | **99, LCP 1,5 s, 91 Ko** | 99, LCP 0,6 s | **100, LCP 0,4 s** |
+| /realisations/ | 100, LCP 1,5 s, 1 328 Ko | 98, LCP 2,2 s, **207 Ko** | 100, 3 230 Ko | 100, **237 Ko** |
+| /services/plomberie/ | 99, LCP 2,0 s, 108 Ko | 99, LCP 2,0 s, 138 Ko | 100 | 100 |
+
 ## En cours
 
-- Étape 5 : contrôles complets (liens, SEO comparé à main, mots interdits, vitesse après).
+- Étape 6 : PR vers main (sans merge) + captures envoyées au gérant.
 
 ## Restant (dans l'ordre)
 
@@ -178,7 +212,18 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 
 ## Questions pour le gérant (ne bloquent pas le travail)
 
-1. La ville réelle de chaque projet, s'il veut l'afficher à la place de « Paris · Île-de-France ».
+1. **Ville de chaque projet** : la ville réelle, s'il veut l'afficher à la place de « Paris · Île-de-France ». Modifier `ville` dans `_data/projets.yml`.
+2. **Page `/services/menuiserie/`** : le title, le H1 et le texte contiennent encore « menuiserie intérieure ».
+   - Proposition : renommer en « Pose de placards et portes intérieures », en gardant l'URL pour ne pas perdre le référencement.
+   - Pas fait sans accord : cela change le title et le H1 d'une page indexée.
+3. **« menuiseries » au sens d'éléments existants du logement** : laissé tel quel, ce n'est pas une prestation proposée. Pages concernées :
+   - « protégeons les sols, les menuiseries » (Peinture) ;
+   - « menuiseries extérieures » (Yvelines) ;
+   - « parquets, menuiseries » (Hauts-de-Seine).
+   - À remplacer si le gérant préfère.
+4. **Vrais avis à afficher** : 2 ou 3 textes d'avis Google, avec prénom, pour enrichir la section Avis.
+5. **6ᵉ point « Assuré en décennale »** dans Pourquoi M&B : le garder ou non.
+6. **`_data/realisations.yml` et les montages `images/realisations/*.jpg`** ne sont plus utilisés par les pages. Les supprimer plus tard ? Rien n'est supprimé sans accord.
 
 ## Dernier commit
 

@@ -28,7 +28,7 @@ voisins: [sainte-genevieve-des-bois, massy, savigny-le-temple]
 
 La ville, issue en 2019 du regroupement d'Évry et de Courcouronnes, compte une large part de **logements construits depuis les années 1970** dans le cadre de la ville nouvelle : résidences collectives, ensembles de maisons groupées, immeubles autour du centre et de la gare. On y trouve aussi des **pavillons** plus anciens dans certains quartiers.
 
-Ces logements ont souvent des plans fonctionnels, mais leurs équipements d'origine arrivent en fin de vie : salle de bain et cuisine à refaire, électricité à mettre en sécurité, sols et menuiseries intérieures à remplacer. Une rénovation bien préparée permet de transformer un appartement ou une maison sans toucher à la structure.
+Ces logements ont souvent des plans fonctionnels, mais leurs équipements d'origine arrivent en fin de vie : salle de bain et cuisine à refaire, électricité à mettre en sécurité, sols et portes intérieures à remplacer. Une rénovation bien préparée permet de transformer un appartement ou une maison sans toucher à la structure.
 
 ## Organiser un chantier à Évry-Courcouronnes
 
