@@ -327,7 +327,13 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - barre mobile « WhatsApp / Demander un devis » retirée ; mention « M&B Rénovation » retirée au-dessus des titres ;
   - lightbox seulement sur les pages qui ont `lightbox: true` ;
   - les liens Portfolio et L'Envers du Décor (menu et pied de l'accueil) pointent vers `/realisations/#portfolio` et `/realisations/#chantiers`, où ces galeries sont déplacées. Le texte des liens ne change pas.
-- Étape 10 (à faire) : accueil avec les textes de main dans le nouveau design, sans les galeries.
+- Étape 10 (testé : la comparaison du texte avec main ne montre que le retrait des légendes et des textes alternatifs des 3 galeries déplacées ; aucun texte ajouté) :
+  - `index.html` : tous les textes de main, dans l'ordre de main ;
+  - sections reprises : hero, chiffres, Nos Compétences (4 cartes), Avant / Après, Méthodologie, Avantages clients, Commençons Ensemble, puis le pied de page complet et Nos Actualités ;
+  - photo du haut : même photo (`chantier-10.jpg`) en WebP, même texte alternatif ;
+  - **déplacé vers /realisations/** : la galerie Portfolio « Pièces Rénovées » (3 photos et légendes) et « L'Envers du Décor – La Rigueur de la Préparation » (10 photos et légendes) ;
+  - les 6 vignettes de la section Avant / Après sont retirées de l'accueil (elles sont toutes sur /realisations/). Le titre, la phrase et le bouton « Voir toutes nos réalisations » de cette section restent.
+- Étape 11 (à faire) : /realisations/ avec le texte de main, puis les galeries Portfolio et L'Envers du Décor, et les pages projets avec des textes existants seulement.
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 

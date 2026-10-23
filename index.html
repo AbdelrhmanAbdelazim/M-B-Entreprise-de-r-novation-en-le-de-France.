@@ -1,147 +1,131 @@
 ---
 layout: page
 full_width: true
+home: true
 seo_title: "Entreprise de rénovation et artisan à Paris | Sous-traitance – M&B Rénovation"
 description: "Rénovation intérieure à Paris et en Île-de-France pour particuliers et professionnels : sous-traitance, devis gratuit et garantie décennale."
 preload_image: /images/projets/chambre-murs-et-parquet/1-960.webp
 preload_srcset: "/images/projets/chambre-murs-et-parquet/1-480.webp 480w, /images/projets/chambre-murs-et-parquet/1-960.webp 960w, /images/projets/chambre-murs-et-parquet/1-1200.webp 1200w"
 ---
-{%- assign c = site.company -%}
 {%- comment -%}
-  Accueil (redesign premium, 23/10/2026) : photo + phrase, services, pourquoi M&B,
-  3 projets, avis, étapes, devis. Aucun prix ni chiffre hors « 48h » et « 14 clients 5/5 ».
+  Accueil : textes identiques à main, nouveau design (23/10/2026).
+  Seules les galeries photo (Portfolio, L'Envers du Décor, vignettes Avant / Après)
+  ont été déplacées vers /realisations/ (#portfolio, #chantiers), à la demande du gérant.
+  Photo du haut : même photo (chantier-10.jpg), servie en WebP.
 {%- endcomment -%}
 
-<section class="hero">
-    <div class="hero-media">
-        {% include projet-img.html slug="chambre-murs-et-parquet" n=1 alt="Chambre rénovée par M&B Rénovation : murs blancs, parquet et placard à portes coulissantes" sizes="100vw" eager=true %}
+<header class="hero">
+    <div class="hero-media" id="heroImage">
+        {% include projet-img.html slug="chambre-murs-et-parquet" n=1 alt="Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure" sizes="100vw" eager=true %}
     </div>
     <div class="container hero-content">
-        <h1 class="eyebrow">Entreprise de rénovation · Paris &amp; Île-de-France</h1>
-        <p class="hero-title">L'exigence d'un atelier, <em>la simplicité d'un seul interlocuteur.</em></p>
-        <p class="hero-sub">Rénovation intérieure d'appartements et de maisons : plâtrerie, électricité, plomberie, carrelage, peinture et sols.</p>
+        <h1 class="eyebrow hero-eyebrow">Entreprise de rénovation &nbsp;·&nbsp; Paris & Île-de-France</h1>
+        <p class="hero-title">L'Art de Sublimer<br><em>Votre Intérieur</em></p>
+        <p class="hero-sub">Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, plâtrerie, carrelage, sols et peinture. Une signature unique pour votre habitat.</p>
         <div class="hero-actions">
             <button type="button" class="btn btn--gold" data-devis>Demander un devis</button>
-            <a class="btn btn--light" href="/realisations/">Voir nos réalisations</a>
+            <a href="/realisations/#portfolio" class="btn btn--light">Voir nos réalisations</a>
         </div>
+        <a class="hero-scroll" href="#stats"><span class="hero-scroll-line"></span><span>Découvrir</span></a>
     </div>
-</section>
+</header>
+
+<div class="stats-band" id="stats">
+    <div class="container stats-grid">
+        <div class="stat-cell"><span class="stat-number">10</span><span class="stat-label">Ans de Garantie Décennale</span></div>
+        <div class="stat-cell"><span class="stat-number">24h</span><span class="stat-label">Réponse à Votre Demande</span></div>
+        <div class="stat-cell"><span class="stat-number">100%</span><span class="stat-label">Projets Sur Mesure</span></div>
+    </div>
+</div>
 
 <section class="section" id="services">
     <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Services</div>
-            <h2>Une rénovation complète, <em class="gold">métier par métier</em></h2>
+        <div class="section-head section-head--center">
+            <div class="eyebrow">Nos Compétences</div>
+            <h2>Expertise Globale</h2>
+            <p class="lead">Nous orchestrons chaque étape de votre projet avec une précision chirurgicale pour un résultat sans compromis.</p>
+            <div class="rule"></div>
         </div>
-        <div class="grid grid--2 grid--3">
-            <a class="service-card" href="/services/renovation-complete/" data-reveal>
-                <div><h3>Rénovation complète</h3><p>Appartement, maison, salle de bain ou cuisine, coordonnés de bout en bout.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
-            <a class="service-card" href="/services/plomberie/" data-reveal>
-                <div><h3>Salle de bain &amp; plomberie</h3><p>Douche, baignoire, étanchéité, alimentations et évacuations.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
-            <a class="service-card" href="/services/electricite/" data-reveal>
-                <div><h3>Électricité</h3><p>Mise en sécurité, tableau, prises, éclairage et VMC.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
-            <a class="service-card" href="/services/platrerie/" data-reveal>
-                <div><h3>Plâtrerie</h3><p>Cloisons, faux plafonds, doublages et reprise des murs.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
-            <a class="service-card" href="/services/carrelage/" data-reveal>
-                <div><h3>Carrelage</h3><p>Sols, faïence murale, crédences et douches à l'italienne.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
-            <a class="service-card" href="/services/peinture/" data-reveal>
-                <div><h3>Peinture &amp; sols</h3><p>Préparation des supports, peinture, parquet et sols souples.</p></div>
-                <span class="go">{% include icon.html name="arrow" %}</span>
-            </a>
+        <div class="grid grid--2 grid--4">
+            <div class="service-card">
+                <div><span class="svc-num">01</span><span class="svc-icon"><i class="fa-solid fa-faucet-drip"></i></span></div>
+                <h3>Bains & Eau</h3>
+                <ul class="svc-items"><li>Création salles de bains luxe</li><li>Robinetterie encastrée</li><li>Plomberie complète</li></ul>
+            </div>
+            <div class="service-card">
+                <div><span class="svc-num">02</span><span class="svc-icon"><i class="fa-solid fa-bolt"></i></span></div>
+                <h3>Lumière & Tech</h3>
+                <ul class="svc-items"><li>Électricité NF C 15-100</li><li>Tableau électrique & éclairage</li><li>Ventilation (VMC)</li></ul>
+            </div>
+            <div class="service-card">
+                <div><span class="svc-num">03</span><span class="svc-icon"><i class="fa-solid fa-paint-roller"></i></span></div>
+                <h3>Matières & Couleurs</h3>
+                <ul class="svc-items"><li>Peinture haute finition</li><li>Enduits décoratifs</li><li>Papiers peints panoramiques</li></ul>
+            </div>
+            <div class="service-card">
+                <div><span class="svc-num">04</span><span class="svc-icon"><i class="fa-solid fa-layer-group"></i></span></div>
+                <h3>Sols & Structure</h3>
+                <ul class="svc-items"><li>Parquets massifs & pose</li><li>Carrelages grands formats</li><li>Pose de menuiseries</li></ul>
+            </div>
         </div>
-        <p class="services-more">Voir aussi : <a href="/services/sols/">Sols</a> · <a href="/services/menuiserie/">Pose de placards</a> · <a href="/services/">Tous les services</a></p>
+        <p class="services-more">
+            Découvrir nos services en détail :
+            {% for s in site.services %}<a href="{{ s.url }}">{{ s.title }}</a>{% unless forloop.last %} &nbsp;·&nbsp; {% endunless %}{% endfor %}
+        </p>
+        <p class="services-more">
+            Professionnels du bâtiment : <a href="/sous-traitance-renovation/">proposer un chantier en sous-traitance</a>
+        </p>
     </div>
 </section>
 
-<section class="section section--ink" id="pourquoi">
+<section class="section section--ink" id="realisations">
     <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Pourquoi M&amp;B</div>
-            <h2>Un chantier clair, <em class="gold" style="color:var(--gold-bright)">du devis à la réception</em></h2>
+        <div class="section-head section-head--center">
+            <div class="eyebrow">Avant / Après</div>
+            <h2>Nos réalisations</h2>
+            <p class="lead">Avant / après, réalisations terminées et coulisses de nos chantiers à Paris et en Île-de-France.</p>
+            <div class="rule"></div>
         </div>
-        <div class="why">
-            <div class="why-item" data-reveal><span class="n">i.</span><h3>Un seul interlocuteur</h3><p>Le gérant suit votre projet de la visite à la réception des travaux.</p></div>
-            <div class="why-item" data-reveal><span class="n">ii.</span><h3>Devis détaillé en 48h</h3><p>Chaque poste est chiffré séparément, après la visite technique.</p></div>
-            <div class="why-item" data-reveal><span class="n">iii.</span><h3>Une durée écrite</h3><p>La durée des travaux est indiquée par écrit dans le devis.</p></div>
-            <div class="why-item" data-reveal><span class="n">iv.</span><h3>Un chantier propre</h3><p>Sols, parties communes et mobilier protégés, chantier nettoyé chaque jour.</p></div>
-            <div class="why-item" data-reveal><span class="n">v.</span><h3>14 clients ont noté 5/5</h3><p>Avis vérifiables sur <a href="{{ site.social.google_business }}" target="_blank" rel="noopener">notre fiche Google</a>.</p></div>
-            <div class="why-item" data-reveal><span class="n">vi.</span><h3>Assuré en décennale</h3><p>Assurance RC Pro et décennale auprès de {{ c.insurer }}.</p></div>
-        </div>
+        <p style="text-align:center"><a href="/realisations/" class="btn btn--gold">Voir toutes nos réalisations</a></p>
     </div>
 </section>
 
-<section class="section" id="realisations">
+<section class="section section--paper" id="processus">
     <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Réalisations</div>
-            <h2>Projets choisis</h2>
-        </div>
-        <div class="project-grid">
-            {%- assign selection = "salle-de-bain-complete,chambre-murs-et-parquet,salle-de-bain-carreaux-de-ciment" | split: "," -%}
-            {%- for slug in selection %}
-            {%- assign p = site.data.projets | where: "slug", slug | first -%}
-            {%- assign k = p.couverture | default: 0 -%}
-            {%- assign cover = p.photos[k] -%}
-            <a class="project-card" href="/realisations/{{ slug }}/" data-reveal>
-                <div class="frame">
-                    {% include projet-img.html slug=slug n=k alt=cover.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, (min-width: 700px) 46vw, 92vw" %}
-                </div>
-                <div class="meta">{{ p.type }}</div>
-                <h3 style="margin-top:6px">{{ p.titre }}</h3>
-                <p class="multi">{{ p.ville }}</p>
-            </a>
-            {%- endfor %}
-        </div>
-        <p style="margin-top:44px"><a class="link-arrow" href="/realisations/">Toutes les réalisations {% include icon.html name="arrow" %}</a></p>
-    </div>
-</section>
-
-<section class="section section--paper" id="avis">
-    <div class="container container--narrow rating" data-reveal>
-        <div class="eyebrow">Avis clients</div>
-        <p class="stars" aria-hidden="true">★★★★★</p>
-        <p class="big">14 clients ont noté M&amp;B Rénovation 5/5 sur Google.</p>
-        <div class="actions">
-            <a class="btn" href="{{ site.social.google_business }}" target="_blank" rel="noopener">Lire les avis sur Google</a>
-            <a class="btn btn--ghost" href="/avis/">Laisser un avis</a>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="etapes">
-    <div class="container">
-        <div class="section-head">
-            <div class="eyebrow">Comment ça se passe</div>
-            <h2>Quatre étapes, <em class="gold">sans surprise</em></h2>
+        <div class="section-head section-head--center">
+            <div class="eyebrow">Méthodologie</div>
+            <h2>Votre Sérénité,<br><em class="gold">Étape par Étape</em></h2>
+            <div class="rule"></div>
         </div>
         <div class="steps">
-            <div class="step" data-reveal><span class="n">Étape i</span><h3>Visite technique</h3><p>Offerte. Nous voyons le logement et écoutons votre projet et ses contraintes.</p></div>
-            <div class="step" data-reveal><span class="n">Étape ii</span><h3>Devis détaillé</h3><p>Sous 48h, poste par poste, avec la durée des travaux écrite.</p></div>
-            <div class="step" data-reveal><span class="n">Étape iii</span><h3>Travaux</h3><p>Un seul interlocuteur, un chantier protégé et nettoyé chaque jour.</p></div>
-            <div class="step" data-reveal><span class="n">Étape iv</span><h3>Réception</h3><p>Visite de fin de chantier et remise de l'attestation décennale.</p></div>
+            <div class="step"><span class="n">01</span><h3>Rencontre</h3><p>Visite technique offerte pour cerner vos désirs et contraintes. Nous écoutons avant de concevoir.</p></div>
+            <div class="step"><span class="n">02</span><h3>Chiffrage</h3><p>Devis détaillé et transparent sous 48h. Aucun coût caché. Aucune mauvaise surprise.</p></div>
+            <div class="step"><span class="n">03</span><h3>Réalisation</h3><p>Exécution soignée, avec protection complète du logement et propreté irréprochable chaque jour.</p></div>
+            <div class="step"><span class="n">04</span><h3>Garantie</h3><p>Livraison avec remise de l'attestation décennale Entoria / Fidelidade. 10 ans de tranquillité d'esprit.</p></div>
         </div>
     </div>
 </section>
 
-<section class="section section--ink cta-final" id="devis">
-    <div class="container">
-        <div class="eyebrow">Votre projet</div>
-        <h2>Parlons de votre rénovation</h2>
-        <p class="lead" style="margin:16px auto 0">Visite technique et devis détaillé offerts, à Paris et en Île-de-France.</p>
-        <div class="actions">
-            <button type="button" class="btn btn--gold" data-devis>Demander un devis</button>
-            <a class="btn btn--light" href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">{% include icon.html name="whatsapp" %}WhatsApp</a>
+<section class="section" id="avantages">
+    <div class="container container--narrow">
+        <div class="section-head section-head--center">
+            <div class="eyebrow">Avantages clients</div>
+            <h2>Des facilités pour<br><em class="gold">votre projet</em></h2>
+            <div class="rule"></div>
         </div>
-        <p class="pro">Professionnels du bâtiment : <a href="/sous-traitance-renovation/">proposer un chantier en sous-traitance</a> · <a href="/parrainage/">Parrainage</a></p>
+{% include bloc-paiement.html %}
+{% include bloc-parrainage.html %}
+    </div>
+</section>
+
+<section class="section section--ink cta-final">
+    <div class="container">
+        <div class="eyebrow">Commençons Ensemble</div>
+        <h2>Votre Projet Mérite<br>L'Excellence</h2>
+        <p class="lead" style="margin:16px auto 0">Bénéficiez d'une étude de projet gratuite, avec un seul interlocuteur et une transparence totale.</p>
+        <div class="actions">
+            <button type="button" class="btn btn--gold" data-devis>Étude de Projet Offerte</button>
+            <a href="https://wa.me/33753306559" target="_blank" class="btn btn--light"><i class="fa-brands fa-whatsapp"></i>WhatsApp Direct</a>
+        </div>
     </div>
 </section>
