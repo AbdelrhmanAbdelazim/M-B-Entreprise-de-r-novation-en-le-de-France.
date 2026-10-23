@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="{{ page.theme_color }}">
+{%- if site.apercu_sans_envoi %}
+    <meta name="robots" content="noindex, nofollow">
+    <script>window.mbConsent={get:function(){try{return localStorage.getItem('apercu-consent')}catch(e){return null}},accept:function(){try{localStorage.setItem('apercu-consent','accept')}catch(e){}},refuse:function(){try{localStorage.setItem('apercu-consent','refuse')}catch(e){}}};</script>
+{%- else %}
+{% include consent-head.html %}
+{%- endif %}
+{% include seo.html %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="{{ page.fonts }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{%- if page.preload_image %}
+    <link rel="preload" as="image" href="{{ page.preload_image }}" imagesrcset="{{ page.preload_srcset }}" imagesizes="{{ page.preload_sizes | default: '100vw' }}" fetchpriority="high">
+{%- endif %}
+    <style>
+{% include apercu/base.css %}
+{% include apercu/{{ page.direction }}.css %}
+    </style>
+</head>
+<body class="d-{{ page.direction }}"{% if page.form_inline %} data-form-inline="1"{% endif %}>
+<a class="skip" href="#contenu">Aller au contenu</a>
+{%- if site.apercu_sans_envoi %}
+<div class="apercu-bandeau" data-apercu>Aperçu privé · {{ page.direction_nom }} · envoi du formulaire désactivé · <a href="/apercu/">les 3 directions</a></div>
+{%- endif %}
+{{ content }}
+{% include apercu/mobilebar.html %}
+{%- unless page.form_inline %}{% include apercu/modal.html %}{% endunless %}
+{% include apercu/js.html %}
+{% include cookie-banner.html %}
+</body>
+</html>

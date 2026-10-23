@@ -1,0 +1,88 @@
+<script>
+(function () {
+    var SANS_ENVOI = {{ site.apercu_sans_envoi | default: false }};
+    var body = document.body;
+    var inline = body.hasAttribute('data-form-inline');
+    var modal = document.getElementById('devisModal');
+    var menuBtn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    var header = document.querySelector('.site-head');
+    var lastFocus = null;
+
+    function openDevis() {
+        if (inline) {
+            var zone = document.getElementById('devis');
+            zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(function () { document.getElementById('nom').focus({ preventScroll: true }); }, 450);
+            return;
+        }
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        body.classList.add('no-scroll');
+        document.getElementById('nom').focus();
+    }
+    function closeDevis() {
+        if (!modal || modal.hidden) return;
+        modal.hidden = true;
+        body.classList.remove('no-scroll');
+        if (lastFocus) lastFocus.focus();
+    }
+    function setMenu(open) {
+        if (!menu) return;
+        menu.hidden = !open;
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        body.classList.toggle('no-scroll', open);
+    }
+
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+        if (t.closest('[data-menu-close]')) setMenu(false);
+        if (t.closest('[data-devis]')) { e.preventDefault(); openDevis(); return; }
+        if (t.closest('[data-close]') || t === modal) closeDevis();
+        if (t.closest('#menuBtn')) setMenu(menu.hidden);
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeDevis(); setMenu(false); }
+        if (e.key === 'Tab' && modal && !modal.hidden) {
+            var f = modal.querySelectorAll('button, a[href], input, textarea');
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+    });
+    if (header) {
+        var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 40); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    var form = document.getElementById('leadForm');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var invalid = Array.prototype.filter.call(form.querySelectorAll('[required]'), function (el) { return !el.value.trim(); });
+        Array.prototype.forEach.call(form.querySelectorAll('.form-control'), function (el) {
+            el.setAttribute('aria-invalid', invalid.indexOf(el) > -1 ? 'true' : 'false');
+        });
+        if (invalid.length) { invalid[0].focus(); form.reportValidity && form.reportValidity(); return; }
+        var nom = document.getElementById('nom').value;
+        var tel = document.getElementById('tel').value;
+        var email = document.getElementById('email').value;
+        var projet = document.getElementById('projet').value;
+        if (SANS_ENVOI) {
+            form.querySelector('.form-status').textContent = 'Aperçu : envoi désactivé, aucune donnée transmise.';
+            form.reset();
+            return;
+        }
+        try {
+            fetch('https://navajowhite-cormorant-668337.hostingersite.com/webhook/devis-maison-mb', {
+                method: 'POST', mode: 'no-cors', keepalive: true,
+                body: new URLSearchParams({ nom: nom, telephone: tel, email: email, projet: projet, source: 'site', page: location.pathname })
+            }).catch(function () {});
+        } catch (err) {}
+        var msg = '*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ' + encodeURIComponent(nom) + '%0A📞 *Tél:* ' + encodeURIComponent(tel) + '%0A✉️ *E-mail:* ' + encodeURIComponent(email || '-') + '%0A📝 *Projet:* ' + encodeURIComponent(projet);
+        window.open('https://wa.me/33753306559?text=' + msg, '_blank');
+        closeDevis();
+        form.reset();
+    });
+})();
+</script>

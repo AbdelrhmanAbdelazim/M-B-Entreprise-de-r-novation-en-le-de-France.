@@ -1,0 +1,71 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body:has(.apercu-bandeau) { padding-top: 26px; }
+body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.7; -webkit-font-smoothing: antialiased; padding-bottom: 64px; }
+@media (min-width: 900px) { body { padding-bottom: 0; } }
+body.no-scroll { overflow: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 3000; background: #fff; color: #000; padding: 10px 16px; }
+.skip:focus { top: 12px; }
+.wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
+@media (min-width: 900px) { .wrap { width: min(1240px, 100% - 96px); } }
+section[id], div[id] { scroll-margin-top: 80px; }
+.apercu-bandeau { position: fixed; top: 0; left: 0; right: 0; height: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 1500; background: #3a2f12; color: #fff; font: 500 12px/1.4 system-ui, sans-serif; text-align: center; padding: 6px 12px; }
+.apercu-bandeau a { color: #f3d98a; }
+.no-wrap { white-space: nowrap; }
+
+/* Menu mobile */
+.hamburger { width: 44px; height: 44px; background: none; border: 0; display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; color: inherit; }
+.hamburger span { width: 24px; height: 1.5px; background: currentColor; transition: transform .3s; }
+.hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.mobile-menu { position: fixed; inset: 0; z-index: 900; background: var(--menu-bg); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px; }
+.mobile-menu a, .mobile-menu button { font-family: var(--serif); font-size: 1.9rem; color: var(--menu-ink); text-decoration: none; background: none; border: 0; min-height: 44px; }
+.mobile-menu button { font-family: var(--sans); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; border: 1px solid var(--accent); padding: 14px 30px; margin-top: 12px; }
+
+/* Barre fixe mobile */
+.mobilebar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 800; display: grid; grid-template-columns: 1fr 1fr; background: var(--bar-bg); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
+.mobilebar > * { min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px; font: 500 .74rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border: 0; }
+.mobilebar-devis { background: var(--btn-bg); color: var(--btn-ink); }
+.mobilebar-wa { background: var(--bar-bg); color: var(--bar-ink); }
+.mobilebar-wa i { font-size: 1.2rem; color: #25D366; }
+@media (min-width: 900px) { .mobilebar { display: none; } }
+
+/* Fenêtre devis + formulaire */
+.modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal { position: relative; width: min(560px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--modal-bg); color: var(--modal-ink); border-top: 2px solid var(--accent); }
+.modal-header { padding: 32px 28px 8px; }
+.modal-body { padding: 8px 28px 28px; }
+.modal-close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; background: none; border: 0; color: inherit; font-size: 1.1rem; }
+.modal-title { font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1.15; margin: 8px 0; }
+.modal-sub { font-size: .9rem; opacity: .85; }
+.lead-form .form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 6px; }
+.form-control { width: 100%; font: inherit; font-size: 1rem; padding: 12px 14px; border: 1px solid var(--field-line); background: var(--field-bg); color: inherit; border-radius: 0; min-height: 48px; }
+.form-control::placeholder { color: var(--placeholder); opacity: 1; }
+.form-control[aria-invalid="true"] { border-color: #c0392b; box-shadow: inset 3px 0 0 #c0392b; }
+textarea.form-control { resize: vertical; min-height: 110px; }
+.form-submit { width: 100%; min-height: 52px; border: 0; background: var(--btn-bg); color: var(--btn-ink); font-size: .78rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
+.form-status:empty { display: none; }
+.form-status { margin-top: 12px; padding: 10px 12px; border: 1px dashed currentColor; font-size: .85rem; }
+.form-note { margin-top: 14px; font-size: .8rem; line-height: 1.6; opacity: .9; }
+.form-note--small { font-size: .74rem; }
+.modal-alt { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.modal-alt a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font-weight: 500; }
+.modal-alt i { color: #25D366; }
+.eyebrow { font-family: var(--sans); font-size: .7rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--accent-text); }
+
+/* Blog commun (style ajusté par direction) */
+.blog-news h2 { font-family: var(--serif); font-weight: 400; }
+.blog-list { display: grid; gap: 20px; }
+@media (min-width: 900px) { .blog-list { grid-template-columns: repeat(3, 1fr); } }
+.blog-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; line-height: 1.25; margin-bottom: 10px; }
+.blog-card p { font-size: .92rem; margin-bottom: 14px; }
+.blog-card a { display: inline-block; min-height: 24px; text-decoration: none; border-bottom: 1px solid currentColor; color: var(--accent-text); font-weight: 500; }
+.legal .mb-legal p a { text-decoration: underline; text-underline-offset: 3px; }

@@ -1,0 +1,6 @@
+# Configuration d'APERÇU uniquement (jamais utilisée par GitHub Pages) :
+# jekyll build --config _config.yml,_config.apercu.yml
+# Ajoute les 3 directions d'accueil (_apercu/), coupe trackers et envoi du formulaire.
+apercu_sans_envoi: true
+include:
+  - _apercu

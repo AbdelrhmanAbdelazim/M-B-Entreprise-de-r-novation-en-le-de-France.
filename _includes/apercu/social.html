@@ -1,0 +1,1 @@
+{%- for s in site.data.apercu_accueil.social %}<a href="{% if s.key %}{{ site.social[s.key] }}{% else %}{{ s.href }}{% endif %}" target="_blank" rel="noopener" title="{{ s.title }}" aria-label="{{ s.title }}"><i class="fa-brands {{ s.icon }}" aria-hidden="true"></i></a>{% endfor %}

@@ -17,8 +17,8 @@
 |---|---|---|
 | 15a Audit 14 confirmé et complété | **TESTÉ** | `_redesign/audit/AUDIT-15.md` |
 | 15b Étude directe des 5 entreprises | **TESTÉ** (observation ; Craft via archive seulement) | `_redesign/concurrents/ETUDE-CONCURRENTS.md` |
-| 15c Trois directions d'accueil (390 / 1366) | restant | |
-| 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | restant | |
+| 15c Trois directions d'accueil (390 / 1366) | **TESTÉ** | `_redesign/directions/DIRECTIONS.md`, captures `_redesign/directions/captures/` |
+| 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | **TESTÉ** | `_redesign/directions/directions-tests.json` |
 | 16 Choix du gérant | **EN ATTENTE D'ACCORD** (rien d'autre ne sera fait avant) | |
 
 ### Réalisé
@@ -26,13 +26,17 @@
 
 - 15b : 4 sites visités en direct, Craft Paris injoignable (IPv6 seulement) donc vu via Wayback (10/02/2026). Principes retenus : CTA mobile toujours visible, formulaire court tôt, entrée « professionnels » visible, preuves d'exécution en haut. Aucune donnée de conversion.
 
+- 15c/15d : directions A (immersive noir et or), B (éditoriale ivoire et noir), C (structurée, preuves d'exécution), accueil seulement, dans `_apercu/` (non publié par GitHub Pages ; build de production prouvé identique). Contenu = `_data/apercu_accueil.yml` copié de main : 0 texte, 0 alt, 0 lien de main absent, JSON-LD identique. axe : 0 violation. Formulaire : 0 requête externe.
+- Lighthouse 12.2.1 (local, polices/CDN bloqués) : A, B, C mobile perf 99, a11y 100, bonnes pratiques 100, LCP 1,7 s, CLS 0 (153 / 103 / 106 Ko) ; desktop perf 100, LCP 0,5 s. SEO 69 = effet voulu du `noindex` de l'aperçu (main : 100).
+- Aperçu privé : port local 4100 de la machine Devin exposé par l'aperçu Devin (connexion + droit d'écriture sur la session exigés) ; disponible seulement quand la machine est active. Captures permanentes dans le dépôt.
+- Contradictions signalées, non modifiées : « Nous écoutons avant de concevoir », « Nous créons des espaces qui vous ressemblent », « Création salles de bains luxe », « Design & Bien-être ».
+
 ### En cours
-- 15c.
+- 16 : **EN ATTENTE D'ACCORD** du gérant (choix A, B ou C, ou mélange précisé).
 
 ### Restant (dans l'ordre)
-1. 15c trois directions de la page d'accueil uniquement.
-2. 15d aperçus privés + captures + tests automatiques.
-3. Rapport au gérant, puis **arrêt** en attente de son choix.
+1. Choix du gérant (A / B / C) et décisions sur les phrases signalées.
+2. Seulement ensuite : appliquer la direction choisie à l'accueil réel, puis aux autres pages, avec son accord.
 
 ### Dernier SHA poussé
 - (mis à jour à chaque étape)
