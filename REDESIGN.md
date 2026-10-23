@@ -6,6 +6,36 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
+## 🟦 Reprise Devin (23/10/2026) : étape 15, branche `devin/redesign-directions`
+
+- Session : https://app.devin.ai/sessions/edaade99f0a54c9abeda9589798b669a
+- Point de départ vérifié : `redesign-premium` @ `f893f03c79c96d44ced4f3bdfdb891993e6c1473`, main @ `8909697d920da75f140e97dec29e16bc04d244f3`.
+- Règles : jamais main ni `redesign-premium`, pas de force-push, pas de merge, PR n° 24 non modifiée. Contenu = main épinglé uniquement. Aucun appel réel n8n / WhatsApp.
+- Rappel : le design des étapes 0 à 13 est **REFUSÉ**. Les tableaux plus bas sont un historique, pas une approbation.
+
+| Sous-étape | Statut | Détail |
+|---|---|---|
+| 15a Audit 14 confirmé et complété | **TESTÉ** | `_redesign/audit/AUDIT-15.md` |
+| 15b Étude directe des 5 entreprises | en cours | `_redesign/concurrents/` |
+| 15c Trois directions d'accueil (390 / 1366) | restant | |
+| 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | restant | |
+| 16 Choix du gérant | **EN ATTENTE D'ACCORD** (rien d'autre ne sera fait avant) | |
+
+### Réalisé
+- 15a : site publié = main (70/70 pages HTML identiques), 0 lien ni ancre cassé, formulaire testé en interception (aucun envoi réel), axe-core : contraste (18) et liens sans nom (4) sur l'accueil de main. Détails et limites : `_redesign/audit/AUDIT-15.md`.
+
+### En cours
+- 15b.
+
+### Restant (dans l'ordre)
+1. 15b étude des 5 entreprises (captures, parcours de contact).
+2. 15c trois directions de la page d'accueil uniquement.
+3. 15d aperçus privés + captures + tests automatiques.
+4. Rapport au gérant, puis **arrêt** en attente de son choix.
+
+### Dernier SHA poussé
+- (mis à jour à chaque étape)
+
 ## 🔶 Demande n° 3 du gérant (23/10, 3ᵉ message) : PRIORITAIRE
 
 Le design de la branche (étapes 1 à 13) est **refusé : « pas assez fastueux »**.
