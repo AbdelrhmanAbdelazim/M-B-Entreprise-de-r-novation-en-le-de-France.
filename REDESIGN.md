@@ -16,7 +16,7 @@
 | Sous-étape | Statut | Détail |
 |---|---|---|
 | 15a Audit 14 confirmé et complété | **TESTÉ** | `_redesign/audit/AUDIT-15.md` |
-| 15b Étude directe des 5 entreprises | en cours | `_redesign/concurrents/` |
+| 15b Étude directe des 5 entreprises | **TESTÉ** (observation ; Craft via archive seulement) | `_redesign/concurrents/ETUDE-CONCURRENTS.md` |
 | 15c Trois directions d'accueil (390 / 1366) | restant | |
 | 15d Aperçus privés, captures, comparaison de contenu, tests CTA/menu/formulaire | restant | |
 | 16 Choix du gérant | **EN ATTENTE D'ACCORD** (rien d'autre ne sera fait avant) | |
@@ -24,14 +24,15 @@
 ### Réalisé
 - 15a : site publié = main (70/70 pages HTML identiques), 0 lien ni ancre cassé, formulaire testé en interception (aucun envoi réel), axe-core : contraste (18) et liens sans nom (4) sur l'accueil de main. Détails et limites : `_redesign/audit/AUDIT-15.md`.
 
+- 15b : 4 sites visités en direct, Craft Paris injoignable (IPv6 seulement) donc vu via Wayback (10/02/2026). Principes retenus : CTA mobile toujours visible, formulaire court tôt, entrée « professionnels » visible, preuves d'exécution en haut. Aucune donnée de conversion.
+
 ### En cours
-- 15b.
+- 15c.
 
 ### Restant (dans l'ordre)
-1. 15b étude des 5 entreprises (captures, parcours de contact).
-2. 15c trois directions de la page d'accueil uniquement.
-3. 15d aperçus privés + captures + tests automatiques.
-4. Rapport au gérant, puis **arrêt** en attente de son choix.
+1. 15c trois directions de la page d'accueil uniquement.
+2. 15d aperçus privés + captures + tests automatiques.
+3. Rapport au gérant, puis **arrêt** en attente de son choix.
 
 ### Dernier SHA poussé
 - (mis à jour à chaque étape)
