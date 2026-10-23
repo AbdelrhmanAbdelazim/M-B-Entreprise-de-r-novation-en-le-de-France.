@@ -361,35 +361,44 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 | /services/plomberie/ | 99, LCP 2,0 s, 108 Ko | 99, LCP 2,1 s, 137 Ko | 100 | 100 |
 
   Sur /realisations/ en mobile, main affichait d'abord le texte (photos chargées plus tard), alors que la branche affiche une photo en haut. D'où un LCP un peu plus long, mais un poids divisé par 2,7.
-- Étape 13 (à faire) : aperçu temporaire en noindex (Netlify), sinon captures mobiles.
+- Étape 13 (testé) : aperçu.
+  - Netlify impossible : le proxy de la session bloque api.netlify.com (« fetch failed »).
+  - **Décision** : aperçu privé claude.ai (Artifact) à la place, visible seulement par le gérant : https://claude.ai/artifact/NoH6PyMMDxYb8kxARWDqLy
+    - 4 pages : accueil, /realisations/, une page photo, une page service ;
+    - `noindex, nofollow` ; suivi (GTM, Pixel) et webhook n8n désactivés ;
+    - les icônes Font Awesome ne s'affichent pas dans l'aperçu (CDN bloqué), mais elles s'afficheront sur le vrai site.
+  - Captures mobiles (390 px) des 4 pages envoyées au gérant.
+  - **Statut : en attente de l'accord du gérant. Rien n'est mergé.**
+
+## Statut actuel
+
+| Élément | Statut |
+|---|---|
+| Design (couleurs, polices, espacements, cartes, mobile) | testé, **en attente d'accord** |
+| Contenu | identique à main, sauf l'emplacement des galeries photo (testé) |
+| Galeries déplacées vers /realisations/ + 27 pages photo | testé, **en attente d'accord** |
+| Lightbox, WebP | testé, **en attente d'accord** |
+| PR n° 24 (brouillon) | **non mergée** |
 
 ## Restant (dans l'ordre, pour l'agent suivant)
 
-1. Lire les réponses du gérant aux « Questions » ci-dessous et appliquer seulement ce qu'il accepte, sur `redesign-premium`, avec un commit par point.
-2. Relancer les contrôles de l'étape 5 :
+1. Attendre les réponses du gérant (aperçu, captures, questions ci-dessous). Appliquer seulement ce qu'il accepte, sur `redesign-premium`, avec un commit par point.
+2. Après chaque modification, relancer les contrôles :
    - build github-pages (bundle isolé) ;
-   - liens et SEO comparés à main ;
-   - scan des mots interdits ;
+   - `textdiff.py` (texte identique à main) ;
+   - liens et SEO ;
    - Playwright mobile et ordinateur ;
    - Lighthouse.
 3. Merger la PR n° 24 **uniquement** après un « oui » explicite du gérant, puis vérifier le déploiement GitHub Pages.
 
+## Questions pour le gérant
 
-## Questions pour le gérant (ne bloquent pas le travail)
-
-1. **Ville de chaque projet** : la ville réelle, s'il veut l'afficher à la place de « Paris · Île-de-France ». Modifier `ville` dans `_data/projets.yml`.
-2. **Page `/services/menuiserie/`** : le title, le H1 et le texte contiennent encore « menuiserie intérieure ».
-   - Proposition : renommer en « Pose de placards et portes intérieures », en gardant l'URL pour ne pas perdre le référencement.
-   - Pas fait sans accord : cela change le title et le H1 d'une page indexée.
-3. **« menuiseries » au sens d'éléments existants du logement** : laissé tel quel, ce n'est pas une prestation proposée. Pages concernées :
-   - « protégeons les sols, les menuiseries » (Peinture) ;
-   - « menuiseries extérieures » (Yvelines) ;
-   - « parquets, menuiseries » (Hauts-de-Seine).
-   - À remplacer si le gérant préfère.
-4. **Vrais avis à afficher** : 2 ou 3 textes d'avis Google, avec prénom, pour enrichir la section Avis.
-5. **6ᵉ point « Assuré en décennale »** dans Pourquoi M&B : le garder ou non.
-6. **`_data/realisations.yml` et les montages `images/realisations/*.jpg`** ne sont plus utilisés par les pages. Les supprimer plus tard ? Rien n'est supprimé sans accord.
+1. **Photos avec une personne** : `equipe-sur-le-chantier.jpg` (visage) et `chantier-7.jpg` (reflet dans un miroir).
+   - Elles sont remises, car elles sont sur main.
+   - Le 1ᵉʳ message demandait « pas de visages ». Les garder ou les retirer ?
+2. **Vitesse /realisations/ en mobile** : 94 au lieu de 100, mais une page 2,7 fois plus légère. Acceptable ?
+3. **`_data/realisations.yml`** : reste la source de /realisations/ et des 27 pages photo. Rien n'est supprimé.
 
 ## Dernier commit
 
-1f53ee2 (étape 5) puis le commit de cette mise à jour ; PR brouillon : https://github.com/AbdelrhmanAbdelazim/M-B-Entreprise-de-r-novation-en-le-de-France./pull/24
+Voir `git log -1` sur `redesign-premium` (commit « étape 13 »). Étape précédente : dff681b. PR brouillon : https://github.com/AbdelrhmanAbdelazim/M-B-Entreprise-de-r-novation-en-le-de-France./pull/24
