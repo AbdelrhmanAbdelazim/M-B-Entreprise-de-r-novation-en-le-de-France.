@@ -45,9 +45,9 @@
 |---|---|---|
 | 0 | Mesure de départ + ce fichier | testé |
 | 1 | Photos : WebP (3 tailles), bandeaux texte retirés, avant/après séparés, données des projets | testé |
-| 2 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes + lightbox | à faire |
-| 3 | Nouvelle feuille de style commune (palette, polices) + nouvel accueil court | à faire |
-| 4 | Gabarit `page.html` (toutes les autres pages) aligné sur le nouveau style | à faire |
+| 2 | Feuille de style commune + gabarit `page.html` (toutes les pages) + en-tête, pied de page, fenêtre devis et lightbox communs | testé |
+| 3 | Pages projets (collection `_projets`) + nouvelle page /realisations/ en cartes | à faire |
+| 4 | Nouvel accueil court | à faire |
 | 5 | Contrôles : build, liens, SEO identique à main, mots interdits, captures mobile/ordinateur, vitesse après | à faire |
 | 6 | PR vers `main` (sans merge) + captures envoyées au gérant | à faire |
 
@@ -88,6 +88,19 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 
 ## Décisions
 
+- **Palette** :
+  - noir `#121110` ;
+  - crème `#F5F0E6` (fond) et `#FBF8F2` (cartes) ;
+  - or `#B8924A` pour les filets ;
+  - or foncé `#7E6127` pour les petits textes sur crème (contraste suffisant) ;
+  - or clair `#D2B272` sur fond noir.
+  - Raison : demande « noir, blanc crème, touche dorée ». L'or du logo `#C9A84C` est trop pâle pour du texte sur crème.
+- **Polices** : Cormorant Garamond (titres serif) et Jost (texte), déjà utilisées par le site. Graisses réduites à 400/500 + italique (Cormorant) et 300/400/500 (Jost), pour charger moins.
+- **Icônes** : SVG en ligne dans les nouveaux gabarits. Font Awesome est chargé sans bloquer l'affichage (`media="print"` puis `all`), car des pages existantes (services, villes, articles) l'utilisent encore.
+- **Fenêtre devis sur toutes les pages** : avant, elle n'existait que sur l'accueil. Les champs, le message WhatsApp et la copie vers le webhook n8n sont identiques. Tous les boutons `data-devis` l'ouvrent.
+- **Chiffres retirés** : bloc paiement et note de la fenêtre devis (« projets à partir de 3 000 €, main-d'œuvre en 3 fois » devient « projets éligibles, en plusieurs fois »). Raison : règle « pas de prix ni de chiffres ».
+  - Gardés : « 24h ouvrées » dans la fenêtre devis (texte du gérant du 23/10), « 48h » et « 14 clients 5/5 » (demandés).
+  - Gardés aussi : les identifiants légaux et de contact (SIRET, téléphone, codes postaux, n° d'assurance), obligatoires.
 - **Photos sans texte** : les projets utilisent les originaux propres (`chantier-N.jpg`) quand ils existent ; sinon le montage, découpé sous le bandeau. Raison : un rendu « cabinet d'architecture » et la suppression des légendes contenant « sur mesure ».
 - **Une seule source pour les projets** : `_data/projets.yml`. Pour ajouter un projet, ajouter une entrée puis lancer `python3 _scripts/projets.py`. Le dossier `_scripts` n'est pas publié (préfixe `_`).
 - **Collections** : les photos isolées ne sont pas présentées comme un même chantier. Elles sont regroupées par thème et la carte précise « Plusieurs chantiers ». Raison : ne pas inventer de projet.
@@ -108,9 +121,22 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
   - Les bandes noires des captures de téléphone sont rognées.
   - Vérifié à l'œil sur planches contact : plus aucun texte incrusté, aucun visage.
 
+- Étape 2 (testé : build OK ; captures de /services/plomberie/ et /renovation/versailles/ en 390 px et 1366 px ; 0 erreur JS ; pas de débordement) :
+  - `assets/css/site.css` : palette, typographie, boutons, en-tête, pied de page, contenu éditorial, cartes, projets, lightbox, fenêtre devis, barre d'action mobile.
+  - `_layouts/page.html` :
+    - nouveau gabarit, avec la même balise facebook-domain-verification en dur, plus consent-head et seo ;
+    - option `full_width: true` pour les pages composées (accueil, réalisations, projets).
+  - Nouveaux includes :
+    - `site-header.html` : menu desktop, menu mobile, bouton devis ;
+    - `site-footer.html` : contact, navigation, footer légal, barre « WhatsApp / Demander un devis » en bas sur mobile ;
+    - `devis-modal.html` : même formulaire et mêmes champs ;
+    - `site-js.html` : même envoi WhatsApp + copie n8n W2, menu, lightbox avec balayage tactile, apparition au défilement ;
+    - `icon.html` : icônes SVG en ligne.
+  - `bloc-paiement.html` et `bloc-parrainage.html` passent au nouveau style ; le bloc paiement n'a plus de montant ni de chiffre.
+
 ## En cours
 
-- Étape 2 : collection `_projets` + gabarit `projet.html` + nouvelle page /realisations/.
+- Étape 3 : collection `_projets` + gabarit `projet.html` + nouvelle page /realisations/.
 
 ## Restant (dans l'ordre)
 

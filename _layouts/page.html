@@ -4,113 +4,50 @@
     <meta charset="UTF-8">
     <meta name="facebook-domain-verification" content="3yy041zr8m4aqm2idj7aye6gj6h4t2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#080B12">
+    <meta name="theme-color" content="#F5F0E6">
 {% include consent-head.html %}
 {% include seo.html %}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        /* Design System M&B - Base */
-        :root {
-            --bg-void: #080B12;
-            --bg-surface: #0E1220;
-            --gold: #C9A84C;
-            --gold-grad: linear-gradient(135deg, #E8C96A 0%, #C9A84C 40%, #9A7432 100%);
-            --white: #FFFFFF;
-            --silver: #B8C4D4;
-            --muted: #5A6478;
-            --font-serif: 'Cormorant Garamond', Georgia, serif;
-            --font-sans: 'Jost', sans-serif;
-            --border: 1px solid rgba(255,255,255,0.06);
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-size: 16px; }
-        body { background: var(--bg-void); color: var(--white); font-family: var(--font-sans); font-weight: 300; line-height: 1.8; overflow-x: hidden; }
-        
-        /* Navigation (Simplifiée pour le blog) */
-        nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 70px; background: rgba(8, 11, 18, 0.95); border-bottom: var(--border); backdrop-filter: blur(10px); }
-        .nav-logo { font-family: var(--font-serif); font-size: 1.6rem; color: var(--white); text-decoration: none; }
-        .nav-logo em { color: var(--gold); font-style: italic; }
-        .nav-back { color: var(--silver); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
-        .nav-back:hover { color: var(--gold); }
-        .nav-links { display: flex; align-items: center; gap: 26px; }
-        .nav-links a { color: var(--silver); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        @media (max-width: 760px) {
-            .nav-links { gap: 16px; }
-            .nav-links .nav-secondary, .nav-back-label { display: none; }
-        }
-
-        /* Conteneur de la page */
-        .article-container { max-width: 800px; margin: 150px auto 100px; padding: 0 5%; }
-        .article-header { margin-bottom: 50px; text-align: center; }
-        .article-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; color: var(--white); margin-bottom: 15px; line-height: 1.1; }
-        .article-meta { color: var(--gold); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
-        
-        /* Style du contenu Markdown */
-        .article-content { color: var(--silver); font-size: 1.1rem; line-height: 2; }
-        .article-content h2, .article-content h3 { font-family: var(--font-serif); color: var(--white); margin: 40px 0 20px; font-weight: 400; }
-        .article-content h2 { font-size: 2.2rem; }
-        .article-content p { margin-bottom: 20px; }
-        .article-content img { max-width: 100%; height: auto; border-radius: 4px; margin: 30px 0; border: var(--border); }
-        .article-content a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s; }
-        .article-content a:hover { border-bottom-color: var(--gold); }
-        .article-content ul, .article-content ol { margin: 0 0 20px 1.4em; }
-        .article-content li { margin-bottom: 6px; }
-        .article-content strong { color: var(--white); font-weight: 500; }
-        .article-content table { width: 100%; border-collapse: collapse; margin: 0 0 30px; font-size: 1rem; }
-        .article-content td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: var(--border); }
-        .article-content td:first-child { color: var(--white); font-weight: 500; width: 40%; }
-        .article-content .btn-cta, .article-content .btn-cta:hover { display: inline-block; margin: 10px 0 20px; padding: 14px 30px; background: var(--gold-grad); color: var(--bg-void); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; border: 0; }
-        @media (max-width: 600px) {
-            .article-content { font-size: 1rem; }
-            .article-content td { display: block; width: 100%; padding: 4px 0; }
-            .article-content td:first-child { border-bottom: 0; padding-top: 14px; }
-        }
-
-        /* Footer simplifié */
-        footer { background: #050810; border-top: var(--border); padding: 60px 5%; text-align: center; }
-        .footer-logo { font-family: var(--font-serif); font-size: 1.5rem; color: var(--white); text-decoration: none; margin-bottom: 20px; display: block; }
-        .footer-logo em { color: var(--gold); font-style: italic; }
-        .footer-bottom { color: var(--muted); font-size: 0.8rem; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="/assets/css/site.css?v={{ site.time | date: '%Y%m%d%H%M' }}">
+    {%- if page.preload_image %}
+    <link rel="preload" as="image" href="{{ page.preload_image }}"{% if page.preload_srcset %} imagesrcset="{{ page.preload_srcset }}" imagesizes="100vw"{% endif %} fetchpriority="high">
+    {%- endif %}
+    <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<body class="has-action-bar{% if page.body_class %} {{ page.body_class }}{% endif %}">
 
-    <nav>
-        <a href="/" class="nav-logo">M&B <em>Rénovation</em></a>
-        <div class="nav-links">
-            <a href="/services/" class="nav-secondary">Services</a>
-            <a href="/realisations/">Réalisations</a>
-            <a href="/blog/" class="nav-secondary">Blog</a>
-            <a href="/" class="nav-back" aria-label="Retour au site"><i class="fa-solid fa-arrow-left"></i><span class="nav-back-label"> Retour au site</span></a>
-        </div>
-    </nav>
+{% include site-header.html %}
 
-    <main class="article-container">
-        <header class="article-header">
-            <h1 class="article-title">{{ page.heading | default: page.title }}</h1>
-            {%- if page.collection == "posts" %}
-            <div class="article-meta">Publié le {{ page.date | date: "%d/%m/%Y" }}</div>
-            {%- endif %}
+{%- if page.full_width %}
+    <main id="contenu">
+{{ content }}
+    </main>
+{%- else %}
+    <main id="contenu">
+        <header class="page-hero">
+            <div class="container container--narrow">
+                <div class="eyebrow">{{ page.eyebrow | default: "M&B Rénovation" }}</div>
+                <h1>{{ page.heading | default: page.title }}</h1>
+                {%- if page.collection == "posts" %}
+                <div class="page-meta">Publié le {{ page.date | date: "%d/%m/%Y" }}</div>
+                {%- endif %}
+                <div class="rule"></div>
+            </div>
         </header>
-
-        <article class="article-content">
+        <article class="container container--narrow prose">
             {{ content }}
         </article>
     </main>
+{%- endif %}
 
-    <footer>
-        <a href="/" class="footer-logo">M&B <em>Rénovation</em></a>
-        <p class="footer-bottom">&copy; 2026 M&B Rénovation. L'excellence n'est pas un acte, c'est une habitude.</p>
-{% include legal-footer.html %}
-    </footer>
-
+{% include site-footer.html %}
+{% include devis-modal.html %}
+{% include site-js.html %}
 {% include cookie-banner.html %}
 </body>
 </html>

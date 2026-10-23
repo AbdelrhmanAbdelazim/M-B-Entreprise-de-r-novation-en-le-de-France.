@@ -1,0 +1,35 @@
+{%- assign c = site.company -%}
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <a href="/" class="logo">M&amp;B <em>Rénovation</em></a>
+                <p class="footer-tagline">Rénovation intérieure à Paris et en Île-de-France. Un seul interlocuteur, du devis à la réception des travaux.</p>
+            </div>
+            <div>
+                <p class="footer-title">Contact</p>
+                <ul>
+                    <li><a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a></li>
+                    <li><a href="mailto:{{ c.email }}">{{ c.email }}</a></li>
+                    <li><a href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">WhatsApp</a></li>
+                    <li>{{ c.street }}, {{ c.postal_code }} {{ c.city }}</li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Navigation</p>
+                <ul>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/realisations/">Réalisations</a></li>
+                    <li><a href="/avis/">Avis clients</a></li>
+                    <li><a href="/parrainage/">Parrainage</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+{% include legal-footer.html %}
+    </div>
+</footer>
+<div class="action-bar" aria-label="Contact rapide">
+    <a href="https://wa.me/{{ c.phone_raw | remove: '+' }}" target="_blank" rel="noopener">{% include icon.html name="whatsapp" %}WhatsApp</a>
+    <button type="button" data-devis>Demander un devis</button>
+</div>

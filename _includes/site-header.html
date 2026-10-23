@@ -1,0 +1,28 @@
+{%- assign c = site.company -%}
+<a class="sr-only" href="#contenu">Aller au contenu</a>
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo" aria-label="M&B Rénovation, accueil">M&amp;B <em>Rénovation</em></a>
+        <nav class="nav" aria-label="Navigation principale">
+            <a href="/services/"{% if page.url contains '/services/' %} aria-current="page"{% endif %}>Services</a>
+            <a href="/realisations/"{% if page.url contains '/realisations/' %} aria-current="page"{% endif %}>Réalisations</a>
+            <a href="/sous-traitance-renovation/"{% if page.url == '/sous-traitance-renovation/' %} aria-current="page"{% endif %}>Professionnels</a>
+            <a href="/zones-intervention/"{% if page.url contains '/zones-intervention/' or page.url contains '/renovation/' %} aria-current="page"{% endif %}>Zones</a>
+            <a href="/blog/"{% if page.url contains '/blog/' or page.collection == 'posts' %} aria-current="page"{% endif %}>Blog</a>
+        </nav>
+        <div class="header-actions">
+            <button type="button" class="btn btn--desktop" data-devis>Demander un devis</button>
+            <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+        </div>
+    </div>
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+    <a href="/">Accueil</a>
+    <a href="/services/">Services</a>
+    <a href="/realisations/">Réalisations</a>
+    <a href="/sous-traitance-renovation/">Professionnels</a>
+    <a href="/zones-intervention/">Zones d'intervention</a>
+    <a href="/blog/">Blog</a>
+    <button type="button" class="btn" data-devis>Demander un devis</button>
+    <p class="mobile-contact">Téléphone : <a href="tel:{{ c.phone_raw }}">{{ c.phone }}</a><br>E-mail : <a href="mailto:{{ c.email }}">{{ c.email }}</a></p>
+</nav>
