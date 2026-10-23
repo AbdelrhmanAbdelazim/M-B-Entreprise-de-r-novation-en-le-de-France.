@@ -6,6 +6,17 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
+## 🟩 Étape 0 de la reprise A-C (23/10, soir) : vérifications avant toute modification : FAITE, en attente du gérant
+
+Ordre du gérant : (0) vérifier WhatsApp et le formulaire, avec un vrai test supprimé ensuite, et lui envoyer le résultat avant de continuer ; (1) un seul outil sur le site, Claude ; (2) A-C sur toutes les pages, contenu = main sauf ce qu'il a demandé de retirer ; (3) propositions pour les phrases « concepteur », sans les modifier ; (4) aperçu mobile (accueil, service, Réalisations) ; (5) après son accord : contrôle complet, tag `site-avant-redesign`, merge, vérification en ligne.
+
+### Résultats de l'étape 0
+- **WhatsApp dans A-C** : **absent**. L'aperçu A-C (`devin/redesign-directions` @ 5c7f2de, `_apercu/ac.html`, `sans_whatsapp: true`) n'a ni lien `wa.me` ni icône dans « Contact » (pied de page : adresse, téléphone, email, SIRET, assurance), ni dans la fenêtre devis, ni ouverture WhatsApp après envoi. C'était le choix 17a du gérant ; il demande maintenant WhatsApp visible : **à remettre**.
+- **Formulaire (main = site en ligne)** : envoi en arrière-plan vers n8n (webhook `devis-maison-mb`, W2), puis ouverture de WhatsApp pré-rempli **chez le visiteur** (le message ne part que si le visiteur appuie sur « Envoyer » dans WhatsApp). **Aucun email au gérant** : W2 envoie un **Telegram** au gérant et un **accusé de réception par email au client**.
+- **Test réel (1 demande, 23/10 23 h 39)** : POST sur le webhook → W2 exécution 913 **success** ; Telegram envoyé (message 96) ; accusé de réception envoyé depuis abdel@maison-mb.fr et **reçu dans la boîte de réception Gmail** du gérant (adresse de test) ; ligne Clients n° 1, tâche Queue n° 270 (`website_lead`), ligne Journal n° 112 ; sous-workflow CRM (Improvement, exécution 914) success, aucun lead créé. Lien `wa.me/33753306559` : 200 vers api.whatsapp.com.
+- **Nettoyage** : Clients n° 1, Queue n° 270 et Journal n° 112 **supprimés** (accord du gérant). Restent : le message Telegram n° 96 et l'email reçu dans Gmail (non supprimés).
+- À noter : l'accusé de réception dit « sous 24 h », alors que la règle actuelle est « sous 24h ouvrées » (non modifié).
+
 ## 🟥 Demande de publication du gérant (23/10, soir) : ÉTAPE 1 (revue) FAITE, **ARRÊT AVANT LE MERGE**
 
 Demande : publier « le nouveau site » en fusionnant `redesign-premium` dans `main`, après revue, contrôle complet, tag `site-avant-redesign`, puis vérification en ligne. Règle du gérant : en cas de conflit avec ses propres modifications, **ses modifications passent avant, et on le prévient avant de continuer**.
