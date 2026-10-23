@@ -1,0 +1,48 @@
+{
+ "390": {
+  "logo_img": 0,
+  "tel": 0,
+  "texte_tel": false,
+  "label": "Demander un devis",
+  "bg": "rgb(201, 178, 124)",
+  "fg": "rgb(28, 30, 34)",
+  "h": 44,
+  "w": 190.6875,
+  "left_first": 8,
+  "hamburger_visible": true,
+  "hamburger_box": [
+   44,
+   44
+  ],
+  "contraste": 8.06,
+  "hover_bg": "rgb(216, 197, 154)",
+  "contraste_hover": 9.83,
+  "focus_outline": "btn head-devis solid 2px rgb(28, 30, 34)",
+  "modal_ouvert_clavier": "nom",
+  "modal_ferme_echap": true,
+  "focus_retour": "btn head-devis"
+ },
+ "1366": {
+  "logo_img": 0,
+  "tel": 0,
+  "texte_tel": false,
+  "label": "Demander un devis",
+  "bg": "rgb(201, 178, 124)",
+  "fg": "rgb(28, 30, 34)",
+  "h": 44,
+  "w": 207.140625,
+  "left_first": 48,
+  "hamburger_visible": false,
+  "hamburger_box": [
+   0,
+   0
+  ],
+  "contraste": 8.06,
+  "hover_bg": "rgb(216, 197, 154)",
+  "contraste_hover": 9.83,
+  "focus_outline": "btn head-devis solid 2px rgb(28, 30, 34)",
+  "modal_ouvert_clavier": "nom",
+  "modal_ferme_echap": true,
+  "focus_retour": "btn head-devis"
+ }
+}

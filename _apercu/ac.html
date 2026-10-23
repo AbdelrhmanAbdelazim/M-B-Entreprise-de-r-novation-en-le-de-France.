@@ -14,13 +14,11 @@ fonts: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,
 ---
 {%- assign d = site.data.apercu_accueil -%}
 <header class="site-head">
-    <a href="#" class="logo"><img src="/logo.png" alt="M&B Rénovation" width="512" height="512"></a>
     <nav class="head-nav" aria-label="Navigation principale">
         {%- for l in d.nav.menu %}<a href="{{ l.href }}">{{ l.label }}</a>{% endfor %}
     </nav>
     <div class="head-actions">
-        <a href="tel:{{ d.nav.tel_raw }}" class="head-tel">{{ d.nav.tel }}</a>
-        <button type="button" class="btn btn--gold head-devis" data-devis>{{ d.nav.btn }}</button>
+        <button type="button" class="btn head-devis" data-devis>{{ d.hero.btn }}</button>
 {% include apercu/menu.html %}
     </div>
 </header>

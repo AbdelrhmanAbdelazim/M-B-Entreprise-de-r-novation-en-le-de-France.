@@ -53,15 +53,22 @@
   - Écarts de contenu avec main (voulus) : textes WhatsApp, lien wa.me, alt hero chantier-10, sous-titre devis sans « (WhatsApp ou e-mail) » ; ajouts « Visuel d'inspiration » et son alt. JSON-LD identique.
   - Comparaison avec v1 au même viewport : `_redesign/directions/ac/captures/comparaison-v1A-vs-AC-{390,1366}.jpg`.
 
+- 17c (ajustement du gérant, 23/10, **en-tête A-C uniquement**) :
+  - Logo supprimé de l'en-tête (pas remplacé par un texte) ; numéro de téléphone supprimé de l'en-tête. Footer inchangé (logo texte, téléphone, coordonnées légales conservés).
+  - Bouton d'en-tête : libellé « Devis Gratuit » remplacé par le libellé existant de main « Demander un devis » (`hero.btn`) ; couleur champagne retenue #C9B27C, texte charbon #1C1E22 (contraste 8,06:1), bordure #A88A4E ; survol #D8C59A (9,83:1) ; focus : contour charbon 2 px ; hauteur 44 px (390 et 1366).
+  - Rééquilibrage : desktop, navigation alignée à gauche (48 px) et bouton à droite ; mobile, hamburger à gauche (44 × 44) et bouton devis à droite, donc plus de trou. La barre mobile fixe est masquée sur A-C, car l'en-tête fixe porte déjà le bouton devis (évite trois boutons identiques). Le bouton « Devis Gratuit » du menu plein écran mobile (include commun) n'est pas modifié.
+  - Tests (390 et 1366) : 0 logo, 0 lien tel, 0 numéro dans l'en-tête ; navigation et hamburger accessibles ; Entrée sur le bouton ouvre la fenêtre devis, focus sur « nom », Échap la ferme et rend le focus au bouton ; tabulation : lien d'évitement, navigation, bouton devis ; 0 débordement, 0 erreur JS, axe 0 violation ; WhatsApp : 0 lien, 0 icône, 0 texte visible, 0 `window.open` ; formulaire : envoi désactivé, 0 requête externe. Résultats : `_redesign/directions/ac-tests.json`, `ac-header-tests.json`.
+  - Captures : `ac/captures/apercu_ac-{390,1366}-*.jpg`, comparaison avant/après de l'en-tête `ac/captures/comparaison-entete-avant-apres-{390,1366}.jpg`, comparaison avec v1 A `comparaison-v1A-vs-AC-{390,1366}.jpg`.
+
 ### En cours
-- 17c : **EN ATTENTE D'ACCORD** du gérant sur la variante A-C. Rien d'autre (pas de merge, pas d'accueil réel, pas de publication).
+- 17d : **EN ATTENTE DE REVUE** du gérant sur la variante A-C. Rien d'autre (pas de merge, pas d'accueil réel, pas de publication).
 
 ### Restant (dans l'ordre)
 1. Accord du gérant sur A-C ; décisions sur les phrases signalées et sur le sous-titre devis sans « WhatsApp ou e-mail ».
 2. Seulement ensuite : appliquer la direction choisie à l'accueil réel, puis aux autres pages, avec son accord.
 
 ### Dernier SHA poussé
-- 15a 444ed67, 15b 2e6b04d, 15c/15d 465e1a6d7afea219179669d32aecd63db4a66a85, 15 final 62e9a4d, 17a 8972214, 17b 81ec82c00b9f28540c67e13e0e740de64c3dbd40 (ce commit-ci ne fait qu'ajouter ces SHA)
+- 15a 444ed67, 15b 2e6b04d, 15c/15d 465e1a6d7afea219179669d32aecd63db4a66a85, 15 final 62e9a4d, 17a 8972214, 17b 81ec82c00b9f28540c67e13e0e740de64c3dbd40, 17c : voir `git log -1` (commit « Étape 17c »)
 
 ## 🔶 Demande n° 3 du gérant (23/10, 3ᵉ message) : PRIORITAIRE
 
