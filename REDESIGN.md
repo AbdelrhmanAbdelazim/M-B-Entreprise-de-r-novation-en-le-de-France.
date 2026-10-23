@@ -6,6 +6,117 @@
 > - Ce fichier est exclu de la publication du site (`_config.yml` → `exclude`).
 
 
+## 🔶 Demande n° 3 du gérant (23/10, 3ᵉ message) : PRIORITAIRE
+
+Le design de la branche (étapes 1 à 13) est **refusé : « pas assez fastueux »**.
+
+**Pas de merge.** La PR n° 24 reste en brouillon.
+
+### Positionnement imposé
+- M&B est une **entreprise de rénovation haut de gamme qui exécute**. Ce n'est ni un architecte, ni un décorateur, ni un concepteur.
+- Le site doit rassurer deux publics :
+  - le particulier ;
+  - l'architecte ou le décorateur qui cherche un exécutant respectueux des plans, des finitions et des délais.
+- Les boutons « Demander un devis » et WhatsApp doivent être visibles sur chaque page. Le formulaire doit être simple.
+
+### Références
+- **Luxe visuel seulement** : Pierre Yovanovitch, Joseph Dirand, Gilles & Boissier, Sarah Lavoine, dai-creation-decorateur.fr.
+- **Contenu et méthode** : 5 entreprises de rénovation haut de gamme à Paris.
+- Interdit : copier un texte, une photo ou un design.
+
+### Contenu
+- Contenu identique à main : textes, données, photos.
+- Seuls la forme et l'ordre d'affichage changent.
+- Tout nouveau texte doit être **proposé au gérant d'abord**.
+
+### Étapes
+- 14 : audit.
+- 15 : 3 directions pour l'accueil (mobile et ordinateur), en aperçu privé.
+- 16 : attendre le choix du gérant avant de toucher aux autres pages.
+
+### Étape 14 : audit (testé, 23/10)
+
+Sources de l'audit :
+- **main** = le site en ligne. Commit 8909697, publié par GitHub Pages le 22/10 avec succès.
+- **Branche** : 208e3a6.
+- maison-mb.fr n'est pas joignable depuis la session (proxy). L'audit porte donc sur le build local de main, qui est identique au site publié.
+
+#### Liens et SEO
+- **Liens** :
+  - 0 lien cassé sur main (71 pages) ;
+  - 0 lien cassé sur la branche (98 pages).
+- **Balises** :
+  - canonical présent partout ;
+  - JSON-LD présent partout ;
+  - aucun title ni description en double.
+- **Sitemap** :
+  - 71 URL sur main, 98 sur la branche ;
+  - robots.txt OK.
+- **Titles trop longs** : environ 40 pages dépassent 60 caractères (jusqu'à 95), donc ils sont tronqués dans Google. C'est du contenu : on ne le change pas sans accord.
+- **Accueil de main** : saut de niveaux de titres (h2 puis h4 ou h5). C'est mineur.
+
+#### Navigateur (Playwright, 390 px et 1366 px)
+- 0 erreur JS et 0 débordement horizontal, sur main comme sur la branche.
+
+#### Formulaire (accueil seulement, dans une fenêtre)
+- Fonctionnement : 4 champs avec labels, validation OK, envoi vers le webhook n8n, puis ouverture de WhatsApp.
+- Le webhook (hostingersite.com) n'est pas joignable depuis la session. Il n'est donc pas testé ici.
+- **Problème** : il n'y a **aucun formulaire ni aucune fenêtre devis** hors de l'accueil.
+
+#### Boutons devis / WhatsApp
+- **Problème** : sur les pages services, villes et blog (main et branche), **aucun bouton devis ni WhatsApp** n'est visible sur le 1ᵉʳ écran mobile, et il n'y a pas de bouton flottant. On trouve seulement un lien WhatsApp plus bas dans la page.
+- Sur l'accueil de main : « Devis Gratuit », « Demander un devis » et le bouton flottant.
+
+#### Icônes
+- Font Awesome 6.5.1 (cdnjs) : les 22 icônes utilisées existent.
+- Elles chargent environ 100 Ko de CSS et de polices pour 22 icônes. Des icônes en SVG intégré seraient plus légères.
+
+#### Photos
+- 0 image sans alt.
+- Aucune image de plus de 400 Ko.
+- Lazy loading : 148 images sur 161.
+- short-mb.mp4 fait 2,9 Mo (non affiché sur l'accueil).
+
+#### Mobile
+- **Main, accueil** : 14 zones tactiles de moins de 24 px (liens des services, téléphone, e-mail, « Comment ça marche »).
+- **Main** : écran de chargement (« loader ») masqué 1,2 s après le chargement complet. Le contenu est donc caché plus longtemps que nécessaire.
+- **Main** : curseur personnalisé et parallax en JS sur l'accueil.
+
+#### Vitesse (Lighthouse mobile, mesurée à l'étape 12, code inchangé depuis)
+
+| Page | main | branche |
+|---|---|---|
+| / | 96 | 99 |
+| /realisations/ | 100 | 94 |
+| /services/plomberie/ | 99 | 99 |
+
+#### Textes de main qui présentent M&B comme concepteur
+Signalés au gérant, **non modifiés** :
+- Accueil, grand titre : « L'Art de Sublimer Votre Intérieur ».
+- Accueil, sous-titre : « … Une signature unique pour votre habitat. »
+- Accueil, Méthodologie 01 : « Nous écoutons avant de concevoir. »
+- Accueil, pied de page : « Nous créons des espaces qui vous ressemblent. »
+- Légende de galerie : « Salles de Bains – Design & Bien-être ».
+
+Les mentions « architectes » de main vont dans le bon sens : M&B réalise les lots de projets conçus par des architectes (Yvelines, Saint-Germain-en-Laye, sous-traitance).
+
+#### Recherche : 5 entreprises de rénovation haut de gamme à Paris
+- Entreprises étudiées : Craft Paris, Belmard Bâtiment, Costaud Rénovation, Avoltis Rénovation, Erema Bat.
+- Méthode : résultats de recherche seulement, car les sites ne sont pas joignables depuis la session.
+- Ce qui revient chez toutes :
+  1. **Entreprise générale tous corps d'état, interlocuteur unique**, coordination des métiers et du planning.
+  2. **Travail avec architectes et décorateurs**, dit clairement : exécution des plans, respect des détails et des délais.
+  3. **Savoir-faire de l'ancien** : moulures, staff, parquet point de Hongrie, cheminées, immeubles haussmanniens.
+  4. **Fiches projet factuelles** : lieu, surface, durée, travaux réalisés.
+  5. **Preuves** : décennale, années d'expérience, avis notés, devis sous 48 h, conducteur de travaux dédié.
+
+#### Ce que les sites de décorateurs apportent au visuel
+- Grandes photos plein cadre et beaucoup de vide.
+- Peu de texte, navigation discrète en petites capitales.
+- Une ou deux polices maximum.
+- Palette sobre, pas d'icônes ni de badges.
+- Rythme lent : une idée par écran.
+
 ## ⚠️ Correction demandée par le gérant (23/10, 2ᵉ message) : PRIORITAIRE
 
 Le gérant a demandé **uniquement le design, pas le contenu**. Règles à partir de maintenant :
