@@ -23,8 +23,18 @@ layout: page
 <h2>Quelques réalisations</h2>
 <p>Ces photos sont des exemples de chantiers M&amp;B Rénovation en Île-de-France. Retrouvez-les toutes sur la page <a href="/realisations/">Nos réalisations</a>.</p>
 <div class="ville-photos">
+    {%- assign rmap = site.data.photos_remplacement -%}
     {%- for p in page.photos %}
+    {%- unless rmap.exclure contains p.file %}
+    {%- assign r = rmap.remplacer[p.file] -%}
+    {%- if r %}
+    {%- assign rslug = r[0] -%}{%- assign rn = r[1] -%}
+    {%- assign rp = site.data.projets | where: "slug", rslug | first -%}{%- assign rph = rp.photos[rn] -%}
+    <a href="/realisations/{{ rslug }}/">{% include projet-img.html slug=rslug n=rn alt=rph.alt sizes="(min-width: 780px) 240px, 92vw" %}</a>
+    {%- else %}
     <img src="/images/realisations/{{ p.file }}" alt="{{ p.alt | escape }}" width="1080" height="1350" loading="lazy" decoding="async">
+    {%- endif %}
+    {%- endunless %}
     {%- endfor %}
 </div>
 {%- endif %}

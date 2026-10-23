@@ -7,15 +7,15 @@ description: "Présentation de M&B Rénovation, entreprise de rénovation à Par
 permalink: /entreprise/
 redirect_from:
   - /info/
-image: /chantier-7.jpg
+image: /chantier-13.jpg
 ---
 {%- assign c = site.company -%}
 
-**{{ c.brand }}** est une entreprise de rénovation intérieure tous corps d'état, créée le {{ c.founding_date_fr }} à Paris. Nous intervenons à **{{ c.area }}** : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie et rénovation complète.
+**{{ c.brand }}** est une entreprise de rénovation intérieure tous corps d'état, créée le {{ c.founding_date_fr }} à Paris. Nous intervenons à **{{ c.area }}** : électricité, plomberie, plâtrerie, carrelage, sols, peinture, pose de placards et rénovation complète.
 
 Notre méthode : une visite technique offerte, un devis détaillé et transparent, un chantier protégé et nettoyé chaque jour, puis une livraison accompagnée de l'attestation d'assurance décennale.
 
-<img src="/chantier-7.jpg" alt="Pièce rénovée par M&B Rénovation à Paris : parquet neuf, murs repeints et placard intégré" width="1200" height="1600" loading="lazy" decoding="async" style="width:100%;max-height:520px;object-fit:cover;">
+<img src="/chantier-13.jpg" alt="Pièce rénovée par M&B Rénovation à Paris : parquet neuf, murs repeints et placard intégré" width="1200" height="1600" loading="lazy" decoding="async" style="width:100%;max-height:520px;object-fit:cover;">
 
 ## Nos services
 

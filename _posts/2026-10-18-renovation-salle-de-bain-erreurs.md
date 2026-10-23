@@ -31,7 +31,7 @@ Une salle de bain produit énormément d'humidité. Sans une ventilation efficac
 
 ## 3. Négliger l'étanchéité sous la faïence (SEPI / SEL)
 
-Le carrelage et la faïence ne sont **pas** étanches à 100%. L'eau finit toujours par s'infiltrer à travers les joints. Si une sous-couche d'étanchéité (système d'étanchéité liquide) n'est pas correctement appliquée, les dégâts peuvent être très coûteux.
+Le carrelage et la faïence ne sont **pas** totalement étanches. L'eau finit toujours par s'infiltrer à travers les joints. Si une sous-couche d'étanchéité (système d'étanchéité liquide) n'est pas correctement appliquée, les dégâts peuvent être très coûteux.
 
 * **Notre engagement :** Chez M&B Rénovation, nous traitons chaque recoin sensible avec des membranes et résines d'étanchéité professionnelles avant la pose du moindre carreau.
 
@@ -41,7 +41,7 @@ Le carrelage et la faïence ne sont **pas** étanches à 100%. L'eau finit toujo
 
 Rénover sa salle de bain demande un savoir-faire technique irréprochable. Pour tous vos projets de rénovation de salle de bain, plâtrerie, peinture ou pose de sols en Île-de-France, faites confiance à une équipe sérieuse, structurée et à l'écoute.
 
-👉 **Besoin d'un accompagnement sur-mesure ?**
+👉 **Besoin d'un accompagnement personnalisé ?**
 Contactez **M&B Rénovation** dès aujourd'hui pour une **visite et un devis gratuits** :
 * **Téléphone / WhatsApp :** 07 53 30 65 59
 * **Site web :** [www.maison-mb.fr](https://www.maison-mb.fr)
