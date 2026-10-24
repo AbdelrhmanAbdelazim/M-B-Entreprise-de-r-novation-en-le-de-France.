@@ -15,7 +15,7 @@ image: /chantier-7.jpg
 
 Notre méthode : une visite technique offerte, un devis détaillé et transparent, un chantier protégé et nettoyé chaque jour, puis une livraison accompagnée de l'attestation d'assurance décennale.
 
-<img src="/chantier-7.jpg" alt="Pièce rénovée par M&B Rénovation à Paris : parquet neuf, murs repeints et placard intégré" width="1200" height="1600" loading="lazy" decoding="async" style="width:100%;max-height:520px;object-fit:cover;">
+{% include webp-img.html key="chantier-7.jpg" alt="Pièce rénovée par M&B Rénovation à Paris : parquet neuf, murs repeints et placard intégré" sizes="(min-width: 820px) 740px, 92vw" %}
 
 ## Nos services
 

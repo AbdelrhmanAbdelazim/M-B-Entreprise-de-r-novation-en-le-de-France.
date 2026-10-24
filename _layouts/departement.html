@@ -2,6 +2,8 @@
 layout: page
 ---
 {%- assign c = site.company -%}
+{%- assign d_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}{%- assign d_home = "/apercu/ac/" -%}{%- endif -%}
 <p><strong>{{ page.intro }}</strong></p>
 
 {{ content }}

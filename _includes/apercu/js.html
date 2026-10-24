@@ -1,0 +1,401 @@
+<script>
+(function () {
+    var SANS_ENVOI = {{ site.apercu_sans_envoi | default: false }};
+    var WEBHOOK_URL = 'https://navajowhite-cormorant-668337.hostingersite.com/webhook/devis-maison-mb';
+    var FALLBACK_EMAIL = '{{ site.company.email | default: "abdel@maison-mb.fr" }}';
+    var FALLBACK_PHONE_RAW = '{{ site.company.phone_raw | default: "+33753306559" }}';
+    var FALLBACK_PHONE_DISPLAY = '{{ site.company.phone | default: "07 53 30 65 59" }}';
+    var body = document.body;
+    var inline = body.hasAttribute('data-form-inline');
+    var modal = document.getElementById('devisModal');
+    var menuBtn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    var header = document.querySelector('.site-head');
+    var lastFocus = null;
+
+    function syncInert() {
+        var menuOpen = {% if page.detailed_menu %}Boolean(menu && menu.open){% else %}Boolean(menu && !menu.hidden){% endif %};
+        var modalOpen = Boolean(modal && !modal.hidden);
+        body.classList.toggle('no-scroll', menuOpen || modalOpen);
+{% if page.detailed_menu %}
+        Array.prototype.forEach.call(body.children, function (el) {
+            if (el === modal || el.tagName === 'SCRIPT') return;
+            var shouldInert = modalOpen || (menuOpen && el !== menu);
+            el.inert = shouldInert;
+            if (shouldInert) el.setAttribute('inert', '');
+            else el.removeAttribute('inert');
+        });
+{% endif %}
+    }
+
+{% if page.detailed_menu %}
+    var cForm = document.getElementById('contactForm');
+    var cType = document.getElementById('c-type');
+    var cTitle = document.getElementById('contactFormTitle');
+    var cEyebrow = document.getElementById('contactFormEyebrow');
+    var typePills = document.querySelectorAll('[data-type-pill]');
+    var TYPE_LABELS = {
+        'devis': { eyebrow: 'Étude personnalisée', title: 'Étude de Projet & Devis' },
+        'contact': { eyebrow: 'Nous Écrire', title: 'Contactez-nous' },
+        'formule-rafraichissement': { eyebrow: 'Votre Projet', title: 'Rafraîchissement intérieur' },
+        'formule-salle-de-bains': { eyebrow: 'Votre Projet', title: 'Rénovation de salle de bains' },
+        'formule-renovation-complete': { eyebrow: 'Votre Projet', title: 'Rénovation complète' }
+    };
+
+    function setRequestType(typeVal) {
+        var val = TYPE_LABELS[typeVal] ? typeVal : 'devis';
+        if (cType) cType.value = val;
+        Array.prototype.forEach.call(typePills, function (p) {
+            var active = p.getAttribute('data-type-pill') === val;
+            p.classList.toggle('is-active', active);
+            p.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        if (cTitle && TYPE_LABELS[val]) cTitle.textContent = TYPE_LABELS[val].title;
+        if (cEyebrow && TYPE_LABELS[val]) cEyebrow.textContent = TYPE_LABELS[val].eyebrow;
+    }
+
+    function navigateToContact(typeVal) {
+        if (menu && menu.open) {
+            menu.close();
+            if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+            syncInert();
+        }
+        var chosen = typeVal || 'devis';
+        var sec = document.getElementById('contact');
+        if (!sec) {
+            try { sessionStorage.setItem('mb_contact_type', chosen); } catch (e) {}
+            window.location.href = '{% if site.apercu_sans_envoi %}/apercu/ac/#contact{% else %}/#contact{% endif %}';
+            return;
+        }
+        setRequestType(chosen);
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        sec.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        var firstInput = document.getElementById('c-nom') || cType;
+        if (firstInput) {
+            try { firstInput.focus({ preventScroll: true }); } catch (err) { firstInput.focus(); }
+        }
+    }
+{% endif %}
+
+    function openDevis(trigger) {
+{% if page.detailed_menu %}
+        var formule = trigger && trigger.getAttribute('data-formule');
+        navigateToContact(formule || 'devis');
+        return;
+{% else %}
+        if (inline) {
+            var zone = document.getElementById('devis');
+            zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(function () { document.getElementById('nom').focus({ preventScroll: true }); }, 450);
+            return;
+        }
+        var active = document.activeElement;
+        if (menu && menu.contains(active)) active = menuBtn;
+        lastFocus = (active && active !== body) ? active : menuBtn;
+        modal.hidden = false;
+        syncInert();
+        document.getElementById('nom').focus();
+{% endif %}
+    }
+    function closeDevis() {
+        if (!modal || modal.hidden) return;
+        modal.hidden = true;
+        syncInert();
+        var target = (lastFocus && (!menu || !menu.contains(lastFocus))) ? lastFocus : menuBtn;
+        if (target) target.focus();
+    }
+    function setMenu(open) {
+        if (!menu) return;
+{% if page.detailed_menu %}
+        var wasOpen = menu.open;
+        if (open && !wasOpen) menu.showModal();
+        else if (!open && wasOpen) menu.close();
+{% else %}
+        var wasOpen = !menu.hidden;
+        menu.hidden = !open;
+{% endif %}
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        syncInert();
+        if (!open && wasOpen && (!modal || modal.hidden) && menuBtn) menuBtn.focus();
+    }
+
+{% if page.detailed_menu %}
+    if (menu) {
+        menu.addEventListener('close', function () {
+            if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+            syncInert();
+            var active = document.activeElement;
+            var inContact = active && document.getElementById('contact') && document.getElementById('contact').contains(active);
+            if ((!modal || modal.hidden) && !inContact && menuBtn) menuBtn.focus();
+        });
+    }
+{% endif %}
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+{% if page.detailed_menu %}
+        var pill = t.closest('[data-type-pill]');
+        if (pill) {
+            e.preventDefault();
+            setRequestType(pill.getAttribute('data-type-pill'));
+            return;
+        }
+        var devisTrigger = t.closest('[data-devis]');
+        if (devisTrigger) {
+            e.preventDefault();
+            openDevis(devisTrigger);
+            return;
+        }
+        var contactTrigger = t.closest('[data-contact-type]');
+        if (contactTrigger) {
+            var cHref = contactTrigger.getAttribute('href') || '';
+            var cTypeAttr = contactTrigger.getAttribute('data-contact-type') || 'contact';
+            if (document.getElementById('contact')) {
+                e.preventDefault();
+                navigateToContact(cTypeAttr);
+                return;
+            } else {
+                try { sessionStorage.setItem('mb_contact_type', cTypeAttr); } catch (err) {}
+                if (menu && menu.open) setMenu(false);
+                if (!cHref) {
+                    e.preventDefault();
+                    window.location.href = '{% if site.apercu_sans_envoi %}/apercu/ac/#contact{% else %}/#contact{% endif %}';
+                }
+                return;
+            }
+        }
+{% endif %}
+        if (t.closest('[data-menu-close]')) setMenu(false);
+        if (t.closest('[data-devis]')) { e.preventDefault(); openDevis(t.closest('[data-devis]')); return; }
+        if (t.closest('[data-close]') || t === modal) closeDevis();
+        if (t.closest('#menuBtn') && menu) setMenu({% if page.detailed_menu %}!menu.open{% else %}menu.hidden{% endif %});
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { {% if page.detailed_menu %}if (menu && menu.open) e.preventDefault();{% endif %} closeDevis(); setMenu(false); }
+        if (e.key === 'Tab' && modal && !modal.hidden) {
+            var f = modal.querySelectorAll('button, a[href], input, textarea');
+            var first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+{% if page.detailed_menu %}
+        else if (e.key === 'Tab' && menu && menu.open) {
+            var mf = Array.prototype.filter.call(menu.querySelectorAll('button, a[href], summary'), function (el) {
+                var det = el.closest('details');
+                return !det || det.open || el.tagName === 'SUMMARY';
+            });
+            var mFirst = mf[0], mLast = mf[mf.length - 1];
+            if (e.shiftKey && document.activeElement === mFirst) { e.preventDefault(); mLast.focus(); }
+            else if (!e.shiftKey && document.activeElement === mLast) { e.preventDefault(); mFirst.focus(); }
+        }
+{% endif %}
+    });
+    if (header) {
+        var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 40); };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    var form = document.getElementById('leadForm');
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var invalid = Array.prototype.filter.call(form.querySelectorAll('[required]'), function (el) { return !el.value.trim(); });
+            Array.prototype.forEach.call(form.querySelectorAll('.form-control'), function (el) {
+                el.setAttribute('aria-invalid', invalid.indexOf(el) > -1 ? 'true' : 'false');
+            });
+            if (invalid.length) { invalid[0].focus(); form.reportValidity && form.reportValidity(); return; }
+            var nom = document.getElementById('nom').value;
+            var tel = document.getElementById('tel').value;
+            var email = document.getElementById('email').value;
+            var projet = document.getElementById('projet').value;
+            if (SANS_ENVOI) {
+                form.querySelector('.form-status').textContent = 'Aperçu : envoi désactivé, aucune donnée transmise.';
+                form.reset();
+                return;
+            }
+            try {
+                fetch(WEBHOOK_URL, {
+                    method: 'POST', mode: 'no-cors', keepalive: true,
+                    body: new URLSearchParams({ nom: nom, telephone: tel, email: email, projet: projet, source: 'site', page: location.pathname })
+                }).catch(function () {});
+            } catch (err) {}
+            closeDevis();
+            form.reset();
+        });
+    }
+{% if page.detailed_menu %}
+    if (cType) {
+        cType.addEventListener('change', function () {
+            setRequestType(cType.value);
+        });
+        var storedType = null;
+        try {
+            storedType = sessionStorage.getItem('mb_contact_type');
+            if (storedType) sessionStorage.removeItem('mb_contact_type');
+        } catch (e) {}
+        setRequestType(storedType || cType.value);
+    }
+    if (cForm) {
+        var isSubmitting = false;
+        var submitBtn = cForm.querySelector('.form-submit');
+        var statusEl = document.getElementById('contactStatus') || cForm.querySelector('.form-status');
+
+        function renderFallbackError(statusNode, mailtoHref) {
+            if (!statusNode) return;
+            statusNode.textContent = '';
+            statusNode.setAttribute('data-status', 'error');
+            statusNode.appendChild(document.createTextNode('L’envoi automatique n’a pas pu être confirmé. Vos informations sont conservées dans le formulaire : vous pouvez réessayer, envoyer directement votre demande pré-remplie par e-mail à '));
+            var mailLink = document.createElement('a');
+            mailLink.href = mailtoHref;
+            mailLink.className = 'form-fallback-mail';
+            mailLink.textContent = FALLBACK_EMAIL;
+            statusNode.appendChild(mailLink);
+            statusNode.appendChild(document.createTextNode(' ou nous appeler au '));
+            var telLink = document.createElement('a');
+            telLink.href = 'tel:' + FALLBACK_PHONE_RAW;
+            telLink.className = 'form-fallback-tel';
+            telLink.textContent = FALLBACK_PHONE_DISPLAY;
+            statusNode.appendChild(telLink);
+            statusNode.appendChild(document.createTextNode('.'));
+        }
+
+        cForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (isSubmitting) return;
+
+            var hp = document.getElementById('c-website');
+            var chosenType = cType ? cType.value : 'devis';
+            if (hp && hp.value.trim() !== '') {
+                if (statusEl) {
+                    statusEl.setAttribute('data-status', 'success');
+                    statusEl.textContent = 'Votre demande a bien été enregistrée.';
+                }
+                cForm.reset();
+                setRequestType(chosenType);
+                return;
+            }
+
+            var nomInput = document.getElementById('c-nom');
+            var telInput = document.getElementById('c-tel');
+            var emailInput = document.getElementById('c-email');
+            var projetInput = document.getElementById('c-projet');
+
+            var invalid = [];
+            var errMsg = '';
+            Array.prototype.forEach.call(cForm.querySelectorAll('[required]'), function (el) {
+                if (!el.value.trim()) invalid.push(el);
+            });
+            if (telInput && telInput.value.trim()) {
+                var digits = telInput.value.replace(/\D/g, '');
+                if (digits.length < 8) {
+                    if (invalid.indexOf(telInput) === -1) invalid.push(telInput);
+                    errMsg = 'Veuillez indiquer un numéro de téléphone valide (au moins 8 chiffres).';
+                }
+            }
+            if (emailInput && emailInput.value.trim()) {
+                var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+                if (!emailOk) {
+                    if (invalid.indexOf(emailInput) === -1) invalid.push(emailInput);
+                    if (!errMsg) errMsg = 'Veuillez indiquer une adresse e-mail valide (exemple : nom@domaine.fr).';
+                }
+            }
+            Array.prototype.forEach.call(cForm.querySelectorAll('.form-control'), function (el) {
+                el.setAttribute('aria-invalid', invalid.indexOf(el) > -1 ? 'true' : 'false');
+            });
+            if (invalid.length) {
+                if (statusEl) {
+                    statusEl.setAttribute('data-status', 'error');
+                    statusEl.textContent = errMsg || 'Veuillez compléter les champs obligatoires marqués d’un astérisque (*).';
+                }
+                invalid[0].focus();
+                if (!errMsg && cForm.reportValidity) cForm.reportValidity();
+                return;
+            }
+
+            if (SANS_ENVOI) {
+                if (statusEl) {
+                    statusEl.setAttribute('data-status', 'success');
+                    statusEl.textContent = 'Aperçu : envoi désactivé, aucune donnée transmise.';
+                }
+                cForm.reset();
+                setRequestType(chosenType);
+                return;
+            }
+
+            var nomVal = nomInput ? nomInput.value.trim() : '';
+            var telVal = telInput ? telInput.value.trim() : '';
+            var emailVal = emailInput ? emailInput.value.trim() : '';
+            var projetVal = projetInput ? projetInput.value.trim() : '';
+            var typeOptionText = (cType && cType.options && cType.selectedIndex >= 0)
+                ? cType.options[cType.selectedIndex].text
+                : chosenType;
+
+            var mailSubject = 'Demande M&B Rénovation — ' + typeOptionText + ' — ' + nomVal;
+            var mailBody = [
+                'Bonjour M&B Rénovation,',
+                '',
+                'Voici les détails de ma demande :',
+                '- Objet : ' + typeOptionText,
+                '- Nom : ' + nomVal,
+                '- Téléphone : ' + telVal,
+                '- E-mail : ' + (emailVal || 'Non renseigné'),
+                '',
+                'Description du projet :',
+                projetVal
+            ].join('\n');
+            var mailtoHref = 'mailto:' + FALLBACK_EMAIL + '?subject=' + encodeURIComponent(mailSubject) + '&body=' + encodeURIComponent(mailBody);
+
+            // Décision du gérant (24/10) : la demande part uniquement par le site vers n8n (W2 : email à abdel@maison-mb.fr,
+            // Telegram, accusé de réception au client). WhatsApp ne s'ouvre jamais automatiquement : il reste un lien dans « Contactez-nous ».
+            isSubmitting = true;
+            cForm.setAttribute('aria-busy', 'true');
+            if (submitBtn) submitBtn.disabled = true;
+            if (statusEl) {
+                statusEl.setAttribute('data-status', 'pending');
+                statusEl.textContent = 'Envoi de votre demande en cours…';
+            }
+
+            var payload = new URLSearchParams({
+                type_demande: chosenType,
+                objet: typeOptionText,
+                nom: nomVal,
+                telephone: telVal,
+                email: emailVal,
+                projet: projetVal,
+                source: 'site',
+                page: location.pathname
+            });
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                    'Accept': 'application/json, text/plain, */*'
+                },
+                body: payload.toString()
+            }).then(function (res) {
+                if (!res || res.type === 'opaque' || !res.ok) {
+                    throw new Error('HTTP_OR_OPAQUE');
+                }
+                if (statusEl) {
+                    statusEl.setAttribute('data-status', 'success');
+                    statusEl.textContent = 'Votre demande a bien été envoyée. Nous vous recontactons sous 24h ouvrées.';
+                }
+                if (window.mbConsent && typeof window.mbConsent.track === 'function') {
+                    window.mbConsent.track('lead');
+                }
+                cForm.reset();
+                setRequestType(chosenType);
+            }).catch(function () {
+                renderFallbackError(statusEl, mailtoHref);
+            }).then(function () {
+                isSubmitting = false;
+                cForm.removeAttribute('aria-busy');
+                if (submitBtn) submitBtn.disabled = false;
+            });
+        });
+    }
+{% endif %}
+})();
+</script>

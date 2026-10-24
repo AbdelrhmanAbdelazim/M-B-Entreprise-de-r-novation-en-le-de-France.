@@ -1,0 +1,15 @@
+{%- assign b = site.data.apercu_accueil.blog -%}
+<section class="blog-news" id="blog-news" aria-labelledby="blogTitre">
+    <h2 id="blogTitre">{{ b.title }}</h2>
+    <div class="blog-list">
+    {%- for post in site.posts %}
+        <article class="blog-card">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.description }}</p>
+            <a href="{{ post.url }}">{{ b.more }}</a>
+        </article>
+    {%- else %}
+        <p>{{ b.empty }}</p>
+    {%- endfor %}
+    </div>
+</section>

@@ -125,15 +125,15 @@
 
       if (readChoice() === 'accepted') loadTrackers();
 
-      // Contacts : WhatsApp, téléphone, e-mail.
+      // Contacts : téléphone et e-mail.
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]');
         if (!a) return;
         var href = a.getAttribute('href') || '';
-        if (/^(tel:|mailto:)/i.test(href) || /\/\/(wa\.me|api\.whatsapp\.com)\//i.test(href)) track('contact');
+        if (/^(tel:|mailto:)/i.test(href)) track('contact');
       }, true);
 
-      // Formulaire de devis (il ouvre WhatsApp par script, pas par un lien) : 1 seul événement.
+      // Formulaire de devis : 1 seul événement.
       document.addEventListener('submit', function (e) {
         if (e.target && e.target.id === 'leadForm') track('lead');
       }, true);

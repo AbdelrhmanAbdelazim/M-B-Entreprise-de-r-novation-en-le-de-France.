@@ -1,45 +1,54 @@
-{%- comment -%} Pied de page. Textes identiques à main (accueil : pied complet + « Nos Actualités » ; autres pages : pied simple). Seul le style change. {%- endcomment -%}
-{%- if page.home %}
+{%- comment -%} Pied de page unifié A-C sur toutes les pages. {%- endcomment -%}
+{%- assign f_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}
+  {%- assign f_home = "/apercu/ac/" -%}
+{%- endif -%}
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="#" class="logo">M&amp;B <em>Rénovation</em></a>
+                <a href="{{ f_home }}" class="logo">M&amp;B <em>Rénovation</em></a>
                 <p class="footer-tagline">Une entreprise de rénovation qui redéfinit les standards de qualité en Île-de-France. Nous créons des espaces qui vous ressemblent.</p>
-                <div class="footer-socials">
-                    <a href="{{ site.social.facebook }}" target="_blank" class="footer-social"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="{{ site.social.instagram }}" target="_blank" class="footer-social"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://g.page/r/CYV1sjt85bCkEBI/review" target="_blank" class="footer-social"><i class="fa-brands fa-google"></i></a>
-                    <a href="https://pin.it/6WHDNJlqj" target="_blank" class="footer-social"><i class="fa-brands fa-pinterest-p"></i></a>
-                </div>
+                <p style="margin-top:14px"><a href="{{ f_home }}#contact" class="link-arrow" data-contact-type="contact">Contactez-nous &amp; Réseaux sociaux &rarr;</a></p>
             </div>
             <div>
                 <p class="footer-title">Navigation</p>
                 <ul>
-                    <li><a href="#">Accueil</a></li>
+                    <li><a href="{{ f_home }}">Accueil</a></li>
                     <li><a href="/services/">Nos Services</a></li>
+                    <li><a href="{{ f_home }}#pourquoi">Pourquoi choisir M&amp;B</a></li>
+                    <li><a href="{{ f_home }}#formules">Votre projet</a></li>
                     <li><a href="/realisations/#portfolio">Portfolio</a></li>
                     <li><a href="/realisations/#chantiers">L'Envers du Décor</a></li>
-                    <li><a href="#processus">Notre Processus</a></li>
+                    <li><a href="{{ f_home }}#processus">Notre Processus</a></li>
                     <li><a href="/realisations/">Réalisations</a></li>
-                    <li><a href="/blog">Le Blog</a></li>
+                    <li><a href="/blog/">Le Blog</a></li>
                     <li><a href="/sous-traitance-renovation/">Sous-traitance</a></li>
-                    <li><button type="button" class="footer-link-btn" data-devis>Demander un devis</button></li>
+                    <li><a href="{{ f_home }}#avantages">Paiement par étapes &amp; parrainage</a></li>
+                    <li><a href="{{ f_home }}#contact" data-contact-type="contact">Contactez-nous</a></li>
+                    <li><a href="{{ f_home }}#contact" class="footer-link-btn" data-contact-type="devis">Demander un devis</a></li>
                 </ul>
             </div>
             <div>
-                <p class="footer-title">Contact Privé</p>
+                <p class="footer-title">Informations &amp; Garanties</p>
                 <ul class="footer-contacts">
-                    <li><i class="fa-solid fa-location-dot"></i> <span>6 place Henri Frenay<br>75012 Paris</span></li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+33753306559">+33 7 53 30 65 59</a></li>
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:abdel@maison-mb.fr">abdel@maison-mb.fr</a></li>
-                    <li><i class="fa-solid fa-certificate"></i> <span>SIRET : 923 102 412 00015</span></li>
-                    <li><i class="fa-solid fa-shield-halved"></i> <span>Assurance : Entoria / Fidelidade</span></li>
+                    <li>
+                        <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg></span>
+                        <span>6 place Henri Frenay<br>75012 Paris</span>
+                    </li>
+                    <li>
+                        <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4zm-1.4 15.6L6.4 12.4l1.4-1.4 2.8 2.8 5.6-5.6 1.4 1.4-7 7z"/></svg></span>
+                        <span>SIRET : 923 102 412 00015</span>
+                    </li>
+                    <li>
+                        <span class="footer-contact-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg></span>
+                        <a href="{{ f_home }}#contact" data-contact-type="contact">Nous écrire ou demander un devis</a>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 M&B Rénovation. Tous droits réservés.</p>
+            <p>&copy; 2026 M&amp;B Rénovation. Tous droits réservés.</p>
             <p><span>«</span> L'excellence n'est pas un acte, c'est une habitude. <span>»</span></p>
         </div>
     </div>
@@ -63,12 +72,3 @@
 {% include legal-footer.html %}
     </div>
 </footer>
-{%- else %}
-<footer class="site-footer site-footer--simple">
-    <div class="container">
-        <a href="/" class="logo">M&amp;B <em>Rénovation</em></a>
-        <p class="footer-bottom">&copy; 2026 M&B Rénovation. L'excellence n'est pas un acte, c'est une habitude.</p>
-{% include legal-footer.html %}
-    </div>
-</footer>
-{%- endif %}

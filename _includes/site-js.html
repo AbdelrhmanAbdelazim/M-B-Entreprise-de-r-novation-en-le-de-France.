@@ -9,109 +9,120 @@
 {%- endif %}
 <script>
 (function () {
+    var SANS_ENVOI = {{ site.apercu_sans_envoi | default: false }};
     var body = document.body;
+    var menuBtn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
 
-    /* Menu mobile */
-    var burger = document.querySelector('.burger'), mnav = document.getElementById('mobileNav');
+    function syncInert() {
+        var menuOpen = Boolean(menu && menu.open);
+        body.classList.toggle('no-scroll', menuOpen);
+        Array.prototype.forEach.call(body.children, function (el) {
+            if (el.tagName === 'SCRIPT') return;
+            var shouldInert = menuOpen && el !== menu;
+            el.inert = shouldInert;
+            if (shouldInert) el.setAttribute('inert', '');
+            else el.removeAttribute('inert');
+        });
+    }
+
     function setMenu(open) {
-        if (!burger) return;
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        mnav.classList.toggle('is-open', open);
-        body.style.overflow = open ? 'hidden' : '';
+        if (!menu) return;
+        var wasOpen = menu.open;
+        if (open && !wasOpen) menu.showModal();
+        else if (!open && wasOpen) menu.close();
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        syncInert();
+        if (!open && wasOpen && menuBtn) menuBtn.focus();
     }
-    if (burger) burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
 
-    /* Fenêtre devis */
-    var modal = document.getElementById('contactModal'), lastFocus = null;
-    if (modal) {
-    window.openModal = function () {
-        setMenu(false);
-        lastFocus = document.activeElement;
-        modal.classList.add('active');
-        body.style.overflow = 'hidden';
-        var f = document.getElementById('nom'); if (f) f.focus();
-    };
-    window.closeModal = function () {
-        modal.classList.remove('active');
-        body.style.overflow = '';
-        if (lastFocus) lastFocus.focus();
-    };
+    if (menu) {
+        menu.addEventListener('close', function () {
+            if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+            syncInert();
+            if (menuBtn) menuBtn.focus();
+        });
+    }
+
     document.addEventListener('click', function (e) {
-        if (e.target.closest('[data-devis]')) { e.preventDefault(); window.openModal(); }
-        else if (e.target.closest('[data-modal-close]') || e.target === modal) window.closeModal();
-    });
-
-    /* Formulaire → WhatsApp (+ copie vers n8n W2), comportement inchangé */
-    }
-    var form = document.getElementById('leadForm');
-    if (form) form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var nom = document.getElementById('nom').value;
-        var tel = document.getElementById('tel').value;
-        var email = document.getElementById('email').value;
-        var projet = document.getElementById('projet').value;
-        try {
-            fetch('https://navajowhite-cormorant-668337.hostingersite.com/webhook/devis-maison-mb', {
-                method: 'POST', mode: 'no-cors', keepalive: true,
-                body: new URLSearchParams({ nom: nom, telephone: tel, email: email, projet: projet, source: 'site', page: location.pathname })
-            }).catch(function () {});
-        } catch (err) {}
-        var msg = '*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ' + encodeURIComponent(nom) + '%0A📞 *Tél:* ' + encodeURIComponent(tel) + '%0A✉️ *E-mail:* ' + encodeURIComponent(email || '-') + '%0A📝 *Projet:* ' + encodeURIComponent(projet);
-        window.open('https://wa.me/33753306559?text=' + msg, '_blank');
-        window.closeModal();
-        this.reset();
+        var t = e.target;
+        var devisTrigger = t.closest('[data-devis]');
+        if (devisTrigger) {
+            e.preventDefault();
+            var formule = devisTrigger.getAttribute('data-formule') || 'devis';
+            try { sessionStorage.setItem('mb_contact_type', formule); } catch (err) {}
+            if (menu && menu.open) setMenu(false);
+            window.location.href = '{% if site.apercu_sans_envoi %}/apercu/ac/#contact{% else %}/#contact{% endif %}';
+            return;
+        }
+        var contactTrigger = t.closest('[data-contact-type]');
+        if (contactTrigger) {
+            var cType = contactTrigger.getAttribute('data-contact-type') || 'contact';
+            try { sessionStorage.setItem('mb_contact_type', cType); } catch (err) {}
+            if (menu && menu.open) setMenu(false);
+        }
+        if (t.closest('[data-menu-close]')) setMenu(false);
+        if (t.closest('#menuBtn') && menu) setMenu(!menu.open);
     });
 
     /* Lightbox : groupes [data-gallery], liens <a href="grande image"> */
     var box = document.getElementById('lightbox');
     if (box) {
-    var big = box.querySelector('img'), cap = box.querySelector('.lightbox-caption');
-    var items = [], index = 0, opener = null;
-    function show(i) {
-        index = (i + items.length) % items.length;
-        var a = items[index];
-        big.src = a.getAttribute('href');
-        big.alt = a.getAttribute('data-alt') || '';
-        cap.textContent = a.getAttribute('data-caption') || big.alt;
+        var big = box.querySelector('img'), cap = box.querySelector('.lightbox-caption');
+        var items = [], index = 0, opener = null;
+        function show(i) {
+            index = (i + items.length) % items.length;
+            var a = items[index];
+            big.src = a.getAttribute('href');
+            big.alt = a.getAttribute('data-alt') || '';
+            cap.textContent = a.getAttribute('data-caption') || big.alt;
+        }
+        function closeBox() { box.classList.remove('is-open'); body.style.overflow = ''; big.removeAttribute('src'); if (opener) opener.focus(); }
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest('[data-gallery] a.gallery-item');
+            if (!a) return;
+            e.preventDefault();
+            items = Array.prototype.slice.call(a.closest('[data-gallery]').querySelectorAll('a.gallery-item'));
+            opener = a;
+            show(items.indexOf(a));
+            box.classList.add('is-open');
+            body.style.overflow = 'hidden';
+            box.querySelector('.lightbox-close').focus();
+        });
+        box.querySelector('.lightbox-close').addEventListener('click', closeBox);
+        box.querySelector('.lightbox-prev').addEventListener('click', function () { show(index - 1); });
+        box.querySelector('.lightbox-next').addEventListener('click', function () { show(index + 1); });
+        box.addEventListener('click', function (e) { if (e.target === box) closeBox(); });
+        var sx = null;
+        box.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+        box.addEventListener('touchend', function (e) {
+            if (sx === null) return;
+            var dx = e.changedTouches[0].clientX - sx; sx = null;
+            if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+        });
     }
-    function closeBox() { box.classList.remove('is-open'); body.style.overflow = ''; big.removeAttribute('src'); if (opener) opener.focus(); }
-    document.addEventListener('click', function (e) {
-        var a = e.target.closest('[data-gallery] a.gallery-item');
-        if (!a) return;
-        e.preventDefault();
-        items = Array.prototype.slice.call(a.closest('[data-gallery]').querySelectorAll('a.gallery-item'));
-        opener = a;
-        show(items.indexOf(a));
-        box.classList.add('is-open');
-        body.style.overflow = 'hidden';
-        box.querySelector('.lightbox-close').focus();
-    });
-    box.querySelector('.lightbox-close').addEventListener('click', closeBox);
-    box.querySelector('.lightbox-prev').addEventListener('click', function () { show(index - 1); });
-    box.querySelector('.lightbox-next').addEventListener('click', function () { show(index + 1); });
-    box.addEventListener('click', function (e) { if (e.target === box) closeBox(); });
-    var sx = null;
-    box.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
-    box.addEventListener('touchend', function (e) {
-        if (sx === null) return;
-        var dx = e.changedTouches[0].clientX - sx; sx = null;
-        if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
-    });
 
-    }
     document.addEventListener('keydown', function (e) {
         var lbOpen = box && box.classList.contains('is-open');
-        if (e.key === 'Escape') { if (lbOpen) closeBox(); else if (modal && modal.classList.contains('active')) window.closeModal(); else setMenu(false); }
-        if (lbOpen) { if (e.key === 'ArrowLeft') show(index - 1); if (e.key === 'ArrowRight') show(index + 1); }
+        if (e.key === 'Escape') {
+            if (lbOpen) {
+                box.querySelector('.lightbox-close').click();
+            } else if (menu && menu.open) {
+                e.preventDefault();
+                setMenu(false);
+            }
+        } else if (lbOpen) {
+            if (e.key === 'ArrowLeft') box.querySelector('.lightbox-prev').click();
+            if (e.key === 'ArrowRight') box.querySelector('.lightbox-next').click();
+        } else if (e.key === 'Tab' && menu && menu.open) {
+            var mf = Array.prototype.filter.call(menu.querySelectorAll('button, a[href], summary'), function (el) {
+                var det = el.closest('details');
+                return !det || det.open || el.tagName === 'SUMMARY';
+            });
+            var mFirst = mf[0], mLast = mf[mf.length - 1];
+            if (e.shiftKey && document.activeElement === mFirst) { e.preventDefault(); mLast.focus(); }
+            else if (!e.shiftKey && document.activeElement === mLast) { e.preventDefault(); mFirst.focus(); }
+        }
     });
-
-    /* Apparition douce au défilement */
-    var els = document.querySelectorAll('[data-reveal]');
-    if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
-        }, { rootMargin: '0px 0px -40px 0px' });
-        els.forEach(function (el) { io.observe(el); });
-    } else { els.forEach(function (el) { el.classList.add('is-visible'); }); }
 })();
 </script>

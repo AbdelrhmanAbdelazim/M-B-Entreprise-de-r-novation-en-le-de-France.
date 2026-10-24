@@ -52,6 +52,9 @@ exclude:
   - automation
   - AGENTS.md
   - REDESIGN.md
+  - _config.apercu.yml
+  - _redesign
+  - _scripts
 
 # ---------------------------------------------------------------
 # Identité de l'entreprise : source unique, utilisée par le footer,

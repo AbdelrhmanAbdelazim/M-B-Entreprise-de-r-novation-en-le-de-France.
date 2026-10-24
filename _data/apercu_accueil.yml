@@ -1,0 +1,150 @@
+# Inventaire du contenu de l'accueil de main (8909697), copié mot pour mot.
+# Utilisé uniquement par les 3 aperçus de direction (_apercu/), jamais publié.
+nav:
+  logo: "M&B"
+  logo_em: "Rénovation"
+  tel: "+33 7 53 30 65 59"
+  tel_raw: "+33753306559"
+  btn: "Devis Gratuit"
+  menu_aria: "Menu"
+  menu:
+    - { label: "Services", href: "/services/" }
+    - { label: "Portfolio", href: "#portfolio" }
+    - { label: "L'Envers du Décor", href: "#chantiers" }
+    - { label: "Processus", href: "#processus" }
+    - { label: "Réalisations", href: "/realisations/" }
+    - { label: "Le Blog", href: "/blog" }
+social:
+  - { title: "Facebook", icon: "fa-facebook-f", key: facebook }
+  - { title: "Instagram", icon: "fa-instagram", key: instagram }
+  - { title: "Google", icon: "fa-google", href: "https://g.page/r/CYV1sjt85bCkEBI/review" }
+  - { title: "Pinterest", icon: "fa-pinterest-p", href: "https://pin.it/6WHDNJlqj" }
+fab_aria: "Demander un devis"
+whatsapp: "https://wa.me/33753306559"
+modal:
+  eyebrow: "Consultation Privée"
+  title: "Étude de Projet"
+  sub: "Expertise gratuite. Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail). Aucun engagement."
+  fields:
+    - { id: nom, label: "Nom & Prénom", type: text, placeholder: "Jean Dupont", required: true }
+    - { id: tel, label: "Téléphone", type: tel, placeholder: "06 00 00 00 00", required: true }
+    - { id: email, label: "E-mail", type: email, placeholder: "jean.dupont@email.fr", required: false }
+    - { id: projet, label: "Votre Projet", type: textarea, placeholder: "Décrivez brièvement vos envies et le type de travaux envisagés...", required: true }
+  submit: "Envoyer la Demande"
+  paiement_strong: "Paiement en plusieurs fois sans frais :"
+  paiement: "pour les projets à partir de 3 000 €, matériaux réglés à la signature, main-d'œuvre en 3 fois sans frais. Sous réserve d'acceptation, modalités précisées dans le devis."
+  confid: "Vos informations servent uniquement à répondre à votre demande de devis."
+  confid_link: "Politique de confidentialité"
+  whatsapp: "Contacter via WhatsApp"
+hero:
+  eyebrow: "Entreprise de rénovation &nbsp;·&nbsp; Paris & Île-de-France"
+  title1: "L'Art de Sublimer"
+  title2: "Votre Intérieur"
+  sub: "Rénovation tous corps d'état avec une maîtrise absolue. Plomberie, électricité, plâtrerie, carrelage, sols et peinture. Une signature unique pour votre habitat."
+  btn: "Demander un devis"
+  ghost: "Voir nos réalisations"
+  scroll: "Découvrir"
+  img: { key: "chantier-10.jpg", alt: "Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure" }
+stats:
+  - { n: "10", l: "Ans de Garantie Décennale" }
+  - { n: "24h", l: "Réponse à Votre Demande" }
+  - { n: "100%", l: "Projets Sur Mesure" }
+services:
+  eyebrow: "Nos Compétences"
+  title: "Expertise Globale"
+  intro: "Nous orchestrons chaque étape de votre projet avec une précision chirurgicale pour un résultat sans compromis."
+  cards:
+    - { num: "01", icon: "fa-faucet-drip", title: "Bains & Eau", items: ["Création salles de bains luxe", "Robinetterie encastrée", "Plomberie complète"] }
+    - { num: "02", icon: "fa-bolt", title: "Lumière & Tech", items: ["Électricité NF C 15-100", "Tableau électrique & éclairage", "Ventilation (VMC)"] }
+    - { num: "03", icon: "fa-paint-roller", title: "Matières & Couleurs", items: ["Peinture haute finition", "Enduits décoratifs", "Papiers peints panoramiques"] }
+    - { num: "04", icon: "fa-layer-group", title: "Sols & Structure", items: ["Parquets massifs & pose", "Carrelages grands formats", "Pose de menuiseries"] }
+  detail: "Découvrir nos services en détail :"
+  pro: "Professionnels du bâtiment :"
+  pro_link: "proposer un chantier en sous-traitance"
+  pro_href: "/sous-traitance-renovation/"
+portfolio:
+  eyebrow: "Portfolio"
+  title: "Pièces Rénovées"
+  items:
+    - { key: "chantier-7.jpg", alt: "Pièce de vie entièrement rénovée à Paris : parquet, peinture et placard intégré", h: "Espaces de Vie", s: "Rénovation Complète" }
+    - { key: "chantier-13.jpg", alt: "Finitions soignées : parquet et plinthes posés dans une chambre rénovée", h: "Finitions", s: "Détail & Précision" }
+    - { key: "chantier-6.jpg", alt: "Salle de bains rénovée avec baignoire encastrée et paroi vitrée", h: "Salles de Bains", s: "Design & Bien-être" }
+chantiers:
+  eyebrow: "L'Envers du Décor"
+  title: "La Rigueur de la Préparation"
+  intro: "La véritable qualité d'une rénovation de luxe se cache derrière les murs. Découvrez nos chantiers : préparation des supports, plâtrerie, réseaux et finitions."
+  items:
+    - { key: "chantier-1.jpg", alt: "Salle de bains en cours de rénovation : murs préparés et sol ragréé avant carrelage", h: "Préparation des Supports", s: "Murs & Sol avant Carrelage" }
+    - { key: "chantier-2.jpg", alt: "Receveur de douche et carreaux de ciment à motifs posés sur plaques hydrofuges", h: "Placo Hydrofuge", s: "Douche & Carreaux de Ciment" }
+    - { key: "chantier-3.jpg", alt: "Préparation du sol et des murs avant pose du revêtement, radiateur électrique déposé", h: "Pose de Sols", s: "Nivellement & Précision" }
+    - { key: "chantier-4.jpg", alt: "Pièce en rénovation : plafond en plaques de plâtre et gaines électriques en attente", h: "Plâtrerie & Électricité", s: "Plafond & Gaines en Attente" }
+    - { key: "chantier-6.jpg", alt: "Salle de bains terminée avec baignoire, paroi vitrée et carrelage gris", h: "Salle de Bains", s: "Baignoire & Paroi Vitrée" }
+    - { key: "chantier-7.jpg", alt: "Appartement rénové avec parquet neuf, murs repeints et placard sur mesure", h: "Rénovation Complète", s: "Parquet & Peinture" }
+    - { key: "chantier-8.jpg", alt: "Plafond et moulures d'un appartement ancien en cours de restauration", h: "Restauration de l'Ancien", s: "Respect du Patrimoine" }
+    - { key: "chantier-10.jpg", alt: "Chambre rénovée avec placard coulissant sur mesure et parquet", h: "Chambre Rénovée", s: "Placard & Parquet" }
+    - { key: "chantier-12.jpg", alt: "Murs ratissés et poncés avant peinture, sols protégés", h: "Ratissage & Ponçage", s: "Préparation Zéro Défaut" }
+    - { key: "chantier-13.jpg", alt: "Pièce rénovée à Paris : parquet posé et finitions des murs", h: "Finitions", s: "Parquet & Murs" }
+realisations:
+  eyebrow: "Avant / Après"
+  title: "Nos réalisations"
+  intro: "Avant / après, réalisations terminées et coulisses de nos chantiers à Paris et en Île-de-France."
+  cta: "Voir toutes nos réalisations"
+  items:
+    - { key: "realisations/avant-apres-tableau-electrique.jpg", alt: "Avant / après remplacement d'un tableau électrique à Paris – M&B Rénovation" }
+    - { key: "realisations/realisation-bibliotheques-sur-mesure.jpg", alt: "Bibliothèques sur mesure avec éclairage intégré à Paris – M&B Rénovation" }
+    - { key: "realisations/avant-apres-douche.jpg", alt: "Avant / après rénovation d'une douche à Paris – M&B Rénovation" }
+    - { key: "realisations/avant-apres-plafond-salle-de-bain.jpg", alt: "Avant / après rénovation du plafond d'une salle de bain à Paris – M&B Rénovation" }
+    - { key: "realisations/chantier-moulures-cache-radiateurs.jpg", alt: "Chantier de moulures et cache-radiateurs à Paris – M&B Rénovation" }
+    - { key: "realisations/equipe-sur-le-chantier.jpg", alt: "L'artisan M&B Rénovation sur un chantier à Paris, pièce protégée avant travaux" }
+processus:
+  eyebrow: "Méthodologie"
+  title1: "Votre Sérénité,"
+  title2: "Étape par Étape"
+  steps:
+    - { num: "01", h: "Rencontre", p: "Visite technique offerte pour cerner vos désirs et contraintes. Nous écoutons avant de concevoir." }
+    - { num: "02", h: "Chiffrage", p: "Devis détaillé et transparent sous 48h. Aucun coût caché. Aucune mauvaise surprise." }
+    - { num: "03", h: "Réalisation", p: "Exécution soignée, avec protection complète du logement et propreté irréprochable chaque jour." }
+    - { num: "04", h: "Garantie", p: "Livraison avec remise de l'attestation décennale Entoria / Fidelidade. 10 ans de tranquillité d'esprit." }
+avantages:
+  eyebrow: "Avantages clients"
+  title1: "Des facilités pour"
+  title2: "votre projet"
+  paiement_title: "Paiement en plusieurs fois sans frais"
+  paiement: "Pour les projets à partir de 3 000 €, matériaux réglés à la signature, main-d'œuvre en 3 fois sans frais."
+  paiement_small: "Sous réserve d'acceptation, modalités précisées dans le devis."
+  parrainage_title: "Parrainage"
+  parrainage: "Vous nous recommandez à un proche ? Vous bénéficiez d'une remise sur votre prochain chantier, et votre proche aussi sur le sien."
+  parrainage_small: "Remises appliquées une fois ses travaux terminés et réglés."
+  parrainage_link: "Comment ça marche&nbsp;→"
+cta:
+  eyebrow: "Commençons Ensemble"
+  title1: "Votre Projet Mérite"
+  title2: "L'Excellence"
+  p: "Bénéficiez d'une étude de projet gratuite, avec un seul interlocuteur et une transparence totale."
+  btn: "Étude de Projet Offerte"
+  whatsapp: "WhatsApp Direct"
+footer:
+  tagline: "Une entreprise de rénovation qui redéfinit les standards de qualité en Île-de-France. Nous créons des espaces qui vous ressemblent."
+  nav_title: "Navigation"
+  nav:
+    - { label: "Accueil", href: "#" }
+    - { label: "Nos Services", href: "/services/" }
+    - { label: "Portfolio", href: "#portfolio" }
+    - { label: "L'Envers du Décor", href: "#chantiers" }
+    - { label: "Notre Processus", href: "#processus" }
+    - { label: "Réalisations", href: "/realisations/" }
+    - { label: "Le Blog", href: "/blog" }
+    - { label: "Sous-traitance", href: "/sous-traitance-renovation/" }
+  nav_btn: "Demander un devis"
+  contact_title: "Contact Privé"
+  address1: "6 place Henri Frenay"
+  address2: "75012 Paris"
+  email: "abdel@maison-mb.fr"
+  siret: "SIRET : 923 102 412 00015"
+  assurance: "Assurance : Entoria / Fidelidade"
+  copyright: "&copy; 2026 M&B Rénovation. Tous droits réservés."
+  quote: "L'excellence n'est pas un acte, c'est une habitude."
+blog:
+  title: "Nos Actualités"
+  more: "Lire la suite →"
+  empty: "Nos derniers projets et conseils arrivent bientôt..."

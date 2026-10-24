@@ -11,29 +11,46 @@ preload_image: /images/realisations/webp/avant-apres-carrelage-salle-de-bain-480
 preload_sizes: "(min-width: 1180px) 373px, (min-width: 1000px) 31vw, 46vw"
 preload_srcset: "/images/realisations/webp/avant-apres-carrelage-salle-de-bain-480.webp 480w, /images/realisations/webp/avant-apres-carrelage-salle-de-bain-1080.webp 1080w"
 ---
-{%- comment -%}
-  Textes identiques à main (titre, intro, sections et textes alternatifs de _data/realisations.yml, bouton).
-  Nouveau design : chaque photo est une carte qui ouvre sa page /realisations/<photo>/.
-  En bas : les galeries « Portfolio » et « L'Envers du Décor » déplacées depuis l'accueil, avec leurs légendes d'origine.
-{%- endcomment -%}
-<header class="page-hero">
+{%- assign r_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}
+  {%- assign r_home = "/apercu/ac/" -%}
+{%- endif -%}
+<header class="page-hero page-hero--realisations">
     <div class="container">
+        <div class="eyebrow">Portfolio &amp; Chantiers</div>
         <h1>{{ page.title }}</h1>
         <div class="rule"></div>
         <p class="lead" style="margin-top:22px">Avant / après, réalisations terminées et coulisses de nos chantiers : voici en images le travail de M&amp;B Rénovation à Paris et en Île-de-France. Cliquez sur une photo pour l'agrandir.</p>
+        <nav class="real-filter-nav" aria-label="Sections des réalisations">
+            <a href="#avant-apres">Avant / Après</a>
+            <a href="#realisations-terminees">Réalisations</a>
+            <a href="#sur-le-chantier">Sur le chantier</a>
+            <a href="#portfolio">Portfolio · Pièces Rénovées</a>
+            <a href="#chantiers">L'Envers du Décor</a>
+        </nav>
     </div>
 </header>
 
 <div class="container" style="padding-bottom:40px">
 {% for section in site.data.realisations %}
-<section class="realisations-section">
+{%- assign sec_id = "sur-le-chantier" -%}
+{%- if section.title == "Avant / Après" -%}{%- assign sec_id = "avant-apres" -%}{%- elsif section.title == "Réalisations" -%}{%- assign sec_id = "realisations-terminees" -%}{%- endif -%}
+<section class="realisations-section" id="{{ sec_id }}">
     <h2>{{ section.title }}</h2>
     <div class="project-grid project-grid--photos">
         {%- for photo in section.photos %}
         {%- assign slug = photo.file | replace: ".jpg", "" -%}
         {%- assign key = "realisations/" | append: photo.file %}
+        {%- assign is_first = false -%}
+        {%- if forloop.parentloop.first and forloop.first -%}{%- assign is_first = true -%}{%- endif -%}
         <a class="project-card" href="/realisations/{{ slug }}/" aria-label="{{ photo.alt | escape }}">
-            <div class="frame">{% include webp-img.html key=key alt=photo.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, 46vw" eager=forloop.first %}</div>
+            <div class="frame">
+                {% include webp-img.html key=key alt=photo.alt sizes="(min-width: 1180px) 373px, (min-width: 1000px) 31vw, 46vw" eager=is_first %}
+                <span class="gallery-caption">
+                    <span>{{ section.title }}</span>
+                    <h4>{{ photo.alt | split: " – " | first }}</h4>
+                </span>
+            </div>
         </a>
         {%- endfor %}
     </div>
@@ -41,7 +58,7 @@ preload_srcset: "/images/realisations/webp/avant-apres-carrelage-salle-de-bain-4
 {% endfor %}
 
 <div class="mb-gallery-cta" style="text-align:center;margin:56px 0">
-    <a class="btn-cta" href="https://wa.me/33753306559" target="_blank" rel="noopener">Demander un devis</a>
+    <a class="btn-cta" href="{{ r_home }}#contact" data-contact-type="devis">Demander un devis</a>
 </div>
 </div>
 

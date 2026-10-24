@@ -3,9 +3,9 @@ layout: page
 ---
 {%- comment -%}
   Page d'une photo de /realisations/ : photo d'origine + photos agrandies (avant / après séparés).
-  Aucun texte nouveau : titre et textes alternatifs = _data/realisations.yml (main) ;
-  « Cliquez sur une photo pour l'agrandir. » et « Demander un devis » = textes de /realisations/ sur main.
 {%- endcomment -%}
+{%- assign p_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}{%- assign p_home = "/apercu/ac/" -%}{%- endif -%}
 {%- assign media = site.data.projets_media[page.slug] -%}
 {%- assign all = site.projets | sort: "order" -%}
 {%- assign key = "realisations/" | append: page.slug | append: ".jpg" -%}

@@ -1,0 +1,14 @@
+{%- assign m = site.data.apercu_accueil.modal -%}
+<div class="modal-overlay" id="devisModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="devisTitre">
+        <div class="modal-header">
+            <button type="button" class="modal-close" data-close aria-label="Fermer">✕</button>
+            <div class="eyebrow">{{ m.eyebrow }}</div>
+            <h2 id="devisTitre" class="modal-title">{{ m.title }}</h2>
+            <p class="modal-sub">{% if page.sans_whatsapp %}{{ m.sub | replace: " (WhatsApp ou e-mail)", "" }}{% else %}{{ m.sub }}{% endif %}</p>
+        </div>
+        <div class="modal-body">
+{% include apercu/form.html %}
+        </div>
+    </div>
+</div>

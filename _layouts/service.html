@@ -2,7 +2,14 @@
 layout: page
 ---
 {%- assign c = site.company -%}
+{%- assign s_home = "/" -%}
+{%- if site.apercu_sans_envoi -%}{%- assign s_home = "/apercu/ac/" -%}{%- endif -%}
+{%- assign img_key = page.image | remove_first: "/" -%}
+{%- if site.data.webp_media[img_key] -%}
+{% include webp-img.html key=img_key alt=page.image_alt sizes="(min-width: 820px) 740px, 92vw" eager=true %}
+{%- else -%}
 <img src="{{ page.image }}" alt="{{ page.image_alt }}" width="1200" height="1600" decoding="async" style="width:100%;max-height:520px;object-fit:cover;">
+{%- endif -%}
 
 {{ content }}
 

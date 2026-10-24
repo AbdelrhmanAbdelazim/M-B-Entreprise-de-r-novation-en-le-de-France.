@@ -1,0 +1,8 @@
+{%- assign d = site.data.apercu_accueil -%}
+<button type="button" class="hamburger" id="menuBtn" aria-label="{{ d.nav.menu_aria }}" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+<div class="mobile-menu" id="mobileMenu" hidden>
+{%- for l in d.nav.menu %}
+    <a href="{{ l.href }}" data-menu-close>{{ l.label }}</a>
+{%- endfor %}
+    <button type="button" data-menu-close data-devis>{{ d.nav.btn }}</button>
+</div>

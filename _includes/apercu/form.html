@@ -1,0 +1,22 @@
+{%- assign m = site.data.apercu_accueil.modal -%}
+<form id="leadForm" class="lead-form" novalidate>
+{%- for f in m.fields %}
+    <div class="form-group">
+        <label class="form-label" for="{{ f.id }}">{{ f.label }}</label>
+        {%- if f.type == "textarea" %}
+        <textarea id="{{ f.id }}" name="{{ f.id }}" class="form-control" rows="4" placeholder="{{ f.placeholder }}"{% if f.required %} required aria-required="true"{% endif %}></textarea>
+        {%- else %}
+        <input type="{{ f.type }}" id="{{ f.id }}" name="{{ f.id }}" class="form-control" placeholder="{{ f.placeholder }}"{% if f.type == "tel" %} autocomplete="tel" inputmode="tel"{% elsif f.type == "email" %} autocomplete="email"{% else %} autocomplete="name"{% endif %}{% if f.required %} required aria-required="true"{% endif %}>
+        {%- endif %}
+    </div>
+{%- endfor %}
+    <button type="submit" class="form-submit">{{ m.submit }}</button>
+    <p class="form-status" role="status" aria-live="polite" data-apercu></p>
+    <p class="form-note"><strong>{{ m.paiement_strong }}</strong> {{ m.paiement }}</p>
+    <p class="form-note form-note--small">{{ m.confid }} <a href="/confidentialite/">{{ m.confid_link }}</a></p>
+</form>
+{%- unless page.sans_whatsapp %}
+<div class="modal-alt">
+    <a href="{{ site.data.apercu_accueil.whatsapp }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp fa-lg" aria-hidden="true"></i> {{ m.whatsapp }}</a>
+</div>
+{%- endunless %}
