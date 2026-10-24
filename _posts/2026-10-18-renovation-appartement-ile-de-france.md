@@ -36,6 +36,6 @@ Traiter avec une entreprise locale présente des avantages majeurs :
 Vous souhaitez moderniser votre intérieur, valoriser votre bien immobilier ou optimiser vos espaces en Île-de-France ?
 
 👉 **Contactez-nous pour une visite et un devis gratuit :**
-* **Téléphone :** 07 53 30 65 59
+* **Téléphone / WhatsApp :** 07 53 30 65 59
 * **Site web :** [www.maison-mb.fr](https://www.maison-mb.fr)
 

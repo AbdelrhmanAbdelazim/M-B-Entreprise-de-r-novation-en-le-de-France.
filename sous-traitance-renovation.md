@@ -7,13 +7,12 @@ description: "Professionnels du bâtiment : confiez vos lots de second œuvre ou
 permalink: /sous-traitance-renovation/
 ---
 {%- assign c = site.company -%}
-{%- assign st_home = "/" -%}
-{%- if site.apercu_sans_envoi -%}{%- assign st_home = "/apercu/ac/" -%}{%- endif -%}
+{%- capture wa_st -%}Bonjour M&B Rénovation, je vous propose un chantier en sous-traitance. Commune : … / Type de bien : … / Lots : … / Surface : … / Dates : …{%- endcapture -%}
 {%- capture mail_subject -%}Proposition de chantier en sous-traitance{%- endcapture -%}
 
 **{{ c.brand }}** intervient en sous-traitance pour les professionnels du bâtiment et de l'immobilier : entreprises générales, maîtres d'œuvre, architectes et autres donneurs d'ordre. Vous avez **un seul interlocuteur**, de l'étude du dossier à la réception des travaux.
 
-<p><a class="btn-cta" href="{{ st_home }}#contact" data-contact-type="contact">Proposer un chantier en sous-traitance</a></p>
+<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ wa_st | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Proposer un chantier en sous-traitance</a></p>
 
 ## Chantiers acceptés
 
@@ -25,7 +24,7 @@ permalink: /sous-traitance-renovation/
 ## Notre fonctionnement
 
 - **Un seul interlocuteur** pour le chiffrage, le planning et le suivi du chantier.
-- **Réactivité et disponibilité** : réponse rapide à vos demandes et **chiffrage détaillé par lot** après étude de vos plans.
+- **Réponse sous 24h ouvrées** et **devis détaillé par lot sous 48h**.
 - **Compte rendu avec photos avant/après envoyé après chaque intervention.**
 - **Intervention rapide entre deux locataires.**
 - **Assurance {{ c.insurance }}** auprès de {{ c.insurer }}, contrat n° {{ c.insurance_contract }}.
@@ -36,7 +35,7 @@ permalink: /sous-traitance-renovation/
 
 Pour une première réponse rapide, indiquez la commune, le type de bien, les lots concernés, la surface approximative et les dates souhaitées. Vous pouvez joindre plans, photos ou descriptif.
 
-- **Formulaire en ligne** : [Contactez-nous]({{ st_home }}#contact){:data-contact-type="contact"}
+- **WhatsApp** : [proposer un chantier en sous-traitance](https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ wa_st | uri_escape | replace: '&', '%26' }}){:target="_blank" rel="noopener"}
 - **E-mail** : [{{ c.email }}](mailto:{{ c.email }}?subject={{ mail_subject | uri_escape }})
 - **Téléphone** : [{{ c.phone }}](tel:{{ c.phone_raw }})
 - **Plaquette de présentation** : [télécharger le PDF](/plaquette.pdf){:target="_blank" rel="noopener"}

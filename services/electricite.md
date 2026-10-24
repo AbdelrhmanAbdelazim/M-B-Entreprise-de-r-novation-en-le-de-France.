@@ -4,7 +4,7 @@ title: "Électricité"
 service_name: "Électricité"
 heading: "Électricité à Paris et en Île-de-France"
 seo_title: "Électricien à Paris – Rénovation et mise aux normes | M&B Rénovation"
-description: "Électricité à Paris et en Île-de-France : rénovation de l'installation, mise aux normes NF C 15-100, tableau, prises, éclairage et VMC. Devis gratuit et détaillé."
+description: "Électricité à Paris et en Île-de-France : rénovation de l'installation, mise aux normes NF C 15-100, tableau, prises, éclairage et VMC. Devis gratuit via WhatsApp."
 permalink: /services/electricite/
 image: /chantier-4.jpg
 image_alt: "Pièce en cours de rénovation électrique à Paris : gaines passées au plafond avant la pose des plaques"

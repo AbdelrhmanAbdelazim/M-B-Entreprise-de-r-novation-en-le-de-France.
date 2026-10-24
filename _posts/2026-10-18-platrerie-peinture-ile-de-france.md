@@ -32,6 +32,6 @@ L'application d'une peinture professionnelle (marques reconnues comme Tollens ou
 Vous avez un projet de rénovation de murs, plafonds ou peinture en Île-de-France ?
 
 👉 **Contactez M&B Rénovation pour un devis gratuit :**
-* **Téléphone :** 07 53 30 65 59
+* **Téléphone / WhatsApp :** 07 53 30 65 59
 * **Site web :** [www.maison-mb.fr](https://www.maison-mb.fr)
 

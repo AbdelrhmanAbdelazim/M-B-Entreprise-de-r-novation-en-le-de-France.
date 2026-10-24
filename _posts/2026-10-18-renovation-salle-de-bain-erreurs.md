@@ -43,6 +43,6 @@ Rénover sa salle de bain demande un savoir-faire technique irréprochable. Pour
 
 👉 **Besoin d'un accompagnement sur-mesure ?**
 Contactez **M&B Rénovation** dès aujourd'hui pour une **visite et un devis gratuits** :
-* **Téléphone :** 07 53 30 65 59
+* **Téléphone / WhatsApp :** 07 53 30 65 59
 * **Site web :** [www.maison-mb.fr](https://www.maison-mb.fr)
 

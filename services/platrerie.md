@@ -4,7 +4,7 @@ title: "Plâtrerie"
 service_name: "Plâtrerie"
 heading: "Plâtrerie et plaquisterie à Paris"
 seo_title: "Plâtrier plaquiste à Paris – Cloisons et faux plafonds | M&B Rénovation"
-description: "Plâtrerie à Paris et en Île-de-France : cloisons, doublages isolants, faux plafonds, plaques hydrofuges, enduits et ratissage des murs anciens. Devis gratuit et détaillé."
+description: "Plâtrerie à Paris et en Île-de-France : cloisons, doublages isolants, faux plafonds, plaques hydrofuges, enduits et ratissage des murs anciens. Devis gratuit via WhatsApp."
 permalink: /services/platrerie/
 image: /chantier-11.jpg
 image_alt: "Montage d'ossatures métalliques et pose d'isolant avant fermeture en plaques de plâtre dans un appartement parisien"

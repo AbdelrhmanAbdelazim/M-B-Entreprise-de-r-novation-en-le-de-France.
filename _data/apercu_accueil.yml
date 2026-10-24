@@ -22,7 +22,7 @@ social:
 fab_aria: "Demander un devis"
 whatsapp: "https://wa.me/33753306559"
 modal:
-  eyebrow: "Votre Projet"
+  eyebrow: "Consultation Privée"
   title: "Étude de Projet"
   sub: "Expertise gratuite. Réponse écrite sous 24h ouvrées (WhatsApp ou e-mail). Aucun engagement."
   fields:
@@ -46,9 +46,9 @@ hero:
   scroll: "Découvrir"
   img: { key: "chantier-10.jpg", alt: "Chambre rénovée par M&B Rénovation à Paris : parquet neuf, murs blancs et placard sur mesure" }
 stats:
+  - { n: "10", l: "Ans de Garantie Décennale" }
+  - { n: "24h", l: "Réponse à Votre Demande" }
   - { n: "100%", l: "Projets Sur Mesure" }
-  - { n: "1", l: "Interlocuteur Unique" }
-  - { n: "8", l: "Corps d'État Maîtrisés" }
 services:
   eyebrow: "Nos Compétences"
   title: "Expertise Globale"
@@ -102,9 +102,9 @@ processus:
   title2: "Étape par Étape"
   steps:
     - { num: "01", h: "Rencontre", p: "Visite technique offerte pour cerner vos désirs et contraintes. Nous écoutons avant de concevoir." }
-    - { num: "02", h: "Chiffrage", p: "Devis détaillé et transparent après visite technique. Aucun coût caché. Aucune mauvaise surprise." }
+    - { num: "02", h: "Chiffrage", p: "Devis détaillé et transparent sous 48h. Aucun coût caché. Aucune mauvaise surprise." }
     - { num: "03", h: "Réalisation", p: "Exécution soignée, avec protection complète du logement et propreté irréprochable chaque jour." }
-    - { num: "04", h: "Réception", p: "Livraison soignée du chantier, contrôle rigoureux des finitions et procès-verbal de réception." }
+    - { num: "04", h: "Garantie", p: "Livraison avec remise de l'attestation décennale Entoria / Fidelidade. 10 ans de tranquillité d'esprit." }
 avantages:
   eyebrow: "Avantages clients"
   title1: "Des facilités pour"
@@ -141,6 +141,7 @@ footer:
   address2: "75012 Paris"
   email: "abdel@maison-mb.fr"
   siret: "SIRET : 923 102 412 00015"
+  assurance: "Assurance : Entoria / Fidelidade"
   copyright: "&copy; 2026 M&B Rénovation. Tous droits réservés."
   quote: "L'excellence n'est pas un acte, c'est une habitude."
 blog:

@@ -42,8 +42,27 @@ Design voulu : **le dernier travail d'Antigravity**, pas `redesign-premium`, ni 
   - lignes de test supprimées (Clients n° 1, Queue n° 276, Journal n° 113) ; Blacklist inchangée.
 - Build local : Jekyll 3.9.5 de Codex (`~/Documents/Codex/.../mb-site-build-gems`), commande `JEKYLL_NO_BUNDLER_REQUIRE=true GEM_HOME=… jekyll build`.
 
+### Étape 2 : contenu remis comme main (24/10)
+Comparaison automatique du texte visible, des textes alternatifs et des meta, sur les 71 pages, entre le build de main (8909697) et celui de la branche.
+- **Antigravity avait modifié le contenu, pas seulement le design** :
+  - mentions de la décennale et de l'assurance supprimées (assureur vidé dans `_config.yml`) ;
+  - « Écrivez-nous sur WhatsApp » remplacé par « formulaire » ;
+  - descriptions SEO des services modifiées ;
+  - statistiques et étape « Garantie » de l'accueil modifiées ;
+  - section « Nos garanties » de /entreprise/ réécrite ;
+  - page sous-traitance cassée (« Assurance auprès de , contrat n° . ») ;
+  - horaires sans « Réponse sous 24h ouvrées ».
+- **Remis comme main** :
+  - fichiers repris tels quels : `_config.yml` (assureur, horaires, description), services (×9), articles (×7), saint-mande, sous-traitance, zones, parrainage, confidentialité, mentions légales ;
+  - fichiers où seul le texte change, design conservé : `entreprise.md` (image WebP conservée), CTA WhatsApp des gabarits service, ville, département, article et projet, `_data/apercu_accueil.yml` (copie mot pour mot de main), meta de l'accueil, phrase parrainage.
+- **Écarts conservés** :
+  - voulus par le gérant : le bloc « Paiement en plusieurs fois sans frais / 3 000 € » remplacé par « Paiements selon l'avancement des travaux » (décision du gérant, `_redesign/COMMERCIAL-OFFERS-REVIEW-AR.md`) ;
+  - liés au design : galeries de l'accueil déplacées vers /realisations/, libellés d'en-tête, légendes visibles sur /realisations/ (= textes alternatifs de main), « Lire l'article → », lien d'évitement ;
+  - **nouveaux textes d'Antigravity sur l'accueil, à valider par le gérant** : section « Pourquoi choisir M&B Rénovation ? » et « Trois entrées selon la nature de votre projet ».
+- Résultat : hors accueil, plus aucune différence de contenu avec main, sauf ces écarts.
+
 ### Restant (ordre du gérant)
-1. Comparer le texte de toutes les pages avec main et remettre le contenu de main, sauf ce que le gérant a fait retirer.
+1. ~~Comparer le texte de toutes les pages avec main~~ (fait). et remettre le contenu de main, sauf ce que le gérant a fait retirer.
 2. Vérifier et terminer le design sur toutes les pages (services, villes, départements, blog, Réalisations, pages projets, entreprise…).
 3. Propositions pour les phrases « concepteur » (sans les modifier).
 4. Aperçu mobile au gérant : accueil, une page service, Réalisations.

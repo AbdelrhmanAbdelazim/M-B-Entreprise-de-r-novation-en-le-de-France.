@@ -4,7 +4,7 @@ title: "Plomberie"
 service_name: "Plomberie"
 heading: "Plomberie et salles de bains à Paris"
 seo_title: "Plombier à Paris – Salles de bains et plomberie | M&B Rénovation"
-description: "Plomberie à Paris et en Île-de-France : création de salles de bains, douches à l'italienne, WC suspendus, alimentations et évacuations. Devis gratuit et détaillé."
+description: "Plomberie à Paris et en Île-de-France : création de salles de bains, douches à l'italienne, WC suspendus, alimentations et évacuations. Devis gratuit via WhatsApp."
 permalink: /services/plomberie/
 image: /chantier-6.jpg
 image_alt: "Salle de bains rénovée à Paris avec baignoire encastrée, paroi en verre et carrelage gris grand format"

@@ -49,8 +49,9 @@ layout: page
 {%- endif %}
 
 <h2>Un projet à {{ page.ville }} ?</h2>
-<p>Décrivez-nous votre projet pour organiser une visite technique. Nos clients nous notent 5/5 sur Google.</p>
-<p><a class="btn-cta" href="{{ v_home }}#contact" data-contact-type="devis">Demander un devis gratuit</a></p>
+<p>Envoyez-nous quelques photos et une description de votre projet : nous vous répondons rapidement pour organiser une visite. Nos clients nous notent 5/5 sur Google.</p>
+{%- capture wa_msg -%}Bonjour M&B Rénovation, j'ai un projet de rénovation à {{ page.ville }}{%- endcapture -%}
+<p><a class="btn-cta" href="https://wa.me/{{ c.phone_raw | remove: '+' }}?text={{ wa_msg | uri_escape | replace: '&', '%26' }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp; Demander un devis gratuit</a></p>
 <p>Ou par e-mail à <a href="mailto:{{ c.email }}">{{ c.email }}</a>. Voir aussi <a href="/realisations/">nos réalisations</a>.</p>
 
 {%- assign voisines = "" | split: "" -%}
