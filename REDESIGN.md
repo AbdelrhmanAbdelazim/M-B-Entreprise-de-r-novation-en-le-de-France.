@@ -61,6 +61,25 @@ Comparaison automatique du texte visible, des textes alternatifs et des meta, su
   - **nouveaux textes d'Antigravity sur l'accueil, à valider par le gérant** : section « Pourquoi choisir M&B Rénovation ? » et « Trois entrées selon la nature de votre projet ».
 - Résultat : hors accueil, plus aucune différence de contenu avec main, sauf ces écarts.
 
+### Étape 3 : contrôle du design sur toutes les pages (24/10)
+- Build de production (98 pages) :
+  - **0 lien, 0 image et 0 ancre cassés** (9 062 références locales) ;
+  - à 375 px : **0 débordement**, en-tête et pied A-C présents sur les **96 pages** du sitemap (hors PDF), 0 image cassée ;
+  - lien WhatsApp sur 91 pages.
+- Correctif /realisations/ sur mobile : les légendes couvraient la moitié des photos et leurs étiquettes « Avant / Après » ; elles sont maintenant **sous la photo**, en plus petit (`site.css`, max-width 699px).
+
+### Étape 4 : propositions pour les phrases « concepteur » : EN ATTENTE DU GÉRANT (rien n'est modifié)
+| Où | Texte actuel (main) | Proposition (exécutant) |
+|---|---|---|
+| Accueil, grand titre | L'Art de Sublimer / Votre Intérieur | A : « Rénover avec exigence / Livrer avec précision » · B : « L'exécution / au millimètre » |
+| Accueil, sous-titre | … Une signature unique pour votre habitat. | … Un seul interlocuteur, du devis à la réception. |
+| Accueil, méthode 01 | Nous écoutons avant de concevoir. | Nous visitons avant de chiffrer. |
+| Pied de page | … Nous créons des espaces qui vous ressemblent. | … Nous exécutons vos travaux dans les règles de l'art, de la visite à la réception. |
+| Accueil, carte services | Création salles de bains luxe | Rénovation de salles de bains haut de gamme |
+| /realisations/ (légende) | Salles de Bains – Design & Bien-être | Salles de Bains – Exécution & Finitions |
+
+**Nouveaux textes d'Antigravity sur l'accueil (absents de main), à valider** : section « Pourquoi choisir M&B Rénovation ? » (4 cartes) et « Trois entrées selon la nature de votre projet » (3 formules). Attention : le sur-titre « Votre projet sur mesure » contient « sur mesure ».
+
 ### Restant (ordre du gérant)
 1. ~~Comparer le texte de toutes les pages avec main~~ (fait). et remettre le contenu de main, sauf ce que le gérant a fait retirer.
 2. Vérifier et terminer le design sur toutes les pages (services, villes, départements, blog, Réalisations, pages projets, entreprise…).
