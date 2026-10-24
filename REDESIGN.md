@@ -80,6 +80,11 @@ Comparaison automatique du texte visible, des textes alternatifs et des meta, su
 
 **Nouveaux textes d'Antigravity sur l'accueil (absents de main), à valider** : section « Pourquoi choisir M&B Rénovation ? » (4 cartes) et « Trois entrées selon la nature de votre projet » (3 formules). Attention : le sur-titre « Votre projet sur mesure » contient « sur mesure ».
 
+### Étape 5 : décision du gérant (24/10) : formulaire sans WhatsApp automatique, puis publication sans nouvel accord
+- Le formulaire envoie la demande uniquement à n8n (W2 : email à abdel@maison-mb.fr, Telegram, accusé client) et affiche « Votre demande a bien été envoyée. Nous vous recontactons sous 24h ouvrées. ». **WhatsApp ne s'ouvre plus jamais automatiquement** (0 `window.open` dans le build). WhatsApp reste un lien facultatif dans « Contactez-nous ».
+- Test local, envoi intercepté, **aucune requête réelle** : champs vides refusés ; email invalide refusé ; envoi OK = message de confirmation + formulaire vidé ; échec réseau = données gardées + lien email et téléphone ; 0 ouverture de WhatsApp.
+- Contrôle final : 96 pages × 3 tailles (375, 768, 1366) = 288 vérifications, **0 problème** (débordement, menu, pied de page, 1 seul h1, images) ; menu ouvert, fermé par Échap, 36 liens ; 0 lien, image ou ancre cassé ; poids : HTML de 10 à 25 Ko gzip, CSS 5 Ko, 1 seule image chargée tout de suite par page (les autres en lazy).
+
 ### Restant (ordre du gérant)
 1. ~~Comparer le texte de toutes les pages avec main~~ (fait). et remettre le contenu de main, sauf ce que le gérant a fait retirer.
 2. Vérifier et terminer le design sur toutes les pages (services, villes, départements, blog, Réalisations, pages projets, entreprise…).
