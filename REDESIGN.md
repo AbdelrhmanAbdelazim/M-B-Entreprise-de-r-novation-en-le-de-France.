@@ -624,3 +624,16 @@ Script : `lh/run.sh` dans le scratchpad (non versionné). Pour le relancer :
 ## Dernier commit
 
 Voir `git log -1` sur `redesign-premium` (commit « étape 13 »). Étape précédente : dff681b. PR brouillon : https://github.com/AbdelrhmanAbdelazim/M-B-Entreprise-de-r-novation-en-le-de-France./pull/24
+
+
+## Étape 14 · Préparation à la mise en production et neutralisation des allégations (23/10/2026)
+
+- **Branche** : `codex/ac-menu-galleries`
+- **Décision gérant et Codex** :
+  - Déploiement de la direction A-C en page d'accueil de production (`/`, `index.html`).
+  - Suppression de tout « Contact Privé », contact unifié sous `#contact` (téléphone, e-mail, réseaux, formulaire).
+  - 3 cartes d'entrée projets : Rafraîchissement intérieur, Rénovation salle de bains, Rénovation complète.
+  - Neutralisation des allégations non confirmées : retrait d'Entoria / Fidelidade, du contrat CRCD01-043750, de la garantie décennale 10 ans et des délais 24h/48h. Maintien strict de l'identité légale vérifiée (SIRET, TVA, EI, CM2C).
+  - Formulaire : validation CORS standard avec fallback mailto/tel et rejet des réponses opaques.
+  - Vérification : 98 pages de production et 103 pages de prévisualisation compilées, 8 275 liens et ressources vérifiés, 0px de débordement horizontal sur 9 résolutions WebKit.
+- **Rapport détaillé** : `_redesign/RELEASE-READINESS-AR.md`.

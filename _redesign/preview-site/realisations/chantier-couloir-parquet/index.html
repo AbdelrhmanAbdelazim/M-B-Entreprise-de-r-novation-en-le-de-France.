@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="facebook-domain-verification" content="3yy041zr8m4aqm2idj7aye6gj6h4t2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#F5F0E6">
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    });
+
+    (function () {
+      var KEY = 'mb_cookie_consent';
+      var MAX_AGE = 1000 * 60 * 60 * 24 * 182; // 6 mois
+      var ADS_ID = "AW-17790052421";
+      var ADS_CONVERSION = "AW-17790052421/glzaCMLkl5cdEMXQ-qJC";
+      var GTM_ID = "GTM-W6RVMK3D";
+      var PIXEL_ID = "2581562265688064";
+      var loaded = false;
+      var lastTrack = { kind: '', time: 0 };
+
+      function readChoice() {
+        try {
+          var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+          if (c && (c.value === 'accepted' || c.value === 'refused') && Date.now() - c.time < MAX_AGE) return c.value;
+        } catch (e) {}
+        return null;
+      }
+
+      function saveChoice(value) {
+        try { localStorage.setItem(KEY, JSON.stringify({ value: value, time: Date.now() })); } catch (e) {}
+      }
+
+      function addScript(src) {
+        var s = document.createElement('script');
+        s.async = true; s.src = src;
+        document.head.appendChild(s);
+      }
+
+      function loadTrackers() {
+        if (loaded) return;
+        loaded = true;
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
+        });
+
+        // Tag Google Ads (GA4 est déjà configuré dans le conteneur GTM)
+        addScript('https://www.googletagmanager.com/gtag/js?id=' + ADS_ID);
+        gtag('js', new Date());
+        gtag('config', ADS_ID);
+
+        // Google Tag Manager existant (contient la balise GA4)
+        if (GTM_ID) {
+          dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          addScript('https://www.googletagmanager.com/gtm.js?id=' + GTM_ID);
+        }
+
+        // Meta Pixel (code standard)
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+
+      function clearTrackerCookies() {
+        var host = location.hostname.replace(/^www\./, '');
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^(_ga|_gid|_gat|_gcl|_fbp|_fbc)/.test(name)) {
+            ['', '; domain=' + location.hostname, '; domain=.' + host].forEach(function (d) {
+              document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+            });
+          }
+        });
+      }
+
+      // Une seule conversion par action (anti-doublon sur 1,5 s).
+      function track(kind) {
+        if (!loaded) return;
+        var now = Date.now();
+        if (now - lastTrack.time < 1500) return;
+        lastTrack = { kind: kind, time: now };
+        gtag('event', 'conversion', {
+          'send_to': ADS_CONVERSION,
+          'value': 1.0,
+          'currency': 'EUR'
+        });
+        if (window.fbq) fbq('track', kind === 'lead' ? 'Lead' : 'Contact');
+      }
+
+      window.mbConsent = {
+        get: readChoice,
+        accept: function () { saveChoice('accepted'); loadTrackers(); },
+        refuse: function () {
+          var wasLoaded = loaded;
+          saveChoice('refused');
+          gtag('consent', 'update', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied'
+          });
+          if (window.fbq) fbq('consent', 'revoke');
+          clearTrackerCookies();
+          // Retrait du consentement : on recharge pour décharger les traceurs.
+          if (wasLoaded) location.reload();
+        },
+        track: track
+      };
+
+      if (readChoice() === 'accepted') loadTrackers();
+
+      // Contacts : WhatsApp, téléphone, e-mail.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (/^(tel:|mailto:)/i.test(href) || /\/\/(wa\.me|api\.whatsapp\.com)\//i.test(href)) track('contact');
+      }, true);
+
+      // Formulaire de devis (il ouvre WhatsApp par script, pas par un lien) : 1 seul événement.
+      document.addEventListener('submit', function (e) {
+        if (e.target && e.target.id === 'leadForm') track('lead');
+      }, true);
+    })();
+    </script>
+
+    <!-- TODO Google Search Console : remplacer VOTRE_CODE puis décommenter
+    <meta name="google-site-verification" content="VOTRE_CODE" />
+    -->
+    <title>Chantier de couloir repeint et parquet posé à Paris | M&B Rénovation</title>
+    <meta name="description" content="Chantier de couloir repeint et parquet posé à Paris – M&B Rénovation">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.maison-mb.fr/realisations/chantier-couloir-parquet/">
+
+    <link rel="icon" href="../../favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+    <meta property="og:site_name" content="M&B Rénovation">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.maison-mb.fr/realisations/chantier-couloir-parquet/">
+    <meta property="og:title" content="Chantier de couloir repeint et parquet posé à Paris | M&B Rénovation">
+    <meta property="og:description" content="Chantier de couloir repeint et parquet posé à Paris – M&B Rénovation">
+    <meta property="og:image" content="https://www.maison-mb.fr/images/realisations/chantier-couloir-parquet.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeAndConstructionBusiness",
+      "@id": "https://www.maison-mb.fr/#entreprise",
+      "name": "M&B Rénovation",
+      "legalName": "MOHAMED ABDELRAHMAN",
+      "url": "https://www.maison-mb.fr/",
+      "logo": "https://www.maison-mb.fr/logo.png",
+      "image": "https://www.maison-mb.fr/chantier-10.jpg",
+      "description": "M&B Rénovation, entreprise de rénovation tous corps d'état à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture, menuiserie. Garantie décennale.",
+      "telephone": "+33753306559",
+      "email": "abdel@maison-mb.fr",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6 place Henri Frenay",
+        "postalCode": "75012",
+        "addressLocality": "Paris",
+        "addressRegion": "Île-de-France",
+        "addressCountry": "FR"
+      },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Île-de-France" },
+        { "@type": "City", "name": "Argenteuil" },
+        { "@type": "City", "name": "Asnières-sur-Seine" },
+        { "@type": "City", "name": "Aubervilliers" },
+        { "@type": "City", "name": "Aulnay-sous-Bois" },
+        { "@type": "City", "name": "Boulogne-Billancourt" },
+        { "@type": "City", "name": "Cergy" },
+        { "@type": "City", "name": "Champigny-sur-Marne" },
+        { "@type": "City", "name": "Colombes" },
+        { "@type": "City", "name": "Courbevoie" },
+        { "@type": "City", "name": "Créteil" },
+        { "@type": "City", "name": "Drancy" },
+        { "@type": "City", "name": "Évry-Courcouronnes" },
+        { "@type": "City", "name": "Issy-les-Moulineaux" },
+        { "@type": "City", "name": "Levallois-Perret" },
+        { "@type": "City", "name": "Massy" },
+        { "@type": "City", "name": "Melun" },
+        { "@type": "City", "name": "Montreuil" },
+        { "@type": "City", "name": "Nanterre" },
+        { "@type": "City", "name": "Neuilly-sur-Seine" },
+        { "@type": "City", "name": "Nogent-sur-Marne" },
+        { "@type": "City", "name": "Noisy-le-Grand" },
+        { "@type": "City", "name": "Paris 11e" },
+        { "@type": "City", "name": "Paris 12e" },
+        { "@type": "City", "name": "Rueil-Malmaison" },
+        { "@type": "City", "name": "Saint-Denis" },
+        { "@type": "City", "name": "Saint-Germain-en-Laye" },
+        { "@type": "City", "name": "Saint-Mandé" },
+        { "@type": "City", "name": "Saint-Maur-des-Fossés" },
+        { "@type": "City", "name": "Sainte-Geneviève-des-Bois" },
+        { "@type": "City", "name": "Savigny-le-Temple" },
+        { "@type": "City", "name": "Savigny-sur-Orge" },
+        { "@type": "City", "name": "Versailles" },
+        { "@type": "City", "name": "Vincennes" },
+        { "@type": "City", "name": "Vitry-sur-Seine" }
+      ],
+      "foundingDate": "2023-02-20",
+      "vatID": "FR25923102412",
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "SIRET",
+        "value": "92310241200015"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+33753306559",
+        "email": "abdel@maison-mb.fr",
+        "availableLanguage": "French",
+        "description": "Lun–Ven 8h–19h, Sam 9h–13h, Dim fermé · Réponse sous 24h ouvrées · Devis détaillé sous 48h"
+      },
+      "sameAs": ["https://www.facebook.com/1028887100297504","https://www.instagram.com/abdelrhman.08/","https://annuaire-entreprises.data.gouv.fr/entreprise/923102412","https://www.google.com/search?kgmid=/g/11xw8dr7dl"]
+    }
+    </script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="../../assets/css/site.css?v=202610232223">
+    <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+
+<header class="site-header">
+    <div class="container">
+        <a href="../../apercu/ac/index.html" class="logo">M&amp;B <em>Rénovation</em></a>
+        <nav class="nav nav--page">
+            <a href="../../services/index.html" class="nav-secondary">Services</a>
+            <a href="../../realisations/index.html">Réalisations</a>
+            <a href="../../blog/index.html" class="nav-secondary">Blog</a>
+            <a href="../../apercu/ac/index.html#contact" class="nav-secondary">Contactez-nous</a>
+            <a href="../../apercu/ac/index.html" class="nav-back" aria-label="Retour au site"><i class="fa-solid fa-arrow-left"></i><span class="nav-back-label"> Retour au site</span></a>
+        </nav>
+    </div>
+</header>
+
+    <main id="contenu">
+<header class="page-hero">
+    <div class="container container--narrow">
+        <a class="eyebrow" href="../../realisations/index.html" style="text-decoration:none">Sur le chantier</a>
+        <h1>Chantier de couloir repeint et parquet posé à Paris</h1>
+        <div class="rule"></div>
+    </div>
+</header>
+
+<section class="container" style="padding-bottom:80px">
+    <div class="gallery gallery--projet" data-gallery>
+        <a class="gallery-item" href="../../images/realisations/webp/chantier-couloir-parquet-1080.webp" data-alt="Chantier de couloir repeint et parquet posé à Paris – M&amp;B Rénovation">
+            <img src="../../images/realisations/webp/chantier-couloir-parquet-1080.webp" srcset="../../images/realisations/webp/chantier-couloir-parquet-480.webp 480w, ../../images/realisations/webp/chantier-couloir-parquet-1080.webp 1080w" sizes="(min-width: 1180px) 570px, (min-width: 700px) 50vw, 100vw" width="1080" height="1350" alt="Chantier de couloir repeint et parquet posé à Paris – M&amp;B Rénovation" fetchpriority="high" decoding="async">
+
+        </a>
+        <a class="gallery-item" href="../../images/projets/chantier-couloir-parquet/0-1080.webp" data-alt="Chantier de couloir repeint et parquet posé à Paris – M&amp;B Rénovation">
+            <img src="../../images/projets/chantier-couloir-parquet/0-960.webp" srcset="../../images/projets/chantier-couloir-parquet/0-480.webp 480w, ../../images/projets/chantier-couloir-parquet/0-960.webp 960w, ../../images/projets/chantier-couloir-parquet/0-1080.webp 1080w" sizes="(min-width: 1180px) 570px, (min-width: 700px) 50vw, 100vw" width="1080" height="1004" alt="Chantier de couloir repeint et parquet posé à Paris – M&amp;B Rénovation" loading="lazy" decoding="async">
+
+        </a>
+    </div>
+    <p style="margin-top:18px;font-size:0.9rem;color:var(--muted)">Cliquez sur une photo pour l'agrandir.</p>
+
+    <p style="margin-top:40px"><a class="btn-cta" href="https://wa.me/33753306559" target="_blank" rel="noopener">Demander un devis</a></p>
+
+    <nav class="project-nav" aria-label="Nos réalisations"><a class="link-arrow" href="../../realisations/chantier-agencement-sur-mesure/index.html">← Chantier d'agencement sur mesure à Paris</a><a class="link-arrow" href="../../realisations/chantier-credence-bleue/index.html">Chantier de crédence en faïence bleue à Paris →</a>
+    </nav>
+</section>
+
+    </main>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../../apercu/ac/index.html" class="logo">M&amp;B <em>Rénovation</em></a>
+                <p class="footer-tagline">Une entreprise de rénovation qui redéfinit les standards de qualité en Île-de-France. Nous créons des espaces qui vous ressemblent.</p>
+                <p style="margin-top:14px"><a href="../../apercu/ac/index.html#contact" class="link-arrow">Contactez-nous &amp; Réseaux sociaux &rarr;</a></p>
+            </div>
+            <div>
+                <p class="footer-title">Navigation</p>
+                <ul>
+                    <li><a href="../../apercu/ac/index.html">Accueil</a></li>
+                    <li><a href="../../services/index.html">Nos Services</a></li>
+                    <li><a href="../../apercu/ac/index.html#pourquoi">Pourquoi choisir M&amp;B</a></li>
+                    <li><a href="../../apercu/ac/index.html#formules">Nos formules</a></li>
+                    <li><a href="../../realisations/index.html#portfolio">Portfolio</a></li>
+                    <li><a href="../../realisations/index.html#chantiers">L'Envers du Décor</a></li>
+                    <li><a href="../../apercu/ac/index.html#processus">Notre Processus</a></li>
+                    <li><a href="../../realisations/index.html">Réalisations</a></li>
+                    <li><a href="../../blog/index.html">Le Blog</a></li>
+                    <li><a href="../../sous-traitance-renovation/index.html">Sous-traitance</a></li>
+                    <li><a href="../../apercu/ac/index.html#contact">Contactez-nous</a></li>
+                    <li><a href="../../apercu/ac/index.html#contact" class="footer-link-btn">Demander un devis</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Informations &amp; Garanties</p>
+                <ul class="footer-contacts">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>6 place Henri Frenay<br>75012 Paris</span></li>
+                    <li><i class="fa-solid fa-certificate"></i> <span>SIRET : 923 102 412 00015</span></li>
+                    <li><i class="fa-solid fa-shield-halved"></i> <span>Assurance : Entoria / Fidelidade</span></li>
+                    <li><i class="fa-solid fa-paper-plane"></i> <a href="../../apercu/ac/index.html#contact">Nous écrire ou demander un devis</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 M&B Rénovation. Tous droits réservés.</p>
+            <p><span>«</span> L'excellence n'est pas un acte, c'est une habitude. <span>»</span></p>
+        </div>
+    </div>
+    <section class="footer-news" id="blog-news">
+        <div class="container">
+            <h2>Nos Actualités</h2>
+            <div class="news-grid">
+                
+                <div class="news-card">
+                    <h3>Rénovation de salle de bain en Île-de-France : 3 erreurs à éviter absolument</h3>
+                    <p>Vous planifiez la rénovation de votre salle de bain à Paris ou en Île-de-France ? Découvrez les 3 erreurs majeures à éviter avant de commencer vos travaux avec M&B Rénovation.</p>
+                    <a class="link-arrow" href="../../renovation-salle-de-bain-erreurs/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Rénovation d'appartement en Île-de-France : Guide complet pour vos travaux</h3>
+                    <p>Vous avez un projet de rénovation d'appartement à Paris ou en Île-de-France ? M&B Rénovation vous accompagne de A à Z : plâtrerie, peinture, parquet et second œuvre.</p>
+                    <a class="link-arrow" href="../../renovation-appartement-ile-de-france/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Plâtrerie et Peinture en Île-de-France : Sublimer vos espaces intérieurs</h3>
+                    <p>Plâtrerie, pose de Placo BA13, enduits et peinture en Île-de-France : M&B Rénovation soigne la préparation des murs et les finitions de vos biens.</p>
+                    <a class="link-arrow" href="../../platrerie-peinture-ile-de-france/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Électricité et Plomberie en Île-de-France : Les normes et la sécurité</h3>
+                    <p>Mise aux normes électriques NF C 15-100, reprise de plomberie et réseaux en Île-de-France. Faites confiance à l'expertise de M&B Rénovation.</p>
+                    <a class="link-arrow" href="../../electricite-plomberie-ile-de-france/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Rénover un appartement ancien à Paris : par où commencer ?</h3>
+                    <p>Copropriété, électricité, plomberie, ordre des travaux : le guide pour bien démarrer la rénovation d'un appartement ancien à Paris.</p>
+                    <a class="link-arrow" href="../../renover-appartement-ancien-paris-par-ou-commencer/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Rénovation de salle de bain à Paris : les étapes clés et les erreurs à éviter</h3>
+                    <p>Plomberie, étanchéité, carrelage, ventilation : les étapes d'une rénovation de salle de bain réussie à Paris, et les erreurs qui coûtent cher.</p>
+                    <a class="link-arrow" href="../../renovation-salle-de-bain-paris-etapes/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Devis de rénovation : comment le lire et comparer les artisans</h3>
+                    <p>Mentions obligatoires, détail des postes, TVA, assurance décennale : les points à vérifier pour comparer sereinement des devis de rénovation.</p>
+                    <a class="link-arrow" href="../../devis-renovation-comment-le-lire-comparer-artisans/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Nouvelle Réalisation : Appartement de Luxe à Paris</h3>
+                    <p>Projet de rénovation haut de gamme livré en février 2026.</p>
+                    <a class="link-arrow" href="../../renovation-luxe-paris/index.html">Lire la suite →</a>
+                </div>
+                
+                <div class="news-card">
+                    <h3>M&B Rénovation : Votre Expert en Île-de-France</h3>
+                    <p>Découvrez nos services de rénovation d'intérieur à Paris et en Île-de-France.</p>
+                    <a class="link-arrow" href="../../bienvenue/index.html">Lire la suite →</a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <div class="container">
+<style>
+    .mb-legal { border-top: 1px solid rgba(255,255,255,0.06); padding: 26px 0 30px; text-align: center; font-family: var(--font-sans, 'Jost', sans-serif); }
+    .mb-legal p { color: var(--muted, #5A6478); font-size: 0.75rem; line-height: 1.9; letter-spacing: 0.03em; margin: 0; }
+    .mb-legal a { color: var(--silver, #B8C4D4); text-decoration: none; transition: color 0.3s; }
+    .mb-legal a[href^="tel:"] { white-space: nowrap; }
+    .mb-legal a:hover { color: var(--gold, #C9A84C); }
+    .mb-legal-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 10px; margin-top: 6px; font-size: 0.75rem; letter-spacing: 0.05em; }
+    .mb-legal-links a { display: inline-block; padding: 6px; min-height: 24px; }
+</style>
+<div class="mb-legal">
+    <p>M&B Rénovation – MOHAMED ABDELRAHMAN (EI) – SIRET 923 102 412 00015 – 6 place Henri Frenay, 75012 Paris – <a href="../../apercu/ac/index.html#contact">Contactez-nous</a></p>
+    <div class="mb-legal-links">
+        <a href="../../realisations/index.html">Réalisations</a>
+        <a href="../../zones-intervention/index.html">Zones d'intervention</a>
+        <a href="../../sous-traitance-renovation/index.html">Sous-traitance</a>
+        <a href="../../mentions-legales/index.html">Mentions légales</a>
+        <a href="../../confidentialite/index.html">Confidentialité</a>
+        <a href="../../entreprise/index.html">Entreprise</a>
+        <a href="https://www.google.com/search?kgmid=/g/11xw8dr7dl" target="_blank" rel="noopener">Voir notre fiche Google</a>
+        <a href="#" data-cookie-manage>Gérer les cookies</a>
+    </div>
+</div>
+
+    </div>
+</footer>
+
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+    <button type="button" class="lightbox-btn lightbox-close" aria-label="Fermer">&#10005;</button>
+    <button type="button" class="lightbox-btn lightbox-prev" aria-label="Photo précédente">&#8249;</button>
+    <img alt="">
+    <button type="button" class="lightbox-btn lightbox-next" aria-label="Photo suivante">&#8250;</button>
+    <p class="lightbox-caption"></p>
+</div>
+<script>
+(function () {
+    var body = document.body;
+
+    /* Menu mobile */
+    var burger = document.querySelector('.burger'), mnav = document.getElementById('mobileNav');
+    function setMenu(open) {
+        if (!burger) return;
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        mnav.classList.toggle('is-open', open);
+        body.style.overflow = open ? 'hidden' : '';
+    }
+    if (burger) burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
+
+    /* Fenêtre devis */
+    var modal = document.getElementById('contactModal'), lastFocus = null;
+    if (modal) {
+    window.openModal = function () {
+        setMenu(false);
+        lastFocus = document.activeElement;
+        modal.classList.add('active');
+        body.style.overflow = 'hidden';
+        var f = document.getElementById('nom'); if (f) f.focus();
+    };
+    window.closeModal = function () {
+        modal.classList.remove('active');
+        body.style.overflow = '';
+        if (lastFocus) lastFocus.focus();
+    };
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-devis]')) { e.preventDefault(); window.openModal(); }
+        else if (e.target.closest('[data-modal-close]') || e.target === modal) window.closeModal();
+    });
+
+    /* Formulaire → WhatsApp (+ copie vers n8n W2), comportement inchangé */
+    }
+    var form = document.getElementById('leadForm');
+    if (form) form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nom = document.getElementById('nom').value;
+        var tel = document.getElementById('tel').value;
+        var email = document.getElementById('email').value;
+        var projet = document.getElementById('projet').value;
+        try {
+            fetch('https://navajowhite-cormorant-668337.hostingersite.com/webhook/devis-maison-mb', {
+                method: 'POST', mode: 'no-cors', keepalive: true,
+                body: new URLSearchParams({ nom: nom, telephone: tel, email: email, projet: projet, source: 'site', page: location.pathname })
+            }).catch(function () {});
+        } catch (err) {}
+        var msg = '*Nouvelle Demande M%26B Rénovation*%0A%0A👤 *Client:* ' + encodeURIComponent(nom) + '%0A📞 *Tél:* ' + encodeURIComponent(tel) + '%0A✉️ *E-mail:* ' + encodeURIComponent(email || '-') + '%0A📝 *Projet:* ' + encodeURIComponent(projet);
+        window.open('https://wa.me/33753306559?text=' + msg, '_blank');
+        window.closeModal();
+        this.reset();
+    });
+
+    /* Lightbox : groupes [data-gallery], liens <a href="grande image"> */
+    var box = document.getElementById('lightbox');
+    if (box) {
+    var big = box.querySelector('img'), cap = box.querySelector('.lightbox-caption');
+    var items = [], index = 0, opener = null;
+    function show(i) {
+        index = (i + items.length) % items.length;
+        var a = items[index];
+        big.src = a.getAttribute('href');
+        big.alt = a.getAttribute('data-alt') || '';
+        cap.textContent = a.getAttribute('data-caption') || big.alt;
+    }
+    function closeBox() { box.classList.remove('is-open'); body.style.overflow = ''; big.removeAttribute('src'); if (opener) opener.focus(); }
+    document.addEventListener('click', function (e) {
+        var a = e.target.closest('[data-gallery] a.gallery-item');
+        if (!a) return;
+        e.preventDefault();
+        items = Array.prototype.slice.call(a.closest('[data-gallery]').querySelectorAll('a.gallery-item'));
+        opener = a;
+        show(items.indexOf(a));
+        box.classList.add('is-open');
+        body.style.overflow = 'hidden';
+        box.querySelector('.lightbox-close').focus();
+    });
+    box.querySelector('.lightbox-close').addEventListener('click', closeBox);
+    box.querySelector('.lightbox-prev').addEventListener('click', function () { show(index - 1); });
+    box.querySelector('.lightbox-next').addEventListener('click', function () { show(index + 1); });
+    box.addEventListener('click', function (e) { if (e.target === box) closeBox(); });
+    var sx = null;
+    box.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+        if (sx === null) return;
+        var dx = e.changedTouches[0].clientX - sx; sx = null;
+        if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+    });
+
+    }
+    document.addEventListener('keydown', function (e) {
+        var lbOpen = box && box.classList.contains('is-open');
+        if (e.key === 'Escape') { if (lbOpen) closeBox(); else if (modal && modal.classList.contains('active')) window.closeModal(); else setMenu(false); }
+        if (lbOpen) { if (e.key === 'ArrowLeft') show(index - 1); if (e.key === 'ArrowRight') show(index + 1); }
+    });
+
+    /* Apparition douce au défilement */
+    var els = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -40px 0px' });
+        els.forEach(function (el) { io.observe(el); });
+    } else { els.forEach(function (el) { el.classList.add('is-visible'); }); }
+})();
+</script>
+
+<style>
+    .mb-cookie { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9500; display: none; background: rgba(14, 18, 32, 0.98); border-top: 1px solid rgba(201, 168, 76, 0.3); box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4); font-family: var(--font-sans, 'Jost', sans-serif); }
+    .mb-cookie.is-open { display: block; }
+    .mb-cookie-inner { max-width: 1100px; margin: 0 auto; padding: 22px 5%; display: flex; align-items: center; gap: 28px; }
+    .mb-cookie-text { flex: 1; color: var(--silver, #B8C4D4); font-size: 0.85rem; line-height: 1.7; font-weight: 300; margin: 0; }
+    .mb-cookie-text strong { color: var(--white, #FFFFFF); font-weight: 500; }
+    .mb-cookie-text a { color: var(--gold, #C9A84C); text-decoration: underline; text-underline-offset: 3px; }
+    .mb-cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+    .mb-cookie-btn { width: 140px; padding: 12px 0; background: transparent; border: 1px solid var(--gold, #C9A84C); color: var(--white, #FFFFFF); font-family: inherit; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, color 0.3s; }
+    .mb-cookie-btn:hover, .mb-cookie-btn:focus-visible { background: var(--gold, #C9A84C); color: var(--bg-void, #080B12); outline: none; }
+    @media (max-width: 760px) {
+        .mb-cookie-inner { flex-direction: column; align-items: stretch; gap: 16px; padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); }
+        .mb-cookie-text { font-size: 0.8rem; }
+        .mb-cookie-actions { gap: 10px; }
+        .mb-cookie-btn { width: auto; flex: 1; }
+    }
+</style>
+<div class="mb-cookie" id="mbCookie" role="dialog" aria-live="polite" aria-label="Gestion des cookies">
+    <div class="mb-cookie-inner">
+        <p class="mb-cookie-text"><strong>Cookies.</strong> Avec votre accord, nous utilisons des cookies de mesure d'audience et de publicité (Google Analytics, Google Ads, Meta Pixel). Vous pouvez accepter ou refuser, et changer d'avis à tout moment via « Gérer les cookies » en bas de page. <a href="../../confidentialite/index.html">En savoir plus</a></p>
+        <div class="mb-cookie-actions">
+            <button type="button" class="mb-cookie-btn" data-cookie-choice="refuse">Refuser</button>
+            <button type="button" class="mb-cookie-btn" data-cookie-choice="accept">Accepter</button>
+        </div>
+    </div>
+</div>
+<script>
+(function () {
+    var banner = document.getElementById('mbCookie');
+    if (!banner || !window.mbConsent) return;
+    function open() { banner.classList.add('is-open'); }
+    function close() { banner.classList.remove('is-open'); }
+    if (!window.mbConsent.get()) open();
+    banner.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-cookie-choice]');
+        if (!btn) return;
+        close();
+        if (btn.getAttribute('data-cookie-choice') === 'accept') window.mbConsent.accept();
+        else window.mbConsent.refuse();
+    });
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest && e.target.closest('[data-cookie-manage]');
+        if (!link) return;
+        e.preventDefault();
+        open();
+    });
+})();
+</script>
+
+</body>
+</html>

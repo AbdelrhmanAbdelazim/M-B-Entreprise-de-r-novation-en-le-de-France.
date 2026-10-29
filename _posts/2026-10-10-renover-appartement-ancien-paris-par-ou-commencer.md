@@ -57,6 +57,6 @@ Si vous habitez sur place, prévoyez une organisation pièce par pièce. Un chan
 
 ## Notre accompagnement
 
-M&B Rénovation rénove des appartements à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et menuiserie. Nous étudions votre projet, vous remettons un devis clair et détaillé, et suivons le chantier jusqu'à la dernière finition, avec la garantie décennale.
+M&B Rénovation rénove des appartements à Paris et en Île-de-France : électricité, plomberie, plâtrerie, carrelage, sols, peinture et menuiserie. Nous étudions votre projet, vous remettons un devis clair et détaillé, et suivons le chantier jusqu'à la dernière finition.
 
 **Vous préparez la rénovation d'un appartement ?** Contactez-nous au 07 53 30 65 59 ou via notre formulaire en ligne : étude de projet offerte.

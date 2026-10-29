@@ -58,6 +58,6 @@ Un devis très bas peut cacher des postes oubliés qui réapparaîtront plus tar
 
 ## Notre façon de travailler
 
-Chez M&B Rénovation, chaque devis est détaillé poste par poste, sans coût caché. Nous sommes couverts par la garantie décennale et adhérons à un médiateur de la consommation. Vous savez exactement ce qui est prévu, à quel prix et dans quel délai.
+Chez M&B Rénovation, chaque devis est détaillé poste par poste, sans coût caché. Nous adhérons à un médiateur de la consommation agréé. Vous savez exactement ce qui est prévu, à quel prix et dans quel délai.
 
-**Besoin d'un devis clair pour votre projet à Paris ou en Île-de-France ?** Contactez-nous au 07 53 30 65 59 ou via notre formulaire en ligne : réponse écrite sous 24h ouvrées.
+**Besoin d'un devis clair pour votre projet à Paris ou en Île-de-France ?** Contactez-nous au 07 53 30 65 59 ou via notre formulaire en ligne : notre équipe vous recontacte rapidement.
