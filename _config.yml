@@ -42,6 +42,7 @@ defaults:
 plugins:
   - jekyll-sitemap
   - jekyll-redirect-from
+  - jekyll-seo-tag
 
 exclude:
   - README.md

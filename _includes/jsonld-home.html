@@ -1,0 +1,24 @@
+{%- comment -%} JSON-LD HomeAndConstructionBusiness — données réelles uniquement (F-11, _config.yml company). {%- endcomment -%}
+{%- assign c = site.company -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "{{ c.brand }}",
+  "legalName": "{{ c.legal_name }}",
+  "description": "{{ site.description | strip_html | strip_newlines | escape }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ c.street }}",
+    "postalCode": "{{ c.postal_code }}",
+    "addressLocality": "{{ c.city }}",
+    "addressRegion": "{{ c.region }}",
+    "addressCountry": "{{ c.country }}"
+  },
+  "telephone": "{{ c.phone }}",
+  "email": "{{ c.email }}",
+  "areaServed": ["Paris", "Île-de-France"],
+  "vatID": "{{ c.vat }}",
+  "url": "{{ site.url }}"
+}
+</script>
